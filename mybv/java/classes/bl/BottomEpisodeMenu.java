@@ -23,6 +23,12 @@ public class BottomEpisodeMenu extends FrameLayout {
     private OnEpisodeClickListener episodeClickListener;
     private boolean isHiding = false;
     
+    // 标题上下文：合集名（分集时为 null）、视频主标题、是否合集、条目总数
+    private String listTitle;
+    private String mainTitle;
+    private boolean isCollection;
+    private int itemCount;
+    
     public interface OnEpisodeClickListener {
         void onEpisodeClicked(ResolveResourceParams params, int position);
     }
@@ -61,25 +67,89 @@ public class BottomEpisodeMenu extends FrameLayout {
         this.episodeClickListener = listener;
     }
     
+    /**
+     * 设置标题上下文（由 xl 在显示选集前调用）。
+     *
+     * @param mainTitle    视频主标题（player_params_title）
+     * @param listTitle    合集名；非合集传 null/空
+     * @param isCollection 是否 UGC 合集
+     */
+    public void setTitleContext(String mainTitle, String listTitle, boolean isCollection) {
+        this.mainTitle = mainTitle;
+        this.listTitle = listTitle;
+        this.isCollection = isCollection && listTitle != null && !listTitle.isEmpty();
+    }
+    
+    /**
+     * 按上下文拼标题：
+     * 合集 → 「合集名 - 条目标题」；分集 → 「视频标题 - 分P标题」。
+     * 前缀与条目标题相同时去重，避免出现「标题 - 标题」。
+     */
+    private String buildTitle(String itemTitle) {
+        String prefix = this.isCollection ? this.listTitle : this.mainTitle;
+        boolean hasPrefix = prefix != null && !prefix.isEmpty();
+        boolean hasItem = itemTitle != null && !itemTitle.isEmpty();
+        if (hasPrefix && hasItem) {
+            return prefix.equals(itemTitle) ? prefix : (prefix + " - " + itemTitle);
+        }
+        if (hasPrefix) {
+            return prefix;
+        }
+        return hasItem ? itemTitle : "";
+    }
+    
+    /** 统一带条目数的最终标题文本。 */
+    private String formatTitle(String itemTitle, String fallback) {
+        String built = buildTitle(itemTitle);
+        if (built.isEmpty()) {
+            built = fallback != null ? fallback : "";
+        }
+        return this.itemCount > 0 ? (built + "(" + this.itemCount + ")") : built;
+    }
+    
+    /** 焦点移动到某个卡片时刷新标题。 */
+    private void updateTitleForItem(String itemTitle) {
+        if (titleTextView != null) {
+            titleTextView.setText(formatTitle(itemTitle, null));
+        }
+    }
+    
     public void setData(ResolveResourceParams[] paramsArray, long currentCid, String title, int count) {
         if (paramsArray == null || paramsArray.length == 0) {
             return;
         }
         
-        if (titleTextView != null) {
-            titleTextView.setText(title + "(" + count + ")");
-        }
-        
         List<Object> dataList = new ArrayList<>();
         int listType = 1;
+        String currentItemTitle = null;
         for (ResolveResourceParams params : paramsArray) {
             dataList.add(params);
             if (params.mListType > 0) {
                 listType = params.mListType;
             }
+            if (currentItemTitle == null && params.mCid == currentCid) {
+                currentItemTitle = params.mPageTitle;
+            }
+        }
+        
+        // 默认标题：当前播放项（每次 show 都会重算，隐藏后再显示自然恢复默认）
+        this.itemCount = count;
+        if (titleTextView != null) {
+            titleTextView.setText(formatTitle(currentItemTitle, title));
         }
         
         UnifiedVideoCardBinder binder = new UnifiedVideoCardBinder(listType);
+        // 左右移动光标时，标题跟随光标所在项（走 VideoListSection 新增的转发回调，
+        // 不动 adapter 的 OnItemFocusListener —— 那个被焦点重定向占用）
+        final ResolveResourceParams[] items = paramsArray;
+        videoListSection.setOnItemFocusedListener(new VideoListSection.OnItemFocusedListener() {
+            @Override
+            public void onItemFocused(int position) {
+                if (position >= 0 && position < items.length) {
+                    updateTitleForItem(items[position].mPageTitle);
+                }
+            }
+        });
         
         videoListSection.setCurrentCid(currentCid);
         videoListSection.setCurrentPlayingCid(currentCid);

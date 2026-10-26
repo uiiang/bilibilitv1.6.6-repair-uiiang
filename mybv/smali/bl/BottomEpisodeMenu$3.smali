@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/BottomEpisodeMenu;->initAutoHideTimer()V
+    value = Lbl/BottomEpisodeMenu;->show([Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;JLjava/lang/String;I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 152
+    .line 186
     iput-object p1, p0, Lbl/BottomEpisodeMenu$3;->this$0:Lbl/BottomEpisodeMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -37,14 +37,56 @@
 
 # virtual methods
 .method public run()V
-    .locals 1
+    .locals 4
 
     .prologue
-    .line 155
+    .line 189
     iget-object v0, p0, Lbl/BottomEpisodeMenu$3;->this$0:Lbl/BottomEpisodeMenu;
 
-    invoke-virtual {v0}, Lbl/BottomEpisodeMenu;->hide()V
+    # getter for: Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+    invoke-static {v0}, Lbl/BottomEpisodeMenu;->access$200(Lbl/BottomEpisodeMenu;)Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
-    .line 156
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->isDataLoaded()Z
+
+    move-result v0
+
+    if-nez v0, :cond_18
+
+    .line 190
+    iget-object v0, p0, Lbl/BottomEpisodeMenu$3;->this$0:Lbl/BottomEpisodeMenu;
+
+    # getter for: Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+    invoke-static {v0}, Lbl/BottomEpisodeMenu;->access$200(Lbl/BottomEpisodeMenu;)Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
+    move-result-object v0
+
+    const-wide/16 v2, 0x32
+
+    invoke-virtual {v0, p0, v2, v3}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->postDelayed(Ljava/lang/Runnable;J)Z
+
+    .line 195
+    :goto_17
     return-void
+
+    .line 193
+    :cond_18
+    const-string v0, "ShotMenuBug"
+
+    const-string v1, "EpisodeMenu.show: calling scrollToCurrentVideoAtFirstPosition"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 194
+    iget-object v0, p0, Lbl/BottomEpisodeMenu$3;->this$0:Lbl/BottomEpisodeMenu;
+
+    # getter for: Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+    invoke-static {v0}, Lbl/BottomEpisodeMenu;->access$200(Lbl/BottomEpisodeMenu;)Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->scrollToCurrentVideoAtFirstPosition()V
+
+    goto :goto_17
 .end method

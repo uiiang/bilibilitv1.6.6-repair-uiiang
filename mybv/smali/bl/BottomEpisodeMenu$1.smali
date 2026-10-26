@@ -3,7 +3,7 @@
 .source "BottomEpisodeMenu.java"
 
 # interfaces
-.implements Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoClickListener;
+.implements Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnItemFocusedListener;
 
 
 # annotations
@@ -20,14 +20,23 @@
 # instance fields
 .field final synthetic this$0:Lbl/BottomEpisodeMenu;
 
+.field final synthetic val$items:[Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+
 
 # direct methods
-.method constructor <init>(Lbl/BottomEpisodeMenu;)V
+.method constructor <init>(Lbl/BottomEpisodeMenu;[Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
-    .line 90
+    .line 145
     iput-object p1, p0, Lbl/BottomEpisodeMenu$1;->this$0:Lbl/BottomEpisodeMenu;
+
+    iput-object p2, p0, Lbl/BottomEpisodeMenu$1;->val$items:[Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,50 +45,32 @@
 
 
 # virtual methods
-.method public onVideoClicked(Ljava/lang/Object;I)V
-    .locals 1
+.method public onItemFocused(I)V
+    .locals 2
 
     .prologue
-    .line 93
-    instance-of v0, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+    .line 148
+    if-ltz p1, :cond_12
 
-    if-eqz v0, :cond_21
+    iget-object v0, p0, Lbl/BottomEpisodeMenu$1;->val$items:[Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
-    .line 94
-    check-cast p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+    array-length v0, v0
 
-    .line 96
+    if-ge p1, v0, :cond_12
+
+    .line 149
     iget-object v0, p0, Lbl/BottomEpisodeMenu$1;->this$0:Lbl/BottomEpisodeMenu;
 
-    invoke-virtual {v0}, Lbl/BottomEpisodeMenu;->resetAutoHideTimer()V
+    iget-object v1, p0, Lbl/BottomEpisodeMenu$1;->val$items:[Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
-    .line 98
-    iget-object v0, p0, Lbl/BottomEpisodeMenu$1;->this$0:Lbl/BottomEpisodeMenu;
+    aget-object v1, v1, p1
 
-    # getter for: Lbl/BottomEpisodeMenu;->episodeClickListener:Lbl/BottomEpisodeMenu$OnEpisodeClickListener;
-    invoke-static {v0}, Lbl/BottomEpisodeMenu;->access$000(Lbl/BottomEpisodeMenu;)Lbl/BottomEpisodeMenu$OnEpisodeClickListener;
+    iget-object v1, v1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mPageTitle:Ljava/lang/String;
 
-    move-result-object v0
+    # invokes: Lbl/BottomEpisodeMenu;->updateTitleForItem(Ljava/lang/String;)V
+    invoke-static {v0, v1}, Lbl/BottomEpisodeMenu;->access$000(Lbl/BottomEpisodeMenu;Ljava/lang/String;)V
 
-    if-eqz v0, :cond_1c
-
-    .line 99
-    iget-object v0, p0, Lbl/BottomEpisodeMenu$1;->this$0:Lbl/BottomEpisodeMenu;
-
-    # getter for: Lbl/BottomEpisodeMenu;->episodeClickListener:Lbl/BottomEpisodeMenu$OnEpisodeClickListener;
-    invoke-static {v0}, Lbl/BottomEpisodeMenu;->access$000(Lbl/BottomEpisodeMenu;)Lbl/BottomEpisodeMenu$OnEpisodeClickListener;
-
-    move-result-object v0
-
-    invoke-interface {v0, p1, p2}, Lbl/BottomEpisodeMenu$OnEpisodeClickListener;->onEpisodeClicked(Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;I)V
-
-    .line 102
-    :cond_1c
-    iget-object v0, p0, Lbl/BottomEpisodeMenu$1;->this$0:Lbl/BottomEpisodeMenu;
-
-    invoke-virtual {v0}, Lbl/BottomEpisodeMenu;->hide()V
-
-    .line 104
-    :cond_21
+    .line 151
+    :cond_12
     return-void
 .end method

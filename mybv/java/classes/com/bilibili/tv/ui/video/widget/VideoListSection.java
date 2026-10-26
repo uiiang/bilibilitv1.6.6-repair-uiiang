@@ -21,6 +21,12 @@ public class VideoListSection extends LinearLayout {
     private static final int FOCUS_AREA_VIDEO = 1;
     private static final int FOCUS_AREA_NAV_TAG = 2;
 
+    /** 卡片获得焦点（供选集菜单做「标题跟随光标」）。
+     *  单独开一条回调，不去动 adapter 的 OnItemFocusListener（那个被焦点重定向占用）。 */
+    public interface OnItemFocusedListener {
+        void onItemFocused(int position);
+    }
+
     public interface OnVideoClickListener {
         void onVideoClicked(Object data, int position);
     }
@@ -79,6 +85,7 @@ public class VideoListSection extends LinearLayout {
     private CurrentItemMatcher currentItemMatcher;
     private VideoCardBinder binder;
     private OnVideoClickListener videoClickListener;
+    private OnItemFocusedListener itemFocusedListener;
     private OnNavTagFocusListener navTagFocusListener;
     private OnNavTagClickListener navTagClickListener;
     private List<?> dataList;
@@ -413,6 +420,10 @@ public class VideoListSection extends LinearLayout {
         adapter.setOnItemFocusListener(new VideoCardAdapter.OnItemFocusListener() {
             @Override
             public void onItemFocus(int position, boolean hasFocus) {
+                // 转发给外部（选集菜单用它做标题跟随），不影响下方的焦点重定向逻辑
+                if (hasFocus && itemFocusedListener != null) {
+                    itemFocusedListener.onItemFocused(position);
+                }
                 if (hasFocus) {
                     if (lockFocusPosition) {
                         updateNavTagSelection(focusPosition);
@@ -1390,6 +1401,10 @@ public class VideoListSection extends LinearLayout {
 
     public void setOnVideoClickListener(OnVideoClickListener listener) {
         this.videoClickListener = listener;
+    }
+
+    public void setOnItemFocusedListener(OnItemFocusedListener listener) {
+        this.itemFocusedListener = listener;
     }
 
     public void setOnNavTagFocusListener(OnNavTagFocusListener listener) {

@@ -16,9 +16,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
-        android:textColor="#FFFFFFFF"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textColor="@color/white"
+        android:textSize="@dimen/px_44" />
 
     <com.bilibili.tv.ui.video.widget.VideoListSection
         android:id="@+id/episode_list_section"

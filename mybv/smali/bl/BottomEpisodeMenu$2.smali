@@ -3,12 +3,12 @@
 .source "BottomEpisodeMenu.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoClickListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/BottomEpisodeMenu;->show([Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;JLjava/lang/String;I)V
+    value = Lbl/BottomEpisodeMenu;->setData([Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;JLjava/lang/String;I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 116
+    .line 160
     iput-object p1, p0, Lbl/BottomEpisodeMenu$2;->this$0:Lbl/BottomEpisodeMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,57 +36,50 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 4
+.method public onVideoClicked(Ljava/lang/Object;I)V
+    .locals 1
 
     .prologue
-    .line 119
+    .line 163
+    instance-of v0, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+
+    if-eqz v0, :cond_21
+
+    .line 164
+    check-cast p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+
+    .line 166
     iget-object v0, p0, Lbl/BottomEpisodeMenu$2;->this$0:Lbl/BottomEpisodeMenu;
 
-    # getter for: Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-    invoke-static {v0}, Lbl/BottomEpisodeMenu;->access$100(Lbl/BottomEpisodeMenu;)Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+    invoke-virtual {v0}, Lbl/BottomEpisodeMenu;->resetAutoHideTimer()V
+
+    .line 168
+    iget-object v0, p0, Lbl/BottomEpisodeMenu$2;->this$0:Lbl/BottomEpisodeMenu;
+
+    # getter for: Lbl/BottomEpisodeMenu;->episodeClickListener:Lbl/BottomEpisodeMenu$OnEpisodeClickListener;
+    invoke-static {v0}, Lbl/BottomEpisodeMenu;->access$100(Lbl/BottomEpisodeMenu;)Lbl/BottomEpisodeMenu$OnEpisodeClickListener;
 
     move-result-object v0
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->isDataLoaded()Z
+    if-eqz v0, :cond_1c
 
-    move-result v0
-
-    if-nez v0, :cond_18
-
-    .line 120
+    .line 169
     iget-object v0, p0, Lbl/BottomEpisodeMenu$2;->this$0:Lbl/BottomEpisodeMenu;
 
-    # getter for: Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-    invoke-static {v0}, Lbl/BottomEpisodeMenu;->access$100(Lbl/BottomEpisodeMenu;)Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+    # getter for: Lbl/BottomEpisodeMenu;->episodeClickListener:Lbl/BottomEpisodeMenu$OnEpisodeClickListener;
+    invoke-static {v0}, Lbl/BottomEpisodeMenu;->access$100(Lbl/BottomEpisodeMenu;)Lbl/BottomEpisodeMenu$OnEpisodeClickListener;
 
     move-result-object v0
 
-    const-wide/16 v2, 0x32
+    invoke-interface {v0, p1, p2}, Lbl/BottomEpisodeMenu$OnEpisodeClickListener;->onEpisodeClicked(Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;I)V
 
-    invoke-virtual {v0, p0, v2, v3}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->postDelayed(Ljava/lang/Runnable;J)Z
+    .line 172
+    :cond_1c
+    iget-object v0, p0, Lbl/BottomEpisodeMenu$2;->this$0:Lbl/BottomEpisodeMenu;
 
-    .line 125
-    :goto_17
+    invoke-virtual {v0}, Lbl/BottomEpisodeMenu;->hide()V
+
+    .line 174
+    :cond_21
     return-void
-
-    .line 123
-    :cond_18
-    const-string v0, "ShotMenuBug"
-
-    const-string v1, "EpisodeMenu.show: calling scrollToCurrentVideoAtFirstPosition"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 124
-    iget-object v0, p0, Lbl/BottomEpisodeMenu$2;->this$0:Lbl/BottomEpisodeMenu;
-
-    # getter for: Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-    invoke-static {v0}, Lbl/BottomEpisodeMenu;->access$100(Lbl/BottomEpisodeMenu;)Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->scrollToCurrentVideoAtFirstPosition()V
-
-    goto :goto_17
 .end method

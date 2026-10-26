@@ -610,6 +610,10 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         int count = this.j.length;
         
         BottomEpisodeMenu menu = getBottomEpisodeMenu();
+        // 标题上下文：合集 →「合集名 - 视频标题」；分集 →「视频标题 - 分P标题」
+        String listTitle = yr.f(b());
+        boolean isCollection = listTitle != null && !listTitle.isEmpty();
+        menu.setTitleContext(yr.a(b()), listTitle, isCollection);
         menu.show(this.j, currentCid, title, count);
         
         this.g = true;
@@ -899,6 +903,24 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         }
         String mainTitle = yr.a(playerParams);
         String pageTitle = resolveParams.mPageTitle;
+        
+        // UGC 合集：标题 = 合集名 + 当前视频名
+        // 判定只看 player_params_list_title 是否有值 —— 该字段由 xg 的 episodes(合集) 分支独占写入，
+        // 比 mListType==3 更鲁棒：初次进入时 obtainResolveParams() 拿到的实例可能还没被标成 3。
+        // 分P（2）/ 番剧影视（1）不会写这个字段，因此策略保持不变。
+        String listTitle = yr.f(playerParams);
+        android.util.Log.i("BottomTitle", "[getVideoTitle] listTitle=" + listTitle
+                + ", mListType=" + resolveParams.mListType
+                + ", mListKey=" + resolveParams.mListKey
+                + ", pageTitle=" + pageTitle
+                + ", mainTitle=" + mainTitle);
+        if (listTitle != null && !listTitle.isEmpty()) {
+            String currentTitle = (pageTitle != null && !pageTitle.isEmpty()) ? pageTitle : mainTitle;
+            if (currentTitle != null && !currentTitle.isEmpty() && !currentTitle.equals(listTitle)) {
+                return listTitle + " - " + currentTitle;
+            }
+            return listTitle;
+        }
         
         if (playerParams.isBangumi()) {
             String indexTitle = BiliBangumiSeason.getReadableIndexTitle(resolveParams.mPageIndex);

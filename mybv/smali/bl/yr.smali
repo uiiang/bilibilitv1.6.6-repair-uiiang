@@ -121,3 +121,34 @@
 
     return-object v0
 .end method
+
+.method public static e(Lcom/bilibili/tv/player/basic/context/PlayerParams;Ljava/lang/String;)V
+    .locals 2
+
+    .prologue
+    .line 40
+    iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mExtraStorage:Landroid/os/Bundle;
+
+    const-string v1, "player_params_list_title"
+
+    invoke-virtual {v0, v1, p1}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 41
+    return-void
+.end method
+
+.method public static f(Lcom/bilibili/tv/player/basic/context/PlayerParams;)Ljava/lang/String;
+    .locals 2
+
+    .prologue
+    .line 44
+    iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mExtraStorage:Landroid/os/Bundle;
+
+    const-string v1, "player_params_list_title"
+
+    invoke-virtual {v0, v1}, Landroid/os/Bundle;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method

@@ -259,6 +259,7 @@ public class xg {
         if (biliVideoDetail.episodes != null && biliVideoDetail.episodes.size() > 0) {
             com.alibaba.fastjson.JSONArray currentSectionEpisodes = biliVideoDetail.episodes;
             int currentSectionId = -1;
+            String currentSectionTitle = null;
             
             if (biliVideoDetail.sectionInfoList != null && biliVideoDetail.sectionInfoList.size() > 1) {
                 for (com.bilibili.tv.api.video.BiliVideoDetail.SectionInfo sectionInfo : biliVideoDetail.sectionInfoList) {
@@ -268,6 +269,7 @@ public class xg {
                             if (ep.getLongValue("cid") == obtainResolveParams.mCid) {
                                 currentSectionEpisodes = sectionInfo.episodes;
                                 currentSectionId = sectionInfo.id;
+                                currentSectionTitle = sectionInfo.title;
                                 break;
                             }
                         }
@@ -277,6 +279,8 @@ public class xg {
                     }
                 }
             }
+            // 合集名：命中 section 的标题 → season_title → 第一个 section 的标题
+            currentSectionTitle = resolveCollectionTitle(biliVideoDetail, currentSectionTitle);
             final int finalSectionId = currentSectionId;
             
             int size = currentSectionEpisodes.size();
@@ -358,6 +362,9 @@ public class xg {
                     resolveResourceParams.mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
                     obtainResolveParamsArray[i3] = resolveResourceParams;
                 }
+            }
+            if (!TextUtils.isEmpty(currentSectionTitle)) {
+                yr.e(a, currentSectionTitle);
             }
             a(context, a, bundle);
             return;
@@ -487,6 +494,7 @@ public class xg {
         if (biliVideoDetail.episodes != null && biliVideoDetail.episodes.size() > 0) {
             com.alibaba.fastjson.JSONArray currentSectionEpisodes = biliVideoDetail.episodes;
             int currentSectionId = -1;
+            String currentSectionTitle = null;
             
             if (biliVideoDetail.sectionInfoList != null && biliVideoDetail.sectionInfoList.size() > 1) {
                 for (com.bilibili.tv.api.video.BiliVideoDetail.SectionInfo sectionInfo : biliVideoDetail.sectionInfoList) {
@@ -496,6 +504,7 @@ public class xg {
                             if (ep.getLongValue("cid") == obtainResolveParams.mCid) {
                                 currentSectionEpisodes = sectionInfo.episodes;
                                 currentSectionId = sectionInfo.id;
+                                currentSectionTitle = sectionInfo.title;
                                 break;
                             }
                         }
@@ -505,6 +514,8 @@ public class xg {
                     }
                 }
             }
+            // 合集名：命中 section 的标题 → season_title → 第一个 section 的标题
+            currentSectionTitle = resolveCollectionTitle(biliVideoDetail, currentSectionTitle);
             final int finalSectionId2 = currentSectionId;
             
             int size = currentSectionEpisodes.size();
@@ -585,10 +596,37 @@ public class xg {
                     obtainResolveParamsArray[i3] = resolveResourceParams;
                 }
             }
+            if (!TextUtils.isEmpty(currentSectionTitle)) {
+                yr.e(a, currentSectionTitle);
+            }
             a(activity, a, bundle, requestCode);
             return;
         }
         a(activity, a, bundle, requestCode);
+    }
+
+    /**
+     * 解析当前视频所属的合集名（UGC 合集 / sections）。
+     *
+     * 优先级：
+     * 1) 命中的 section 标题（多 section 合集，由调用方传入）
+     * 2) {@code BiliVideoDetail.season_title} —— parser 已从 {@code ugc_season.title} 取值，
+     *    因此不再单独判断 {@code ugcSeason}，两者同源
+     * 3) 第一个 section 的标题（单 section 合集走不到匹配循环，只能靠这层）
+     *
+     * @return 合集名；都取不到时返回 null（调用方据此不写字段，标题退化为原策略）
+     */
+    private static String resolveCollectionTitle(BiliVideoDetail detail, String matchedSectionTitle) {
+        if (!TextUtils.isEmpty(matchedSectionTitle)) {
+            return matchedSectionTitle;
+        }
+        if (!TextUtils.isEmpty(detail.season_title)) {
+            return detail.season_title;
+        }
+        if (detail.sectionInfoList != null && !detail.sectionInfoList.isEmpty()) {
+            return detail.sectionInfoList.get(0).title;
+        }
+        return null;
     }
 
     public static void a(Context context, PlayerParams playerParams, Bundle bundle) {
