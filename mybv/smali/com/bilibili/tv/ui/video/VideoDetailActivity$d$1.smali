@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 4729
+    .line 4727
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$d$1;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity$d;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$d$1;->val$view:Landroid/view/View;
@@ -49,22 +49,22 @@
     .locals 2
 
     .prologue
-    .line 4732
+    .line 4730
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$d$1;->val$view:Landroid/view/View;
 
     invoke-virtual {v0}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 4733
+    .line 4731
     instance-of v1, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     if-eqz v1, :cond_1b
 
-    .line 4734
+    .line 4732
     check-cast v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    .line 4735
+    .line 4733
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
 
     move-result v1
@@ -78,11 +78,11 @@
 
     if-nez v1, :cond_1b
 
-    .line 4736
+    .line 4734
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->hideInteractionButtons()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$5800(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
-    .line 4739
+    .line 4737
     :cond_1b
     return-void
 .end method

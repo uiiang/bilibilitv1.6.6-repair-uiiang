@@ -608,7 +608,11 @@ public class xg {
             playerParams.mVideoParams.mResolveParamsArray[0] = playerParams.mVideoParams.obtainResolveParams();
         }
         playerParams.mVideoParams.mResolveParamsArray[0].mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
+        // 数组[0] 与 mResolveParams 可能不是同一实例（obtainResolveParamsArray 在数组已存在时
+        // 只 arraycopy 旧元素，不会重新指向 mResolveParams），而 PlayerActivity.finish()
+        // 与上报链路读的是 mResolveParams。所以两处都要写，避免"写了数组、播放器读不到"。
         ResolveResourceParams liveParams = playerParams.mVideoParams.obtainResolveParams();
+        liveParams.mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
         Log.i("HistoryDebug", "[PLAY_START] sNoHistoryPlayMode=" + VideoDetailActivity.sNoHistoryPlayMode
                 + ", arrayParams.mNoHistoryPlay=" + playerParams.mVideoParams.mResolveParamsArray[0].mNoHistoryPlay
                 + ", liveParams.mNoHistoryPlay=" + liveParams.mNoHistoryPlay

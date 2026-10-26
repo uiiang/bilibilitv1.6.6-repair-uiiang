@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 652
+    .line 625
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,9 +40,9 @@
     .locals 0
 
     .prologue
-    .line 655
+    .line 628
     sput-boolean p2, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->sNoHistoryPlayMode:Z
 
-    .line 656
+    .line 629
     return-void
 .end method

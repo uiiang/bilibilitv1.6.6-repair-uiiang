@@ -89,10 +89,8 @@ import com.bilibili.tv.widget.ProgressPlayButton;
 import com.bilibili.tv.widget.ScalableImageView;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 import kotlin.TypeCastException;
 import retrofit2.HttpException;
@@ -168,30 +166,6 @@ public final class VideoDetailActivity extends BaseActivity
     private TextView historyBtnProgress;
     public static boolean sNoHistoryPlayMode = false;
 
-    /**
-     * 本次运行期内"用户已对该视频显式取消无痕"的 avid 集合。
-     * 作用域仅限当前视频（进程内有效，重启恢复默认），绝不回写设置中的「默认模式>无痕模式」。
-     */
-    private static final Set<Long> sNoHistoryCancelledAvids = new HashSet<Long>();
-
-    /** 记录：用户对该视频取消了无痕（只影响该视频，不动全局默认） */
-    public static synchronized void markNoHistoryCancelled(long avid) {
-        if (avid > 0) {
-            sNoHistoryCancelledAvids.add(Long.valueOf(avid));
-        }
-    }
-
-    /** 记录：用户对该视频重新勾选了无痕（回到"跟随默认"） */
-    public static synchronized void clearNoHistoryCancelled(long avid) {
-        if (avid > 0) {
-            sNoHistoryCancelledAvids.remove(Long.valueOf(avid));
-        }
-    }
-
-    /** 该视频是否被用户显式取消过无痕 */
-    public static synchronized boolean isNoHistoryCancelled(long avid) {
-        return avid > 0 && sNoHistoryCancelledAvids.contains(Long.valueOf(avid));
-    }
     private long s;
     private String mSeasonId;
     private String preloadCoverUrl;
@@ -639,11 +613,10 @@ public final class VideoDetailActivity extends BaseActivity
         this.noHistoryPlayCheckBox = (CheckBox) d(R.id.video_no_history_play_checkbox);
         this.noHistoryPlayBtn = (DrawTextView) d(R.id.video_no_history_play_btn);
         if (this.noHistoryPlayCheckBox != null) {
-            // 默认值只在此处决定：设置里的「默认模式 > 无痕模式」；
-            // 但本次运行期内用户若对该视频显式取消过无痕，则不再默认勾选（取消只作用于当前视频，不回写设置）。
-            boolean globalDefault = bl.abd.get_default_no_history(this);
-            boolean cancelledForVideo = isNoHistoryCancelled(this.s);
-            boolean defNoHistory = globalDefault && !cancelledForVideo;
+            // 初始占位：先按设置里的「默认模式 > 无痕模式」给出初值，
+            // 详情数据加载完成后由 initDefaultPlayButtons() 按"该视频是否有播放进度"再修正
+            // （有进度一律非无痕，与上次是否选过/取消过无关）。
+            boolean defNoHistory = bl.abd.get_default_no_history(this);
             this.noHistoryPlayCheckBox.setChecked(defNoHistory);
             sNoHistoryPlayMode = defNoHistory;
             // 复选框是唯一权威：任何 setChecked 都同步到静态开关，
@@ -655,11 +628,8 @@ public final class VideoDetailActivity extends BaseActivity
                     sNoHistoryPlayMode = isChecked;
                 }
             });
-            android.util.Log.i("HistoryDebug", "[INIT_NO_HISTORY] globalDefault=" + globalDefault
-                    + ", cancelledForVideo=" + cancelledForVideo
-                    + ", checked=" + defNoHistory
-                    + ", sNoHistoryPlayMode=" + sNoHistoryPlayMode
-                    + ", avid=" + this.s);
+            android.util.Log.i("HistoryDebug", "[INIT_NO_HISTORY] stage=bind, globalDefault=" + defNoHistory
+                    + ", checked=" + defNoHistory + ", avid=" + this.s);
         }
         if (this.noHistoryPlayBtnLayout != null) {
             // 焦点变化：先走通用焦点高亮(d)，再按"选中或获焦"规则刷新"无痕"文字
@@ -1939,6 +1909,24 @@ public final class VideoDetailActivity extends BaseActivity
         if (historyPlayBtnLayout != null) {
             historyPlayBtnLayout.setProgress(0, 1);
         }
+        // 无痕默认勾选规则（唯一判定点）：只有"设置默认无痕"且"该视频尚无任何播放进度"时才勾选。
+        // 只要有进度（含已看完 progress=-1），一律按有痕处理并正常更新进度；
+        // 上次播放时是否选过/取消过无痕，与本次无关（因此不保留任何按视频的例外记忆）。
+        boolean hasProgress = biliVideoDetail != null
+                && biliVideoDetail.mHistory != null
+                && biliVideoDetail.mHistory.mProgress != 0;
+        boolean defNoHistory = bl.abd.get_default_no_history(this) && !hasProgress;
+        if (noHistoryPlayCheckBox != null) {
+            noHistoryPlayCheckBox.setChecked(defNoHistory);
+        } else {
+            sNoHistoryPlayMode = defNoHistory;
+        }
+        android.util.Log.i("HistoryDebug", "[INIT_NO_HISTORY] stage=detail"
+                + ", globalDefault=" + bl.abd.get_default_no_history(this)
+                + ", hasProgress=" + hasProgress
+                + ", historySec=" + (biliVideoDetail != null && biliVideoDetail.mHistory != null
+                        ? biliVideoDetail.mHistory.mProgress : -999)
+                + ", checked=" + defNoHistory + ", avid=" + this.s);
         if (noHistoryPlayBtnLayout != null) {
             noHistoryPlayBtnLayout.setVisibility(View.VISIBLE);
             if (historyPlayBtnLayout != null) {
@@ -1998,13 +1986,6 @@ public final class VideoDetailActivity extends BaseActivity
                         boolean newState = !noHistoryPlayCheckBox.isChecked();
                         noHistoryPlayCheckBox.setChecked(newState);
                         sNoHistoryPlayMode = newState;
-                        // 取消/恢复无痕只作用于"当前这一个视频"：记在进程内集合里，
-                        // 不回写设置中的默认模式；同一视频再次进入详情页时按此恢复选择。
-                        if (newState) {
-                            clearNoHistoryCancelled(VideoDetailActivity.this.s);
-                        } else {
-                            markNoHistoryCancelled(VideoDetailActivity.this.s);
-                        }
                         android.util.Log.i("HistoryDebug", "[NO_HISTORY_TOGGLE] checked=" + newState
                                 + ", avid=" + VideoDetailActivity.this.s
                                 + ", globalDefault=" + bl.abd.get_default_no_history(VideoDetailActivity.this));
@@ -4024,11 +4005,7 @@ public final class VideoDetailActivity extends BaseActivity
         // 避免"播放页已取消无痕、详情页复选框仍勾选"的状态不一致
         // （不一致时再点播放，initDefaultPlayButtons 的点击逻辑会从复选框读回 true，重新变回无痕）。
         if (lastCid > 0) {
-            sNoHistoryPlayMode = false;
-            if (this.noHistoryPlayCheckBox != null && this.noHistoryPlayCheckBox.isChecked()) {
-                this.noHistoryPlayCheckBox.setChecked(false);
-            }
-            refreshNoHistoryLabel();
+            syncNoHistoryOff();
         }
         boolean ownVideo = lastCid > 0 && lastProgressMs > 0 && isCidOfCurrentDetail(this.u, lastCid);
         android.util.Log.i("HistoryDebug", "[ON_RESULT] resultCode=" + resultCode
@@ -4064,8 +4041,16 @@ public final class VideoDetailActivity extends BaseActivity
         }
 
         if (!sNoHistoryPlayMode) {
-            // 非无痕却没拿到回传（播放位置为 0 / 进程被回收 / 后端未回写）：
+            // 非无痕却没拿到回传（播放位置为 0 → 播放页不 setResult / 进程被回收 / 后端未回写）：
             // 走同一套 UI 刷新 + 后端校准，不做第二套进度计算。
+            // 同时把复选框与"非无痕"对齐：播放页取消无痕后立刻退出时拿不到回传，
+            // 若不同步，详情页复选框仍勾着，再点播放会从复选框读回 true，又变回无痕。
+            if (this.noHistoryPlayCheckBox != null && this.noHistoryPlayCheckBox.isChecked()) {
+                this.noHistoryPlayCheckBox.setChecked(false);
+                refreshNoHistoryLabel();
+                android.util.Log.i("HistoryDebug",
+                        "[ON_RESULT] no return value but non-incognito, uncheck checkbox");
+            }
             android.util.Log.i("HistoryDebug", "[ON_RESULT] no player progress, fallback refresh (normal mode)");
             updateHistoryDisplay(this.u);
             requestHistoryForUgc(this.u, new Runnable() {
@@ -4081,6 +4066,19 @@ public final class VideoDetailActivity extends BaseActivity
         }
         // 仍处于无痕模式：播放页本就不回传、后端也未写入，保持详情页原 UI 不动
         android.util.Log.i("HistoryDebug", "[ON_RESULT] incognito mode, keep detail UI unchanged");
+    }
+
+    /**
+     * 本次播放已确认非无痕：同步静态开关与"无痕"复选框。
+     * 播放页只有在 mNoHistoryPlay==false 时才会 setResult，因此"收到回传"即证明非无痕；
+     * 同步后复选框与真实模式一致，避免再点播放时从复选框读回 true 又变回无痕。
+     */
+    private final void syncNoHistoryOff() {
+        sNoHistoryPlayMode = false;
+        if (this.noHistoryPlayCheckBox != null && this.noHistoryPlayCheckBox.isChecked()) {
+            this.noHistoryPlayCheckBox.setChecked(false);
+        }
+        refreshNoHistoryLabel();
     }
 
     /**

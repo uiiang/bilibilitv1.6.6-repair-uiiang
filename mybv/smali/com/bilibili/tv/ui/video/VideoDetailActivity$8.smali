@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 552
+    .line 526
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$8;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,21 +40,21 @@
     .locals 6
 
     .prologue
-    .line 555
+    .line 529
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$8;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->relateVideoFocusPosition:I
     invoke-static {v0, p2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$902(Lcom/bilibili/tv/ui/video/VideoDetailActivity;I)I
 
-    .line 556
+    .line 530
     instance-of v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     if-eqz v0, :cond_24
 
-    .line 557
+    .line 531
     check-cast p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    .line 558
+    .line 532
     iget-wide v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mAvid:J
 
     const-wide/16 v2, 0x0
@@ -63,7 +63,7 @@
 
     if-lez v0, :cond_25
 
-    .line 559
+    .line 533
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$8;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
@@ -80,18 +80,18 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->startActivity(Landroid/content/Intent;)V
 
-    .line 564
+    .line 538
     :cond_24
     :goto_24
     return-void
 
-    .line 560
+    .line 534
     :cond_25
     iget v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mSeasonOId:I
 
     if-lez v0, :cond_24
 
-    .line 561
+    .line 535
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$8;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
