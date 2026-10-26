@@ -3,12 +3,12 @@
 .source "xl.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Lcom/bilibili/tv/ui/video/player/BottomShotMenu$OnVisibilityChangedListener;
 
 
 # annotations
-.annotation system Ldalvik/annotation/EnclosingClass;
-    value = Lbl/xl;
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lbl/xl;->showShotMenu(Z)Z
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 759
+    .line 770
     iput-object p1, p0, Lbl/xl$7;->this$0:Lbl/xl;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,74 +36,25 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 4
+.method public onShotMenuVisibilityChanged(Z)V
+    .locals 1
 
     .prologue
-    .line 762
+    .line 773
     iget-object v0, p0, Lbl/xl$7;->this$0:Lbl/xl;
 
-    # getter for: Lbl/xl;->bottomShotMenu:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
-    invoke-static {v0}, Lbl/xl;->access$400(Lbl/xl;)Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
+    # invokes: Lbl/xl;->findXiHandler()Lbl/xi;
+    invoke-static {v0}, Lbl/xl;->access$400(Lbl/xl;)Lbl/xi;
 
     move-result-object v0
 
-    if-eqz v0, :cond_14
+    .line 774
+    if-eqz v0, :cond_b
 
-    iget-object v0, p0, Lbl/xl$7;->this$0:Lbl/xl;
+    .line 775
+    invoke-virtual {v0}, Lbl/xi;->refreshTvToggleIcon()V
 
-    # getter for: Lbl/xl;->bottomShotMenu:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
-    invoke-static {v0}, Lbl/xl;->access$400(Lbl/xl;)Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->isShowing()Z
-
-    move-result v0
-
-    if-nez v0, :cond_15
-
-    .line 772
-    :cond_14
-    :goto_14
+    .line 777
+    :cond_b
     return-void
-
-    .line 766
-    :cond_15
-    iget-object v0, p0, Lbl/xl$7;->this$0:Lbl/xl;
-
-    invoke-virtual {v0}, Lbl/xl;->x()I
-
-    move-result v0
-
-    .line 767
-    iget-object v1, p0, Lbl/xl$7;->this$0:Lbl/xl;
-
-    invoke-virtual {v1}, Lbl/xl;->I()I
-
-    move-result v1
-
-    .line 769
-    iget-object v2, p0, Lbl/xl$7;->this$0:Lbl/xl;
-
-    # getter for: Lbl/xl;->bottomShotMenu:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
-    invoke-static {v2}, Lbl/xl;->access$400(Lbl/xl;)Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
-
-    move-result-object v2
-
-    invoke-virtual {v2, v0, v1}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->updateProgress(II)V
-
-    .line 771
-    iget-object v0, p0, Lbl/xl$7;->this$0:Lbl/xl;
-
-    # getter for: Lbl/xl;->shotMenuHandler:Landroid/os/Handler;
-    invoke-static {v0}, Lbl/xl;->access$500(Lbl/xl;)Landroid/os/Handler;
-
-    move-result-object v0
-
-    const-wide/16 v2, 0x320
-
-    invoke-virtual {v0, p0, v2, v3}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
-
-    goto :goto_14
 .end method

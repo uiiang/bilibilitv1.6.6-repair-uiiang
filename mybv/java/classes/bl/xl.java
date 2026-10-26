@@ -54,6 +54,8 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
     private static final long COMPLETION_DEBOUNCE_MS = 1000;
     private BottomEpisodeMenu bottomEpisodeMenu;
     private BottomShotMenu bottomShotMenu;
+    // 当前菜单模式：true=完整模式（↓），false=简单模式（↑/确定键/触摸）
+    private boolean currentDetails = true;
     private android.os.Handler shotMenuHandler = new android.os.Handler();
 
     /* JADX INFO: Access modifiers changed from: package-private */
@@ -186,6 +188,8 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         if (anyMenuShowing) {
             if (i == 19) {
                 if (shotMenuShowing) {
+                    // ↑ 关闭菜单（toggle），不再吞掉按键
+                    hideShotMenu();
                     return true;
                 }
             }
@@ -217,6 +221,10 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         }
         
         if (i == 19) {
+            // ↑ 键：优先用 BottomShotMenu 简单模式，替代 player_bottom_group 控制条
+            if (showSimpleShotMenu()) {
+                return true;
+            }
             if (!S()) {
                 R();
             }
@@ -642,6 +650,18 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         return bottomShotMenu != null && bottomShotMenu.isShowing();
     }
     
+    /** 沿内层链查找 xi（用于回调控制条/图标等 UI）。 */
+    private xi findXiHandler() {
+        xh h = a();
+        while (h != null) {
+            if (h instanceof xi) {
+                return (xi) h;
+            }
+            h = h.next();
+        }
+        return null;
+    }
+    
     /**
      * 获取有效的跳过段数据（片头/片尾/硬广）：
      * 优先取 xj.skips（本地设置优先 + 服务器补充的合并结果，播放器实际使用），
@@ -668,6 +688,28 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
     }
     
     private boolean showShotMenu() {
+        return showShotMenu(true);
+    }
+
+    /** 供 xi 调用：↑ / 确定键 / 触摸单击时只显示进度条，不显示截图与章节。 */
+    public boolean showSimpleShotMenu() {
+        // 已经是简单模式且正在显示：只重置自动隐藏计时，避免重复播放动画/重建列表
+        if (isShotMenuShowing() && !this.currentDetails) {
+            if (bottomShotMenu != null) {
+                bottomShotMenu.resetAutoHideTimer();
+            }
+            android.util.Log.i("BottomUi", "showSimpleShotMenu: already showing, reset timer");
+            return true;
+        }
+        return showShotMenu(false);
+    }
+
+    /**
+     * @param details true = 完整模式（↓ 键，按数据显隐截图/章节）
+     *                false = 简单模式（只显示标题+时间+进度条）
+     */
+    private boolean showShotMenu(boolean details) {
+        this.currentDetails = details;
         PlayerSeekBar playerSeekBar = getPlayerSeekBar();
         if (playerSeekBar == null) {
             android.util.Log.i("ShotMenuBug", "showShotMenu: playerSeekBar is null");
@@ -724,6 +766,16 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
                     seekTo(timeSeconds);
                 }
             });
+            // 菜单显隐（含 5 秒自动隐藏）时同步右下角暂停图标，替代原 PlayerSeekBar 的 v()/w() 行为
+            bottomShotMenu.setOnVisibilityChangedListener(new BottomShotMenu.OnVisibilityChangedListener() {
+                @Override
+                public void onShotMenuVisibilityChanged(boolean visible) {
+                    xi xiHandler = findXiHandler();
+                    if (xiHandler != null) {
+                        xiHandler.refreshTvToggleIcon();
+                    }
+                }
+            });
             Activity activity = o();
             if (activity != null) {
                 View rootView = activity.getWindow().getDecorView().findViewById(android.R.id.content);
@@ -741,6 +793,7 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         
         // 传入有效的跳过段数据（本地优先 + 服务器补充），用于截图卡片badge显示
         bottomShotMenu.setSkipSegments(getEffectiveSkipSegments(resolveParams));
+        bottomShotMenu.setSimpleMode(!details);
         
         bottomShotMenu.show(videoShot, durationSec * 1000, videoTitle, currentPlayTimeMs, viewPoints);
         startShotMenuProgressUpdater();
@@ -772,7 +825,7 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         }
     };
     
-    private void hideShotMenu() {
+    public void hideShotMenu() {
         stopShotMenuProgressUpdater();
         if (bottomShotMenu != null) {
             bottomShotMenu.hide();

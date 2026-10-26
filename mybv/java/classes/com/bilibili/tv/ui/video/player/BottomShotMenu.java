@@ -49,9 +49,32 @@ public class BottomShotMenu extends FrameLayout {
     private int currentPlayTimeMsOnShow = 0;
     // 跳过段数据（片头/片尾/硬广，本地优先 + 服务器补充），毫秒单位
     private JSONArray skipSegments;
+    // 简单模式：只显示「标题 + 时间 + 进度条」，强制隐藏截图列表/导航标签/章节列表。
+    // 用于 ↑ 键、确定键、触摸单击（替代原 player_bottom_group 控制条）。
+    private boolean simpleMode = false;
     
     public interface OnShotClickListener {
         void onShotClicked(int timeSeconds);
+    }
+    
+    /**
+     * 可见性回调：菜单显示/隐藏（含 5 秒自动隐藏）时通知宿主。
+     * 用于同步右下角「暂停播放图标」——与 PlayerSeekBar 时代的 v()/w() 行为保持一致。
+     */
+    public interface OnVisibilityChangedListener {
+        void onShotMenuVisibilityChanged(boolean visible);
+    }
+    
+    private OnVisibilityChangedListener visibilityListener;
+    
+    public void setOnVisibilityChangedListener(OnVisibilityChangedListener listener) {
+        this.visibilityListener = listener;
+    }
+    
+    private void notifyVisibility(boolean visible) {
+        if (this.visibilityListener != null) {
+            this.visibilityListener.onShotMenuVisibilityChanged(visible);
+        }
     }
     
     public BottomShotMenu(Context context) {
@@ -164,6 +187,16 @@ public class BottomShotMenu extends FrameLayout {
         android.util.Log.i("BottomShotMenu", "[setSkipSegments] count=" + (segments != null ? segments.length() : "null"));
     }
     
+    /**
+     * 简单模式开关：
+     * true  = 只显示标题 + 时间 + 进度条（截图列表、导航标签、章节列表全部隐藏）
+     * false = 完整模式，按数据决定各区块显隐（默认）
+     */
+    public void setSimpleMode(boolean simple) {
+        this.simpleMode = simple;
+        android.util.Log.i("BottomShotMenu", "[setSimpleMode] simple=" + simple);
+    }
+    
     private void setupTimeBasedNavigationTags(java.util.List<VideoShotItem> shots, int totalDuration) {
         if (shots == null || shots.isEmpty()) {
             return;
@@ -216,12 +249,13 @@ public class BottomShotMenu extends FrameLayout {
         this.currentPlayTimeMsOnShow = currentPlayTimeMs;
         this.lastNavTagFocusPosition = -1;
         
-        boolean hasVideoShot = shot != null && shot.getIndex() != null && !shot.getIndex().isEmpty();
-        boolean hasChapters = chapters != null && chapters.length() > 0;
+        // 简单模式强制关闭「详情类」区块：截图列表、导航标签（在 videoListSection 内）、章节列表。
+        boolean showDetails = !this.simpleMode;
+        boolean hasVideoShot = showDetails && shot != null && shot.getIndex() != null && !shot.getIndex().isEmpty();
+        boolean hasChapters = showDetails && chapters != null && chapters.length() > 0;
         
-        // 统一底部进度条：无截图/无章节时不再整体隐藏，只隐藏对应区块，
-        // 保留 shot_seekbar + 标题 + 时间，作为「普通进度条」形态。
-        android.util.Log.i("BottomShotMenu", "[show] hasVideoShot=" + hasVideoShot + ", hasChapters=" + hasChapters);
+        android.util.Log.i("BottomShotMenu", "[show] simpleMode=" + simpleMode
+                + ", hasVideoShot=" + hasVideoShot + ", hasChapters=" + hasChapters);
         
         if (seekbarTitle != null && videoTitle != null) {
             seekbarTitle.setText(videoTitle);
@@ -275,7 +309,7 @@ public class BottomShotMenu extends FrameLayout {
             videoListSection.setVisibility(View.GONE);
         }
         
-        setupChapterList(chapters, currentPlayTimeSec);
+        setupChapterList(showDetails ? chapters : null, currentPlayTimeSec);
         
         videoListSection.setOnNavTagScrollListener(new VideoListSection.OnNavTagScrollListener() {
             @Override
@@ -330,6 +364,7 @@ public class BottomShotMenu extends FrameLayout {
         removeCallbacks(forceHideRunnable);
         setVisibility(View.VISIBLE);
         startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.in_from_bottom));
+        notifyVisibility(true);
         
         if (hasVideoShot) {
             videoListSection.post(new Runnable() {
@@ -433,6 +468,7 @@ public class BottomShotMenu extends FrameLayout {
         setVisibility(View.GONE);
         isHiding = false;
         ShotBinder.clearAllCache();
+        notifyVisibility(false);
         android.util.Log.i("BottomShotMenu", "[finishHide] 菜单已真正隐藏（GONE）");
     }
     

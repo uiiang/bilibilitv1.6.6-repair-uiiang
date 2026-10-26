@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 280
+    .line 314
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$5;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 0
 
     .prologue
-    .line 288
+    .line 322
     return-void
 .end method
 
@@ -48,9 +48,9 @@
     .locals 0
 
     .prologue
-    .line 283
+    .line 317
     invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->clearPendingLoads()V
 
-    .line 284
+    .line 318
     return-void
 .end method

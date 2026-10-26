@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xl;->showShotMenu()Z
+    value = Lbl/xl;->showShotMenu(Z)Z
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 721
+    .line 763
     iput-object p1, p0, Lbl/xl$6;->this$0:Lbl/xl;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,12 +40,12 @@
     .locals 1
 
     .prologue
-    .line 724
+    .line 766
     iget-object v0, p0, Lbl/xl$6;->this$0:Lbl/xl;
 
     # invokes: Lbl/xl;->seekTo(I)V
     invoke-static {v0, p1}, Lbl/xl;->access$300(Lbl/xl;I)V
 
-    .line 725
+    .line 767
     return-void
 .end method

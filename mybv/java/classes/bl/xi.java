@@ -634,10 +634,93 @@ public class xi extends xh implements bbb<Message, Boolean> {
         }
     }
 
+    // ================= 底部 UI 统一入口（↑ / 确定键 / 触摸） =================
+
+    /** 沿外层链查找 xl（BottomShotMenu 的持有者）。 */
+    private xl findShotMenuHandler() {
+        xh h = next();
+        while (h != null) {
+            if (h instanceof xl) {
+                return (xl) h;
+            }
+            h = h.next();
+        }
+        return null;
+    }
+
+    /**
+     * 底部进度条统一入口：
+     * - 菜单已显示 → 关闭（toggle）
+     * - 未显示 → 以「简单模式」打开（只显示标题+时间+进度条，不显示截图/章节）
+     *
+     * @return true 表示已由 BottomShotMenu 接管，调用方不要再显示 player_bottom_group
+     */
+    private boolean toggleSimpleShotMenu() {
+        xl shotMenu = findShotMenuHandler();
+        if (shotMenu == null) {
+            return false;
+        }
+        if (shotMenu.isShotMenuShowing()) {
+            Log.i("BottomUi", "[toggleSimpleShotMenu] menu showing -> hide");
+            shotMenu.hideShotMenu();
+            return true;
+        }
+        boolean shown = shotMenu.showSimpleShotMenu();
+        Log.i("BottomUi", "[toggleSimpleShotMenu] showSimpleShotMenu=" + shown);
+        return shown;
+    }
+
+    /** BottomShotMenu 是否正在显示。 */
+    private boolean isShotMenuShowing() {
+        xl shotMenu = findShotMenuHandler();
+        return shotMenu != null && shotMenu.isShotMenuShowing();
+    }
+
+    /** 关闭 BottomShotMenu（若在显示）。 */
+    private boolean closeShotMenu() {
+        xl shotMenu = findShotMenuHandler();
+        if (shotMenu != null && shotMenu.isShotMenuShowing()) {
+            shotMenu.hideShotMenu();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 同步右下角「暂停播放图标」（R.id.tv_toggle_icon）的显隐。
+     *
+     * 原实现靠 xi.v() → xh.v() → w() → d(false) 这条链把图标带走；
+     * 改用 BottomShotMenu 后这条链不再经过，故由菜单的可见性回调驱动本方法。
+     * 判定与 PlayerSeekBar 时代保持一致：底部 UI 可见 且 处于暂停才显示。
+     */
+    public void refreshTvToggleIcon() {
+        boolean bottomUiShowing =
+                (this.g != null && this.f != null && this.g.isShown() && this.f.isShown())
+                || isShotMenuShowing();
+        boolean paused = J();
+        Log.i("BottomUi", "[refreshTvToggleIcon] bottomUiShowing=" + bottomUiShowing + ", paused=" + paused);
+        d(paused && bottomUiShowing);
+    }
+
     private void T() {
         D();
-        if(s()){if(!mybl.BiliFilter.progressbar_on && !this.n.isShown())v();}
-        else {P();super.t();}
+        if (K()) {
+            // 播放中：底部 UI 一律隐藏（含已打开的 BottomShotMenu 与右下角暂停图标）
+            if (!mybl.BiliFilter.progressbar_on && !this.n.isShown()) {
+                v();
+            }
+            closeShotMenu();
+            d(false);
+        } else {
+            // 暂停中：用 BottomShotMenu 的简单模式替代 player_bottom_group 控制条
+            if (toggleSimpleShotMenu()) {
+                super.t();
+                refreshTvToggleIcon();
+                return;
+            }
+            P();
+            super.t();
+        }
     }
 
 
@@ -645,6 +728,12 @@ public class xi extends xh implements bbb<Message, Boolean> {
     @Override // bl.xh
     public void t() {
         a(this.t);
+        // 触摸/鼠标单击：优先用 BottomShotMenu（已显示则关闭，实现 toggle）
+        if (toggleSimpleShotMenu()) {
+            super.t();
+            refreshTvToggleIcon();
+            return;
+        }
         P();
         if(!mybl.BiliFilter.progressbar_on)a(this.t, 6000L);
         super.t();
@@ -664,6 +753,13 @@ public class xi extends xh implements bbb<Message, Boolean> {
                 break;
             }
             handler = handler.next();
+        }
+
+        // ↑ 键：优先用 BottomShotMenu 的简单模式替代 player_bottom_group 控制条
+        if (toggleSimpleShotMenu()) {
+            super.t();
+            refreshTvToggleIcon();
+            return;
         }
 
         if(mybl.BiliFilter.progressbar_on){
