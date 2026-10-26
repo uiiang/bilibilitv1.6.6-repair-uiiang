@@ -180,12 +180,14 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         boolean anyMenuShowing = rightMenuShowing || shotMenuShowing || episodeMenuShowing;
         
         if (i == 4) {
-            if (shotMenuShowing) {
-                hideShotMenu();
-                return true;
-            }
-            if (episodeMenuShowing) {
-                V();
+            // 一次返回把底部进度条与选集菜单一起关掉
+            if (shotMenuShowing || episodeMenuShowing) {
+                if (shotMenuShowing) {
+                    hideShotMenu();
+                }
+                if (episodeMenuShowing) {
+                    V();
+                }
                 return true;
             }
             return false;
@@ -235,20 +237,30 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
             return true;
         }
         
-        if (!X()) {
-            return false;
-        }
-        
         if (i == 19) {
-            // ↑ 键：优先用 BottomShotMenu 简单模式，替代 player_bottom_group 控制条
-            if (showSimpleShotMenu()) {
+            // ↑ 键二选一：
+            //   有选集/合集 → 只显示选集列表（原实现 U() → showBottomEpisodeMenu）
+            //   没有        → 只显示 BottomShotMenu 简单进度条（无截图/时间分段/章节）
+            if (X()) {
+                if (isShotMenuShowing()) {
+                    hideShotMenu();
+                }
+                if (!S()) {
+                    R();
+                }
+                v();
+                U();
+                android.util.Log.i("BottomUi", "xl.g: UP -> episode list only");
                 return true;
             }
-            if (!S()) {
-                R();
+            if (P()) {
+                V();
+            }
+            if (showSimpleShotMenu()) {
+                android.util.Log.i("BottomUi", "xl.g: UP -> simple shot menu");
+                return true;
             }
             v();
-            U();
             return true;
         }
         
@@ -565,6 +577,7 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
                     e(position);
                 }
             });
+            // 选集菜单与进度条是二选一（见 i==19 分支），无需处理两者重叠
             Activity activity = o();
             if (activity != null) {
                 View rootView = activity.getWindow().getDecorView().findViewById(android.R.id.content);
