@@ -3,12 +3,12 @@
 .source "xi.java"
 
 # interfaces
-.implements Ltv/danmaku/videoplayer/core/context/IPlayerContext$PlayerEventListener;
+.implements Lcom/bilibili/tv/player/widget/PlayerSeekBar$SnapshotLoadCallback;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xi;->U()V
+    value = Lbl/xi;->updateSeekPreview(IIZ)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 664
+    .line 388
     iput-object p1, p0, Lbl/xi$5;->this$0:Lbl/xi;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,24 +36,88 @@
 
 
 # virtual methods
-.method public varargs onPlayerEvent(I[Ljava/lang/Object;)V
+.method public onLoadFailed()V
     .locals 2
 
     .prologue
-    .line 667
-    const/16 v0, 0xeb
-
-    if-ne p1, v0, :cond_a
-
-    .line 668
+    .line 400
     iget-object v0, p0, Lbl/xi$5;->this$0:Lbl/xi;
+
+    # getter for: Lbl/xi;->seekPreviewSnapshot:Landroid/widget/ImageView;
+    invoke-static {v0}, Lbl/xi;->access$500(Lbl/xi;)Landroid/widget/ImageView;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_1a
+
+    .line 401
+    iget-object v0, p0, Lbl/xi$5;->this$0:Lbl/xi;
+
+    # getter for: Lbl/xi;->seekPreviewSnapshot:Landroid/widget/ImageView;
+    invoke-static {v0}, Lbl/xi;->access$500(Lbl/xi;)Landroid/widget/ImageView;
+
+    move-result-object v0
+
+    const/16 v1, 0x8
+
+    invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setVisibility(I)V
+
+    .line 402
+    const-string v0, "SeekPreview"
+
+    const-string v1, "onLoadFailed: snapshot gone"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 404
+    :cond_1a
+    return-void
+.end method
+
+.method public onLoadSuccess(Landroid/graphics/Bitmap;)V
+    .locals 2
+
+    .prologue
+    .line 391
+    iget-object v0, p0, Lbl/xi$5;->this$0:Lbl/xi;
+
+    # getter for: Lbl/xi;->seekPreviewSnapshot:Landroid/widget/ImageView;
+    invoke-static {v0}, Lbl/xi;->access$500(Lbl/xi;)Landroid/widget/ImageView;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_22
+
+    .line 392
+    iget-object v0, p0, Lbl/xi$5;->this$0:Lbl/xi;
+
+    # getter for: Lbl/xi;->seekPreviewSnapshot:Landroid/widget/ImageView;
+    invoke-static {v0}, Lbl/xi;->access$500(Lbl/xi;)Landroid/widget/ImageView;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p1}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
+
+    .line 393
+    iget-object v0, p0, Lbl/xi$5;->this$0:Lbl/xi;
+
+    # getter for: Lbl/xi;->seekPreviewSnapshot:Landroid/widget/ImageView;
+    invoke-static {v0}, Lbl/xi;->access$500(Lbl/xi;)Landroid/widget/ImageView;
+
+    move-result-object v0
 
     const/4 v1, 0x0
 
-    # setter for: Lbl/xi;->s:Z
-    invoke-static {v0, v1}, Lbl/xi;->access$402(Lbl/xi;Z)Z
+    invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    .line 670
-    :cond_a
+    .line 394
+    const-string v0, "SeekPreview"
+
+    const-string v1, "onLoadSuccess: snapshot visible"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 396
+    :cond_22
     return-void
 .end method

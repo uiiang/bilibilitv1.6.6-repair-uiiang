@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -96,12 +97,41 @@ public class xi extends xh implements bbb<Message, Boolean> {
     private TextView seekPreviewTimeCurrent;
     private TextView seekPreviewTimeTotal;
     private SeekBar seekPreviewSeekbar;
-    
+
+    // ===== 方案C：快进/快退位置的单一事实源（毫秒精度）=====
+    // 说明：原实现使用 bl.aal 的静态累加器，存在三个问题：
+    //   1) aal.a(x()/1000) 整秒 floor，预览值天然偏低 0~999ms；
+    //   2) keyUp 时再调一次 aal.a(dir)，提交值比预览值多 n*b 秒（预览不刷新）；
+    //   3) ±10s 的「单击最少跳 10 秒」只作用在提交值上，预览看不到。
+    // 这里改为实例字段 + 毫秒累加，并让预览与提交共用同一个 target。
+    private int seekBaseMs = 0;              // 本轮快进起点（按下瞬间的真实位置，毫秒）
+    private int seekRawMs = 0;               // 未 clamp 的累计目标（毫秒），避免 I()==0 时污染累加
+    private int seekTargetMs = 0;            // 已 clamp 的目标位置（毫秒），预览与 seek 共用
+    private int seekStepSec = 1;             // 当前步长（秒）
+    private int seekStepInc = 1;             // 步长增量（秒），每增长一次自增
+    private long seekLastStepGrowMs = 0;     // 上次步长增长的 uptime
+    private long seekLastEventMs = 0L;       // 上次方向键事件的 uptime（用于空闲收口判定）
+    private boolean seekDirectionForward = true; // true=快进（右键），false=快退（左键）
+    private static final int SEEK_MIN_DELTA_MS = 10000;        // 单击最少跳 10 秒（等价原 ±0x2710）
+    private static final int SEEK_STEP_GROW_INTERVAL_MS = 500; // 步长增长节拍
+    private static final int SEEK_STEP_MAX_SEC = 120;          // 步长上限（等价原 min(b,0x78)）
+    private static final long SEEK_IDLE_RESET_MS = 2000L;      // 无按键活动超过该时长视为本轮结束
+    private static final long SEEK_POST_REFRESH_DELAY_MS = 150L; // seek 提交后的回刷延迟
+
     private com.bilibili.tv.player.BufferingOverlayController bufferingOverlayController;
     private Runnable hideSeekPreviewRunnable = new Runnable() {
         @Override
         public void run() {
             hideSeekPreview();
+        }
+    };
+    // 方案C：seek 提交后的回刷，让右上角预览与底部时钟在收敛后同源
+    private Runnable seekRefreshRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (!isSliding) {
+                syncProgressUiWithPlayer();
+            }
         }
     };
     private Runnable t = new Runnable() { // from class: bl.xi.1
@@ -179,6 +209,13 @@ public class xi extends xh implements bbb<Message, Boolean> {
             this.seekPreviewGroup.setVisibility(View.GONE);
             Log.i("SeekPreview", "hideSeekPreview: gone");
         }
+        // 方案C：只有「已无按键活动」才收口，避免长按过程中（repeat 间隔通常 40~100ms）
+        // 被 2 秒自动隐藏打断累加；同时兜住 keyUp 丢失后 isSliding 卡 true 的脏状态。
+        boolean idle = (SystemClock.uptimeMillis() - this.seekLastEventMs) >= SEEK_IDLE_RESET_MS;
+        if (!this.isSliding || idle) {
+            resetSeekState();
+        }
+        removeSeekRefreshCallback();
     }
     
     private void removeHideSeekPreviewCallback() {
@@ -186,6 +223,126 @@ public class xi extends xh implements bbb<Message, Boolean> {
             this.e.removeCallbacks(this.hideSeekPreviewRunnable);
         }
     }
+
+    // ================= 方案C：统一的快进/快退位置计算 =================
+
+    /**
+     * 计算本次按键的目标位置（毫秒）。
+     * 与旧实现（bl.aal）的区别：
+     * 1) 基准用 x() 的毫秒值，不做整秒取整；
+     * 2) 「单击最少跳 10 秒」下沉到这里，预览一开始就显示真实落点；
+     * 3) 预览与 keyUp 提交共用同一个变量，不再二次累加。
+     */
+    private int computeSeekTarget(int keyCode) {
+        boolean forward = (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT);
+        long now = SystemClock.uptimeMillis();
+        boolean idleTimeout = (now - this.seekLastEventMs) >= SEEK_IDLE_RESET_MS;
+        this.seekLastEventMs = now;
+
+        if (!this.isSliding || idleTimeout) {
+            // 本轮第一次按键（含长时间无活动后的重新开始）：以当前真实播放位置为基准
+            this.seekBaseMs = Math.max(0, x());
+            this.seekRawMs = this.seekBaseMs;
+            this.seekStepSec = 1;
+            this.seekStepInc = 1;
+            this.seekLastStepGrowMs = now;
+            this.seekDirectionForward = forward;
+            this.isSliding = true;
+            this.isLongPress = false;
+        } else if (forward != this.seekDirectionForward) {
+            // 中途换方向：以当前目标为新基准重新起算，避免左右互切时抖动
+            this.seekBaseMs = this.seekTargetMs;
+            this.seekRawMs = this.seekTargetMs;
+            this.seekStepSec = 1;
+            this.seekStepInc = 1;
+            this.seekLastStepGrowMs = now;
+            this.seekDirectionForward = forward;
+        }
+
+        // 步长按 500ms 节拍增长：1→2→4→7…（上限 120s），保留原有加速手感
+        if (now - this.seekLastStepGrowMs >= SEEK_STEP_GROW_INTERVAL_MS) {
+            this.seekLastStepGrowMs = now;
+            this.seekStepSec = Math.min(SEEK_STEP_MAX_SEC, this.seekStepSec + this.seekStepInc);
+            this.seekStepInc++;
+        }
+
+        int delta = this.seekStepSec * 1000;
+        int raw = forward ? (this.seekRawMs + delta) : (this.seekRawMs - delta);
+        this.seekRawMs = raw;   // 只保存原始累加值，下限不反写，避免长按时越跳越快
+
+        // 「单击最少跳 10 秒」：等价原 keyUp 里的 ±0x2710，但提前到预览阶段
+        int target = raw;
+        if (forward) {
+            target = Math.max(target, this.seekBaseMs + SEEK_MIN_DELTA_MS);
+        } else {
+            target = Math.min(target, this.seekBaseMs - SEEK_MIN_DELTA_MS);
+        }
+
+        this.seekTargetMs = Math.max(0, Math.min(target, I()));
+        return this.seekTargetMs;
+    }
+
+    /** keyUp 提交：直接使用最后一次按键算出的 target，不再二次累加 / 重算边界。 */
+    private void commitSeek(boolean forward) {
+        if (!this.isSliding) {
+            return;
+        }
+        int target = Math.max(0, Math.min(this.seekTargetMs, I()));
+        long oldPosition = x();
+        Log.i("SeekPreview", "commitSeek: forward=" + forward
+                + ", old=" + oldPosition + "ms, target=" + target + "ms (" + aan.a(target) + ")");
+        c(target);
+        resetSeekState();
+        a(IEventCenter.EventType.SEEK, Boolean.valueOf(forward),
+                Long.valueOf(oldPosition), Long.valueOf(target));
+        refreshProgressAfterSeek();
+    }
+
+    private void resetSeekState() {
+        this.isSliding = false;
+        this.isLongPress = false;
+        this.seekBaseMs = 0;
+        this.seekRawMs = 0;
+        this.seekTargetMs = 0;
+        this.seekStepSec = 1;
+        this.seekStepInc = 1;
+        this.seekLastStepGrowMs = 0L;
+        this.seekLastEventMs = 0L;
+        this.seekDirectionForward = true;
+    }
+
+    /**
+     * 用播放器真实位置刷新「底部控制条 + 右上角预览」。
+     * 这是「以底部为准」的唯一落点：两端都取 getCurrentPosition()。
+     */
+    private void syncProgressUiWithPlayer() {
+        int duration = I();
+        int position = x();
+        if (duration <= 0 || position <= -1) {
+            return;
+        }
+        b(position, duration);
+        a(position, duration);
+        if (this.seekPreviewGroup != null
+                && this.seekPreviewGroup.getVisibility() == View.VISIBLE) {
+            updateSeekPreview(position, duration, false);
+        }
+    }
+
+    private void refreshProgressAfterSeek() {
+        if (this.e == null) {
+            return;
+        }
+        this.e.removeCallbacks(this.seekRefreshRunnable);
+        this.e.postDelayed(this.seekRefreshRunnable, SEEK_POST_REFRESH_DELAY_MS);
+    }
+
+    private void removeSeekRefreshCallback() {
+        if (this.e != null) {
+            this.e.removeCallbacks(this.seekRefreshRunnable);
+        }
+    }
+
     
     private void updateSeekPreview(int progress, int max) {
         updateSeekPreview(progress, max, true);
@@ -355,16 +512,11 @@ public class xi extends xh implements bbb<Message, Boolean> {
                     }
                 }
                 
-                if (!this.isSliding) {
-                    aal.a(x() / 1000);
-                    this.isSliding = true;
-                    this.isLongPress = false;
-                }
                 if (event.getRepeatCount() > 0) {
                     this.isLongPress = true;
                 }
-                int a = aal.a(keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) * 1000;
-                int targetProgress = Math.max(0, Math.min(a, I()));
+                // 方案C：目标位置由 computeSeekTarget 统一计算（毫秒精度，含「最少跳 10 秒」下限）
+                int targetProgress = computeSeekTarget(keyCode);
                 int maxProgress = I();
                 int videoDuration = this.l != null ? this.l.getDuration() : 0;
                 Log.i("SeekPreview", "=== f() called ===");
@@ -372,9 +524,11 @@ public class xi extends xh implements bbb<Message, Boolean> {
                 Log.i("SeekPreview", "maxProgress=" + maxProgress + "ms (" + aan.a(maxProgress) + ")");
                 Log.i("SeekPreview", "videoDuration=" + videoDuration + "s");
                 Log.i("SeekPreview", "bottomSeekBar duration=" + (this.l != null ? this.l.getDuration() : "null"));
-                this.l.a(targetProgress, true);
+                if (this.l != null) {
+                    this.l.a(targetProgress, true);
+                }
                 showSeekPreview();
-                updateSeekPreview(targetProgress, I(), !this.isLongPress);
+                updateSeekPreview(targetProgress, maxProgress, !this.isLongPress);
                 return true;
             default:
                 return false;
@@ -453,26 +607,11 @@ public class xi extends xh implements bbb<Message, Boolean> {
             case KeyEvent.KEYCODE_DPAD_DOWN:
                 return false;
             case KeyEvent.KEYCODE_DPAD_LEFT:
-                if (this.isSliding) {
-                    int a = aal.a(false);
-                    long x = x();
-                    int min = Math.max(0, Math.min(Math.min(a * 1000, x() + IjkMediaMetadataRetriever.IJK_ONERROR), I()));
-                    c(min);
-                    aal.a();
-                    this.isSliding = false;
-                    a(IEventCenter.EventType.SEEK, false, Long.valueOf(x), Long.valueOf(min));
-                }
+                // 方案C：直接提交最后一次 keyDown 算出的目标，不再二次累加 / 重算边界
+                commitSeek(false);
                 return false;
             case KeyEvent.KEYCODE_DPAD_RIGHT:
-                if (this.isSliding) {
-                    int a2 = aal.a(true);
-                    long x2 = x();
-                    int min2 = Math.min(Math.max(a2 * 1000, x() + 10000), I());
-                    c(min2);
-                    aal.a();
-                    this.isSliding = false;
-                    a(IEventCenter.EventType.SEEK, true, Long.valueOf(x2), Long.valueOf(min2));
-                }
+                commitSeek(true);
                 return false;
             case KeyEvent.KEYCODE_ENTER:
             case KeyEvent.KEYCODE_DPAD_CENTER:
@@ -760,12 +899,8 @@ public class xi extends xh implements bbb<Message, Boolean> {
         }
         V();
         if ((this.p == 0 || K()) && !this.isSliding) {
-            int I = I();
-            int x = x();
-            if (I > 0 && x > -1) {
-                b(x, I);
-                a(x, I);
-            }
+            // 方案C：底部控制条与右上角预览同源刷新（两者都取 getCurrentPosition）
+            syncProgressUiWithPlayer();
         }
         this.b.removeMessages(5000200);
         if (s()) {

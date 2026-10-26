@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 85
+    .line 86
     iput-object p1, p0, Lbl/xi$1;->this$0:Lbl/xi;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 88
+    .line 89
     iget-object v0, p0, Lbl/xi$1;->this$0:Lbl/xi;
 
     const/4 v1, 0x1
@@ -48,12 +48,12 @@
     # setter for: Lbl/xi;->moreActionOkLongFired:Z
     invoke-static {v0, v1}, Lbl/xi;->access$002(Lbl/xi;Z)Z
 
-    .line 89
+    .line 90
     iget-object v0, p0, Lbl/xi$1;->this$0:Lbl/xi;
 
     # invokes: Lbl/xi;->showPlayerRightMenu()V
     invoke-static {v0}, Lbl/xi;->access$100(Lbl/xi;)V
 
-    .line 90
+    .line 91
     return-void
 .end method

@@ -20,18 +20,23 @@
 # instance fields
 .field final synthetic this$1:Lbl/xi$8;
 
-.field final synthetic val$scaled:Landroid/graphics/Bitmap;
+.field final synthetic val$shot:Lcom/bilibili/tv/api/video/VideoShot;
 
 
 # direct methods
-.method constructor <init>(Lbl/xi$8;Landroid/graphics/Bitmap;)V
+.method constructor <init>(Lbl/xi$8;Lcom/bilibili/tv/api/video/VideoShot;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
-    .line 1160
+    .line 1362
     iput-object p1, p0, Lbl/xi$8$1;->this$1:Lbl/xi$8;
 
-    iput-object p2, p0, Lbl/xi$8$1;->val$scaled:Landroid/graphics/Bitmap;
+    iput-object p2, p0, Lbl/xi$8$1;->val$shot:Lcom/bilibili/tv/api/video/VideoShot;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -41,68 +46,124 @@
 
 # virtual methods
 .method public run()V
-    .locals 2
+    .locals 4
 
     .prologue
-    .line 1163
-    iget-object v0, p0, Lbl/xi$8$1;->this$1:Lbl/xi$8;
+    .line 1365
+    const-string v0, "VideoShot"
 
-    iget-object v0, v0, Lbl/xi$8;->this$0:Lbl/xi;
-
-    # getter for: Lbl/xi;->seekPreviewImage:Landroid/widget/ImageView;
-    invoke-static {v0}, Lbl/xi;->access$800(Lbl/xi;)Landroid/widget/ImageView;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_34
-
-    iget-object v0, p0, Lbl/xi$8$1;->this$1:Lbl/xi$8;
-
-    iget-object v0, v0, Lbl/xi$8;->this$0:Lbl/xi;
-
-    # getter for: Lbl/xi;->isSliding:Z
-    invoke-static {v0}, Lbl/xi;->access$900(Lbl/xi;)Z
-
-    move-result v0
-
-    if-eqz v0, :cond_34
-
-    .line 1164
-    iget-object v0, p0, Lbl/xi$8$1;->this$1:Lbl/xi$8;
-
-    iget-object v0, v0, Lbl/xi$8;->this$0:Lbl/xi;
-
-    # getter for: Lbl/xi;->seekPreviewImage:Landroid/widget/ImageView;
-    invoke-static {v0}, Lbl/xi;->access$800(Lbl/xi;)Landroid/widget/ImageView;
-
-    move-result-object v0
-
-    iget-object v1, p0, Lbl/xi$8$1;->val$scaled:Landroid/graphics/Bitmap;
-
-    invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
-
-    .line 1165
-    iget-object v0, p0, Lbl/xi$8$1;->this$1:Lbl/xi$8;
-
-    iget-object v0, v0, Lbl/xi$8;->this$0:Lbl/xi;
-
-    # getter for: Lbl/xi;->seekPreviewImage:Landroid/widget/ImageView;
-    invoke-static {v0}, Lbl/xi;->access$800(Lbl/xi;)Landroid/widget/ImageView;
-
-    move-result-object v0
-
-    const/4 v1, 0x0
-
-    invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setVisibility(I)V
-
-    .line 1166
-    const-string v0, "xi_java"
-
-    const-string v1, "loadSeekPreviewSnapshot: set image and set VISIBLE"
+    const-string v1, "loadVideoShot: posting to main thread"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1168
-    :cond_34
+    .line 1366
+    iget-object v0, p0, Lbl/xi$8$1;->this$1:Lbl/xi$8;
+
+    iget-object v0, v0, Lbl/xi$8;->this$0:Lbl/xi;
+
+    # getter for: Lbl/xi;->l:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
+    invoke-static {v0}, Lbl/xi;->access$1100(Lbl/xi;)Lcom/bilibili/tv/player/widget/PlayerSeekBar;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_61
+
+    .line 1367
+    iget-object v0, p0, Lbl/xi$8$1;->this$1:Lbl/xi$8;
+
+    iget-object v0, v0, Lbl/xi$8;->this$0:Lbl/xi;
+
+    # getter for: Lbl/xi;->l:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
+    invoke-static {v0}, Lbl/xi;->access$1100(Lbl/xi;)Lcom/bilibili/tv/player/widget/PlayerSeekBar;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lbl/xi$8$1;->val$shot:Lcom/bilibili/tv/api/video/VideoShot;
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->setVideoShot(Lcom/bilibili/tv/api/video/VideoShot;)V
+
+    .line 1368
+    const-string v0, "VideoShot"
+
+    const-string v1, "loadVideoShot: setVideoShot called"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 1369
+    iget-object v0, p0, Lbl/xi$8$1;->this$1:Lbl/xi$8;
+
+    iget-object v0, v0, Lbl/xi$8;->this$0:Lbl/xi;
+
+    invoke-virtual {v0}, Lbl/xi;->n()Ltv/danmaku/videoplayer/core/context/IPlayerContext;
+
+    move-result-object v0
+
+    .line 1370
+    if-eqz v0, :cond_59
+
+    .line 1371
+    invoke-interface {v0}, Ltv/danmaku/videoplayer/core/context/IPlayerContext;->getDuration()I
+
+    move-result v0
+
+    div-int/lit16 v0, v0, 0x3e8
+
+    .line 1372
+    iget-object v1, p0, Lbl/xi$8$1;->this$1:Lbl/xi$8;
+
+    iget-object v1, v1, Lbl/xi$8;->this$0:Lbl/xi;
+
+    # getter for: Lbl/xi;->l:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
+    invoke-static {v1}, Lbl/xi;->access$1100(Lbl/xi;)Lcom/bilibili/tv/player/widget/PlayerSeekBar;
+
+    move-result-object v1
+
+    invoke-virtual {v1, v0}, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->setDuration(I)V
+
+    .line 1373
+    const-string v1, "VideoShot"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "loadVideoShot: setDuration called, duration="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 1380
+    :goto_58
     return-void
+
+    .line 1375
+    :cond_59
+    const-string v0, "VideoShot"
+
+    const-string v1, "loadVideoShot: playerContext is null"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_58
+
+    .line 1378
+    :cond_61
+    const-string v0, "VideoShot"
+
+    const-string v1, "loadVideoShot: l is null in post"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_58
 .end method
