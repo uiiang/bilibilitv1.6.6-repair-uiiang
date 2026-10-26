@@ -487,6 +487,18 @@ public class BottomShotMenu extends FrameLayout {
         return getVisibility() == View.VISIBLE || isHiding;
     }
     
+    /**
+     * 菜单内是否有可聚焦内容（截图卡片列表 / 章节列表）。
+     * 没有内容时（简单模式、或无截图无章节），确定键应由播放器处理（播放/暂停）。
+     */
+    public boolean hasFocusableContent() {
+        boolean shotListVisible = videoListSection != null
+                && videoListSection.getVisibility() == View.VISIBLE;
+        boolean chapterVisible = chapterSection != null
+                && chapterSection.getVisibility() == View.VISIBLE;
+        return shotListVisible || chapterVisible;
+    }
+    
     private void initAutoHideTimer() {
         autoHideRunnable = new Runnable() {
             @Override

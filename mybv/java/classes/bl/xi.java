@@ -676,6 +676,16 @@ public class xi extends xh implements bbb<Message, Boolean> {
         return shotMenu != null && shotMenu.isShotMenuShowing();
     }
 
+    /**
+     * 确保简单模式菜单显示（幂等）。
+     * 与 toggleSimpleShotMenu 的区别：已显示时不关闭，只重置自动隐藏计时。
+     * 用于「播放 → 暂停」时保证进度条出现，不会把用户已打开的条切掉。
+     */
+    private boolean ensureSimpleShotMenu() {
+        xl shotMenu = findShotMenuHandler();
+        return shotMenu != null && shotMenu.showSimpleShotMenu();
+    }
+
     /** 关闭 BottomShotMenu（若在显示）。 */
     private boolean closeShotMenu() {
         xl shotMenu = findShotMenuHandler();
@@ -712,8 +722,8 @@ public class xi extends xh implements bbb<Message, Boolean> {
             closeShotMenu();
             d(false);
         } else {
-            // 暂停中：用 BottomShotMenu 的简单模式替代 player_bottom_group 控制条
-            if (toggleSimpleShotMenu()) {
+            // 暂停中：确保 BottomShotMenu 简单模式显示（幂等，不关闭已显示的条）
+            if (ensureSimpleShotMenu()) {
                 super.t();
                 refreshTvToggleIcon();
                 return;

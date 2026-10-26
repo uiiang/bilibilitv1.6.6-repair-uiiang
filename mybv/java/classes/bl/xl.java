@@ -127,6 +127,12 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
             }
         }
 
+        // 菜单显示时方向键只用来「续命」，不能漏到 xi.f() 触发快进/预览
+        if (isShotMenuShowing() && (i == 19 || i == 20 || i == 21 || i == 22)) {
+            resetShotMenuAutoHide();
+            return true;
+        }
+        
         return P();
     }
 
@@ -186,10 +192,15 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         }
         
         if (anyMenuShowing) {
+            // 上下左右 / 确定键：视为「在底部进度条上操作」——不关闭菜单，只延长自动消失时间。
+            // （完整模式下方向键会被卡片 View 消费，走不到这里；这里主要覆盖简单模式。）
+            if (shotMenuShowing && (i == 19 || i == 20 || i == 21 || i == 22
+                    || i == KeyEvent.KEYCODE_DPAD_CENTER || i == KeyEvent.KEYCODE_ENTER
+                    || i == KeyEvent.KEYCODE_NUMPAD_ENTER)) {
+                resetShotMenuAutoHide();
+            }
             if (i == 19) {
                 if (shotMenuShowing) {
-                    // ↑ 关闭菜单（toggle），不再吞掉按键
-                    hideShotMenu();
                     return true;
                 }
             }
@@ -197,6 +208,14 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
                 if (shotMenuShowing || episodeMenuShowing) {
                     return true;
                 }
+            }
+            // 菜单内没有可聚焦项时（简单模式 / 无截图无章节），确定键必须透传给 xi.T()，
+            // 否则暂停时打开的进度条会把「恢复播放」吃掉。
+            if ((i == KeyEvent.KEYCODE_DPAD_CENTER || i == KeyEvent.KEYCODE_ENTER
+                    || i == KeyEvent.KEYCODE_NUMPAD_ENTER)
+                    && shotMenuShowing && !episodeMenuShowing && !isShotMenuFocusable()) {
+                android.util.Log.i("BottomUi", "xl.g: shot menu has no focusable content, pass ENTER through");
+                return false;
             }
             return true;
         }
@@ -648,6 +667,18 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
     
     public boolean isShotMenuShowing() {
         return bottomShotMenu != null && bottomShotMenu.isShowing();
+    }
+    
+    /** 菜单内是否有可聚焦内容（无内容时确定键要透传给播放器做播放/暂停）。 */
+    private boolean isShotMenuFocusable() {
+        return bottomShotMenu != null && bottomShotMenu.hasFocusableContent();
+    }
+    
+    /** 按键视为「在进度条上操作」：延长自动消失时间（不关闭菜单）。 */
+    private void resetShotMenuAutoHide() {
+        if (bottomShotMenu != null) {
+            bottomShotMenu.resetAutoHideTimer();
+        }
     }
     
     /** 沿内层链查找 xi（用于回调控制条/图标等 UI）。 */
