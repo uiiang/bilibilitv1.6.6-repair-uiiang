@@ -20,13 +20,11 @@
 # instance fields
 .field final synthetic this$0:Lbl/xj;
 
-.field final synthetic val$activity:Landroid/app/Activity;
-
 .field final synthetic val$finalParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
 
 # direct methods
-.method constructor <init>(Lbl/xj;Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;Landroid/app/Activity;)V
+.method constructor <init>(Lbl/xj;Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;)V
     .locals 0
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -35,12 +33,10 @@
     .end annotation
 
     .prologue
-    .line 90
+    .line 91
     iput-object p1, p0, Lbl/xj$1;->this$0:Lbl/xj;
 
     iput-object p2, p0, Lbl/xj$1;->val$finalParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
-
-    iput-object p3, p0, Lbl/xj$1;->val$activity:Landroid/app/Activity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -53,7 +49,7 @@
     .locals 2
 
     .prologue
-    .line 94
+    .line 95
     :try_start_0
     iget-object v0, p0, Lbl/xj$1;->val$finalParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
@@ -65,15 +61,15 @@
     :try_end_a
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_a} :catch_b
 
-    .line 115
+    .line 109
     :goto_a
     return-void
 
-    .line 112
+    .line 106
     :catch_b
     move-exception v0
 
-    .line 113
+    .line 107
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
     goto :goto_a

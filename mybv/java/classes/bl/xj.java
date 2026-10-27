@@ -86,7 +86,8 @@ public class xj extends xh {
             this.f = true;
             
             final ResolveResourceParams finalParams = obtainResolveParams;
-            final Activity activity = o();
+            // [CHAPTER_TIP_DISABLED] 章节提示已取消。此处仍保留 initPlayInfo 调用，
+            // 因为它负责把 view_points / subtitle_data 写入 resolveParams，章节菜单与进度条章节标记依赖该数据。
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -94,14 +95,7 @@ public class xj extends xh {
                         finalParams.initPlayInfo(new ResolveResourceParams.PlayInfoCallback() {
                             @Override
                             public void onPlayInfoReady(final JSONArray view_points) {
-                                if (activity != null) {
-                                    activity.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            showChapterTip(view_points);
-                                        }
-                                    });
-                                }
+                                // 章节提示已取消，不再弹 "本视频有N个章节"
                             }
                             
                             @Override
@@ -321,25 +315,21 @@ public class xj extends xh {
     }
 
     private void showChapterTip(JSONArray view_points) {
-        if (view_points == null || view_points.length() <= 0) {
-            return;
-        }
-        if (this.chapterTipShown) {
-            Log.i("xj", "[showChapterTip] already shown, skip duplicate call");
-            return;
-        }
-        this.chapterTipShown = true;
-        if (this.c == null) Q();
-        if (this.c == null) return;
-        a(this.j);
-        String chapterText = lp.a(o().getString(R.string.player_chapter_tip), String.valueOf(view_points.length()));
-        this.c.setText(chapterText);
-        this.c.clearAnimation();
-        if (this.k != null) this.k.reset();
-        this.l = true;
-        a(this.j, 5000L);
-        Log.i("xj", "[showChapterTip] chapter tip shown, count: " + view_points.length());
+        // [CHAPTER_TIP_DISABLED] 保留方法占位，禁止再显示 "本视频有N个章节"。
+        // 如需恢复：把下方实现解注释，并在 onPrepared / onPlayInfoReady 中重新接回调用。
+        return;
     }
+
+    /*
+     * 原始实现（已停用）：
+     * if (view_points == null || view_points.length() <= 0) return;
+     * if (chapterTipShown) return;
+     * chapterTipShown = true;
+     * if (c == null) Q();
+     * if (c == null) return;
+     * a(j); c.setText(lp.a(o().getString(R.string.player_chapter_tip), String.valueOf(view_points.length())));
+     * c.clearAnimation(); if (k != null) k.reset(); l = true; a(j, 5000L);
+     */
 
     @Override // bl.xh, tv.danmaku.ijk.media.player.IMediaPlayer.OnPreparedListener
     public void onPrepared(IMediaPlayer iMediaPlayer) {
@@ -353,11 +343,6 @@ public class xj extends xh {
         
         if (this.f && c != null) {
             ResolveResourceParams resolveParams = c.a.mVideoParams.obtainResolveParams();
-            
-            if (this.g == 0) {
-                JSONArray view_points = resolveParams.view_points;
-                showChapterTip(view_points);
-            }
             
             long j = c.d;
             IDanmakuDocument danmakuDocument = c.a.mDanmakuParams.getDanmakuDocument();

@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 398
+    .line 383
     iput-object p1, p0, Lbl/xj$2;->this$0:Lbl/xj;
 
     iput-object p2, p0, Lbl/xj$2;->val$o:Landroid/app/Activity;
@@ -49,17 +49,17 @@
     .locals 3
 
     .prologue
-    .line 401
+    .line 386
     iget-object v0, p0, Lbl/xj$2;->this$0:Lbl/xj;
 
     # getter for: Lbl/xj;->k:Landroid/view/animation/Animation;
-    invoke-static {v0}, Lbl/xj;->access$100(Lbl/xj;)Landroid/view/animation/Animation;
+    invoke-static {v0}, Lbl/xj;->access$000(Lbl/xj;)Landroid/view/animation/Animation;
 
     move-result-object v0
 
     if-nez v0, :cond_24
 
-    .line 402
+    .line 387
     iget-object v0, p0, Lbl/xj$2;->this$0:Lbl/xj;
 
     iget-object v1, p0, Lbl/xj$2;->val$o:Landroid/app/Activity;
@@ -71,13 +71,13 @@
     move-result-object v1
 
     # setter for: Lbl/xj;->k:Landroid/view/animation/Animation;
-    invoke-static {v0, v1}, Lbl/xj;->access$102(Lbl/xj;Landroid/view/animation/Animation;)Landroid/view/animation/Animation;
+    invoke-static {v0, v1}, Lbl/xj;->access$002(Lbl/xj;Landroid/view/animation/Animation;)Landroid/view/animation/Animation;
 
-    .line 403
+    .line 388
     iget-object v0, p0, Lbl/xj$2;->this$0:Lbl/xj;
 
     # getter for: Lbl/xj;->k:Landroid/view/animation/Animation;
-    invoke-static {v0}, Lbl/xj;->access$100(Lbl/xj;)Landroid/view/animation/Animation;
+    invoke-static {v0}, Lbl/xj;->access$000(Lbl/xj;)Landroid/view/animation/Animation;
 
     move-result-object v0
 
@@ -87,7 +87,7 @@
 
     invoke-virtual {v0, v1}, Landroid/view/animation/Animation;->setAnimationListener(Landroid/view/animation/Animation$AnimationListener;)V
 
-    .line 418
+    .line 403
     :cond_24
     iget-object v0, p0, Lbl/xj$2;->this$0:Lbl/xj;
 
@@ -96,12 +96,12 @@
     iget-object v1, p0, Lbl/xj$2;->this$0:Lbl/xj;
 
     # getter for: Lbl/xj;->k:Landroid/view/animation/Animation;
-    invoke-static {v1}, Lbl/xj;->access$100(Lbl/xj;)Landroid/view/animation/Animation;
+    invoke-static {v1}, Lbl/xj;->access$000(Lbl/xj;)Landroid/view/animation/Animation;
 
     move-result-object v1
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->startAnimation(Landroid/view/animation/Animation;)V
 
-    .line 419
+    .line 404
     return-void
 .end method

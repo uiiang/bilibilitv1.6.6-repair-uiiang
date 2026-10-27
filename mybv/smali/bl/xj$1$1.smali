@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 94
+    .line 95
     iput-object p1, p0, Lbl/xj$1$1;->this$1:Lbl/xj$1;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 3
 
     .prologue
-    .line 109
+    .line 103
     const-string v0, "xj"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -67,33 +67,14 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 110
+    .line 104
     return-void
 .end method
 
 .method public onPlayInfoReady(Lorg/json/JSONArray;)V
-    .locals 2
+    .locals 0
 
     .prologue
-    .line 97
-    iget-object v0, p0, Lbl/xj$1$1;->this$1:Lbl/xj$1;
-
-    iget-object v0, v0, Lbl/xj$1;->val$activity:Landroid/app/Activity;
-
-    if-eqz v0, :cond_12
-
-    .line 98
-    iget-object v0, p0, Lbl/xj$1$1;->this$1:Lbl/xj$1;
-
-    iget-object v0, v0, Lbl/xj$1;->val$activity:Landroid/app/Activity;
-
-    new-instance v1, Lbl/xj$1$1$1;
-
-    invoke-direct {v1, p0, p1}, Lbl/xj$1$1$1;-><init>(Lbl/xj$1$1;Lorg/json/JSONArray;)V
-
-    invoke-virtual {v0, v1}, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
-
-    .line 105
-    :cond_12
+    .line 99
     return-void
 .end method
