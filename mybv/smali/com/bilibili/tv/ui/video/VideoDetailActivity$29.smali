@@ -39,7 +39,7 @@
     .end annotation
 
     .prologue
-    .line 3134
+    .line 3174
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->val$wrapper:Lcom/bilibili/tv/widget/DrawLinearLayout;
@@ -61,12 +61,12 @@
     .locals 2
 
     .prologue
-    .line 3137
+    .line 3177
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->val$wrapper:Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setUpEnabled(Z)V
 
-    .line 3138
+    .line 3178
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->val$hasMultipleStaff:Z
 
     if-eqz v0, :cond_15
@@ -75,7 +75,7 @@
 
     if-nez v0, :cond_15
 
-    .line 3139
+    .line 3179
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->val$staffView:Lcom/bilibili/tv/widget/DrawTextView;
 
     if-eqz p2, :cond_16
@@ -85,11 +85,11 @@
     :goto_12
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/widget/DrawTextView;->setVisibility(I)V
 
-    .line 3141
+    .line 3181
     :cond_15
     return-void
 
-    .line 3139
+    .line 3179
     :cond_16
     const/16 v0, 0x8
 

@@ -293,6 +293,10 @@ public final class VideoDetailActivity extends BaseActivity
     public void onDestroy() {
         this.o = null;
         this.z = true;
+        // 无痕开关是进程级静态字段（xg 的各个播放入口都读它），离开详情页必须复位。
+        // 否则"在本页勾了无痕但没播就退出"会把状态带给番剧详情/下载页等其它入口，
+        // 相当于用内存记住了"上次选过无痕"，与"每次播放以当前勾选为准"的定义冲突。
+        sNoHistoryPlayMode = false;
         super.onDestroy();
     }
 
@@ -1898,6 +1902,66 @@ public final class VideoDetailActivity extends BaseActivity
         return detail;
     }
 
+    /**
+     * 无痕勾选的唯一判定点（全页只此一处决定"勾/不勾 + 按钮显隐 + 静态开关"）。
+     *
+     * 规则——与"上次播放时是否选过/取消过无痕"完全无关，代码不保留任何按视频的记忆：
+     * 1) 该视频已有播放历史（{@code mHistory.mCid > 0}）=> 一律按有痕处理：
+     *    取消勾选、隐藏无痕按钮、静态开关置 false，播放进度才能正常回传与更新；
+     * 2) 该视频无任何播放历史 => 仅在初始化时（resetWhenNoHistory=true）按设置里的
+     *    "默认无痕"给出初值；其余时刻（播放返回后刷新等）保持用户当前勾选，不覆盖本次操作。
+     *
+     * 所有"历史异步到达"的路径都必须回调本方法，否则会出现
+     * "历史已经到了、按钮却还勾着无痕且被隐藏"的死角（此时无痕静默生效且无法取消）。
+     *
+     * @param resetWhenNoHistory true=初始化/详情数据到达时决定初值；false=只收敛"有历史必须有痕"
+     */
+    private final void applyNoHistoryState(BiliVideoDetail biliVideoDetail, boolean resetWhenNoHistory) {
+        boolean hasHistory = biliVideoDetail != null
+                && biliVideoDetail.mHistory != null
+                && biliVideoDetail.mHistory.mCid > 0;
+        boolean globalDefault = bl.abd.get_default_no_history(this);
+        if (hasHistory) {
+            sNoHistoryPlayMode = false;
+            if (noHistoryPlayCheckBox != null) {
+                noHistoryPlayCheckBox.setChecked(false);
+            }
+        } else if (resetWhenNoHistory) {
+            // 复选框在值未变化时不会回调 listener，所以静态开关必须显式同步
+            sNoHistoryPlayMode = globalDefault;
+            if (noHistoryPlayCheckBox != null) {
+                noHistoryPlayCheckBox.setChecked(globalDefault);
+            }
+        }
+        if (noHistoryPlayBtnLayout != null) {
+            if (hasHistory) {
+                // 有历史 => 不允许无痕：按钮整体隐藏，焦点链由 updateHistoryDisplay 重建成
+                // 主播放按钮 -> 重播/展开按钮
+                noHistoryPlayBtnLayout.setVisibility(View.GONE);
+            } else {
+                noHistoryPlayBtnLayout.setVisibility(View.VISIBLE);
+                if (historyPlayBtnLayout != null) {
+                    historyPlayBtnLayout.setNextFocusRightId(R.id.video_no_history_play_btn_layout);
+                }
+                noHistoryPlayBtnLayout.setNextFocusRightId(R.id.video_detail_expand_btn);
+                if (expandBtn != null) {
+                    expandBtn.setNextFocusLeftId(R.id.video_no_history_play_btn_layout);
+                }
+            }
+        }
+        refreshNoHistoryLabel();
+        android.util.Log.i("HistoryDebug", "[NO_HISTORY_STATE] reset=" + resetWhenNoHistory
+                + ", globalDefault=" + globalDefault
+                + ", hasHistory=" + hasHistory
+                + ", historyCid=" + (biliVideoDetail != null && biliVideoDetail.mHistory != null
+                        ? biliVideoDetail.mHistory.mCid : 0)
+                + ", historySec=" + (biliVideoDetail != null && biliVideoDetail.mHistory != null
+                        ? biliVideoDetail.mHistory.mProgress : -999)
+                + ", checked=" + (noHistoryPlayCheckBox != null && noHistoryPlayCheckBox.isChecked())
+                + ", sNoHistoryPlayMode=" + sNoHistoryPlayMode
+                + ", avid=" + this.s);
+    }
+
     private final void initDefaultPlayButtons(BiliVideoDetail biliVideoDetail) {
         if (historyPlayBtn == null) {
             return;
@@ -1909,35 +1973,8 @@ public final class VideoDetailActivity extends BaseActivity
         if (historyPlayBtnLayout != null) {
             historyPlayBtnLayout.setProgress(0, 1);
         }
-        // 无痕默认勾选规则（唯一判定点）：只有"设置默认无痕"且"该视频尚无任何播放进度"时才勾选。
-        // 只要有进度（含已看完 progress=-1），一律按有痕处理并正常更新进度；
-        // 上次播放时是否选过/取消过无痕，与本次无关（因此不保留任何按视频的例外记忆）。
-        boolean hasProgress = biliVideoDetail != null
-                && biliVideoDetail.mHistory != null
-                && biliVideoDetail.mHistory.mProgress != 0;
-        boolean defNoHistory = bl.abd.get_default_no_history(this) && !hasProgress;
-        if (noHistoryPlayCheckBox != null) {
-            noHistoryPlayCheckBox.setChecked(defNoHistory);
-        } else {
-            sNoHistoryPlayMode = defNoHistory;
-        }
-        android.util.Log.i("HistoryDebug", "[INIT_NO_HISTORY] stage=detail"
-                + ", globalDefault=" + bl.abd.get_default_no_history(this)
-                + ", hasProgress=" + hasProgress
-                + ", historySec=" + (biliVideoDetail != null && biliVideoDetail.mHistory != null
-                        ? biliVideoDetail.mHistory.mProgress : -999)
-                + ", checked=" + defNoHistory + ", avid=" + this.s);
-        if (noHistoryPlayBtnLayout != null) {
-            noHistoryPlayBtnLayout.setVisibility(View.VISIBLE);
-            if (historyPlayBtnLayout != null) {
-                historyPlayBtnLayout.setNextFocusRightId(R.id.video_no_history_play_btn_layout);
-            }
-            noHistoryPlayBtnLayout.setNextFocusRightId(R.id.video_detail_expand_btn);
-            refreshNoHistoryLabel();
-        }
-        if (expandBtn != null) {
-            expandBtn.setNextFocusLeftId(R.id.video_no_history_play_btn_layout);
-        }
+        // 无痕初值：一律按"该视频当前是否有播放历史"判定，不读上次的选择
+        applyNoHistoryState(biliVideoDetail, true);
         if (rePlayBtnLayout != null) {
             rePlayBtnLayout.setVisibility(View.GONE);
         }
@@ -2551,7 +2588,11 @@ public final class VideoDetailActivity extends BaseActivity
         if (biliVideoDetail == null || biliVideoDetail.mHistory == null) {
             return;
         }
-        
+        // 历史已确定：先收敛无痕状态（有历史 => 取消勾选并隐藏按钮），再渲染进度。
+        // 这一步覆盖"历史异步到达"的路径（PGC 的 loadHistory、UGC 的 force 校准、fallback），
+        // 保证不会出现"进度已经显示出来、复选框却仍勾着无痕且按钮不可见"的状态。
+        applyNoHistoryState(biliVideoDetail, false);
+
         int episodeCount = 0;
         if (biliVideoDetail.episodes != null) {
             episodeCount += biliVideoDetail.episodes.size();
@@ -2589,9 +2630,8 @@ public final class VideoDetailActivity extends BaseActivity
             + ", totalDuration=" + totalDuration + ", pageIndex=" + pageIndex
             + ", episodeCount=" + episodeCount + ", multi=" + hasMultipleEpisodes);
         
-        if (noHistoryPlayBtnLayout != null) {
-            noHistoryPlayBtnLayout.setVisibility(View.GONE);
-        }
+        // 无痕按钮的显隐与勾选已由 applyNoHistoryState 统一处理（有历史 => GONE + 不勾），
+        // 此处不再重复设置，避免"按钮隐藏了但勾选还在"的两套逻辑。
         // 已看完（progress==-1）时隐藏"重播"按钮：主播放按钮已显示"重新播放"，
         // 再保留"重播"属功能重复；下方焦点链会据此跳过该按钮，避免光标卡死。
         if (rePlayBtnLayout != null) {

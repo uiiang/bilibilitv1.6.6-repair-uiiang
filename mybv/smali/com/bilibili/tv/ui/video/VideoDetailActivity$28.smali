@@ -35,7 +35,7 @@
     .end annotation
 
     .prologue
-    .line 3118
+    .line 3158
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$28;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-wide p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$28;->val$staffMid:J
@@ -57,7 +57,7 @@
 
     const-wide/16 v2, 0x0
 
-    .line 3122
+    .line 3162
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$28;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -65,26 +65,26 @@
 
     move-result-object v4
 
-    .line 3123
+    .line 3163
     if-eqz v4, :cond_35
 
     invoke-virtual {v4}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->getMid()J
 
     move-result-wide v0
 
-    .line 3124
+    .line 3164
     :goto_f
     if-eqz v4, :cond_37
 
     iget-object v6, v4, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mBvid:Ljava/lang/String;
 
-    .line 3125
+    .line 3165
     :goto_13
     if-eqz v4, :cond_17
 
     iget-object v7, v4, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mTitle:Ljava/lang/String;
 
-    .line 3126
+    .line 3166
     :cond_17
     iget-object v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$28;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
@@ -93,7 +93,7 @@
 
     move-result-wide v4
 
-    .line 3127
+    .line 3167
     cmp-long v8, v0, v2
 
     if-lez v8, :cond_39
@@ -108,7 +108,7 @@
 
     if-lez v0, :cond_39
 
-    .line 3128
+    .line 3168
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$28;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iget-wide v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$28;->val$staffMid:J
@@ -117,23 +117,23 @@
 
     invoke-static/range {v0 .. v7}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->start(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;)V
 
-    .line 3132
+    .line 3172
     :goto_34
     return-void
 
     :cond_35
     move-wide v0, v2
 
-    .line 3123
+    .line 3163
     goto :goto_f
 
     :cond_37
     move-object v6, v7
 
-    .line 3124
+    .line 3164
     goto :goto_13
 
-    .line 3130
+    .line 3170
     :cond_39
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$28;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
