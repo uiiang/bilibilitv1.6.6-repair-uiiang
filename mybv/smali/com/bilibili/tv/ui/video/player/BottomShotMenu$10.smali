@@ -7,8 +7,8 @@
 
 
 # annotations
-.annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->setupChapterList(Lorg/json/JSONArray;I)V
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 426
+    .line 471
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$10;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -37,19 +37,22 @@
 
 # virtual methods
 .method public run()V
-    .locals 1
+    .locals 2
 
     .prologue
-    .line 429
+    .line 474
+    const-string v0, "BottomShotMenu"
+
+    const-string v1, "[forceHideRunnable] \u52a8\u753b\u56de\u8c03\u515c\u5e95\uff0c\u5f3a\u5236\u9690\u85cf\u83dc\u5355"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 475
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$10;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
-    # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterAdapter:Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->access$500(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;
+    # invokes: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->finishHide()V
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->access$700(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
 
-    move-result-object v0
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;->scrollToCurrentChapter()V
-
-    .line 430
+    .line 476
     return-void
 .end method

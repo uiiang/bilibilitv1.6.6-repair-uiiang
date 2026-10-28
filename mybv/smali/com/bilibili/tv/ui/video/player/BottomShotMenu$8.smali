@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 370
+    .line 390
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$8;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,55 +40,21 @@
     .locals 4
 
     .prologue
-    .line 373
+    .line 393
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$8;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
-    # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->access$200(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+    # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterAdapter:Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->access$500(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;
 
     move-result-object v0
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->isDataLoaded()Z
-
-    move-result v0
-
-    if-nez v0, :cond_18
-
-    .line 374
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$8;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
-
-    # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->access$200(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-
-    move-result-object v0
-
-    const-wide/16 v2, 0x32
-
-    invoke-virtual {v0, p0, v2, v3}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->postDelayed(Ljava/lang/Runnable;J)Z
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;->scrollToCurrentChapter()V
 
     .line 394
-    :goto_17
-    return-void
-
-    .line 377
-    :cond_18
-    invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->clearPendingLoads()V
-
-    .line 378
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$8;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
-    # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->access$200(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->scrollToCurrentItem()V
-
-    .line 380
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$8;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
-
-    # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->access$200(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+    # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterList:Landroid/support/v7/widget/RecyclerView;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->access$600(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
 
@@ -96,9 +62,10 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$8$1;-><init>(Lcom/bilibili/tv/ui/video/player/BottomShotMenu$8;)V
 
-    const-wide/16 v2, 0x96
+    const-wide/16 v2, 0x64
 
-    invoke-virtual {v0, v1, v2, v3}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->postDelayed(Ljava/lang/Runnable;J)Z
+    invoke-virtual {v0, v1, v2, v3}, Landroid/support/v7/widget/RecyclerView;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    goto :goto_17
+    .line 400
+    return-void
 .end method

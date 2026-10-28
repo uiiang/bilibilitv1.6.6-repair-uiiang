@@ -111,10 +111,10 @@
     .line 54
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->simpleMode:Z
 
-    .line 478
-    new-instance v0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$11;
+    .line 471
+    new-instance v0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$10;
 
-    invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$11;-><init>(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
+    invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$10;-><init>(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->forceHideRunnable:Ljava/lang/Runnable;
 
@@ -148,10 +148,10 @@
     .line 54
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->simpleMode:Z
 
-    .line 478
-    new-instance v0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$11;
+    .line 471
+    new-instance v0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$10;
 
-    invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$11;-><init>(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
+    invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$10;-><init>(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->forceHideRunnable:Ljava/lang/Runnable;
 
@@ -185,10 +185,10 @@
     .line 54
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->simpleMode:Z
 
-    .line 478
-    new-instance v0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$11;
+    .line 471
+    new-instance v0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$10;
 
-    invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$11;-><init>(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
+    invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$10;-><init>(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->forceHideRunnable:Ljava/lang/Runnable;
 
@@ -293,17 +293,17 @@
     .locals 1
 
     .prologue
-    .line 524
+    .line 517
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->autoHideRunnable:Ljava/lang/Runnable;
 
     if-eqz v0, :cond_9
 
-    .line 525
+    .line 518
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->autoHideRunnable:Ljava/lang/Runnable;
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 527
+    .line 520
     :cond_9
     return-void
 .end method
@@ -314,36 +314,36 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 466
+    .line 458
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->forceHideRunnable:Ljava/lang/Runnable;
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 467
+    .line 459
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->clearAnimation()V
 
-    .line 468
+    .line 460
     const/16 v0, 0x8
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->setVisibility(I)V
 
-    .line 469
+    .line 461
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->isHiding:Z
 
-    .line 470
-    invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->clearAllCache()V
+    .line 463
+    invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->clearPendingLoads()V
 
-    .line 471
+    .line 464
     invoke-direct {p0, v1}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->notifyVisibility(Z)V
 
-    .line 472
+    .line 465
     const-string v0, "BottomShotMenu"
 
     const-string v1, "[finishHide] \u83dc\u5355\u5df2\u771f\u6b63\u9690\u85cf\uff08GONE\uff09"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 473
+    .line 466
     return-void
 .end method
 
@@ -351,17 +351,17 @@
     .locals 1
 
     .prologue
-    .line 438
+    .line 431
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterAdapter:Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;
 
     if-eqz v0, :cond_9
 
-    .line 439
+    .line 432
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterAdapter:Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;->focusCurrentChapter()V
 
-    .line 441
+    .line 434
     :cond_9
     return-void
 .end method
@@ -517,14 +517,14 @@
     .locals 1
 
     .prologue
-    .line 503
-    new-instance v0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$12;
+    .line 496
+    new-instance v0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$11;
 
-    invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$12;-><init>(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
+    invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$11;-><init>(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->autoHideRunnable:Ljava/lang/Runnable;
 
-    .line 509
+    .line 502
     return-void
 .end method
 
@@ -736,7 +736,7 @@
     .locals 3
 
     .prologue
-    .line 415
+    .line 408
     const-string v0, "BottomShotMenu"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -783,7 +783,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 416
+    .line 409
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterSection:Landroid/widget/LinearLayout;
 
     if-eqz v0, :cond_38
@@ -792,7 +792,7 @@
 
     if-nez v0, :cond_40
 
-    .line 417
+    .line 410
     :cond_38
     const-string v0, "BottomShotMenu"
 
@@ -800,11 +800,11 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 435
+    .line 428
     :goto_3f
     return-void
 
-    .line 421
+    .line 414
     :cond_40
     if-eqz p1, :cond_80
 
@@ -814,7 +814,7 @@
 
     if-lez v0, :cond_80
 
-    .line 422
+    .line 415
     const-string v0, "BottomShotMenu"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -847,30 +847,30 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 423
+    .line 416
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterSection:Landroid/widget/LinearLayout;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->setVisibility(I)V
 
-    .line 424
+    .line 417
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterAdapter:Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;
 
     invoke-virtual {v0, p1, p2}, Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;->setChapters(Lorg/json/JSONArray;I)V
 
-    .line 426
+    .line 419
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterList:Landroid/support/v7/widget/RecyclerView;
 
-    new-instance v1, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$10;
+    new-instance v1, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$9;
 
-    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$10;-><init>(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
+    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$9;-><init>(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->post(Ljava/lang/Runnable;)Z
 
     goto :goto_3f
 
-    .line 433
+    .line 426
     :cond_80
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterSection:Landroid/widget/LinearLayout;
 
@@ -1154,23 +1154,23 @@
     .locals 1
 
     .prologue
-    .line 548
+    .line 541
     invoke-direct {p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->cancelAutoHideTimer()V
 
-    .line 549
+    .line 542
     invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->clearAllCache()V
 
-    .line 550
+    .line 543
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     if-eqz v0, :cond_f
 
-    .line 551
+    .line 544
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->cleanup()V
 
-    .line 553
+    .line 546
     :cond_f
     return-void
 .end method
@@ -1189,7 +1189,7 @@
 
     const/4 v0, 0x1
 
-    .line 557
+    .line 550
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->isShowing()Z
 
     move-result v1
@@ -1202,12 +1202,12 @@
 
     if-nez v1, :cond_112
 
-    .line 558
+    .line 551
     invoke-virtual {p1}, Landroid/view/KeyEvent;->getKeyCode()I
 
     move-result v1
 
-    .line 559
+    .line 552
     if-eq v1, v7, :cond_29
 
     if-eq v1, v8, :cond_29
@@ -1224,17 +1224,17 @@
 
     if-ne v1, v2, :cond_2c
 
-    .line 565
+    .line 558
     :cond_29
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->resetAutoHideTimer()V
 
-    .line 568
+    .line 561
     :cond_2c
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->findFocus()Landroid/view/View;
 
     move-result-object v2
 
-    .line 569
+    .line 562
     const-string v3, "BottomShotMenu"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -1267,17 +1267,17 @@
 
     invoke-static {v3, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 571
+    .line 564
     if-ne v1, v6, :cond_b3
 
-    .line 572
+    .line 565
     iget-object v3, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-direct {p0, v2, v3}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->isChildOf(Landroid/view/View;Landroid/view/View;)Z
 
     move-result v3
 
-    .line 573
+    .line 566
     const-string v4, "BottomShotMenu"
 
     new-instance v5, Ljava/lang/StringBuilder;
@@ -1316,10 +1316,10 @@
 
     invoke-static {v4, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 575
+    .line 568
     if-eqz v3, :cond_b3
 
-    .line 576
+    .line 569
     iget-object v3, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-virtual {v3}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->isNavTagFocused()Z
@@ -1328,14 +1328,14 @@
 
     if-eqz v3, :cond_b3
 
-    .line 577
+    .line 570
     const-string v1, "BottomShotMenu"
 
     const-string v2, "[dispatchKeyEvent] nav tag focused, moving to chapter list"
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 578
+    .line 571
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->getNavTagSelectedPosition()I
@@ -1344,7 +1344,7 @@
 
     iput v1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->lastNavTagFocusPosition:I
 
-    .line 579
+    .line 572
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterSection:Landroid/widget/LinearLayout;
 
     if-eqz v1, :cond_ab
@@ -1357,15 +1357,15 @@
 
     if-nez v1, :cond_ab
 
-    .line 580
+    .line 573
     invoke-direct {p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->focusOnCurrentChapter()V
 
-    .line 621
+    .line 614
     :cond_aa
     :goto_aa
     return v0
 
-    .line 583
+    .line 576
     :cond_ab
     const-string v1, "BottomShotMenu"
 
@@ -1375,18 +1375,18 @@
 
     goto :goto_aa
 
-    .line 590
+    .line 583
     :cond_b3
     if-ne v1, v9, :cond_e8
 
-    .line 591
+    .line 584
     iget-object v3, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterSection:Landroid/widget/LinearLayout;
 
     invoke-direct {p0, v2, v3}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->isChildOf(Landroid/view/View;Landroid/view/View;)Z
 
     move-result v3
 
-    .line 592
+    .line 585
     const-string v4, "BottomShotMenu"
 
     new-instance v5, Ljava/lang/StringBuilder;
@@ -1409,22 +1409,22 @@
 
     invoke-static {v4, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 594
+    .line 587
     if-eqz v3, :cond_e8
 
-    .line 595
+    .line 588
     const-string v3, "BottomShotMenu"
 
     const-string v4, "[dispatchKeyEvent] focus on chapterSection, moving back to nav tag"
 
     invoke-static {v3, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 596
+    .line 589
     iget v3, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->lastNavTagFocusPosition:I
 
     if-ltz v3, :cond_e8
 
-    .line 597
+    .line 590
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     iget v2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->lastNavTagFocusPosition:I
@@ -1433,13 +1433,13 @@
 
     goto :goto_aa
 
-    .line 603
+    .line 596
     :cond_e8
     if-eq v1, v7, :cond_ec
 
     if-ne v1, v8, :cond_112
 
-    .line 604
+    .line 597
     :cond_ec
     iget-object v3, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterSection:Landroid/widget/LinearLayout;
 
@@ -1447,39 +1447,39 @@
 
     move-result v3
 
-    .line 605
+    .line 598
     if-eqz v3, :cond_112
 
     iget-object v3, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterAdapter:Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;
 
     if-eqz v3, :cond_112
 
-    .line 606
+    .line 599
     iget-object v3, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterAdapter:Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;
 
     invoke-virtual {v3}, Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;->getChapterCount()I
 
     move-result v3
 
-    .line 607
+    .line 600
     if-lez v3, :cond_112
 
-    .line 608
+    .line 601
     iget-object v4, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterAdapter:Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;
 
     invoke-virtual {v4, v2}, Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;->getFocusedPosition(Landroid/view/View;)I
 
     move-result v2
 
-    .line 609
+    .line 602
     if-ltz v2, :cond_112
 
-    .line 610
+    .line 603
     if-ne v1, v7, :cond_10c
 
     if-eqz v2, :cond_aa
 
-    .line 613
+    .line 606
     :cond_10c
     if-ne v1, v8, :cond_112
 
@@ -1487,7 +1487,7 @@
 
     if-eq v2, v1, :cond_aa
 
-    .line 621
+    .line 614
     :cond_112
     invoke-super {p0, p1}, Landroid/widget/FrameLayout;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 
@@ -1504,14 +1504,14 @@
 
     const/4 v2, 0x0
 
-    .line 495
+    .line 488
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     if-eqz v0, :cond_22
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
-    .line 496
+    .line 489
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->getVisibility()I
 
     move-result v0
@@ -1520,7 +1520,7 @@
 
     move v0, v1
 
-    .line 497
+    .line 490
     :goto_f
     iget-object v3, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterSection:Landroid/widget/LinearLayout;
 
@@ -1528,7 +1528,7 @@
 
     iget-object v3, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterSection:Landroid/widget/LinearLayout;
 
-    .line 498
+    .line 491
     invoke-virtual {v3}, Landroid/widget/LinearLayout;->getVisibility()I
 
     move-result v3
@@ -1537,7 +1537,7 @@
 
     move v3, v1
 
-    .line 499
+    .line 492
     :goto_1c
     if-nez v0, :cond_20
 
@@ -1552,13 +1552,13 @@
     :cond_22
     move v0, v2
 
-    .line 496
+    .line 489
     goto :goto_f
 
     :cond_24
     move v3, v2
 
-    .line 498
+    .line 491
     goto :goto_1c
 .end method
 
@@ -1566,7 +1566,7 @@
     .locals 1
 
     .prologue
-    .line 448
+    .line 441
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->getVisibility()I
 
     move-result v0
@@ -1577,24 +1577,21 @@
 
     if-eqz v0, :cond_b
 
-    .line 460
+    .line 452
     :cond_a
     :goto_a
     return-void
 
-    .line 451
+    .line 444
     :cond_b
     invoke-direct {p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->cancelAutoHideTimer()V
 
-    .line 452
+    .line 445
     const/4 v0, 0x1
 
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->setDeferLoading(Z)V
 
-    .line 453
-    invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->clearPendingLoads()V
-
-    .line 459
+    .line 451
     invoke-direct {p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->finishHide()V
 
     goto :goto_a
@@ -1604,7 +1601,7 @@
     .locals 1
 
     .prologue
-    .line 487
+    .line 480
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->getVisibility()I
 
     move-result v0
@@ -1631,13 +1628,13 @@
     .locals 0
 
     .prologue
-    .line 626
+    .line 619
     invoke-super {p0}, Landroid/widget/FrameLayout;->onDetachedFromWindow()V
 
-    .line 627
+    .line 620
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->cleanup()V
 
-    .line 628
+    .line 621
     return-void
 .end method
 
@@ -1645,27 +1642,27 @@
     .locals 4
 
     .prologue
-    .line 512
+    .line 505
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->autoHideRunnable:Ljava/lang/Runnable;
 
     if-eqz v0, :cond_d
 
-    .line 513
+    .line 506
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->autoHideRunnable:Ljava/lang/Runnable;
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 516
+    .line 509
     sget-boolean v0, Lmybl/BiliFilter;->progressbar_on:Z
 
     if-eqz v0, :cond_e
 
-    .line 521
+    .line 514
     :cond_d
     :goto_d
     return-void
 
-    .line 519
+    .line 512
     :cond_e
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->autoHideRunnable:Ljava/lang/Runnable;
 
@@ -1787,7 +1784,7 @@
     .locals 6
 
     .prologue
-    .line 444
+    .line 437
     const/4 v5, 0x0
 
     move-object v0, p0
@@ -1802,7 +1799,7 @@
 
     invoke-virtual/range {v0 .. v5}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->show(Lcom/bilibili/tv/api/video/VideoShot;ILjava/lang/String;ILorg/json/JSONArray;)V
 
-    .line 445
+    .line 438
     return-void
 .end method
 
@@ -2038,7 +2035,7 @@
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 269
-    if-eqz v3, :cond_1d1
+    if-eqz v3, :cond_1c9
 
     .line 270
     invoke-virtual {p1}, Lcom/bilibili/tv/api/video/VideoShot;->getAllShots()Ljava/util/List;
@@ -2194,33 +2191,30 @@
     invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->clearPendingLoads()V
 
     .line 296
-    invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->clearAllCache()V
-
-    .line 297
     const/4 v0, 0x1
 
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->setDeferLoading(Z)V
 
-    .line 299
+    .line 298
     new-instance v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;
 
     iget v2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->totalDuration:I
 
     invoke-direct {v0, p1, v2}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;-><init>(Lcom/bilibili/tv/api/video/VideoShot;I)V
 
-    .line 300
+    .line 299
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->skipSegments:Lorg/json/JSONArray;
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->setSkipSegments(Lorg/json/JSONArray;)V
 
-    .line 302
+    .line 301
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     const/4 v7, 0x1
 
     invoke-virtual {v2, v7}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setIndexBadgeManagedByBinder(Z)V
 
-    .line 303
+    .line 302
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     iget-object v7, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->allShots:Ljava/util/List;
@@ -2228,68 +2222,64 @@
     invoke-virtual {v2, v7, v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setData(Ljava/util/List;Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;)V
 
     .line 305
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->allShots:Ljava/util/List;
+
+    invoke-static {p1, v0, v5}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->preloadSheet(Lcom/bilibili/tv/api/video/VideoShot;Ljava/util/List;I)V
+
+    .line 307
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setupBottomMenuFocusBoundary()V
 
-    .line 307
+    .line 309
     iget v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->totalDuration:I
 
     invoke-direct {p0, v6, v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->setupTimeBasedNavigationTags(Ljava/util/List;I)V
 
-    .line 312
-    :goto_17d
-    if-eqz v4, :cond_1d9
-
+    .line 314
     :goto_17f
+    if-eqz v4, :cond_1d1
+
+    :goto_181
     invoke-direct {p0, p5, v5}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->setupChapterList(Lorg/json/JSONArray;I)V
 
-    .line 314
+    .line 319
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     new-instance v2, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$5;
 
     invoke-direct {v2, p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$5;-><init>(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
 
-    invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setOnNavTagScrollListener(Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagScrollListener;)V
+    invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setOnVideoClickListener(Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoClickListener;)V
 
-    .line 325
+    .line 336
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     new-instance v2, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$6;
 
     invoke-direct {v2, p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$6;-><init>(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
 
-    invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setOnVideoClickListener(Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoClickListener;)V
-
-    .line 342
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-
-    new-instance v2, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7;
-
-    invoke-direct {v2, p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7;-><init>(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
-
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setOnFocusExitListener(Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnFocusExitListener;)V
 
-    .line 361
+    .line 355
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->isHiding:Z
 
-    .line 362
+    .line 356
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->clearAnimation()V
 
-    .line 364
+    .line 358
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->forceHideRunnable:Ljava/lang/Runnable;
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 365
+    .line 359
     const/4 v0, 0x0
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->setVisibility(I)V
 
-    .line 366
+    .line 360
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -2302,89 +2292,89 @@
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->startAnimation(Landroid/view/animation/Animation;)V
 
-    .line 367
+    .line 361
     const/4 v0, 0x1
 
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->notifyVisibility(Z)V
 
-    .line 369
-    if-eqz v3, :cond_1db
+    .line 363
+    if-eqz v3, :cond_1d3
 
-    .line 370
+    .line 364
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
-    new-instance v1, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$8;
+    new-instance v1, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7;
 
-    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$8;-><init>(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
+    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7;-><init>(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->post(Ljava/lang/Runnable;)Z
 
-    .line 411
-    :cond_1cd
-    :goto_1cd
+    .line 404
+    :cond_1c5
+    :goto_1c5
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->resetAutoHideTimer()V
 
-    .line 412
+    .line 405
     return-void
 
-    .line 309
-    :cond_1d1
+    .line 311
+    :cond_1c9
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     const/16 v2, 0x8
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setVisibility(I)V
 
-    goto :goto_17d
-
-    .line 312
-    :cond_1d9
-    const/4 p5, 0x0
-
     goto :goto_17f
 
-    .line 396
-    :cond_1db
-    if-eqz v1, :cond_1cd
+    .line 314
+    :cond_1d1
+    const/4 p5, 0x0
 
-    .line 397
+    goto :goto_181
+
+    .line 389
+    :cond_1d3
+    if-eqz v1, :cond_1c5
+
+    .line 390
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterList:Landroid/support/v7/widget/RecyclerView;
 
-    new-instance v1, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$9;
+    new-instance v1, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$8;
 
-    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$9;-><init>(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
+    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$8;-><init>(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->post(Ljava/lang/Runnable;)Z
 
-    goto :goto_1cd
+    goto :goto_1c5
 .end method
 
 .method public updateProgress(II)V
     .locals 4
 
     .prologue
-    .line 535
+    .line 528
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->seekBar:Landroid/widget/SeekBar;
 
     if-eqz v0, :cond_e
 
-    .line 536
+    .line 529
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->seekBar:Landroid/widget/SeekBar;
 
     invoke-virtual {v0, p2}, Landroid/widget/SeekBar;->setMax(I)V
 
-    .line 537
+    .line 530
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->seekBar:Landroid/widget/SeekBar;
 
     invoke-virtual {v0, p1}, Landroid/widget/SeekBar;->setProgress(I)V
 
-    .line 539
+    .line 532
     :cond_e
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->timeCurrent:Landroid/widget/TextView;
 
     if-eqz v0, :cond_1c
 
-    .line 540
+    .line 533
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->timeCurrent:Landroid/widget/TextView;
 
     int-to-long v2, p1
@@ -2395,13 +2385,13 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 542
+    .line 535
     :cond_1c
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->timeTotal:Landroid/widget/TextView;
 
     if-eqz v0, :cond_2a
 
-    .line 543
+    .line 536
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->timeTotal:Landroid/widget/TextView;
 
     int-to-long v2, p2
@@ -2412,7 +2402,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 545
+    .line 538
     :cond_2a
     return-void
 .end method

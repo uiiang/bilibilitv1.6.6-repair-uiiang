@@ -293,7 +293,6 @@ public class BottomShotMenu extends FrameLayout {
             });
             
             ShotBinder.clearPendingLoads();
-            ShotBinder.clearAllCache();
             ShotBinder.setDeferLoading(true);
             
             ShotBinder shotBinder = new ShotBinder(shot, totalDuration);
@@ -301,7 +300,10 @@ public class BottomShotMenu extends FrameLayout {
             // indexBadge 由 binder 管理（片头/片尾/广告badge），adapter 不再覆盖其可见性
             videoListSection.setIndexBadgeManagedByBinder(true);
             videoListSection.setData(allShots, shotBinder);
-            
+
+            // 提前下载当前播放位置所在雪碧图，抵消布局/滚动定位耗时，首屏更快出图
+            ShotBinder.preloadSheet(shot, allShots, currentPlayTimeSec);
+
             videoListSection.setupBottomMenuFocusBoundary();
             
             setupTimeBasedNavigationTags(shots, totalDuration);
@@ -311,16 +313,8 @@ public class BottomShotMenu extends FrameLayout {
         
         setupChapterList(showDetails ? chapters : null, currentPlayTimeSec);
         
-        videoListSection.setOnNavTagScrollListener(new VideoListSection.OnNavTagScrollListener() {
-            @Override
-            public void onNavTagScrollStart() {
-                ShotBinder.clearPendingLoads();
-            }
-            
-            @Override
-            public void onNavTagScrollEnd() {
-            }
-        });
+        // 导航标签滚动时不再清空加载请求：请求已按 holder tag 校验，
+        // 且雪碧图下载完成后需要回填当前可见卡片，清空会导致图片停留在占位图
         
         videoListSection.setOnVideoClickListener(new VideoListSection.OnVideoClickListener() {
             @Override
@@ -374,7 +368,6 @@ public class BottomShotMenu extends FrameLayout {
                         videoListSection.postDelayed(this, 50);
                         return;
                     }
-                    ShotBinder.clearPendingLoads();
                     videoListSection.scrollToCurrentItem();
                     
                     videoListSection.postDelayed(new Runnable() {
@@ -450,7 +443,6 @@ public class BottomShotMenu extends FrameLayout {
         }
         cancelAutoHideTimer();
         ShotBinder.setDeferLoading(true);
-        ShotBinder.clearPendingLoads();
         // 关键修复：立即隐藏并停止动画，不再依赖动画回调(onAnimationEnd)
         // onAnimationEnd可能丢失（低端设备/动画被中断），导致菜单残留VISIBLE覆盖屏幕底部，
         // 其内部SeekBar等组件消费触摸事件，拦截穿透到电子书WebView的鼠标点击，
@@ -467,7 +459,8 @@ public class BottomShotMenu extends FrameLayout {
         clearAnimation(); // 停止可能仍在播放的显示动画，避免GONE后动画残留
         setVisibility(View.GONE);
         isHiding = false;
-        ShotBinder.clearAllCache();
+        // 只丢弃等待中的加载请求，保留解码器与已裁剪截图缓存，下次弹出可直接显示
+        ShotBinder.clearPendingLoads();
         notifyVisibility(false);
         android.util.Log.i("BottomShotMenu", "[finishHide] 菜单已真正隐藏（GONE）");
     }
