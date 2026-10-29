@@ -3,7 +3,7 @@
     "id":  "",
     "publishTime":  0,
     "apkUrl":  "https://github.com/uiiang/bilibilitv1.6.6-repair-uiiang/raw/refs/heads/main/mybv.apk",
-    "newFeature":  "",
+    "newFeature":  "1，优化截图进度条加载速度\n2. 详情页增加充电视频标识\n3. 修复一些bug",
     "versionName":  "1.6.6.20261029",
     "versionCode":  20261029,
     "title":  "New",
