@@ -35,14 +35,14 @@
     .end annotation
 
     .prologue
-    .line 672
+    .line 674
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$13;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     iput p2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$13;->val$idx:I
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 673
+    .line 675
     const/4 v0, 0x0
 
     iput v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$13;->retry:I
@@ -56,7 +56,7 @@
     .locals 4
 
     .prologue
-    .line 677
+    .line 679
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$13;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     iget v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$13;->val$idx:I
@@ -66,18 +66,18 @@
 
     move-result-object v0
 
-    .line 678
+    .line 680
     if-eqz v0, :cond_e
 
-    .line 679
+    .line 681
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 683
+    .line 685
     :cond_d
     :goto_d
     return-void
 
-    .line 680
+    .line 682
     :cond_e
     iget v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$13;->retry:I
 
@@ -103,7 +103,7 @@
 
     if-eqz v0, :cond_d
 
-    .line 681
+    .line 683
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$13;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mRecyclerView:Landroid/support/v7/widget/RecyclerView;

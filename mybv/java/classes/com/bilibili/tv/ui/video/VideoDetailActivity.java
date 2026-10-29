@@ -5167,28 +5167,8 @@ public final class VideoDetailActivity extends BaseActivity
                 } else {
                     this.duration.setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
                 }
-                if (biliVideoDetail.badgeText != null && !biliVideoDetail.badgeText.isEmpty()) {
-                    this.badge.setText(biliVideoDetail.badgeText);
-                    float cornerRadius = 4 * this.a.getContext().getResources().getDisplayMetrics().density;
-                    try {
-                        int bgColor = android.graphics.Color.parseColor(biliVideoDetail.badgeBgColor);
-                        int alphaColor = (bgColor & 0x00FFFFFF) | (153 << 24);
-                        android.graphics.drawable.GradientDrawable drawable = new android.graphics.drawable.GradientDrawable();
-                        drawable.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
-                        drawable.setCornerRadius(cornerRadius);
-                        drawable.setColor(alphaColor);
-                        this.badge.setBackground(drawable);
-                    } catch (Exception e) {
-                        android.graphics.drawable.GradientDrawable drawable = new android.graphics.drawable.GradientDrawable();
-                        drawable.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
-                        drawable.setCornerRadius(cornerRadius);
-                        drawable.setColor(0x99FB7299);
-                        this.badge.setBackground(drawable);
-                    }
-                    this.badge.setVisibility(View.VISIBLE);
-                } else {
-                    this.badge.setVisibility(View.GONE);
-                }
+                com.bilibili.tv.ui.video.widget.VideoBadgeStyler.apply(this.badge,
+                        biliVideoDetail.badgeText, biliVideoDetail.badgeBgColor, true);
                 if (biliVideoDetail.mCover != null) {
                     nv a2 = nv.a();
                     MainApplication a3 = MainApplication.a();
@@ -5232,28 +5212,9 @@ public final class VideoDetailActivity extends BaseActivity
                 this.q.setVisibility(View.GONE);
                 this.danmakuInImage.setVisibility(View.GONE);
                 this.duration.setVisibility(View.GONE);
-                if (season.badgeInfo != null && season.badgeInfo.text != null && !season.badgeInfo.text.isEmpty()) {
-                    this.badge.setText(season.badgeInfo.text);
-                    float cornerRadius = 4 * this.a.getContext().getResources().getDisplayMetrics().density;
-                    try {
-                        int bgColor = android.graphics.Color.parseColor(season.badgeInfo.bgColor);
-                        int alphaColor = (bgColor & 0x00FFFFFF) | (153 << 24);
-                        android.graphics.drawable.GradientDrawable drawable = new android.graphics.drawable.GradientDrawable();
-                        drawable.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
-                        drawable.setCornerRadius(cornerRadius);
-                        drawable.setColor(alphaColor);
-                        this.badge.setBackground(drawable);
-                    } catch (Exception e) {
-                        android.graphics.drawable.GradientDrawable drawable = new android.graphics.drawable.GradientDrawable();
-                        drawable.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
-                        drawable.setCornerRadius(cornerRadius);
-                        drawable.setColor(0x99FB7299);
-                        this.badge.setBackground(drawable);
-                    }
-                    this.badge.setVisibility(View.VISIBLE);
-                } else {
-                    this.badge.setVisibility(View.GONE);
-                }
+                com.bilibili.tv.ui.video.widget.VideoBadgeStyler.apply(this.badge,
+                        season.badgeInfo != null ? season.badgeInfo.text : null,
+                        season.badgeInfo != null ? season.badgeInfo.bgColor : null, true);
                 String cover = season.getBestCover();
                 if (cover != null) {
                     nv a2 = nv.a();

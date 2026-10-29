@@ -286,6 +286,7 @@ classes\com\bilibili\tv\ui\video\widget\PageVideoDetailBinder.java
 classes\com\bilibili\tv\ui\video\widget\PgcSeasonBinder.java
 classes\com\bilibili\tv\ui\video\widget\ShotBinder.java
 classes\com\bilibili\tv\ui\video\widget\UnifiedVideoCardBinder.java
+classes\com\bilibili\tv\ui\video\widget\VideoBadgeStyler.java
 classes\com\bilibili\tv\ui\video\widget\VideoCardAdapter.java
 classes\com\bilibili\tv\ui\video\widget\VideoCardBinder.java
 classes\com\bilibili\tv\ui\video\widget\VideoListNavigator.java

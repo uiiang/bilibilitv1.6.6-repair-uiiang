@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.text.TextUtils;
 
+import com.bilibili.tv.ui.video.widget.VideoBadgeStyler;
 import com.bilibili.tv.widget.CircleImageView;
 import com.bilibili.tv.widget.DrawTextView;
 import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
@@ -749,17 +750,7 @@ public final class AttentionDynamicFragment extends ady {
                 if (video.cover != null) {
                     nv.a().a(abd.get_thumb_url_c(MainApplication.a(), video.cover), dVar.z());
                 }
-                if (video.badgeText != null && !video.badgeText.isEmpty()) {
-                    dVar.G().setText(video.badgeText);
-                    dVar.G().setVisibility(View.VISIBLE);
-                    if (video.badgeBgColor != null && !video.badgeBgColor.isEmpty()) {
-                        try {
-                            dVar.G().setBackgroundColor(android.graphics.Color.parseColor(video.badgeBgColor));
-                        } catch (Exception e) {}
-                    }
-                } else {
-                    dVar.G().setVisibility(View.GONE);
-                }
+                VideoBadgeStyler.apply(dVar.G(), video.badgeText, video.badgeBgColor, false);
                 View view = advVar.a;
                 bbi.a((Object) view, "viewHolder.itemView");
                 view.setTag(video);

@@ -35,7 +35,7 @@
     .end annotation
 
     .prologue
-    .line 65
+    .line 66
     iput-object p1, p0, Lbl/EpisodeBinder$2;->this$0:Lbl/EpisodeBinder;
 
     iput-object p2, p0, Lbl/EpisodeBinder$2;->val$holder:Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;
@@ -53,20 +53,10 @@
     .locals 4
 
     .prologue
-    .line 68
+    .line 69
     iget-object v0, p0, Lbl/EpisodeBinder$2;->val$holder:Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->f()I
-
-    .line 70
-    iget-object v0, p0, Lbl/EpisodeBinder$2;->this$0:Lbl/EpisodeBinder;
-
-    # getter for: Lbl/EpisodeBinder;->bottomEpisodeMenu:Lbl/BottomEpisodeMenu;
-    invoke-static {v0}, Lbl/EpisodeBinder;->access$200(Lbl/EpisodeBinder;)Lbl/BottomEpisodeMenu;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_16
 
     .line 71
     iget-object v0, p0, Lbl/EpisodeBinder$2;->this$0:Lbl/EpisodeBinder;
@@ -76,9 +66,19 @@
 
     move-result-object v0
 
+    if-eqz v0, :cond_16
+
+    .line 72
+    iget-object v0, p0, Lbl/EpisodeBinder$2;->this$0:Lbl/EpisodeBinder;
+
+    # getter for: Lbl/EpisodeBinder;->bottomEpisodeMenu:Lbl/BottomEpisodeMenu;
+    invoke-static {v0}, Lbl/EpisodeBinder;->access$200(Lbl/EpisodeBinder;)Lbl/BottomEpisodeMenu;
+
+    move-result-object v0
+
     invoke-virtual {v0}, Lbl/BottomEpisodeMenu;->resetAutoHideTimer()V
 
-    .line 74
+    .line 75
     :cond_16
     iget-object v0, p0, Lbl/EpisodeBinder$2;->this$0:Lbl/EpisodeBinder;
 
@@ -89,7 +89,7 @@
 
     if-eqz v0, :cond_2d
 
-    .line 75
+    .line 76
     iget-object v0, p0, Lbl/EpisodeBinder$2;->this$0:Lbl/EpisodeBinder;
 
     # getter for: Lbl/EpisodeBinder;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -105,7 +105,7 @@
 
     invoke-virtual {v0, v2, v3, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->onVideoCardClicked(JLcom/bilibili/tv/player/basic/context/ResolveResourceParams;)V
 
-    .line 77
+    .line 78
     :cond_2d
     return-void
 .end method

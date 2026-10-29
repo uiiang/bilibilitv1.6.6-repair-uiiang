@@ -10,6 +10,7 @@ import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
 import com.bilibili.tv.ui.video.widget.CompactVideoHolder;
+import com.bilibili.tv.ui.video.widget.VideoBadgeStyler;
 import com.bilibili.tv.ui.video.widget.VideoCardBinder;
 import com.bilibili.tv.ui.video.widget.VideoListSection;
 import com.bilibili.tv.util.DateHelper;
@@ -164,29 +165,7 @@ public class EpisodeBinder implements VideoCardBinder {
     }
     
     private void bindBadge(TextView badgeView, String badgeText, String badgeBgColor) {
-        if (badgeText != null && !badgeText.isEmpty()) {
-            badgeView.setText(badgeText);
-            Context context = MainApplication.a().getApplicationContext();
-            float cornerRadius = 4 * context.getResources().getDisplayMetrics().density;
-            try {
-                int bgColor = android.graphics.Color.parseColor(badgeBgColor);
-                int alphaColor = (bgColor & 0x00FFFFFF) | (153 << 24);
-                android.graphics.drawable.GradientDrawable drawable = new android.graphics.drawable.GradientDrawable();
-                drawable.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
-                drawable.setCornerRadius(cornerRadius);
-                drawable.setColor(alphaColor);
-                badgeView.setBackground(drawable);
-            } catch (Exception e) {
-                android.graphics.drawable.GradientDrawable drawable = new android.graphics.drawable.GradientDrawable();
-                drawable.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
-                drawable.setCornerRadius(cornerRadius);
-                drawable.setColor(0x99FB7299);
-                badgeView.setBackground(drawable);
-            }
-            badgeView.setVisibility(View.VISIBLE);
-        } else {
-            badgeView.setVisibility(View.GONE);
-        }
+        VideoBadgeStyler.apply(badgeView, badgeText, badgeBgColor, true);
     }
     
     private void updateNavTagSelection(int videoPosition) {

@@ -22,158 +22,59 @@
 .end method
 
 .method private bindBadge(Landroid/widget/TextView;Lcom/bilibili/tv/api/video/PgcInfo$Season;)V
-    .locals 5
+    .locals 3
 
     .prologue
-    const/4 v4, 0x0
+    const/4 v1, 0x0
 
     .line 103
     iget-object v0, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->badgeInfo:Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
 
-    if-eqz v0, :cond_6c
+    if-eqz v0, :cond_16
 
     iget-object v0, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->badgeInfo:Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
 
     iget-object v0, v0, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;->text:Ljava/lang/String;
-
-    if-eqz v0, :cond_6c
-
-    iget-object v0, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->badgeInfo:Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
-
-    iget-object v0, v0, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;->text:Ljava/lang/String;
-
-    invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
-
-    move-result v0
-
-    if-nez v0, :cond_6c
 
     .line 104
-    iget-object v0, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->badgeInfo:Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
+    :goto_9
+    iget-object v2, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->badgeInfo:Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
 
-    iget-object v0, v0, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;->text:Ljava/lang/String;
+    if-eqz v2, :cond_11
 
-    invoke-virtual {p1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
-
-    .line 105
-    invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/MainApplication;->getApplicationContext()Landroid/content/Context;
-
-    move-result-object v0
-
-    .line 106
-    const/high16 v1, 0x40800000    # 4.0f
-
-    invoke-virtual {v0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Landroid/content/res/Resources;->getDisplayMetrics()Landroid/util/DisplayMetrics;
-
-    move-result-object v0
-
-    iget v0, v0, Landroid/util/DisplayMetrics;->density:F
-
-    mul-float/2addr v0, v1
-
-    .line 108
-    :try_start_31
     iget-object v1, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->badgeInfo:Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
 
     iget-object v1, v1, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;->bgColor:Ljava/lang/String;
 
-    invoke-static {v1}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
+    .line 105
+    :cond_11
+    const/4 v2, 0x1
 
-    move-result v1
+    invoke-static {p1, v0, v1, v2}, Lcom/bilibili/tv/ui/video/widget/VideoBadgeStyler;->apply(Landroid/widget/TextView;Ljava/lang/String;Ljava/lang/String;Z)V
 
-    .line 109
-    const v2, 0xffffff
-
-    and-int/2addr v1, v2
-
-    const/high16 v2, -0x67000000
-
-    or-int/2addr v1, v2
-
-    .line 110
-    new-instance v2, Landroid/graphics/drawable/GradientDrawable;
-
-    invoke-direct {v2}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
-
-    .line 111
-    const/4 v3, 0x0
-
-    invoke-virtual {v2, v3}, Landroid/graphics/drawable/GradientDrawable;->setShape(I)V
-
-    .line 112
-    invoke-virtual {v2, v0}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadius(F)V
-
-    .line 113
-    invoke-virtual {v2, v1}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
-
-    .line 114
-    invoke-virtual {p1, v2}, Landroid/widget/TextView;->setBackground(Landroid/graphics/drawable/Drawable;)V
-    :try_end_52
-    .catch Ljava/lang/Exception; {:try_start_31 .. :try_end_52} :catch_56
-
-    .line 122
-    :goto_52
-    invoke-virtual {p1, v4}, Landroid/widget/TextView;->setVisibility(I)V
-
-    .line 126
-    :goto_55
+    .line 106
     return-void
 
-    .line 115
-    :catch_56
-    move-exception v1
+    :cond_16
+    move-object v0, v1
 
-    .line 116
-    new-instance v1, Landroid/graphics/drawable/GradientDrawable;
-
-    invoke-direct {v1}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
-
-    .line 117
-    invoke-virtual {v1, v4}, Landroid/graphics/drawable/GradientDrawable;->setShape(I)V
-
-    .line 118
-    invoke-virtual {v1, v0}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadius(F)V
-
-    .line 119
-    const v0, -0x66048d67    # -2.5999077E-23f
-
-    invoke-virtual {v1, v0}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
-
-    .line 120
-    invoke-virtual {p1, v1}, Landroid/widget/TextView;->setBackground(Landroid/graphics/drawable/Drawable;)V
-
-    goto :goto_52
-
-    .line 124
-    :cond_6c
-    const/16 v0, 0x8
-
-    invoke-virtual {p1, v0}, Landroid/widget/TextView;->setVisibility(I)V
-
-    goto :goto_55
+    .line 103
+    goto :goto_9
 .end method
 
 .method private bindCover(Lcom/bilibili/tv/widget/ScalableImageView;Ljava/lang/String;I)V
     .locals 2
 
     .prologue
-    .line 129
+    .line 109
     if-eqz p2, :cond_15
 
-    .line 130
+    .line 110
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
 
     move-result-object v0
 
-    .line 131
+    .line 111
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v1
@@ -182,15 +83,15 @@
 
     move-result-object v1
 
-    .line 132
+    .line 112
     invoke-static {v1, p2}, Lbl/abd;->get_thumb_url_c(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 133
+    .line 113
     invoke-virtual {v0, v1, p1}, Lbl/nv;->a(Ljava/lang/String;Landroid/widget/ImageView;)V
 
-    .line 135
+    .line 115
     :cond_15
     return-void
 .end method
@@ -713,22 +614,22 @@
     .locals 2
 
     .prologue
-    .line 148
+    .line 128
     const/4 v0, 0x0
 
-    .line 149
+    .line 129
     instance-of v1, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
     if-eqz v1, :cond_b
 
-    .line 150
+    .line 130
     check-cast p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
     invoke-virtual {p1}, Lcom/bilibili/tv/api/video/PgcInfo$Season;->getBestCover()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 152
+    .line 132
     :cond_b
     return-object v0
 .end method
@@ -737,22 +638,22 @@
     .locals 3
 
     .prologue
-    .line 139
+    .line 119
     const-wide/16 v0, -0x1
 
-    .line 140
+    .line 120
     instance-of v2, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
     if-eqz v2, :cond_b
 
-    .line 141
+    .line 121
     check-cast p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
     iget v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;->seasonId:I
 
     int-to-long v0, v0
 
-    .line 143
+    .line 123
     :cond_b
     return-wide v0
 .end method
@@ -761,7 +662,7 @@
     .locals 1
 
     .prologue
-    .line 176
+    .line 156
     const/4 v0, 0x0
 
     return v0
@@ -773,13 +674,13 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 167
-    .line 168
+    .line 147
+    .line 148
     instance-of v1, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
     if-eqz v1, :cond_c
 
-    .line 169
+    .line 149
     check-cast p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
     iget v1, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;->seasonId:I
@@ -788,7 +689,7 @@
 
     const/4 v0, 0x1
 
-    .line 171
+    .line 151
     :cond_c
     return v0
 .end method
@@ -797,7 +698,7 @@
     .locals 1
 
     .prologue
-    .line 157
+    .line 137
     const/4 v0, 0x0
 
     return v0
@@ -807,7 +708,7 @@
     .locals 1
 
     .prologue
-    .line 162
+    .line 142
     const/4 v0, 0x0
 
     return v0

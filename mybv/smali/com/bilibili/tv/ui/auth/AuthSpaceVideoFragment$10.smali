@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 420
+    .line 422
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$10;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,12 +40,12 @@
     .locals 1
 
     .prologue
-    .line 423
+    .line 425
     check-cast p1, Lcom/bilibili/tv/widget/DrawTextView;
 
     invoke-virtual {p1, p2}, Lcom/bilibili/tv/widget/DrawTextView;->setUpEnabled(Z)V
 
-    .line 424
+    .line 426
     if-eqz p2, :cond_d
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$10;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
@@ -53,11 +53,11 @@
     # invokes: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->showLocateTip()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$500(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
 
-    .line 425
+    .line 427
     :goto_c
     return-void
 
-    .line 424
+    .line 426
     :cond_d
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$10;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 

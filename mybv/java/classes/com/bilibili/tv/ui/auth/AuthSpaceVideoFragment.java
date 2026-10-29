@@ -15,6 +15,8 @@ import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bilibili.tv.ui.video.widget.VideoBadgeStyler;
+
 import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import bl.adl;
 import bl.ady;
@@ -1463,17 +1465,7 @@ public final class AuthSpaceVideoFragment extends ady {
         if (v.cover != null)
           nv.a().a(abd.get_thumb_url_c(com.bilibili.tv.MainApplication.a(), v.cover), vh.z());
         
-        if (v.badgeText != null && !v.badgeText.isEmpty()) {
-          vh.F().setText(v.badgeText);
-          vh.F().setVisibility(View.VISIBLE);
-          if (v.badgeBgColor != null && !v.badgeBgColor.isEmpty()) {
-            try {
-              vh.F().setBackgroundColor(android.graphics.Color.parseColor(v.badgeBgColor));
-            } catch (Exception e) {}
-          }
-        } else {
-          vh.F().setVisibility(View.GONE);
-        }
+        VideoBadgeStyler.apply(vh.F(), v.badgeText, v.badgeBgColor, false);
         
         vh.a.setTag(v);
         vh.a.setOnClickListener(this);

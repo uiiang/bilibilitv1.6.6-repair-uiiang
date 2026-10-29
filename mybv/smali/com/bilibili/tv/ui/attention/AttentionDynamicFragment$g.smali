@@ -25,15 +25,15 @@
     .locals 0
 
     .prologue
-    .line 349
+    .line 350
     iput-object p1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$g;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$m;-><init>()V
 
-    .line 350
+    .line 351
     iput-object p2, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$g;->b:Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
-    .line 351
+    .line 352
     return-void
 .end method
 
@@ -43,10 +43,10 @@
     .locals 2
 
     .prologue
-    .line 355
+    .line 356
     invoke-super {p0, p1, p2}, Landroid/support/v7/widget/RecyclerView$m;->a(Landroid/support/v7/widget/RecyclerView;I)V
 
-    .line 356
+    .line 357
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$g;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->h:Z
@@ -74,12 +74,12 @@
 
     if-nez v0, :cond_1c
 
-    .line 367
+    .line 368
     :cond_1b
     :goto_1b
     return-void
 
-    .line 359
+    .line 360
     :cond_1c
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$g;->b:Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
@@ -87,7 +87,7 @@
 
     move-result v0
 
-    .line 360
+    .line 361
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$g;->b:Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;->x()I
@@ -122,7 +122,7 @@
 
     if-le v0, v1, :cond_1b
 
-    .line 363
+    .line 364
     const-string v0, "uper"
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$g;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
@@ -147,13 +147,13 @@
 
     if-eqz v0, :cond_5f
 
-    .line 364
+    .line 365
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$g;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     # operator++ for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperPage:I
     invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$708(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;)I
 
-    .line 366
+    .line 367
     :cond_5f
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$g;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
