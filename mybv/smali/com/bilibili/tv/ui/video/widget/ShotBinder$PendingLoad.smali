@@ -53,24 +53,24 @@
     .end annotation
 
     .prologue
-    .line 540
+    .line 833
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 541
+    .line 834
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$PendingLoad;->holderRef:Ljava/lang/ref/WeakReference;
 
-    .line 542
+    .line 835
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$PendingLoad;->item:Lcom/bilibili/tv/api/video/VideoShotItem;
 
-    .line 543
+    .line 836
     iput p3, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$PendingLoad;->imageIndex:I
 
-    .line 544
+    .line 837
     iput-object p4, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$PendingLoad;->cacheKey:Ljava/lang/String;
 
-    .line 545
+    .line 838
     iput-wide p5, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$PendingLoad;->version:J
 
-    .line 546
+    .line 839
     return-void
 .end method

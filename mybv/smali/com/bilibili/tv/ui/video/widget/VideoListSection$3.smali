@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 281
+    .line 286
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$3;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$3;->val$finalTagIndex:I
@@ -49,7 +49,7 @@
     .locals 3
 
     .prologue
-    .line 284
+    .line 289
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$3;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagAdapter:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
@@ -63,10 +63,10 @@
 
     move-result-object v0
 
-    .line 285
+    .line 290
     if-eqz v0, :cond_17
 
-    .line 286
+    .line 291
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$3;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     const/4 v2, 0x1
@@ -74,10 +74,10 @@
     # setter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusRedirecting:Z
     invoke-static {v1, v2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$102(Lcom/bilibili/tv/ui/video/widget/VideoListSection;Z)Z
 
-    .line 287
+    .line 292
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 289
+    .line 294
     :cond_17
     return-void
 .end method

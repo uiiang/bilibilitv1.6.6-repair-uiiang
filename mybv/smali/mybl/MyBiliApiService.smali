@@ -519,13 +519,33 @@
     .end annotation
 .end method
 
-.method public abstract getFeedVideos(Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
+.method public abstract getFeedVideos(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;)Lbl/vp;
     .param p1    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Query;
             value = "offset"
         .end annotation
     .end param
     .param p2    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "features"
+        .end annotation
+    .end param
+    .param p3    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "platform"
+        .end annotation
+    .end param
+    .param p4    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "timezone_offset"
+        .end annotation
+    .end param
+    .param p5    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "web_location"
+        .end annotation
+    .end param
+    .param p6    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Header;
             value = "Cookie"
         .end annotation
@@ -533,6 +553,10 @@
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            "I",
             "Ljava/lang/String;",
             "Ljava/lang/String;",
             ")",
@@ -1260,7 +1284,7 @@
     .end annotation
 .end method
 
-.method public abstract getSpaceDynamicFeed(JLjava/lang/String;ILjava/lang/String;Ljava/lang/String;)Lbl/vp;
+.method public abstract getSpaceDynamicFeed(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;)Lbl/vp;
     .param p1    # J
         .annotation runtime Lretrofit2/http/Query;
             value = "host_mid"
@@ -1271,17 +1295,22 @@
             value = "offset"
         .end annotation
     .end param
-    .param p4    # I
+    .param p4    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "features"
+        .end annotation
+    .end param
+    .param p5    # I
         .annotation runtime Lretrofit2/http/Query;
             value = "timezone_offset"
         .end annotation
     .end param
-    .param p5    # Ljava/lang/String;
+    .param p6    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Query;
             value = "platform"
         .end annotation
     .end param
-    .param p6    # Ljava/lang/String;
+    .param p7    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Header;
             value = "Cookie"
         .end annotation
@@ -1289,6 +1318,7 @@
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(J",
+            "Ljava/lang/String;",
             "Ljava/lang/String;",
             "I",
             "Ljava/lang/String;",

@@ -10,6 +10,7 @@
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
         Lcom/bilibili/tv/ui/video/widget/ShotBinder$PendingLoad;,
+        Lcom/bilibili/tv/ui/video/widget/ShotBinder$ScheduledSheet;,
         Lcom/bilibili/tv/ui/video/widget/ShotBinder$SheetLoadTask;
     }
 .end annotation
@@ -21,6 +22,8 @@
 .field private static final MAX_CACHED_DECODERS:I = 0x8
 
 .field private static final MAX_POOL_SIZE:I = 0x8
+
+.field private static final SHEET_DOWNLOAD_DEBOUNCE_MS:J = 0x96L
 
 .field private static final TAG:Ljava/lang/String; = "ShotBinder"
 
@@ -34,6 +37,8 @@
         }
     .end annotation
 .end field
+
+.field private static volatile clearingSnapshotCache:Z
 
 .field private static final decoderCache:Ljava/util/LinkedHashMap;
     .annotation system Ldalvik/annotation/Signature;
@@ -57,7 +62,7 @@
 
 .field private static final loadVersion:Ljava/util/concurrent/atomic/AtomicLong;
 
-.field private static onDeferClearedCallback:Ljava/lang/Runnable;
+.field private static final mainHandler:Landroid/os/Handler;
 
 .field private static final pendingLoads:Ljava/util/Map;
     .annotation system Ldalvik/annotation/Signature;
@@ -69,6 +74,18 @@
             "<",
             "Lcom/bilibili/tv/ui/video/widget/ShotBinder$PendingLoad;",
             ">;>;"
+        }
+    .end annotation
+.end field
+
+.field private static final scheduledSheets:Ljava/util/Map;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/util/Map",
+            "<",
+            "Ljava/lang/String;",
+            "Lcom/bilibili/tv/ui/video/widget/ShotBinder$ScheduledSheet;",
+            ">;"
         }
     .end annotation
 .end field
@@ -109,27 +126,27 @@
 
 # direct methods
 .method static constructor <clinit>()V
-    .locals 12
+    .locals 10
 
     .prologue
-    const-wide/16 v10, 0x0
-
-    const/4 v8, 0x0
+    const-wide/16 v8, 0x0
 
     const/16 v3, 0x8
 
     const/4 v2, 0x1
 
-    .line 30
-    sput-wide v10, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->showStartTime:J
+    .line 33
+    sput-wide v8, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->showStartTime:J
 
-    .line 31
+    .line 34
     sput-boolean v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->deferLoading:Z
 
-    .line 32
-    sput-object v8, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->onDeferClearedCallback:Ljava/lang/Runnable;
+    .line 42
+    const/4 v0, 0x0
 
-    .line 39
+    sput-boolean v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->clearingSnapshotCache:Z
+
+    .line 44
     new-instance v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$1;
 
     const/high16 v1, 0x3200000
@@ -138,14 +155,14 @@
 
     sput-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->snapshotCache:Landroid/util/LruCache;
 
-    .line 49
+    .line 62
     new-instance v0, Ljava/lang/Object;
 
     invoke-direct {v0}, Ljava/lang/Object;-><init>()V
 
     sput-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decoderLock:Ljava/lang/Object;
 
-    .line 50
+    .line 63
     new-instance v0, Ljava/util/LinkedHashMap;
 
     const/high16 v1, 0x3f400000    # 0.75f
@@ -154,28 +171,46 @@
 
     sput-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decoderCache:Ljava/util/LinkedHashMap;
 
-    .line 54
+    .line 67
     new-instance v0, Ljava/util/HashMap;
 
     invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
 
     sput-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
 
-    .line 56
+    .line 69
     new-instance v0, Ljava/util/HashSet;
 
     invoke-direct {v0}, Ljava/util/HashSet;-><init>()V
 
     sput-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->activeSheets:Ljava/util/Set;
 
-    .line 60
+    .line 71
+    new-instance v0, Ljava/util/HashMap;
+
+    invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
+
+    sput-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->scheduledSheets:Ljava/util/Map;
+
+    .line 73
+    new-instance v0, Landroid/os/Handler;
+
+    invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
+
+    move-result-object v1
+
+    invoke-direct {v0, v1}, Landroid/os/Handler;-><init>(Landroid/os/Looper;)V
+
+    sput-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->mainHandler:Landroid/os/Handler;
+
+    .line 78
     new-instance v0, Ljava/util/concurrent/LinkedBlockingQueue;
 
     invoke-direct {v0}, Ljava/util/concurrent/LinkedBlockingQueue;-><init>()V
 
     sput-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->workQueue:Ljava/util/concurrent/LinkedBlockingQueue;
 
-    .line 61
+    .line 79
     new-instance v1, Ljava/util/concurrent/ThreadPoolExecutor;
 
     const/4 v2, 0x4
@@ -190,15 +225,17 @@
 
     sput-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->imageLoadExecutor:Ljava/util/concurrent/ThreadPoolExecutor;
 
-    .line 64
+    .line 82
     new-instance v0, Ljava/util/concurrent/atomic/AtomicLong;
 
-    invoke-direct {v0, v10, v11}, Ljava/util/concurrent/atomic/AtomicLong;-><init>(J)V
+    invoke-direct {v0, v8, v9}, Ljava/util/concurrent/atomic/AtomicLong;-><init>(J)V
 
     sput-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->loadVersion:Ljava/util/concurrent/atomic/AtomicLong;
 
-    .line 66
-    sput-object v8, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->lastShotKey:Ljava/lang/String;
+    .line 84
+    const/4 v0, 0x0
+
+    sput-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->lastShotKey:Ljava/lang/String;
 
     return-void
 .end method
@@ -207,67 +244,89 @@
     .locals 0
 
     .prologue
-    .line 68
+    .line 86
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 69
+    .line 87
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
-    .line 70
+    .line 88
     iput p2, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->totalDuration:I
 
-    .line 71
+    .line 89
     invoke-static {p1}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->ensureShot(Lcom/bilibili/tv/api/video/VideoShot;)V
 
-    .line 72
+    .line 90
     return-void
 .end method
 
-.method static synthetic access$000()Ljava/util/concurrent/atomic/AtomicLong;
+.method static synthetic access$000()Z
     .locals 1
 
     .prologue
-    .line 28
+    .line 31
+    sget-boolean v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->clearingSnapshotCache:Z
+
+    return v0
+.end method
+
+.method static synthetic access$100()Landroid/util/LruCache;
+    .locals 1
+
+    .prologue
+    .line 31
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->snapshotCache:Landroid/util/LruCache;
+
+    return-object v0
+.end method
+
+.method static synthetic access$1000()Ljava/util/concurrent/atomic/AtomicLong;
+    .locals 1
+
+    .prologue
+    .line 31
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->loadVersion:Ljava/util/concurrent/atomic/AtomicLong;
 
     return-object v0
 .end method
 
-.method static synthetic access$100()Ljava/util/Map;
-    .locals 1
-
-    .prologue
-    .line 28
-    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
-
-    return-object v0
-.end method
-
-.method static synthetic access$200()Ljava/util/Set;
-    .locals 1
-
-    .prologue
-    .line 28
-    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->activeSheets:Ljava/util/Set;
-
-    return-object v0
-.end method
-
-.method static synthetic access$300(Ljava/lang/String;Landroid/graphics/BitmapRegionDecoder;)V
+.method static synthetic access$1100(Ljava/lang/String;)V
     .locals 0
 
     .prologue
-    .line 28
+    .line 31
+    invoke-static {p0}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->cleanupSheetState(Ljava/lang/String;)V
+
+    return-void
+.end method
+
+.method static synthetic access$1200(Lcom/bilibili/tv/ui/video/widget/ShotBinder$PendingLoad;)Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;
+    .locals 1
+
+    .prologue
+    .line 31
+    invoke-static {p0}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->getValidHolder(Lcom/bilibili/tv/ui/video/widget/ShotBinder$PendingLoad;)Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method static synthetic access$1300(Ljava/lang/String;Landroid/graphics/BitmapRegionDecoder;)V
+    .locals 0
+
+    .prologue
+    .line 31
     invoke-static {p0, p1}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->putDecoder(Ljava/lang/String;Landroid/graphics/BitmapRegionDecoder;)V
 
     return-void
 .end method
 
-.method static synthetic access$400(Landroid/graphics/BitmapRegionDecoder;III)Landroid/graphics/Bitmap;
+.method static synthetic access$1400(Landroid/graphics/BitmapRegionDecoder;III)Landroid/graphics/Bitmap;
     .locals 1
 
     .prologue
-    .line 28
+    .line 31
     invoke-static {p0, p1, p2, p3}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decodeCellLocked(Landroid/graphics/BitmapRegionDecoder;III)Landroid/graphics/Bitmap;
 
     move-result-object v0
@@ -275,32 +334,265 @@
     return-object v0
 .end method
 
-.method static synthetic access$500()Landroid/util/LruCache;
+.method static synthetic access$200()Ljava/util/Map;
     .locals 1
 
     .prologue
-    .line 28
-    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->snapshotCache:Landroid/util/LruCache;
+    .line 31
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
 
     return-object v0
 .end method
 
-.method public static clearAllCache()V
-    .locals 4
+.method static synthetic access$300()Ljava/util/Map;
+    .locals 1
 
     .prologue
-    .line 116
-    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->snapshotCache:Landroid/util/LruCache;
+    .line 31
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->scheduledSheets:Ljava/util/Map;
 
-    invoke-virtual {v0}, Landroid/util/LruCache;->evictAll()V
+    return-object v0
+.end method
 
-    .line 117
-    sget-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decoderLock:Ljava/lang/Object;
+.method static synthetic access$400()Ljava/util/Set;
+    .locals 1
+
+    .prologue
+    .line 31
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->activeSheets:Ljava/util/Set;
+
+    return-object v0
+.end method
+
+.method static synthetic access$500(Ljava/lang/String;)Ljava/lang/String;
+    .locals 1
+
+    .prologue
+    .line 31
+    invoke-static {p0}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->shortUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method static synthetic access$600()I
+    .locals 1
+
+    .prologue
+    .line 31
+    invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->totalPendingRequests()I
+
+    move-result v0
+
+    return v0
+.end method
+
+.method static synthetic access$700()Ljava/util/concurrent/ThreadPoolExecutor;
+    .locals 1
+
+    .prologue
+    .line 31
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->imageLoadExecutor:Ljava/util/concurrent/ThreadPoolExecutor;
+
+    return-object v0
+.end method
+
+.method static synthetic access$800()Ljava/util/concurrent/LinkedBlockingQueue;
+    .locals 1
+
+    .prologue
+    .line 31
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->workQueue:Ljava/util/concurrent/LinkedBlockingQueue;
+
+    return-object v0
+.end method
+
+.method static synthetic access$900()I
+    .locals 1
+
+    .prologue
+    .line 31
+    invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->activeSheetCount()I
+
+    move-result v0
+
+    return v0
+.end method
+
+.method private static activeSheetCount()I
+    .locals 2
+
+    .prologue
+    .line 156
+    sget-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
 
     monitor-enter v1
 
-    .line 118
-    :try_start_8
+    .line 157
+    :try_start_3
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->activeSheets:Ljava/util/Set;
+
+    invoke-interface {v0}, Ljava/util/Set;->size()I
+
+    move-result v0
+
+    monitor-exit v1
+
+    return v0
+
+    .line 158
+    :catchall_b
+    move-exception v0
+
+    monitor-exit v1
+    :try_end_d
+    .catchall {:try_start_3 .. :try_end_d} :catchall_b
+
+    throw v0
+.end method
+
+.method private static cancelScheduledSheet(Ljava/lang/String;)V
+    .locals 3
+
+    .prologue
+    .line 163
+    sget-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
+
+    monitor-enter v1
+
+    .line 164
+    :try_start_3
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->scheduledSheets:Ljava/util/Map;
+
+    invoke-interface {v0, p0}, Ljava/util/Map;->remove(Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$ScheduledSheet;
+
+    .line 165
+    monitor-exit v1
+    :try_end_c
+    .catchall {:try_start_3 .. :try_end_c} :catchall_30
+
+    .line 166
+    if-eqz v0, :cond_2f
+
+    .line 167
+    sget-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->mainHandler:Landroid/os/Handler;
+
+    invoke-virtual {v1, v0}, Landroid/os/Handler;->removeCallbacks(Ljava/lang/Runnable;)V
+
+    .line 168
+    const-string v0, "ShotPerf"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "[schedule-cancel] sheetFile="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-static {p0}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->shortUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 170
+    :cond_2f
+    return-void
+
+    .line 165
+    :catchall_30
+    move-exception v0
+
+    :try_start_31
+    monitor-exit v1
+    :try_end_32
+    .catchall {:try_start_31 .. :try_end_32} :catchall_30
+
+    throw v0
+.end method
+
+.method private static cleanupSheetState(Ljava/lang/String;)V
+    .locals 2
+
+    .prologue
+    .line 225
+    sget-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
+
+    monitor-enter v1
+
+    .line 226
+    :try_start_3
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
+
+    invoke-interface {v0, p0}, Ljava/util/Map;->remove(Ljava/lang/Object;)Ljava/lang/Object;
+
+    .line 227
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->activeSheets:Ljava/util/Set;
+
+    invoke-interface {v0, p0}, Ljava/util/Set;->remove(Ljava/lang/Object;)Z
+
+    .line 228
+    monitor-exit v1
+
+    .line 229
+    return-void
+
+    .line 228
+    :catchall_f
+    move-exception v0
+
+    monitor-exit v1
+    :try_end_11
+    .catchall {:try_start_3 .. :try_end_11} :catchall_f
+
+    throw v0
+.end method
+
+.method public static clearAllCache()V
+    .locals 5
+
+    .prologue
+    const/4 v1, 0x0
+
+    .line 235
+    const/4 v0, 0x1
+
+    sput-boolean v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->clearingSnapshotCache:Z
+
+    .line 237
+    :try_start_4
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->snapshotCache:Landroid/util/LruCache;
+
+    invoke-virtual {v0}, Landroid/util/LruCache;->evictAll()V
+    :try_end_9
+    .catchall {:try_start_4 .. :try_end_9} :catchall_3c
+
+    .line 239
+    sput-boolean v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->clearingSnapshotCache:Z
+
+    .line 241
+    sget-object v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decoderLock:Ljava/lang/Object;
+
+    monitor-enter v2
+
+    .line 242
+    :try_start_e
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decoderCache:Ljava/util/LinkedHashMap;
 
     invoke-virtual {v0}, Ljava/util/LinkedHashMap;->entrySet()Ljava/util/Set;
@@ -309,18 +601,18 @@
 
     invoke-interface {v0}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
 
-    move-result-object v2
+    move-result-object v3
 
-    :cond_12
-    :goto_12
-    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
+    :cond_18
+    :goto_18
+    invoke-interface {v3}, Ljava/util/Iterator;->hasNext()Z
 
     move-result v0
 
-    if-eqz v0, :cond_36
+    if-eqz v0, :cond_40
 
-    .line 119
-    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    .line 243
+    invoke-interface {v3}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
     move-result-object v0
 
@@ -332,66 +624,130 @@
 
     check-cast v0, Landroid/graphics/BitmapRegionDecoder;
 
-    .line 120
-    invoke-interface {v2}, Ljava/util/Iterator;->remove()V
+    .line 244
+    invoke-interface {v3}, Ljava/util/Iterator;->remove()V
 
-    .line 121
-    if-eqz v0, :cond_12
+    .line 245
+    if-eqz v0, :cond_18
 
     invoke-virtual {v0}, Landroid/graphics/BitmapRegionDecoder;->isRecycled()Z
 
-    move-result v3
+    move-result v4
 
-    if-nez v3, :cond_12
+    if-nez v4, :cond_18
 
-    .line 122
+    .line 246
     invoke-virtual {v0}, Landroid/graphics/BitmapRegionDecoder;->recycle()V
 
-    goto :goto_12
+    goto :goto_18
 
-    .line 125
-    :catchall_33
+    .line 249
+    :catchall_39
     move-exception v0
 
-    monitor-exit v1
-    :try_end_35
-    .catchall {:try_start_8 .. :try_end_35} :catchall_33
+    monitor-exit v2
+    :try_end_3b
+    .catchall {:try_start_e .. :try_end_3b} :catchall_39
 
     throw v0
 
-    :cond_36
-    :try_start_36
-    monitor-exit v1
-    :try_end_37
-    .catchall {:try_start_36 .. :try_end_37} :catchall_33
+    .line 239
+    :catchall_3c
+    move-exception v0
 
-    .line 126
-    sget-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
+    sput-boolean v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->clearingSnapshotCache:Z
 
-    monitor-enter v1
+    .line 240
+    throw v0
 
-    .line 127
-    :try_start_3a
+    .line 249
+    :cond_40
+    :try_start_40
+    monitor-exit v2
+    :try_end_41
+    .catchall {:try_start_40 .. :try_end_41} :catchall_39
+
+    .line 251
+    sget-object v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
+
+    monitor-enter v2
+
+    .line 252
+    :try_start_44
+    new-instance v3, Ljava/util/ArrayList;
+
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->scheduledSheets:Ljava/util/Map;
+
+    invoke-interface {v0}, Ljava/util/Map;->values()Ljava/util/Collection;
+
+    move-result-object v0
+
+    invoke-direct {v3, v0}, Ljava/util/ArrayList;-><init>(Ljava/util/Collection;)V
+
+    .line 253
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->scheduledSheets:Ljava/util/Map;
+
+    invoke-interface {v0}, Ljava/util/Map;->clear()V
+
+    .line 254
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
 
     invoke-interface {v0}, Ljava/util/Map;->clear()V
 
-    .line 128
+    .line 255
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->activeSheets:Ljava/util/Set;
 
     invoke-interface {v0}, Ljava/util/Set;->clear()V
 
-    .line 129
-    monitor-exit v1
-    :try_end_45
-    .catchall {:try_start_3a .. :try_end_45} :catchall_69
+    .line 256
+    monitor-exit v2
+    :try_end_5f
+    .catchall {:try_start_44 .. :try_end_5f} :catchall_74
 
-    .line 130
+    .line 257
+    :goto_5f
+    invoke-interface {v3}, Ljava/util/List;->size()I
+
+    move-result v0
+
+    if-ge v1, v0, :cond_77
+
+    .line 258
+    sget-object v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->mainHandler:Landroid/os/Handler;
+
+    invoke-interface {v3, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/lang/Runnable;
+
+    invoke-virtual {v2, v0}, Landroid/os/Handler;->removeCallbacks(Ljava/lang/Runnable;)V
+
+    .line 257
+    add-int/lit8 v0, v1, 0x1
+
+    move v1, v0
+
+    goto :goto_5f
+
+    .line 256
+    :catchall_74
+    move-exception v0
+
+    :try_start_75
+    monitor-exit v2
+    :try_end_76
+    .catchall {:try_start_75 .. :try_end_76} :catchall_74
+
+    throw v0
+
+    .line 260
+    :cond_77
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->loadVersion:Ljava/util/concurrent/atomic/AtomicLong;
 
     invoke-virtual {v0}, Ljava/util/concurrent/atomic/AtomicLong;->incrementAndGet()J
 
-    .line 131
+    .line 261
     const-string v0, "ShotBinder"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -420,61 +776,208 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 132
+    .line 262
     return-void
-
-    .line 129
-    :catchall_69
-    move-exception v0
-
-    :try_start_6a
-    monitor-exit v1
-    :try_end_6b
-    .catchall {:try_start_6a .. :try_end_6b} :catchall_69
-
-    throw v0
 .end method
 
 .method public static clearPendingLoads()V
-    .locals 2
+    .locals 6
 
     .prologue
-    .line 105
+    .line 125
     sget-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
 
     monitor-enter v1
 
-    .line 107
+    .line 126
     :try_start_3
-    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
+    invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->countPendingLocked()I
 
-    invoke-interface {v0}, Ljava/util/Map;->clear()V
+    move-result v0
 
-    .line 108
+    .line 127
+    new-instance v2, Ljava/util/ArrayList;
+
+    sget-object v3, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->scheduledSheets:Ljava/util/Map;
+
+    invoke-interface {v3}, Ljava/util/Map;->values()Ljava/util/Collection;
+
+    move-result-object v3
+
+    invoke-direct {v2, v3}, Ljava/util/ArrayList;-><init>(Ljava/util/Collection;)V
+
+    .line 128
+    sget-object v3, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->scheduledSheets:Ljava/util/Map;
+
+    invoke-interface {v3}, Ljava/util/Map;->clear()V
+
+    .line 130
+    sget-object v3, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
+
+    invoke-interface {v3}, Ljava/util/Map;->clear()V
+
+    .line 131
+    const-string v3, "ShotPerf"
+
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v5, "[clearPending] clearedReqs="
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    invoke-virtual {v4, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v4, " | activeSheets="
+
+    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    sget-object v4, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->activeSheets:Ljava/util/Set;
+
+    .line 132
+    invoke-interface {v4}, Ljava/util/Set;->size()I
+
+    move-result v4
+
+    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v4, " | scheduled="
+
+    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    .line 133
+    invoke-interface {v2}, Ljava/util/List;->size()I
+
+    move-result v4
+
+    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 131
+    invoke-static {v3, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 134
     monitor-exit v1
-    :try_end_9
-    .catchall {:try_start_3 .. :try_end_9} :catchall_11
+    :try_end_53
+    .catchall {:try_start_3 .. :try_end_53} :catchall_6a
 
-    .line 109
+    .line 135
+    const/4 v0, 0x0
+
+    move v1, v0
+
+    :goto_55
+    invoke-interface {v2}, Ljava/util/List;->size()I
+
+    move-result v0
+
+    if-ge v1, v0, :cond_6d
+
+    .line 136
+    sget-object v3, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->mainHandler:Landroid/os/Handler;
+
+    invoke-interface {v2, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/lang/Runnable;
+
+    invoke-virtual {v3, v0}, Landroid/os/Handler;->removeCallbacks(Ljava/lang/Runnable;)V
+
+    .line 135
+    add-int/lit8 v0, v1, 0x1
+
+    move v1, v0
+
+    goto :goto_55
+
+    .line 134
+    :catchall_6a
+    move-exception v0
+
+    :try_start_6b
+    monitor-exit v1
+    :try_end_6c
+    .catchall {:try_start_6b .. :try_end_6c} :catchall_6a
+
+    throw v0
+
+    .line 138
+    :cond_6d
     const-string v0, "ShotBinder"
 
     const-string v1, "clearPendingLoads | \u5df2\u6e05\u7a7a\u7b49\u5f85\u961f\u5217"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 110
+    .line 139
     return-void
+.end method
 
-    .line 108
-    :catchall_11
-    move-exception v0
+.method private static countPendingLocked()I
+    .locals 3
 
-    :try_start_12
-    monitor-exit v1
-    :try_end_13
-    .catchall {:try_start_12 .. :try_end_13} :catchall_11
+    .prologue
+    .line 142
+    const/4 v0, 0x0
 
-    throw v0
+    .line 143
+    sget-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
+
+    invoke-interface {v1}, Ljava/util/Map;->values()Ljava/util/Collection;
+
+    move-result-object v1
+
+    invoke-interface {v1}, Ljava/util/Collection;->iterator()Ljava/util/Iterator;
+
+    move-result-object v2
+
+    move v1, v0
+
+    :goto_c
+    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_1f
+
+    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/util/List;
+
+    .line 144
+    invoke-interface {v0}, Ljava/util/List;->size()I
+
+    move-result v0
+
+    add-int/2addr v0, v1
+
+    move v1, v0
+
+    .line 145
+    goto :goto_c
+
+    .line 146
+    :cond_1f
+    return v1
 .end method
 
 .method private static decodeCell(Landroid/graphics/BitmapRegionDecoder;III)Landroid/graphics/Bitmap;
@@ -483,7 +986,7 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 372
+    .line 570
     if-eqz p0, :cond_d
 
     invoke-virtual {p0}, Landroid/graphics/BitmapRegionDecoder;->isRecycled()Z
@@ -496,85 +999,118 @@
 
     if-gtz p3, :cond_e
 
-    .line 398
+    .line 604
     :cond_d
     :goto_d
     return-object v0
 
-    .line 376
+    .line 574
     :cond_e
     mul-int v1, p2, p3
 
-    .line 377
+    .line 575
     :try_start_10
     rem-int v1, p1, v1
 
-    .line 378
+    .line 576
     rem-int v2, v1, p2
 
-    .line 379
+    .line 577
     div-int/2addr v1, p2
 
-    .line 381
+    .line 579
     invoke-virtual {p0}, Landroid/graphics/BitmapRegionDecoder;->getWidth()I
 
     move-result v3
 
-    .line 382
+    .line 580
     invoke-virtual {p0}, Landroid/graphics/BitmapRegionDecoder;->getHeight()I
 
     move-result v4
 
-    .line 383
+    .line 581
     div-int v5, v3, p2
 
-    .line 384
+    .line 582
     div-int v6, v4, p3
 
-    .line 385
+    .line 583
     if-lez v5, :cond_d
 
     if-lez v6, :cond_d
 
-    .line 389
+    .line 587
     mul-int/2addr v2, v5
 
-    .line 390
-    mul-int/2addr v1, v6
+    .line 588
+    mul-int v7, v1, v6
 
-    .line 391
-    add-int v7, v2, v5
+    .line 589
+    add-int v1, v2, v5
 
-    if-gt v7, v3, :cond_d
+    if-gt v1, v3, :cond_d
 
-    add-int v3, v1, v6
+    add-int v1, v7, v6
 
-    if-gt v3, v4, :cond_d
+    if-gt v1, v4, :cond_d
 
-    .line 395
-    new-instance v3, Landroid/graphics/Rect;
+    .line 594
+    const/4 v1, 0x1
+
+    .line 595
+    :goto_31
+    mul-int/lit8 v3, v1, 0x2
+
+    div-int v3, v5, v3
+
+    const/16 v4, 0xc8
+
+    if-lt v3, v4, :cond_44
+
+    mul-int/lit8 v3, v1, 0x2
+
+    div-int v3, v6, v3
+
+    const/16 v4, 0x6e
+
+    if-lt v3, v4, :cond_44
+
+    .line 596
+    mul-int/lit8 v1, v1, 0x2
+
+    goto :goto_31
+
+    .line 598
+    :cond_44
+    new-instance v3, Landroid/graphics/BitmapFactory$Options;
+
+    invoke-direct {v3}, Landroid/graphics/BitmapFactory$Options;-><init>()V
+
+    .line 599
+    iput v1, v3, Landroid/graphics/BitmapFactory$Options;->inSampleSize:I
+
+    .line 601
+    new-instance v1, Landroid/graphics/Rect;
 
     add-int v4, v2, v5
 
-    add-int v5, v1, v6
+    add-int v5, v7, v6
 
-    invoke-direct {v3, v2, v1, v4, v5}, Landroid/graphics/Rect;-><init>(IIII)V
+    invoke-direct {v1, v2, v7, v4, v5}, Landroid/graphics/Rect;-><init>(IIII)V
 
-    const/4 v1, 0x0
-
-    invoke-virtual {p0, v3, v1}, Landroid/graphics/BitmapRegionDecoder;->decodeRegion(Landroid/graphics/Rect;Landroid/graphics/BitmapFactory$Options;)Landroid/graphics/Bitmap;
-    :try_end_3c
-    .catch Ljava/lang/Exception; {:try_start_10 .. :try_end_3c} :catch_3e
+    invoke-virtual {p0, v1, v3}, Landroid/graphics/BitmapRegionDecoder;->decodeRegion(Landroid/graphics/Rect;Landroid/graphics/BitmapFactory$Options;)Landroid/graphics/Bitmap;
+    :try_end_57
+    .catch Ljava/lang/Exception; {:try_start_10 .. :try_end_57} :catch_59
 
     move-result-object v0
 
     goto :goto_d
 
-    .line 396
-    :catch_3e
+    .line 602
+    :catch_59
     move-exception v1
 
-    .line 397
+    .line 603
     const-string v2, "ShotBinder"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -608,12 +1144,12 @@
     .locals 2
 
     .prologue
-    .line 524
+    .line 817
     sget-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decoderLock:Ljava/lang/Object;
 
     monitor-enter v1
 
-    .line 525
+    .line 818
     :try_start_3
     invoke-static {p0, p1, p2, p3}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decodeCell(Landroid/graphics/BitmapRegionDecoder;III)Landroid/graphics/Bitmap;
 
@@ -623,7 +1159,7 @@
 
     return-object v0
 
-    .line 526
+    .line 819
     :catchall_9
     move-exception v0
 
@@ -640,15 +1176,15 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 83
+    .line 101
     if-nez p0, :cond_4
 
-    .line 99
+    .line 117
     :cond_3
     :goto_3
     return-void
 
-    .line 86
+    .line 104
     :cond_4
     new-instance v0, Ljava/lang/StringBuilder;
 
@@ -672,7 +1208,7 @@
 
     move-result-object v2
 
-    .line 87
+    .line 105
     invoke-virtual {p0}, Lcom/bilibili/tv/api/video/VideoShot;->getIndex()Ljava/util/List;
 
     move-result-object v0
@@ -690,12 +1226,12 @@
 
     move-result-object v0
 
-    .line 89
+    .line 107
     const-class v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder;
 
     monitor-enter v2
 
-    .line 90
+    .line 108
     :try_start_2d
     sget-object v3, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->lastShotKey:Ljava/lang/String;
 
@@ -707,35 +1243,35 @@
 
     const/4 v1, 0x1
 
-    .line 91
+    .line 109
     :cond_36
     if-eqz v1, :cond_3a
 
-    .line 92
+    .line 110
     sput-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->lastShotKey:Ljava/lang/String;
 
-    .line 94
+    .line 112
     :cond_3a
     monitor-exit v2
     :try_end_3b
     .catchall {:try_start_2d .. :try_end_3b} :catchall_51
 
-    .line 95
+    .line 113
     if-eqz v1, :cond_3
 
-    .line 96
+    .line 114
     const-string v0, "ShotBinder"
 
     const-string v1, "ensureShot: \u89c6\u9891\u53d8\u5316\uff0c\u6e05\u7a7a\u622a\u56fe\u7f13\u5b58"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 97
+    .line 115
     invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->clearAllCache()V
 
     goto :goto_3
 
-    .line 87
+    .line 105
     :cond_48
     invoke-virtual {p0}, Lcom/bilibili/tv/api/video/VideoShot;->getIndex()Ljava/util/List;
 
@@ -747,7 +1283,7 @@
 
     goto :goto_22
 
-    .line 94
+    .line 112
     :catchall_51
     move-exception v0
 
@@ -765,14 +1301,14 @@
     .prologue
     const-wide/16 v0, 0x0
 
-    .line 139
+    .line 269
     sget-wide v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->showStartTime:J
 
     cmp-long v2, v2, v0
 
     if-nez v2, :cond_9
 
-    .line 140
+    .line 270
     :goto_8
     return-wide v0
 
@@ -794,7 +1330,7 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 210
+    .line 335
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->skipSegments:Lorg/json/JSONArray;
 
     if-eqz v0, :cond_d
@@ -810,11 +1346,11 @@
     :cond_d
     move-object v0, v2
 
-    .line 242
+    .line 367
     :goto_e
     return-object v0
 
-    .line 213
+    .line 338
     :cond_f
     int-to-long v0, p1
 
@@ -822,7 +1358,7 @@
 
     mul-long/2addr v4, v0
 
-    .line 214
+    .line 339
     const/4 v0, 0x0
 
     :goto_14
@@ -834,7 +1370,7 @@
 
     if-ge v0, v1, :cond_bc
 
-    .line 216
+    .line 341
     :try_start_1c
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->skipSegments:Lorg/json/JSONArray;
 
@@ -842,17 +1378,17 @@
 
     move-result-object v1
 
-    .line 217
+    .line 342
     if-nez v1, :cond_27
 
-    .line 214
+    .line 339
     :cond_24
     :goto_24
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_14
 
-    .line 220
+    .line 345
     :cond_27
     const-string v3, "start"
 
@@ -862,7 +1398,7 @@
 
     move-result-wide v6
 
-    .line 221
+    .line 346
     const-string v3, "end"
 
     const-wide/16 v8, -0x1
@@ -871,7 +1407,7 @@
 
     move-result-wide v8
 
-    .line 222
+    .line 347
     const-wide/16 v10, 0x0
 
     cmp-long v3, v6, v10
@@ -882,7 +1418,7 @@
 
     if-lez v3, :cond_24
 
-    .line 225
+    .line 350
     cmp-long v3, v4, v6
 
     if-ltz v3, :cond_24
@@ -891,14 +1427,14 @@
 
     if-gez v3, :cond_24
 
-    .line 226
+    .line 351
     const-string v3, "type"
 
     invoke-virtual {v1, v3}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 228
+    .line 353
     const-string v3, "\u7247\u5934"
 
     invoke-virtual {v3, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -907,10 +1443,10 @@
 
     if-eqz v3, :cond_87
 
-    .line 229
+    .line 354
     const-string v1, "\u7247\u5934"
 
-    .line 235
+    .line 360
     :goto_59
     const-string v3, "ShotBinder"
 
@@ -956,10 +1492,10 @@
 
     move-object v0, v1
 
-    .line 236
+    .line 361
     goto :goto_e
 
-    .line 230
+    .line 355
     :cond_87
     const-string v3, "\u7247\u5c3e"
 
@@ -969,12 +1505,12 @@
 
     if-eqz v3, :cond_92
 
-    .line 231
+    .line 356
     const-string v1, "\u7247\u5c3e"
 
     goto :goto_59
 
-    .line 232
+    .line 357
     :cond_92
     const-string v3, "\u786c\u5e7f"
 
@@ -984,18 +1520,18 @@
 
     if-eqz v1, :cond_bf
 
-    .line 233
+    .line 358
     const-string v1, "\u5e7f\u544a"
     :try_end_9c
     .catch Ljava/lang/Exception; {:try_start_1c .. :try_end_9c} :catch_9d
 
     goto :goto_59
 
-    .line 238
+    .line 363
     :catch_9d
     move-exception v1
 
-    .line 239
+    .line 364
     const-string v3, "ShotBinder"
 
     new-instance v6, Ljava/lang/StringBuilder;
@@ -1027,7 +1563,7 @@
     :cond_bc
     move-object v0, v2
 
-    .line 242
+    .line 367
     goto/16 :goto_e
 
     :cond_bf
@@ -1036,289 +1572,405 @@
     goto :goto_59
 .end method
 
-.method public static isDeferLoading()Z
-    .locals 1
+.method private static getValidHolder(Lcom/bilibili/tv/ui/video/widget/ShotBinder$PendingLoad;)Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;
+    .locals 4
 
     .prologue
-    .line 157
-    sget-boolean v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->deferLoading:Z
+    const/4 v1, 0x0
 
-    return v0
+    .line 214
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$PendingLoad;->holderRef:Ljava/lang/ref/WeakReference;
+
+    invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;
+
+    .line 215
+    if-nez v0, :cond_d
+
+    move-object v0, v1
+
+    .line 221
+    :cond_c
+    :goto_c
+    return-object v0
+
+    .line 218
+    :cond_d
+    iget-object v2, v0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->a:Landroid/view/View;
+
+    invoke-virtual {v2}, Landroid/view/View;->isAttachedToWindow()Z
+
+    move-result v2
+
+    if-eqz v2, :cond_1f
+
+    iget-object v2, v0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->a:Landroid/view/View;
+
+    invoke-virtual {v2}, Landroid/view/View;->getTag()Ljava/lang/Object;
+
+    move-result-object v2
+
+    iget-object v3, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$PendingLoad;->item:Lcom/bilibili/tv/api/video/VideoShotItem;
+
+    if-eq v2, v3, :cond_c
+
+    :cond_1f
+    move-object v0, v1
+
+    .line 219
+    goto :goto_c
 .end method
 
 .method private loadShotImage(Lcom/bilibili/tv/api/video/VideoShotItem;Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;)V
-    .locals 11
+    .locals 16
 
     .prologue
-    .line 246
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
+    .line 371
+    move-object/from16 v0, p0
 
-    if-nez v0, :cond_5
+    iget-object v2, v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
-    .line 309
-    :cond_4
-    :goto_4
+    if-nez v2, :cond_7
+
+    .line 439
+    :cond_6
+    :goto_6
     return-void
 
-    .line 250
-    :cond_5
-    invoke-virtual {p2}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getCoverImageView()Lcom/bilibili/tv/widget/ScalableImageView;
+    .line 375
+    :cond_7
+    invoke-virtual/range {p2 .. p2}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getCoverImageView()Lcom/bilibili/tv/widget/ScalableImageView;
 
-    move-result-object v0
+    move-result-object v2
 
-    const v1, 0x7f07005b
+    const v3, 0x7f07005b
 
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/ScalableImageView;->setImageResource(I)V
+    invoke-virtual {v2, v3}, Lcom/bilibili/tv/widget/ScalableImageView;->setImageResource(I)V
 
-    .line 252
-    sget-boolean v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->deferLoading:Z
+    .line 377
+    sget-boolean v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->deferLoading:Z
 
-    if-nez v0, :cond_4
+    if-nez v2, :cond_6
 
-    .line 257
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
+    .line 382
+    move-object/from16 v0, p0
 
-    iget v1, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->imageIndex:I
+    iget-object v2, v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/api/video/VideoShot;->getImageUrl(I)Ljava/lang/String;
+    move-object/from16 v0, p1
 
-    move-result-object v8
+    iget v3, v0, Lcom/bilibili/tv/api/video/VideoShotItem;->imageIndex:I
 
-    .line 258
-    if-nez v8, :cond_38
+    invoke-virtual {v2, v3}, Lcom/bilibili/tv/api/video/VideoShot;->getImageUrl(I)Ljava/lang/String;
 
-    .line 259
-    const-string v0, "ShotBinder"
+    move-result-object v12
 
-    new-instance v1, Ljava/lang/StringBuilder;
+    .line 383
+    if-nez v12, :cond_40
 
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+    .line 384
+    const-string v2, "ShotBinder"
 
-    const-string v2, "loadShotImage: sheetUrl is null for index "
+    new-instance v3, Ljava/lang/StringBuilder;
 
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    move-result-object v1
+    const-string v4, "loadShotImage: sheetUrl is null for index "
 
-    iget v2, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->imageIndex:I
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    move-result-object v3
 
-    move-result-object v1
+    move-object/from16 v0, p1
 
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    iget v4, v0, Lcom/bilibili/tv/api/video/VideoShotItem;->imageIndex:I
 
-    move-result-object v1
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    move-result-object v3
 
-    goto :goto_4
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    .line 263
-    :cond_38
-    iget v4, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->imageIndex:I
+    move-result-object v3
 
-    .line 264
-    iget v0, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->time:I
+    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 265
-    new-instance v0, Ljava/lang/StringBuilder;
+    goto :goto_6
 
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+    .line 388
+    :cond_40
+    move-object/from16 v0, p1
 
-    invoke-virtual {v0, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    iget v6, v0, Lcom/bilibili/tv/api/video/VideoShotItem;->imageIndex:I
 
-    move-result-object v0
+    .line 389
+    move-object/from16 v0, p1
 
-    const-string v1, "_"
+    iget v13, v0, Lcom/bilibili/tv/api/video/VideoShotItem;->time:I
 
-    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    .line 390
+    new-instance v2, Ljava/lang/StringBuilder;
 
-    move-result-object v0
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v0
+    move-result-object v2
 
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    const-string v3, "_"
 
-    move-result-object v5
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 267
-    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->snapshotCache:Landroid/util/LruCache;
+    move-result-object v2
 
-    invoke-virtual {v0, v5}, Landroid/util/LruCache;->get(Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-virtual {v2, v6}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v0
+    move-result-object v2
 
-    check-cast v0, Landroid/graphics/Bitmap;
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    .line 268
-    if-eqz v0, :cond_65
+    move-result-object v7
 
-    .line 270
-    invoke-virtual {p2}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getCoverImageView()Lcom/bilibili/tv/widget/ScalableImageView;
+    .line 392
+    sget-object v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->snapshotCache:Landroid/util/LruCache;
 
-    move-result-object v1
+    invoke-virtual {v2, v7}, Landroid/util/LruCache;->get(Ljava/lang/Object;)Ljava/lang/Object;
 
-    invoke-virtual {v1, v0}, Lcom/bilibili/tv/widget/ScalableImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
+    move-result-object v2
 
-    goto :goto_4
+    check-cast v2, Landroid/graphics/Bitmap;
 
-    .line 274
-    :cond_65
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
+    .line 393
+    if-eqz v2, :cond_71
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/api/video/VideoShot;->getImgXLen()I
+    .line 395
+    invoke-virtual/range {p2 .. p2}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getCoverImageView()Lcom/bilibili/tv/widget/ScalableImageView;
 
-    move-result v9
+    move-result-object v3
 
-    .line 275
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
+    invoke-virtual {v3, v2}, Lcom/bilibili/tv/widget/ScalableImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/api/video/VideoShot;->getImgYLen()I
+    goto :goto_6
 
-    move-result v10
+    .line 399
+    :cond_71
+    move-object/from16 v0, p0
 
-    .line 278
-    invoke-static {v8, v4, v9, v10}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->tryDecodeFromCache(Ljava/lang/String;III)Landroid/graphics/Bitmap;
+    iget-object v2, v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
-    move-result-object v0
+    invoke-virtual {v2}, Lcom/bilibili/tv/api/video/VideoShot;->getImgXLen()I
 
-    .line 279
-    if-eqz v0, :cond_84
+    move-result v14
 
-    .line 280
-    sget-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->snapshotCache:Landroid/util/LruCache;
+    .line 400
+    move-object/from16 v0, p0
 
-    invoke-virtual {v1, v5, v0}, Landroid/util/LruCache;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    iget-object v2, v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
-    .line 281
-    invoke-virtual {p2}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getCoverImageView()Lcom/bilibili/tv/widget/ScalableImageView;
+    invoke-virtual {v2}, Lcom/bilibili/tv/api/video/VideoShot;->getImgYLen()I
 
-    move-result-object v1
+    move-result v15
 
-    invoke-virtual {v1, v0}, Lcom/bilibili/tv/widget/ScalableImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
+    .line 401
+    if-lez v14, :cond_9e
 
-    goto :goto_4
+    if-lez v15, :cond_9e
 
-    .line 286
-    :cond_84
-    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->loadVersion:Ljava/util/concurrent/atomic/AtomicLong;
+    mul-int v2, v14, v15
 
-    invoke-virtual {v0}, Ljava/util/concurrent/atomic/AtomicLong;->get()J
+    div-int v2, v6, v2
 
-    move-result-wide v6
+    move v11, v2
 
-    .line 287
-    new-instance v2, Ljava/lang/ref/WeakReference;
+    .line 404
+    :goto_8a
+    invoke-static {v12, v6, v14, v15}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->tryDecodeFromCache(Ljava/lang/String;III)Landroid/graphics/Bitmap;
 
-    invoke-direct {v2, p2}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
+    move-result-object v2
 
-    .line 288
-    new-instance v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder$PendingLoad;
+    .line 405
+    if-eqz v2, :cond_a1
 
-    move-object v3, p1
+    .line 406
+    sget-object v3, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->snapshotCache:Landroid/util/LruCache;
 
-    invoke-direct/range {v1 .. v7}, Lcom/bilibili/tv/ui/video/widget/ShotBinder$PendingLoad;-><init>(Ljava/lang/ref/WeakReference;Lcom/bilibili/tv/api/video/VideoShotItem;ILjava/lang/String;J)V
+    invoke-virtual {v3, v7, v2}, Landroid/util/LruCache;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 290
-    const/4 v2, 0x0
+    .line 407
+    invoke-virtual/range {p2 .. p2}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getCoverImageView()Lcom/bilibili/tv/widget/ScalableImageView;
 
-    .line 291
-    sget-object v3, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
+    move-result-object v3
 
-    monitor-enter v3
+    invoke-virtual {v3, v2}, Lcom/bilibili/tv/widget/ScalableImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
 
-    .line 292
-    :try_start_99
-    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
+    goto/16 :goto_6
 
-    invoke-interface {v0, v8}, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
+    .line 401
+    :cond_9e
+    const/4 v2, -0x1
 
-    move-result-object v0
+    move v11, v2
 
-    check-cast v0, Ljava/util/List;
+    goto :goto_8a
 
-    .line 293
-    if-nez v0, :cond_ad
+    .line 419
+    :cond_a1
+    sget-object v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->loadVersion:Ljava/util/concurrent/atomic/AtomicLong;
 
-    .line 294
-    new-instance v0, Ljava/util/ArrayList;
+    invoke-virtual {v2}, Ljava/util/concurrent/atomic/AtomicLong;->get()J
 
-    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
+    move-result-wide v8
 
-    .line 295
+    .line 420
+    new-instance v4, Ljava/lang/ref/WeakReference;
+
+    move-object/from16 v0, p2
+
+    invoke-direct {v4, v0}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
+
+    .line 421
+    new-instance v3, Lcom/bilibili/tv/ui/video/widget/ShotBinder$PendingLoad;
+
+    move-object/from16 v5, p1
+
+    invoke-direct/range {v3 .. v9}, Lcom/bilibili/tv/ui/video/widget/ShotBinder$PendingLoad;-><init>(Ljava/lang/ref/WeakReference;Lcom/bilibili/tv/api/video/VideoShotItem;ILjava/lang/String;J)V
+
+    .line 423
     sget-object v4, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
 
-    invoke-interface {v4, v8, v0}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    monitor-enter v4
 
-    .line 297
-    :cond_ad
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    .line 424
+    :try_start_b8
+    sget-object v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
 
-    .line 298
-    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->activeSheets:Ljava/util/Set;
+    invoke-interface {v2, v12}, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
 
-    invoke-interface {v0, v8}, Ljava/util/Set;->contains(Ljava/lang/Object;)Z
+    move-result-object v2
 
-    move-result v0
+    check-cast v2, Ljava/util/List;
 
-    if-nez v0, :cond_d3
+    .line 425
+    if-nez v2, :cond_cc
 
-    .line 299
-    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->activeSheets:Ljava/util/Set;
+    .line 426
+    new-instance v2, Ljava/util/ArrayList;
 
-    invoke-interface {v0, v8}, Ljava/util/Set;->add(Ljava/lang/Object;)Z
+    invoke-direct {v2}, Ljava/util/ArrayList;-><init>()V
 
-    .line 300
-    const/4 v0, 0x1
+    .line 427
+    sget-object v5, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
 
-    .line 302
-    :goto_be
-    monitor-exit v3
-    :try_end_bf
-    .catchall {:try_start_99 .. :try_end_bf} :catchall_d0
+    invoke-interface {v5, v12, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 306
-    if-eqz v0, :cond_4
+    .line 429
+    :cond_cc
+    invoke-interface {v2, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 307
-    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->imageLoadExecutor:Ljava/util/concurrent/ThreadPoolExecutor;
+    .line 430
+    monitor-exit v4
+    :try_end_d0
+    .catchall {:try_start_b8 .. :try_end_d0} :catchall_11a
 
-    new-instance v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder$SheetLoadTask;
+    .line 432
+    const/4 v10, 0x0
 
-    move-object v3, v8
+    move-object v5, v12
 
-    move v4, v9
+    move v6, v14
 
-    move v5, v10
+    move v7, v15
 
-    invoke-direct/range {v2 .. v7}, Lcom/bilibili/tv/ui/video/widget/ShotBinder$SheetLoadTask;-><init>(Ljava/lang/String;IIJ)V
+    invoke-static/range {v5 .. v10}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->scheduleSheetDownload(Ljava/lang/String;IIJZ)Z
 
-    invoke-virtual {v0, v2}, Ljava/util/concurrent/ThreadPoolExecutor;->execute(Ljava/lang/Runnable;)V
+    move-result v2
 
-    goto/16 :goto_4
+    .line 433
+    if-eqz v2, :cond_6
 
-    .line 302
-    :catchall_d0
-    move-exception v0
+    .line 435
+    const-string v2, "ShotPerf"
 
-    :try_start_d1
-    monitor-exit v3
-    :try_end_d2
-    .catchall {:try_start_d1 .. :try_end_d2} :catchall_d0
+    new-instance v3, Ljava/lang/StringBuilder;
 
-    throw v0
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    :cond_d3
-    move v0, v2
+    const-string v4, "[schedule] time="
 
-    goto :goto_be
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v13}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v4, "s | sheet="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v11}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v4, " | sheetFile="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    .line 436
+    invoke-static {v12}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->shortUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v4, " | pendingReqs="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    .line 437
+    invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->totalPendingRequests()I
+
+    move-result v4
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    .line 435
+    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto/16 :goto_6
+
+    .line 430
+    :catchall_11a
+    move-exception v2
+
+    :try_start_11b
+    monitor-exit v4
+    :try_end_11c
+    .catchall {:try_start_11b .. :try_end_11c} :catchall_11a
+
+    throw v2
 .end method
 
 .method public static preloadSheet(Lcom/bilibili/tv/api/video/VideoShot;Ljava/util/List;I)V
-    .locals 8
+    .locals 7
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
@@ -1331,26 +1983,28 @@
     .end annotation
 
     .prologue
+    const/4 v6, 0x1
+
     const/4 v2, 0x0
 
-    .line 318
-    if-eqz p0, :cond_b
+    .line 523
+    if-eqz p0, :cond_c
 
-    if-eqz p1, :cond_b
+    if-eqz p1, :cond_c
 
     invoke-interface {p1}, Ljava/util/List;->isEmpty()Z
 
     move-result v0
 
-    if-eqz v0, :cond_c
+    if-eqz v0, :cond_d
 
-    .line 353
-    :cond_b
-    :goto_b
+    .line 551
+    :cond_c
+    :goto_c
     return-void
 
-    .line 321
-    :cond_c
+    .line 526
+    :cond_d
     invoke-interface {p1, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
@@ -1361,15 +2015,15 @@
 
     move-object v3, v0
 
-    .line 322
-    :goto_14
+    .line 527
+    :goto_15
     invoke-interface {p1}, Ljava/util/List;->size()I
 
     move-result v0
 
-    if-ge v1, v0, :cond_2e
+    if-ge v1, v0, :cond_2f
 
-    .line 323
+    .line 528
     invoke-interface {p1, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
@@ -1378,40 +2032,40 @@
 
     iget v0, v0, Lcom/bilibili/tv/api/video/VideoShotItem;->time:I
 
-    if-gt v0, p2, :cond_2e
+    if-gt v0, p2, :cond_2f
 
-    .line 324
+    .line 529
     invoke-interface {p1, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
 
     check-cast v0, Lcom/bilibili/tv/api/video/VideoShotItem;
 
-    .line 322
+    .line 527
     add-int/lit8 v1, v1, 0x1
 
     move-object v3, v0
 
-    goto :goto_14
+    goto :goto_15
 
-    .line 329
-    :cond_2e
+    .line 534
+    :cond_2f
     iget v0, v3, Lcom/bilibili/tv/api/video/VideoShotItem;->imageIndex:I
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/api/video/VideoShot;->getImageUrl(I)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 330
-    if-eqz v1, :cond_b
+    .line 535
+    if-eqz v1, :cond_c
 
-    .line 333
+    .line 539
     sget-object v3, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decoderLock:Ljava/lang/Object;
 
     monitor-enter v3
 
-    .line 334
-    :try_start_39
+    .line 540
+    :try_start_3a
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decoderCache:Ljava/util/LinkedHashMap;
 
     invoke-virtual {v0, v1}, Ljava/util/LinkedHashMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
@@ -1420,146 +2074,64 @@
 
     check-cast v0, Landroid/graphics/BitmapRegionDecoder;
 
-    .line 335
-    if-eqz v0, :cond_4e
+    .line 541
+    if-eqz v0, :cond_4b
 
     invoke-virtual {v0}, Landroid/graphics/BitmapRegionDecoder;->isRecycled()Z
 
     move-result v0
 
-    if-nez v0, :cond_4e
+    if-nez v0, :cond_4b
 
-    .line 336
+    move v2, v6
+
+    .line 542
+    :cond_4b
     monitor-exit v3
+    :try_end_4c
+    .catchall {:try_start_3a .. :try_end_4c} :catchall_89
 
-    goto :goto_b
+    .line 543
+    if-eqz v2, :cond_8c
 
-    .line 338
-    :catchall_4b
-    move-exception v0
+    .line 544
+    const-string v0, "ShotPerf"
 
-    monitor-exit v3
-    :try_end_4d
-    .catchall {:try_start_39 .. :try_end_4d} :catchall_4b
+    new-instance v2, Ljava/lang/StringBuilder;
 
-    throw v0
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    :cond_4e
-    :try_start_4e
-    monitor-exit v3
-    :try_end_4f
-    .catchall {:try_start_4e .. :try_end_4f} :catchall_4b
+    const-string v3, "preloadSheet | time="
 
-    .line 340
-    sget-object v3, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    monitor-enter v3
+    move-result-object v2
 
-    .line 341
-    :try_start_52
-    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
+    invoke-virtual {v2, p2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    invoke-interface {v0, v1}, Ljava/util/Map;->containsKey(Ljava/lang/Object;)Z
+    move-result-object v2
 
-    move-result v0
+    const-string v3, "s | sheetFile="
 
-    if-nez v0, :cond_64
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 342
-    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
+    move-result-object v2
 
-    new-instance v4, Ljava/util/ArrayList;
+    invoke-static {v1}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->shortUrl(Ljava/lang/String;)Ljava/lang/String;
 
-    invoke-direct {v4}, Ljava/util/ArrayList;-><init>()V
+    move-result-object v1
 
-    invoke-interface {v0, v1, v4}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 344
-    :cond_64
-    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->activeSheets:Ljava/util/Set;
+    move-result-object v1
 
-    invoke-interface {v0, v1}, Ljava/util/Set;->contains(Ljava/lang/Object;)Z
-
-    move-result v0
-
-    if-nez v0, :cond_c9
-
-    .line 345
-    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->activeSheets:Ljava/util/Set;
-
-    invoke-interface {v0, v1}, Ljava/util/Set;->add(Ljava/lang/Object;)Z
-
-    .line 346
-    const/4 v2, 0x1
-
-    move v6, v2
-
-    .line 348
-    :goto_73
-    monitor-exit v3
-    :try_end_74
-    .catchall {:try_start_52 .. :try_end_74} :catchall_c6
-
-    .line 349
-    if-eqz v6, :cond_8e
-
-    .line 350
-    sget-object v7, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->imageLoadExecutor:Ljava/util/concurrent/ThreadPoolExecutor;
-
-    new-instance v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$SheetLoadTask;
-
-    invoke-virtual {p0}, Lcom/bilibili/tv/api/video/VideoShot;->getImgXLen()I
-
-    move-result v2
-
-    invoke-virtual {p0}, Lcom/bilibili/tv/api/video/VideoShot;->getImgYLen()I
-
-    move-result v3
-
-    sget-object v4, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->loadVersion:Ljava/util/concurrent/atomic/AtomicLong;
-
-    invoke-virtual {v4}, Ljava/util/concurrent/atomic/AtomicLong;->get()J
-
-    move-result-wide v4
-
-    invoke-direct/range {v0 .. v5}, Lcom/bilibili/tv/ui/video/widget/ShotBinder$SheetLoadTask;-><init>(Ljava/lang/String;IIJ)V
-
-    invoke-virtual {v7, v0}, Ljava/util/concurrent/ThreadPoolExecutor;->execute(Ljava/lang/Runnable;)V
-
-    .line 352
-    :cond_8e
-    const-string v0, "ShotBinder"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "preloadSheet | time="
+    const-string v2, " | decoderCached=true | elapsed="
 
     invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
-    invoke-virtual {v1, p2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, "s | submit="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1, v6}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, " | elapsed="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
+    .line 545
     invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->getElapsedTime()J
 
     move-result-wide v2
@@ -1578,37 +2150,283 @@
 
     move-result-object v1
 
+    .line 544
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto/16 :goto_b
+    goto :goto_c
 
-    .line 348
-    :catchall_c6
+    .line 542
+    :catchall_89
     move-exception v0
 
-    :try_start_c7
+    :try_start_8a
     monitor-exit v3
-    :try_end_c8
-    .catchall {:try_start_c7 .. :try_end_c8} :catchall_c6
+    :try_end_8b
+    .catchall {:try_start_8a .. :try_end_8b} :catchall_89
 
     throw v0
 
-    :cond_c9
-    move v6, v2
+    .line 548
+    :cond_8c
+    invoke-virtual {p0}, Lcom/bilibili/tv/api/video/VideoShot;->getImgXLen()I
 
-    goto :goto_73
+    move-result v2
+
+    invoke-virtual {p0}, Lcom/bilibili/tv/api/video/VideoShot;->getImgYLen()I
+
+    move-result v3
+
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->loadVersion:Ljava/util/concurrent/atomic/AtomicLong;
+
+    invoke-virtual {v0}, Ljava/util/concurrent/atomic/AtomicLong;->get()J
+
+    move-result-wide v4
+
+    invoke-static/range {v1 .. v6}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->scheduleSheetDownload(Ljava/lang/String;IIJZ)Z
+
+    move-result v0
+
+    .line 549
+    const-string v2, "ShotPerf"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "preloadSheet | time="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, p2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v4, "s | sheetFile="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-static {v1}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->shortUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v3, " | submit="
+
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v1, " | elapsed="
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    .line 550
+    invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->getElapsedTime()J
+
+    move-result-wide v4
+
+    invoke-virtual {v0, v4, v5}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v1, "ms"
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 549
+    invoke-static {v2, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto/16 :goto_c
+.end method
+
+.method private static pruneRequestsForHolder(Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;Lcom/bilibili/tv/api/video/VideoShotItem;)V
+    .locals 8
+
+    .prologue
+    .line 185
+    new-instance v3, Ljava/util/ArrayList;
+
+    invoke-direct {v3}, Ljava/util/ArrayList;-><init>()V
+
+    .line 186
+    sget-object v4, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
+
+    monitor-enter v4
+
+    .line 187
+    :try_start_8
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
+
+    invoke-interface {v0}, Ljava/util/Map;->entrySet()Ljava/util/Set;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
+
+    move-result-object v5
+
+    .line 188
+    :cond_12
+    :goto_12
+    invoke-interface {v5}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_5a
+
+    .line 189
+    invoke-interface {v5}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/util/Map$Entry;
+
+    .line 190
+    invoke-interface {v0}, Ljava/util/Map$Entry;->getValue()Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Ljava/util/List;
+
+    .line 191
+    invoke-interface {v1}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+
+    move-result-object v6
+
+    :cond_28
+    :goto_28
+    invoke-interface {v6}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v2
+
+    if-eqz v2, :cond_47
+
+    .line 192
+    invoke-interface {v6}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder$PendingLoad;
+
+    .line 193
+    iget-object v7, v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder$PendingLoad;->holderRef:Ljava/lang/ref/WeakReference;
+
+    invoke-virtual {v7}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
+
+    move-result-object v7
+
+    if-ne v7, p0, :cond_28
+
+    iget-object v2, v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder$PendingLoad;->item:Lcom/bilibili/tv/api/video/VideoShotItem;
+
+    if-eq v2, p1, :cond_28
+
+    .line 194
+    invoke-interface {v6}, Ljava/util/Iterator;->remove()V
+
+    goto :goto_28
+
+    .line 202
+    :catchall_44
+    move-exception v0
+
+    monitor-exit v4
+    :try_end_46
+    .catchall {:try_start_8 .. :try_end_46} :catchall_44
+
+    throw v0
+
+    .line 197
+    :cond_47
+    :try_start_47
+    invoke-interface {v1}, Ljava/util/List;->isEmpty()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_12
+
+    .line 198
+    invoke-interface {v5}, Ljava/util/Iterator;->remove()V
+
+    .line 199
+    invoke-interface {v0}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/lang/String;
+
+    invoke-interface {v3, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    goto :goto_12
+
+    .line 202
+    :cond_5a
+    monitor-exit v4
+    :try_end_5b
+    .catchall {:try_start_47 .. :try_end_5b} :catchall_44
+
+    .line 203
+    const/4 v0, 0x0
+
+    move v1, v0
+
+    :goto_5d
+    invoke-interface {v3}, Ljava/util/List;->size()I
+
+    move-result v0
+
+    if-ge v1, v0, :cond_70
+
+    .line 205
+    invoke-interface {v3, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/lang/String;
+
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->cancelScheduledSheet(Ljava/lang/String;)V
+
+    .line 203
+    add-int/lit8 v0, v1, 0x1
+
+    move v1, v0
+
+    goto :goto_5d
+
+    .line 207
+    :cond_70
+    return-void
 .end method
 
 .method private static putDecoder(Ljava/lang/String;Landroid/graphics/BitmapRegionDecoder;)V
-    .locals 3
+    .locals 6
 
     .prologue
-    .line 406
-    sget-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decoderLock:Ljava/lang/Object;
+    .line 613
+    sget-object v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decoderLock:Ljava/lang/Object;
 
-    monitor-enter v1
+    monitor-enter v2
 
-    .line 407
+    .line 614
     :try_start_3
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decoderCache:Ljava/util/LinkedHashMap;
 
@@ -1618,21 +2436,21 @@
 
     check-cast v0, Landroid/graphics/BitmapRegionDecoder;
 
-    .line 408
+    .line 615
     if-eqz v0, :cond_18
 
     if-eq v0, p1, :cond_18
 
     invoke-virtual {v0}, Landroid/graphics/BitmapRegionDecoder;->isRecycled()Z
 
-    move-result v2
+    move-result v1
 
-    if-nez v2, :cond_18
+    if-nez v1, :cond_18
 
-    .line 409
+    .line 616
     invoke-virtual {v0}, Landroid/graphics/BitmapRegionDecoder;->recycle()V
 
-    .line 411
+    .line 618
     :cond_18
     :goto_18
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decoderCache:Ljava/util/LinkedHashMap;
@@ -1641,11 +2459,11 @@
 
     move-result v0
 
-    const/16 v2, 0x8
+    const/16 v1, 0x8
 
-    if-le v0, v2, :cond_32
+    if-le v0, v1, :cond_32
 
-    .line 412
+    .line 619
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decoderCache:Ljava/util/LinkedHashMap;
 
     invoke-virtual {v0}, Ljava/util/LinkedHashMap;->entrySet()Ljava/util/Set;
@@ -1654,106 +2472,341 @@
 
     invoke-interface {v0}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
 
-    move-result-object v2
+    move-result-object v3
 
-    .line 413
-    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
+    .line 620
+    invoke-interface {v3}, Ljava/util/Iterator;->hasNext()Z
 
     move-result v0
 
-    if-nez v0, :cond_52
+    if-nez v0, :cond_60
 
-    .line 422
+    .line 632
     :cond_32
-    monitor-exit v1
-    :try_end_33
-    .catchall {:try_start_3 .. :try_end_33} :catchall_6f
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decoderCache:Ljava/util/LinkedHashMap;
 
-    .line 423
-    const-string v0, "ShotBinder"
+    invoke-virtual {v0}, Ljava/util/LinkedHashMap;->size()I
 
-    new-instance v1, Ljava/lang/StringBuilder;
+    move-result v0
 
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+    .line 633
+    monitor-exit v2
+    :try_end_39
+    .catchall {:try_start_3 .. :try_end_39} :catchall_b0
 
-    const-string v2, "putDecoder | \u7f13\u5b58\u89e3\u7801\u5668\uff0c\u5f53\u524d\u6570\u91cf="
+    .line 634
+    const-string v1, "ShotPerf"
 
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    new-instance v2, Ljava/lang/StringBuilder;
 
-    move-result-object v1
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    sget-object v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decoderCache:Ljava/util/LinkedHashMap;
+    const-string v3, "[decoder-put] sheetFile="
 
-    invoke-virtual {v2}, Ljava/util/LinkedHashMap;->size()I
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result v2
+    move-result-object v2
 
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-static {p0}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->shortUrl(Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v1
+    move-result-object v3
 
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v1
+    move-result-object v2
 
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    const-string v3, " | size="
 
-    .line 424
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 635
     return-void
 
-    .line 416
-    :cond_52
-    :try_start_52
-    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    .line 623
+    :cond_60
+    :try_start_60
+    invoke-interface {v3}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
     move-result-object v0
 
     check-cast v0, Ljava/util/Map$Entry;
 
+    .line 624
     invoke-interface {v0}, Ljava/util/Map$Entry;->getValue()Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Landroid/graphics/BitmapRegionDecoder;
+
+    .line 625
+    invoke-interface {v3}, Ljava/util/Iterator;->remove()V
+
+    .line 626
+    const-string v3, "ShotPerf"
+
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v5, "[decoder-evict] sheetFile="
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    invoke-interface {v0}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
 
     move-result-object v0
 
-    check-cast v0, Landroid/graphics/BitmapRegionDecoder;
+    check-cast v0, Ljava/lang/String;
 
-    .line 417
-    invoke-interface {v2}, Ljava/util/Iterator;->remove()V
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->shortUrl(Ljava/lang/String;)Ljava/lang/String;
 
-    .line 418
-    if-eqz v0, :cond_18
+    move-result-object v0
 
-    if-eq v0, p1, :cond_18
+    invoke-virtual {v4, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v0}, Landroid/graphics/BitmapRegionDecoder;->isRecycled()Z
+    move-result-object v0
 
-    move-result v2
+    const-string v4, " | size="
 
-    if-nez v2, :cond_18
+    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 419
-    invoke-virtual {v0}, Landroid/graphics/BitmapRegionDecoder;->recycle()V
+    move-result-object v0
 
-    goto :goto_18
+    sget-object v4, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decoderCache:Ljava/util/LinkedHashMap;
 
-    .line 422
-    :catchall_6f
+    .line 627
+    invoke-virtual {v4}, Ljava/util/LinkedHashMap;->size()I
+
+    move-result v4
+
+    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 626
+    invoke-static {v3, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 628
+    if-eqz v1, :cond_18
+
+    if-eq v1, p1, :cond_18
+
+    invoke-virtual {v1}, Landroid/graphics/BitmapRegionDecoder;->isRecycled()Z
+
+    move-result v0
+
+    if-nez v0, :cond_18
+
+    .line 629
+    invoke-virtual {v1}, Landroid/graphics/BitmapRegionDecoder;->recycle()V
+
+    goto/16 :goto_18
+
+    .line 633
+    :catchall_b0
     move-exception v0
 
-    monitor-exit v1
-    :try_end_71
-    .catchall {:try_start_52 .. :try_end_71} :catchall_6f
+    monitor-exit v2
+    :try_end_b2
+    .catchall {:try_start_60 .. :try_end_b2} :catchall_b0
 
     throw v0
+.end method
+
+.method private static scheduleSheetDownload(Ljava/lang/String;IIJZ)Z
+    .locals 9
+
+    .prologue
+    const/4 v7, 0x0
+
+    const/4 v6, 0x1
+
+    .line 450
+    if-eqz p5, :cond_33
+
+    .line 452
+    sget-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
+
+    monitor-enter v1
+
+    .line 453
+    :try_start_7
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->activeSheets:Ljava/util/Set;
+
+    invoke-interface {v0, p0}, Ljava/util/Set;->contains(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_1d
+
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->scheduledSheets:Ljava/util/Map;
+
+    invoke-interface {v0, p0}, Ljava/util/Map;->containsKey(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_1d
+
+    .line 454
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->activeSheets:Ljava/util/Set;
+
+    invoke-interface {v0, p0}, Ljava/util/Set;->add(Ljava/lang/Object;)Z
+
+    move v7, v6
+
+    .line 457
+    :cond_1d
+    monitor-exit v1
+    :try_end_1e
+    .catchall {:try_start_7 .. :try_end_1e} :catchall_30
+
+    .line 458
+    if-eqz v7, :cond_2e
+
+    .line 459
+    sget-object v8, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->imageLoadExecutor:Ljava/util/concurrent/ThreadPoolExecutor;
+
+    new-instance v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$SheetLoadTask;
+
+    move-object v1, p0
+
+    move v2, p1
+
+    move v3, p2
+
+    move-wide v4, p3
+
+    invoke-direct/range {v0 .. v6}, Lcom/bilibili/tv/ui/video/widget/ShotBinder$SheetLoadTask;-><init>(Ljava/lang/String;IIJZ)V
+
+    invoke-virtual {v8, v0}, Ljava/util/concurrent/ThreadPoolExecutor;->execute(Ljava/lang/Runnable;)V
+
+    :cond_2e
+    move v0, v7
+
+    .line 475
+    :goto_2f
+    return v0
+
+    .line 457
+    :catchall_30
+    move-exception v0
+
+    :try_start_31
+    monitor-exit v1
+    :try_end_32
+    .catchall {:try_start_31 .. :try_end_32} :catchall_30
+
+    throw v0
+
+    .line 464
+    :cond_33
+    new-instance v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$ScheduledSheet;
+
+    move-object v1, p0
+
+    move v2, p1
+
+    move v3, p2
+
+    move-wide v4, p3
+
+    invoke-direct/range {v0 .. v5}, Lcom/bilibili/tv/ui/video/widget/ShotBinder$ScheduledSheet;-><init>(Ljava/lang/String;IIJ)V
+
+    .line 466
+    sget-object v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
+
+    monitor-enter v2
+
+    .line 467
+    :try_start_3f
+    sget-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->activeSheets:Ljava/util/Set;
+
+    invoke-interface {v1, p0}, Ljava/util/Set;->contains(Ljava/lang/Object;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_64
+
+    sget-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->scheduledSheets:Ljava/util/Map;
+
+    invoke-interface {v1, p0}, Ljava/util/Map;->containsKey(Ljava/lang/Object;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_64
+
+    .line 468
+    sget-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->scheduledSheets:Ljava/util/Map;
+
+    invoke-interface {v1, p0, v0}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    move v1, v6
+
+    .line 471
+    :goto_55
+    monitor-exit v2
+    :try_end_56
+    .catchall {:try_start_3f .. :try_end_56} :catchall_61
+
+    .line 472
+    if-eqz v1, :cond_5f
+
+    .line 473
+    sget-object v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->mainHandler:Landroid/os/Handler;
+
+    const-wide/16 v4, 0x96
+
+    invoke-virtual {v2, v0, v4, v5}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
+
+    :cond_5f
+    move v0, v1
+
+    .line 475
+    goto :goto_2f
+
+    .line 471
+    :catchall_61
+    move-exception v0
+
+    :try_start_62
+    monitor-exit v2
+    :try_end_63
+    .catchall {:try_start_62 .. :try_end_63} :catchall_61
+
+    throw v0
+
+    :cond_64
+    move v1, v7
+
+    goto :goto_55
 .end method
 
 .method public static setDeferLoading(Z)V
     .locals 4
 
     .prologue
-    .line 144
+    .line 274
     sput-boolean p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->deferLoading:Z
 
-    .line 145
+    .line 275
     const-string v0, "ShotBinder"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1796,36 +2849,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 146
-    if-nez p0, :cond_3c
-
-    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->onDeferClearedCallback:Ljava/lang/Runnable;
-
-    if-eqz v0, :cond_3c
-
-    .line 147
-    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->onDeferClearedCallback:Ljava/lang/Runnable;
-
-    invoke-interface {v0}, Ljava/lang/Runnable;->run()V
-
-    .line 148
-    const/4 v0, 0x0
-
-    sput-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->onDeferClearedCallback:Ljava/lang/Runnable;
-
-    .line 150
-    :cond_3c
-    return-void
-.end method
-
-.method public static setOnDeferClearedCallback(Ljava/lang/Runnable;)V
-    .locals 0
-
-    .prologue
-    .line 153
-    sput-object p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->onDeferClearedCallback:Ljava/lang/Runnable;
-
-    .line 154
+    .line 276
     return-void
 .end method
 
@@ -1833,23 +2857,96 @@
     .locals 0
 
     .prologue
-    .line 135
+    .line 265
     sput-wide p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->showStartTime:J
 
-    .line 136
+    .line 266
     return-void
+.end method
+
+.method private static shortUrl(Ljava/lang/String;)Ljava/lang/String;
+    .locals 3
+
+    .prologue
+    .line 173
+    if-nez p0, :cond_5
+
+    .line 174
+    const-string p0, "null"
+
+    .line 177
+    :cond_4
+    :goto_4
+    return-object p0
+
+    .line 176
+    :cond_5
+    const/16 v0, 0x2f
+
+    invoke-virtual {p0, v0}, Ljava/lang/String;->lastIndexOf(I)I
+
+    move-result v0
+
+    .line 177
+    if-ltz v0, :cond_4
+
+    add-int/lit8 v1, v0, 0x1
+
+    invoke-virtual {p0}, Ljava/lang/String;->length()I
+
+    move-result v2
+
+    if-ge v1, v2, :cond_4
+
+    add-int/lit8 v0, v0, 0x1
+
+    invoke-virtual {p0, v0}, Ljava/lang/String;->substring(I)Ljava/lang/String;
+
+    move-result-object p0
+
+    goto :goto_4
+.end method
+
+.method private static totalPendingRequests()I
+    .locals 2
+
+    .prologue
+    .line 150
+    sget-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pendingLoads:Ljava/util/Map;
+
+    monitor-enter v1
+
+    .line 151
+    :try_start_3
+    invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->countPendingLocked()I
+
+    move-result v0
+
+    monitor-exit v1
+
+    return v0
+
+    .line 152
+    :catchall_9
+    move-exception v0
+
+    monitor-exit v1
+    :try_end_b
+    .catchall {:try_start_3 .. :try_end_b} :catchall_9
+
+    throw v0
 .end method
 
 .method private static tryDecodeFromCache(Ljava/lang/String;III)Landroid/graphics/Bitmap;
     .locals 3
 
     .prologue
-    .line 359
+    .line 557
     sget-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decoderLock:Ljava/lang/Object;
 
     monitor-enter v1
 
-    .line 360
+    .line 558
     :try_start_3
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->decoderCache:Ljava/util/LinkedHashMap;
 
@@ -1859,7 +2956,7 @@
 
     check-cast v0, Landroid/graphics/BitmapRegionDecoder;
 
-    .line 361
+    .line 559
     if-eqz v0, :cond_13
 
     invoke-virtual {v0}, Landroid/graphics/BitmapRegionDecoder;->isRecycled()Z
@@ -1868,13 +2965,13 @@
 
     if-eqz v2, :cond_16
 
-    .line 362
+    .line 560
     :cond_13
     const/4 v0, 0x0
 
     monitor-exit v1
 
-    .line 364
+    .line 562
     :goto_15
     return-object v0
 
@@ -1887,7 +2984,7 @@
 
     goto :goto_15
 
-    .line 365
+    .line 563
     :catchall_1c
     move-exception v0
 
@@ -1904,7 +3001,7 @@
     .locals 0
 
     .prologue
-    .line 162
+    .line 280
     return-void
 .end method
 
@@ -1916,32 +3013,35 @@
 
     const/16 v3, 0x8
 
-    .line 166
+    .line 284
     instance-of v0, p2, Lcom/bilibili/tv/api/video/VideoShotItem;
 
     if-nez v0, :cond_8
 
-    .line 203
+    .line 328
     :cond_7
     :goto_7
     return-void
 
-    .line 170
+    .line 288
     :cond_8
     check-cast p2, Lcom/bilibili/tv/api/video/VideoShotItem;
 
-    .line 172
+    .line 295
+    invoke-static {p1, p2}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->pruneRequestsForHolder(Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;Lcom/bilibili/tv/api/video/VideoShotItem;)V
+
+    .line 297
     invoke-direct {p0, p2, p1}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->loadShotImage(Lcom/bilibili/tv/api/video/VideoShotItem;Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;)V
 
-    .line 174
+    .line 299
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getDurationView()Landroid/widget/TextView;
 
     move-result-object v0
 
-    .line 175
-    if-eqz v0, :cond_21
+    .line 300
+    if-eqz v0, :cond_24
 
-    .line 176
+    .line 301
     iget v1, p2, Lcom/bilibili/tv/api/video/VideoShotItem;->time:I
 
     iget v2, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->totalDuration:I
@@ -1952,79 +3052,79 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 177
+    .line 302
     invoke-virtual {v0, v4}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 180
-    :cond_21
+    .line 305
+    :cond_24
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getTitleView()Landroid/widget/TextView;
 
     move-result-object v0
 
     invoke-virtual {v0, v3}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 181
+    .line 306
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getUpView()Landroid/widget/TextView;
 
     move-result-object v0
 
     invoke-virtual {v0, v3}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 182
+    .line 307
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getPubdateView()Landroid/widget/TextView;
 
     move-result-object v0
 
     invoke-virtual {v0, v3}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 183
+    .line 308
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getPlayCountView()Landroid/widget/TextView;
 
     move-result-object v0
 
     invoke-virtual {v0, v3}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 184
+    .line 309
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getDanmakuView()Landroid/widget/TextView;
 
     move-result-object v0
 
     invoke-virtual {v0, v3}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 185
+    .line 310
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getBadgeView()Landroid/widget/TextView;
 
     move-result-object v0
 
     invoke-virtual {v0, v3}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 188
+    .line 313
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getIndexBadgeView()Landroid/widget/TextView;
 
     move-result-object v0
 
-    .line 189
-    if-eqz v0, :cond_5f
+    .line 314
+    if-eqz v0, :cond_62
 
-    .line 190
+    .line 315
     iget v1, p2, Lcom/bilibili/tv/api/video/VideoShotItem;->time:I
 
     invoke-direct {p0, v1}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->getSkipBadgeText(I)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 191
-    if-eqz v1, :cond_6f
+    .line 316
+    if-eqz v1, :cond_72
 
-    .line 192
+    .line 317
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 193
+    .line 318
     invoke-virtual {v0, v4}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 199
-    :cond_5f
-    :goto_5f
+    .line 324
+    :cond_62
+    :goto_62
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getTitleView()Landroid/widget/TextView;
 
     move-result-object v0
@@ -2035,26 +3135,26 @@
 
     check-cast v0, Landroid/view/View;
 
-    .line 200
+    .line 325
     if-eqz v0, :cond_7
 
-    .line 201
+    .line 326
     invoke-virtual {v0, v3}, Landroid/view/View;->setVisibility(I)V
 
     goto :goto_7
 
-    .line 195
-    :cond_6f
+    .line 320
+    :cond_72
     invoke-virtual {v0, v3}, Landroid/widget/TextView;->setVisibility(I)V
 
-    goto :goto_5f
+    goto :goto_62
 .end method
 
 .method public getCoverUrl(Ljava/lang/Object;)Ljava/lang/String;
     .locals 2
 
     .prologue
-    .line 556
+    .line 849
     instance-of v0, p1, Lcom/bilibili/tv/api/video/VideoShotItem;
 
     if-eqz v0, :cond_13
@@ -2063,10 +3163,10 @@
 
     if-eqz v0, :cond_13
 
-    .line 557
+    .line 850
     check-cast p1, Lcom/bilibili/tv/api/video/VideoShotItem;
 
-    .line 558
+    .line 851
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
     iget v1, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->imageIndex:I
@@ -2075,7 +3175,7 @@
 
     move-result-object v0
 
-    .line 560
+    .line 853
     :goto_12
     return-object v0
 
@@ -2089,7 +3189,7 @@
     .locals 2
 
     .prologue
-    .line 551
+    .line 844
     const-wide/16 v0, 0x0
 
     return-wide v0
@@ -2099,7 +3199,7 @@
     .locals 1
 
     .prologue
-    .line 580
+    .line 873
     const/4 v0, 0x0
 
     return v0
@@ -2109,7 +3209,7 @@
     .locals 1
 
     .prologue
-    .line 575
+    .line 868
     const/4 v0, 0x0
 
     return v0
@@ -2119,7 +3219,7 @@
     .locals 1
 
     .prologue
-    .line 565
+    .line 858
     const/4 v0, 0x0
 
     return v0
@@ -2129,7 +3229,7 @@
     .locals 1
 
     .prologue
-    .line 570
+    .line 863
     const/4 v0, 0x0
 
     return v0
@@ -2139,10 +3239,10 @@
     .locals 3
 
     .prologue
-    .line 75
+    .line 93
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->skipSegments:Lorg/json/JSONArray;
 
-    .line 76
+    .line 94
     const-string v1, "ShotBinder"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -2176,10 +3276,10 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 77
+    .line 95
     return-void
 
-    .line 76
+    .line 94
     :cond_25
     const-string v0, "null"
 

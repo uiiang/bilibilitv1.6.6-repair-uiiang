@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 373
+    .line 365
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7$1;->this$1:Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,12 +40,12 @@
     .locals 4
 
     .prologue
-    .line 376
+    .line 368
     const/4 v0, 0x0
 
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->setDeferLoading(Z)V
 
-    .line 377
+    .line 369
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7$1;->this$1:Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
@@ -57,7 +57,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->refreshVisibleItems()V
 
-    .line 379
+    .line 371
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7$1;->this$1:Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
@@ -75,6 +75,6 @@
 
     invoke-virtual {v0, v1, v2, v3}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 385
+    .line 377
     return-void
 .end method

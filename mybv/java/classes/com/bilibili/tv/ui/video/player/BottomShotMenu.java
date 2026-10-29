@@ -201,38 +201,30 @@ public class BottomShotMenu extends FrameLayout {
         if (shots == null || shots.isEmpty()) {
             return;
         }
-        
-        android.util.Log.i("NavTagFocusBug", "[setupTimeBasedNavigationTags] shots.size()=" + shots.size() + ", totalDuration=" + totalDuration);
-        
+
         int segmentSeconds = 300;
         int totalSegments = totalDuration / segmentSeconds + 1;
-        
+
         java.util.List<NavigationTagAdapter.TagItem> customTags = new java.util.ArrayList<>();
-        
+
+        // shots 按时间升序、标签目标时间也升序：用一次指针扫描替代 O(标签数 × 截图数) 的重复遍历
+        int searchIndex = 0;
         for (int seg = 0; seg < totalSegments; seg++) {
             int targetTime = seg * segmentSeconds;
-            
-            int startIndex = -1;
-            for (int i = 0; i < shots.size(); i++) {
-                if (shots.get(i).time >= targetTime) {
-                    startIndex = i;
-                    break;
-                }
+            while (searchIndex < shots.size() && shots.get(searchIndex).time < targetTime) {
+                searchIndex++;
             }
-            
-            android.util.Log.i("NavTagFocusBug", "[setupTimeBasedNavigationTags] seg=" + seg + ", targetTime=" + targetTime + ", startIndex=" + startIndex);
-            
-            if (startIndex == -1) {
-                continue;
+            if (searchIndex >= shots.size()) {
+                // 后续目标时间更大，不可能再命中截图
+                break;
             }
-            
             String label = TimeFormatUtil.formatTime(targetTime, totalDuration);
-            android.util.Log.i("NavTagFocusBug", "[setupTimeBasedNavigationTags] adding tag: label=" + label + ", startIndex=" + startIndex);
-            customTags.add(new NavigationTagAdapter.TagItem(label, startIndex));
+            customTags.add(new NavigationTagAdapter.TagItem(label, searchIndex));
         }
-        
-        android.util.Log.i("NavTagFocusBug", "[setupTimeBasedNavigationTags] total customTags=" + customTags.size());
-        
+
+        android.util.Log.i("ShotPerf", "[setupTags] totalDuration=" + totalDuration + "s | shots=" + shots.size()
+                + " | tags=" + customTags.size() + " | totalSegments=" + totalSegments);
+
         int groupSize = 60;
         videoListSection.setupCustomNavigationTags(customTags, groupSize);
     }

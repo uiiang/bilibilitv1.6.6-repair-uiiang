@@ -49,6 +49,8 @@ import bl.vo;
 
 public final class AuthSpaceVideoFragment extends ady {
   private static final String TAG = "AuthSpaceVideo";
+  // 动态列表请求 features 开关：含 listOnlyfans 系列，用于让服务端下发「充电专属」角标
+  private static final String DYNAMIC_FEATURES = "itemOpusStyle,listOnlyfans,opusBigCover,onlyfansVote,decorationCard,onlyfansAssetsV2,forwardListHidden,ugcDelete,onlyfansQaCard,commentsNewVersion,avatarAutoTheme,sunflowerStyle,cardsEnhance,eva3CardOpus,eva3CardVideo,eva3CardComment,eva3CardVote,eva3CardUser";
   private static final int COLUMNS = 2;
   private c adapter;
   private b callback;
@@ -1223,7 +1225,7 @@ public final class AuthSpaceVideoFragment extends ady {
     String offset = this.dynamicOffset;
     LogUtil.i(TAG, "loadDynamicVideos mid=" + this.mid + " offset=" + offset);
 
-    api.getSpaceDynamicFeed(this.mid, offset, -480, "web", cookie)
+    api.getSpaceDynamicFeed(this.mid, offset, DYNAMIC_FEATURES, -480, "web", cookie)
     .a(new vn<JSONObject>() {
       @Override
       public boolean isCancel() {

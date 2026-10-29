@@ -52,6 +52,8 @@ import kotlin.TypeCastException;
 public final class AttentionDynamicFragment extends ady {
     public static final a Companion = new a(null);
     private static final int j = 2;
+    // 动态列表请求 features 开关：含 listOnlyfans 系列，用于让服务端下发「充电专属」角标
+    private static final String DYNAMIC_FEATURES = "itemOpusStyle,listOnlyfans,opusBigCover,onlyfansVote,decorationCard,onlyfansAssetsV2,forwardListHidden,ugcDelete,onlyfansQaCard,commentsNewVersion,avatarAutoTheme,sunflowerStyle,cardsEnhance,eva3CardOpus,eva3CardVideo,eva3CardComment,eva3CardVote,eva3CardUser";
     private c c;
     private b d;
     private boolean e;
@@ -444,7 +446,7 @@ public final class AttentionDynamicFragment extends ady {
             mg account = mg.a(activity);
             if (account != null) {
                 String cookie = mybl.CookieUtil.getFullCookieWithDevice(account);
-                api.getFeedVideos(offset, cookie).a(new vn<JSONObject>() {
+                api.getFeedVideos(offset, DYNAMIC_FEATURES, "web", -480, "333.1365", cookie).a(new vn<JSONObject>() {
                     @Override
                     public void a(JSONObject response) {
                         if (c == null) {
@@ -610,7 +612,7 @@ public final class AttentionDynamicFragment extends ady {
         MyBiliApiService api = (MyBiliApiService) vo.a(MyBiliApiService.class);
         String offset = this.uperDynamicOffset;
         
-        api.getSpaceDynamicFeed(mid, offset, -480, "web", cookie)
+        api.getSpaceDynamicFeed(mid, offset, DYNAMIC_FEATURES, -480, "web", cookie)
         .a(new vn<JSONObject>() {
             @Override
             public boolean isCancel() {

@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 172
+    .line 174
     iput-object p1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$1;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,11 +40,11 @@
     .locals 0
 
     .prologue
-    .line 175
+    .line 177
     check-cast p1, Lcom/bilibili/tv/widget/DrawTextView;
 
     invoke-virtual {p1, p2}, Lcom/bilibili/tv/widget/DrawTextView;->setUpEnabled(Z)V
 
-    .line 176
+    .line 178
     return-void
 .end method

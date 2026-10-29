@@ -28,15 +28,15 @@
     .locals 0
 
     .prologue
-    .line 1338
+    .line 1340
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$e;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 1339
+    .line 1341
     iput-object p2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$e;->host:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
-    .line 1340
+    .line 1342
     return-void
 .end method
 
@@ -46,24 +46,24 @@
     .locals 3
 
     .prologue
-    .line 1344
+    .line 1346
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$e;->host:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->m()Lbl/agd;
 
     move-result-object v0
 
-    .line 1345
+    .line 1347
     if-eqz v0, :cond_a
 
     if-nez p1, :cond_b
 
-    .line 1350
+    .line 1352
     :cond_a
     :goto_a
     return-void
 
-    .line 1347
+    .line 1349
     :cond_b
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$e;->host:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
@@ -75,7 +75,7 @@
 
     invoke-virtual {v0, v1}, Lbl/agd;->setUpRectDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 1348
+    .line 1350
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$e;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->firstLoad:Z
@@ -85,7 +85,7 @@
 
     invoke-virtual {v0, p1, p4, p5, v1}, Lbl/agd;->a(Landroid/view/View;IIZ)V
 
-    .line 1349
+    .line 1351
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$e;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     const/4 v1, 0x0

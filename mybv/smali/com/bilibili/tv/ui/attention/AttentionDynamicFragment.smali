@@ -20,6 +20,8 @@
 # static fields
 .field public static final Companion:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$a;
 
+.field private static final DYNAMIC_FEATURES:Ljava/lang/String; = "itemOpusStyle,listOnlyfans,opusBigCover,onlyfansVote,decorationCard,onlyfansAssetsV2,forwardListHidden,ugcDelete,onlyfansQaCard,commentsNewVersion,avatarAutoTheme,sunflowerStyle,cardsEnhance,eva3CardOpus,eva3CardVideo,eva3CardComment,eva3CardVote,eva3CardUser"
+
 .field private static final j:I = 0x2
 
 
@@ -101,37 +103,37 @@
     .line 52
     invoke-direct {p0}, Lbl/ady;-><init>()V
 
-    .line 58
+    .line 60
     iput v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->f:I
 
-    .line 59
+    .line 61
     iput-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->cursor:Ljava/lang/Long;
 
-    .line 60
+    .line 62
     iput v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperPage:I
 
-    .line 61
+    .line 63
     iput-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperDynamicOffset:Ljava/lang/String;
 
-    .line 62
+    .line 64
     const/4 v0, -0x1
 
     iput v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperDynamicMode:I
 
-    .line 63
+    .line 65
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->g:Z
 
-    .line 67
+    .line 69
     const-string v0, ""
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->offset:Ljava/lang/String;
 
-    .line 68
+    .line 70
     const-string v0, ""
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperFace:Ljava/lang/String;
 
-    .line 92
+    .line 94
     const-string v0, ""
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperName:Ljava/lang/String;
@@ -327,7 +329,7 @@
 
     const/4 v3, 0x0
 
-    .line 142
+    .line 144
     const-string v0, "all"
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->mode:Ljava/lang/String;
@@ -338,62 +340,62 @@
 
     if-eqz v0, :cond_3b
 
-    .line 143
+    .line 145
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerTitle:Landroid/widget/TextView;
 
     if-eqz v0, :cond_1a
 
-    .line 144
+    .line 146
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerTitle:Landroid/widget/TextView;
 
     const-string v1, "\u5168\u90e8\u52a8\u6001"
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 146
+    .line 148
     :cond_1a
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerFace:Lcom/bilibili/tv/widget/CircleImageView;
 
     if-eqz v0, :cond_28
 
-    .line 147
+    .line 149
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerFace:Lcom/bilibili/tv/widget/CircleImageView;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/CircleImageView;->setImageResource(I)V
 
-    .line 148
+    .line 150
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerFace:Lcom/bilibili/tv/widget/CircleImageView;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/CircleImageView;->setVisibility(I)V
 
-    .line 150
+    .line 152
     :cond_28
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->attentionButtonLayout:Landroid/view/View;
 
     if-eqz v0, :cond_31
 
-    .line 151
+    .line 153
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->attentionButtonLayout:Landroid/view/View;
 
     invoke-virtual {v0, v2}, Landroid/view/View;->setVisibility(I)V
 
-    .line 153
+    .line 155
     :cond_31
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerCount:Landroid/widget/TextView;
 
     if-eqz v0, :cond_3a
 
-    .line 154
+    .line 156
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerCount:Landroid/widget/TextView;
 
     invoke-virtual {v0, v2}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 234
+    .line 236
     :cond_3a
     :goto_3a
     return-void
 
-    .line 156
+    .line 158
     :cond_3b
     const-string v0, "uper"
 
@@ -405,12 +407,12 @@
 
     if-eqz v0, :cond_3a
 
-    .line 157
+    .line 159
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerTitle:Landroid/widget/TextView;
 
     if-eqz v0, :cond_54
 
-    .line 158
+    .line 160
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerTitle:Landroid/widget/TextView;
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperName:Ljava/lang/String;
@@ -422,7 +424,7 @@
     :goto_51
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 160
+    .line 162
     :cond_54
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerFace:Lcom/bilibili/tv/widget/CircleImageView;
 
@@ -440,7 +442,7 @@
 
     if-nez v0, :cond_ce
 
-    .line 161
+    .line 163
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
 
     move-result-object v0
@@ -459,37 +461,37 @@
 
     invoke-virtual {v0, v1, v2}, Lbl/nv;->a(Ljava/lang/String;Landroid/widget/ImageView;)V
 
-    .line 162
+    .line 164
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerFace:Lcom/bilibili/tv/widget/CircleImageView;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/CircleImageView;->setVisibility(I)V
 
-    .line 167
+    .line 169
     :cond_7c
     :goto_7c
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->attentionButtonLayout:Landroid/view/View;
 
     if-eqz v0, :cond_85
 
-    .line 168
+    .line 170
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->attentionButtonLayout:Landroid/view/View;
 
     invoke-virtual {v0, v3}, Landroid/view/View;->setVisibility(I)V
 
-    .line 170
+    .line 172
     :cond_85
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
     if-eqz v0, :cond_3a
 
-    .line 171
+    .line 173
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
     const v1, 0x7f0700e7
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setUpDrawable(I)V
 
-    .line 172
+    .line 174
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
     new-instance v1, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$1;
@@ -498,7 +500,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 178
+    .line 180
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
     new-instance v1, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;
@@ -507,7 +509,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 210
+    .line 212
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
@@ -516,15 +518,15 @@
 
     move-result-object v0
 
-    .line 211
+    .line 213
     if-eqz v0, :cond_3a
 
-    .line 212
+    .line 214
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 213
+    .line 215
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -543,29 +545,29 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$3;-><init>(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;)V
 
-    .line 214
+    .line 216
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto/16 :goto_3a
 
-    .line 158
+    .line 160
     :cond_cb
     const-string v0, ""
 
     goto :goto_51
 
-    .line 163
+    .line 165
     :cond_ce
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerFace:Lcom/bilibili/tv/widget/CircleImageView;
 
     if-eqz v0, :cond_7c
 
-    .line 164
+    .line 166
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerFace:Lcom/bilibili/tv/widget/CircleImageView;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/CircleImageView;->setImageResource(I)V
 
-    .line 165
+    .line 167
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerFace:Lcom/bilibili/tv/widget/CircleImageView;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/CircleImageView;->setVisibility(I)V
@@ -574,18 +576,18 @@
 .end method
 
 .method private loadAllDynamic()V
-    .locals 3
+    .locals 7
 
     .prologue
-    .line 441
+    .line 443
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v1
 
-    .line 442
-    if-eqz v1, :cond_26
+    .line 444
+    if-eqz v1, :cond_2e
 
-    .line 443
+    .line 445
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -594,23 +596,31 @@
 
     check-cast v0, Lmybl/MyBiliApiService;
 
-    .line 444
+    .line 446
     invoke-static {v1}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v1
 
-    .line 445
-    if-eqz v1, :cond_26
+    .line 447
+    if-eqz v1, :cond_2e
 
-    .line 446
+    .line 448
     invoke-static {v1}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
-    move-result-object v1
+    move-result-object v6
 
-    .line 447
-    iget-object v2, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->offset:Ljava/lang/String;
+    .line 449
+    iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->offset:Ljava/lang/String;
 
-    invoke-interface {v0, v2, v1}, Lmybl/MyBiliApiService;->getFeedVideos(Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
+    const-string v2, "itemOpusStyle,listOnlyfans,opusBigCover,onlyfansVote,decorationCard,onlyfansAssetsV2,forwardListHidden,ugcDelete,onlyfansQaCard,commentsNewVersion,avatarAutoTheme,sunflowerStyle,cardsEnhance,eva3CardOpus,eva3CardVideo,eva3CardComment,eva3CardVote,eva3CardUser"
+
+    const-string v3, "web"
+
+    const/16 v4, -0x1e0
+
+    const-string v5, "333.1365"
+
+    invoke-interface/range {v0 .. v6}, Lmybl/MyBiliApiService;->getFeedVideos(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;)Lbl/vp;
 
     move-result-object v0
 
@@ -620,43 +630,43 @@
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 509
-    :cond_26
+    .line 511
+    :cond_2e
     return-void
 .end method
 
 .method private loadUperDynamicVideos()V
-    .locals 8
+    .locals 9
 
     .prologue
-    .line 603
+    .line 605
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 604
+    .line 606
     if-nez v0, :cond_7
 
-    .line 696
+    .line 698
     :cond_6
     :goto_6
     return-void
 
-    .line 606
+    .line 608
     :cond_7
     invoke-static {v0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 607
+    .line 609
     if-eqz v0, :cond_6
 
-    .line 609
+    .line 611
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
-    move-result-object v7
+    move-result-object v8
 
-    .line 610
+    .line 612
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -665,17 +675,19 @@
 
     check-cast v1, Lmybl/MyBiliApiService;
 
-    .line 611
+    .line 613
     iget-object v4, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperDynamicOffset:Ljava/lang/String;
 
-    .line 613
+    .line 615
     iget-wide v2, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->mid:J
 
-    const/16 v5, -0x1e0
+    const-string v5, "itemOpusStyle,listOnlyfans,opusBigCover,onlyfansVote,decorationCard,onlyfansAssetsV2,forwardListHidden,ugcDelete,onlyfansQaCard,commentsNewVersion,avatarAutoTheme,sunflowerStyle,cardsEnhance,eva3CardOpus,eva3CardVideo,eva3CardComment,eva3CardVote,eva3CardUser"
 
-    const-string v6, "web"
+    const/16 v6, -0x1e0
 
-    invoke-interface/range {v1 .. v7}, Lmybl/MyBiliApiService;->getSpaceDynamicFeed(JLjava/lang/String;ILjava/lang/String;Ljava/lang/String;)Lbl/vp;
+    const-string v7, "web"
+
+    invoke-interface/range {v1 .. v8}, Lmybl/MyBiliApiService;->getSpaceDynamicFeed(JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;)Lbl/vp;
 
     move-result-object v0
 
@@ -683,7 +695,7 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;-><init>(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;)V
 
-    .line 614
+    .line 616
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto :goto_6
@@ -693,16 +705,8 @@
     .locals 13
 
     .prologue
-    .line 512
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
-
-    move-result-object v0
-
-    .line 513
-    if-eqz v0, :cond_33
-
     .line 514
-    invoke-static {v0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
@@ -710,11 +714,19 @@
     if-eqz v0, :cond_33
 
     .line 516
+    invoke-static {v0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
+
+    move-result-object v0
+
+    .line 517
+    if-eqz v0, :cond_33
+
+    .line 518
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v12
 
-    .line 517
+    .line 519
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -723,7 +735,7 @@
 
     check-cast v1, Lmybl/MyBiliApiService;
 
-    .line 518
+    .line 520
     iget-wide v2, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->mid:J
 
     iget v4, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperPage:I
@@ -750,10 +762,10 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$5;-><init>(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;)V
 
-    .line 519
+    .line 521
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 600
+    .line 602
     :cond_33
     return-void
 .end method
@@ -762,18 +774,18 @@
     .locals 2
 
     .prologue
-    .line 95
+    .line 97
     new-instance v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;-><init>()V
 
-    .line 96
+    .line 98
     iput-wide p0, v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->mid:J
 
-    .line 97
+    .line 99
     iput-object p2, v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->mode:Ljava/lang/String;
 
-    .line 98
+    .line 100
     return-object v0
 .end method
 
@@ -781,21 +793,21 @@
     .locals 2
 
     .prologue
-    .line 102
+    .line 104
     new-instance v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;-><init>()V
 
-    .line 103
+    .line 105
     iput-wide p0, v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->mid:J
 
-    .line 104
+    .line 106
     iput-object p2, v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->mode:Ljava/lang/String;
 
-    .line 105
+    .line 107
     iput-object p3, v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperName:Ljava/lang/String;
 
-    .line 106
+    .line 108
     return-object v0
 .end method
 
@@ -803,24 +815,24 @@
     .locals 2
 
     .prologue
-    .line 110
+    .line 112
     new-instance v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;-><init>()V
 
-    .line 111
+    .line 113
     iput-wide p0, v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->mid:J
 
-    .line 112
+    .line 114
     iput-object p2, v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->mode:Ljava/lang/String;
 
-    .line 113
+    .line 115
     iput-object p3, v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperName:Ljava/lang/String;
 
-    .line 114
+    .line 116
     iput-object p4, v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperFace:Ljava/lang/String;
 
-    .line 115
+    .line 117
     return-object v0
 .end method
 
@@ -830,18 +842,18 @@
     .locals 5
 
     .prologue
-    .line 245
+    .line 247
     const-string v0, "recyclerView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 246
+    .line 248
     invoke-super {p0, p1, p2}, Lbl/ady;->a(Landroid/support/v7/widget/RecyclerView;Landroid/os/Bundle;)V
 
-    .line 247
+    .line 249
     iput-object p1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->mRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
-    .line 248
+    .line 250
     new-instance v1, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -852,15 +864,15 @@
 
     invoke-direct {v1, v0, v2}, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;-><init>(Landroid/content/Context;I)V
 
-    .line 249
+    .line 251
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 250
+    .line 252
     if-nez v0, :cond_22
 
-    .line 251
+    .line 253
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type com.bilibili.tv.ui.attention.AttentionDynamicSideActivity"
@@ -869,7 +881,7 @@
 
     throw v0
 
-    .line 253
+    .line 255
     :cond_22
     new-instance v2, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$e;
 
@@ -879,55 +891,55 @@
 
     invoke-virtual {v1, v2}, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;->a(Lcom/bilibili/tv/widget/border/BorderGridLayoutManager$a;)V
 
-    .line 254
+    .line 256
     invoke-virtual {p1, v1}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 255
+    .line 257
     const v0, 0x7f0601bb
 
     invoke-static {v0}, Lbl/adl;->b(I)I
 
     move-result v0
 
-    .line 256
+    .line 258
     const v2, 0x7f06006e
 
     invoke-static {v2}, Lbl/adl;->b(I)I
 
     move-result v2
 
-    .line 257
+    .line 259
     const v3, 0x7f06014d
 
     invoke-static {v3}, Lbl/adl;->b(I)I
 
     move-result v3
 
-    .line 258
+    .line 260
     const v4, 0x7f060154
 
     invoke-static {v4}, Lbl/adl;->b(I)I
 
     move-result v4
 
-    .line 259
+    .line 261
     invoke-virtual {p1, v3, v3, v3, v4}, Landroid/support/v7/widget/RecyclerView;->setPadding(IIII)V
 
-    .line 260
+    .line 262
     new-instance v3, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$f;
 
     invoke-direct {v3, v2, v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$f;-><init>(II)V
 
     invoke-virtual {p1, v3}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$g;)V
 
-    .line 261
+    .line 263
     new-instance v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$g;
 
     invoke-direct {v0, p0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$g;-><init>(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;)V
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$m;)V
 
-    .line 262
+    .line 264
     new-instance v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$c;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperName:Ljava/lang/String;
@@ -936,25 +948,25 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->c:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$c;
 
-    .line 263
+    .line 265
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->c:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$c;
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 264
+    .line 266
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->i()V
 
-    .line 265
+    .line 267
     new-instance v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$b;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$b;-><init>(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->d:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$b;
 
-    .line 266
+    .line 268
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->b()V
 
-    .line 268
+    .line 270
     return-void
 .end method
 
@@ -962,12 +974,12 @@
     .locals 2
 
     .prologue
-    .line 397
+    .line 399
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->h:Z
 
-    .line 398
+    .line 400
     const-string v0, "all"
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->mode:Ljava/lang/String;
@@ -978,15 +990,15 @@
 
     if-eqz v0, :cond_11
 
-    .line 399
+    .line 401
     invoke-direct {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->loadAllDynamic()V
 
-    .line 411
+    .line 413
     :cond_10
     :goto_10
     return-void
 
-    .line 400
+    .line 402
     :cond_11
     const-string v0, "uper"
 
@@ -998,14 +1010,14 @@
 
     if-eqz v0, :cond_10
 
-    .line 401
+    .line 403
     iget v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperDynamicMode:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_2a
 
-    .line 402
+    .line 404
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
@@ -1016,7 +1028,7 @@
 
     iput v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperDynamicMode:I
 
-    .line 404
+    .line 406
     :cond_2a
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
@@ -1026,7 +1038,7 @@
 
     move-result-object v0
 
-    .line 405
+    .line 407
     if-eqz v0, :cond_42
 
     invoke-virtual {v0}, Lbl/mg;->a()Z
@@ -1039,12 +1051,12 @@
 
     if-nez v0, :cond_42
 
-    .line 406
+    .line 408
     invoke-direct {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->loadUperDynamicVideos()V
 
     goto :goto_10
 
-    .line 408
+    .line 410
     :cond_42
     invoke-direct {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->loadUperVideos()V
 
@@ -1057,7 +1069,7 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 370
+    .line 372
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->isVisible()Z
 
     move-result v1
@@ -1068,7 +1080,7 @@
 
     if-eqz v1, :cond_14
 
-    .line 371
+    .line 373
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->c:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$c;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$c;->a()I
@@ -1079,7 +1091,7 @@
 
     const/4 v0, 0x1
 
-    .line 373
+    .line 375
     :cond_14
     return v0
 .end method
@@ -1092,35 +1104,35 @@
 
     const/4 v0, 0x1
 
-    .line 385
+    .line 387
     invoke-super {p0}, Lbl/ady;->d_()V
 
-    .line 386
+    .line 388
     iput v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->f:I
 
-    .line 387
+    .line 389
     iput-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->cursor:Ljava/lang/Long;
 
-    .line 388
+    .line 390
     iput v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperPage:I
 
-    .line 389
+    .line 391
     iput-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperDynamicOffset:Ljava/lang/String;
 
-    .line 390
+    .line 392
     const/4 v0, -0x1
 
     iput v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperDynamicMode:I
 
-    .line 391
+    .line 393
     const-string v0, ""
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->offset:Ljava/lang/String;
 
-    .line 392
+    .line 394
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->b()V
 
-    .line 393
+    .line 395
     return-void
 .end method
 
@@ -1130,17 +1142,17 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 280
+    .line 282
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->mRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     if-nez v0, :cond_6
 
-    .line 290
+    .line 292
     :cond_5
     :goto_5
     return v1
 
-    .line 281
+    .line 283
     :cond_6
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->mRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
@@ -1148,15 +1160,15 @@
 
     move-result-object v0
 
-    .line 282
+    .line 284
     instance-of v2, v0, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
     if-eqz v2, :cond_5
 
-    .line 283
+    .line 285
     check-cast v0, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
-    .line 285
+    .line 287
     :try_start_12
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;->p()I
 
@@ -1184,7 +1196,7 @@
 
     goto :goto_1f
 
-    .line 286
+    .line 288
     :catch_23
     move-exception v0
 
@@ -1195,7 +1207,7 @@
     .locals 1
 
     .prologue
-    .line 275
+    .line 277
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->h:Z
 
     return v0
@@ -1205,7 +1217,7 @@
     .locals 3
 
     .prologue
-    .line 120
+    .line 122
     const v0, 0x7f0a0095
 
     const/4 v1, 0x0
@@ -1216,7 +1228,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->rootView:Landroid/view/View;
 
-    .line 121
+    .line 123
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->rootView:Landroid/view/View;
 
     const v1, 0x7f0801b2
@@ -1227,7 +1239,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerLayout:Landroid/view/View;
 
-    .line 122
+    .line 124
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->rootView:Landroid/view/View;
 
     const v1, 0x7f0801b5
@@ -1238,7 +1250,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->attentionButtonLayout:Landroid/view/View;
 
-    .line 123
+    .line 125
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->rootView:Landroid/view/View;
 
     const v1, 0x7f0801b3
@@ -1251,7 +1263,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerFace:Lcom/bilibili/tv/widget/CircleImageView;
 
-    .line 124
+    .line 126
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->rootView:Landroid/view/View;
 
     const v1, 0x7f0801b4
@@ -1264,7 +1276,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerTitle:Landroid/widget/TextView;
 
-    .line 125
+    .line 127
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->rootView:Landroid/view/View;
 
     const v1, 0x7f0801b6
@@ -1277,7 +1289,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
-    .line 126
+    .line 128
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->rootView:Landroid/view/View;
 
     const v1, 0x7f0801b7
@@ -1290,7 +1302,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerCount:Landroid/widget/TextView;
 
-    .line 127
+    .line 129
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->rootView:Landroid/view/View;
 
     const v1, 0x7f0801f0
@@ -1303,12 +1315,12 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerHint:Landroid/widget/TextView;
 
-    .line 128
+    .line 130
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerHint:Landroid/widget/TextView;
 
     if-eqz v0, :cond_74
 
-    .line 129
+    .line 131
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerHint:Landroid/widget/TextView;
 
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -1323,11 +1335,11 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 131
+    .line 133
     :cond_74
     invoke-direct {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->initHeader()V
 
-    .line 132
+    .line 134
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->rootView:Landroid/view/View;
 
     const v1, 0x7f0800eb
@@ -1338,10 +1350,10 @@
 
     check-cast v0, Landroid/support/v7/widget/RecyclerView;
 
-    .line 133
+    .line 135
     invoke-virtual {p0, v0, p3}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->a(Landroid/support/v7/widget/RecyclerView;Landroid/os/Bundle;)V
 
-    .line 134
+    .line 136
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->rootView:Landroid/view/View;
 
     return-object v0
@@ -1353,22 +1365,22 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 378
+    .line 380
     move-object v0, v1
 
     check-cast v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$c;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->c:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$c;
 
-    .line 379
+    .line 381
     check-cast v1, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$b;
 
     iput-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->d:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$b;
 
-    .line 380
+    .line 382
     invoke-super {p0}, Lbl/ady;->onDestroyView()V
 
-    .line 381
+    .line 383
     return-void
 .end method
 
@@ -1376,7 +1388,7 @@
     .locals 0
 
     .prologue
-    .line 139
+    .line 141
     return-void
 .end method
 
@@ -1384,7 +1396,7 @@
     .locals 3
 
     .prologue
-    .line 237
+    .line 239
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerCount:Landroid/widget/TextView;
 
     if-eqz v0, :cond_2e
@@ -1399,7 +1411,7 @@
 
     if-eqz v0, :cond_2e
 
-    .line 238
+    .line 240
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerCount:Landroid/widget/TextView;
 
     if-lez p1, :cond_2f
@@ -1425,18 +1437,18 @@
     :goto_25
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 239
+    .line 241
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->headerCount:Landroid/widget/TextView;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 241
+    .line 243
     :cond_2e
     return-void
 
-    .line 238
+    .line 240
     :cond_2f
     const-string v0, ""
 

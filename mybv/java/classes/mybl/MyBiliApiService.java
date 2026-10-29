@@ -128,7 +128,10 @@ public interface MyBiliApiService {
             @Header("Cookie") String cookie);
 
     @GET("/x/polymer/web-dynamic/v1/feed/all?type=video")
-    vp<GeneralResponse<JSONObject>> getFeedVideos(@Query("offset") String offset, @Header("Cookie") String cookie);
+    vp<GeneralResponse<JSONObject>> getFeedVideos(@Query("offset") String offset,
+            @Query("features") String features, @Query("platform") String platform,
+            @Query("timezone_offset") int timezoneOffset, @Query("web_location") String webLocation,
+            @Header("Cookie") String cookie);
 
     @GET("/pgc/page/pc/bangumi/tab?is_refresh=0&cursor=0")
     vp<JSONObject> getBangumiInfos();
@@ -202,6 +205,7 @@ public interface MyBiliApiService {
     vp<GeneralResponse<JSONObject>> getSpaceDynamicFeed(
             @Query("host_mid") long hostMid,
             @Query("offset") String offset,
+            @Query("features") String features,
             @Query("timezone_offset") int timezoneOffset,
             @Query("platform") String platform,
             @Header("Cookie") String cookie);

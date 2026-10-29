@@ -27,6 +27,9 @@ public class VideoShot {
     
     @JSONField(name = "index")
     private List<Integer> index;
+
+    // 截图时间点列表缓存：长视频（数千个时间点）避免每次弹出菜单都重新构建
+    private List<VideoShotItem> allShotsCache;
     
     public String getPvdata() {
         return pvdata;
@@ -82,6 +85,7 @@ public class VideoShot {
     
     public void setIndex(List<Integer> index) {
         this.index = index;
+        this.allShotsCache = null;
     }
     
     public int getSnapshotIndex(int timeSeconds) {
@@ -133,14 +137,18 @@ public class VideoShot {
     }
     
     public java.util.List<VideoShotItem> getAllShots() {
+        if (allShotsCache != null) {
+            return allShotsCache;
+        }
+
         java.util.List<VideoShotItem> items = new java.util.ArrayList<>();
         if (index == null || index.isEmpty()) {
             return items;
         }
-        
+
         // 检测开头是否有两个连续的0，如果是则跳过第二个0的时间点
         boolean hasDoubleZeroAtStart = index.size() >= 2 && index.get(0) == 0 && index.get(1) == 0;
-        
+
         int imageIndex = 0; // 图片索引从0开始连续递增
         for (int i = 0; i < index.size(); i++) {
             // 如果开头有两个0，跳过第二个0的时间点（i==1）
@@ -150,7 +158,8 @@ public class VideoShot {
             items.add(new VideoShotItem(index.get(i), imageIndex));
             imageIndex++;
         }
-        
+
+        allShotsCache = items;
         return items;
     }
     

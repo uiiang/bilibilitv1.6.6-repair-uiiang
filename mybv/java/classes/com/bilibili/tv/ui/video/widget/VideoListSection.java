@@ -269,6 +269,11 @@ public class VideoListSection extends LinearLayout {
                         
                         android.util.Log.i(TAG, "dispatchKeyEvent | NAV_TAG→LEFT/RIGHT | targetTagIndex=" + targetTagIndex 
                                 + " -> lastNavTagVideoStart=" + lastNavTagVideoStart);
+                        android.util.Log.i("ShotPerf", "[nav-key] " + (keyCode == KeyEvent.KEYCODE_DPAD_LEFT ? "LEFT" : "RIGHT")
+                                + " | tag=" + currentTagIndex + "->" + targetTagIndex
+                                + " | tagCount=" + tagCount
+                                + " | videoStart=" + videoStartPosition
+                                + " | dataSize=" + (dataList == null ? 0 : dataList.size()));
                         scrollToDataPositionOnly(videoStartPosition);
                         
                         final int finalTagIndex = targetTagIndex;
@@ -557,6 +562,11 @@ public class VideoListSection extends LinearLayout {
         navTagAdapter.setOnTagFocusListener(new NavigationTagAdapter.OnTagFocusListener() {
             @Override
             public void onTagFocus(int tagIndex, int videoStartPosition) {
+                android.util.Log.i("ShotPerf", "[tag-focus] tag=" + tagIndex
+                        + " | videoStart=" + videoStartPosition
+                        + " | focusArea=" + currentFocusArea
+                        + " | focusPos=" + focusPosition
+                        + " | redirecting=" + focusRedirecting);
                 // android.util.Log.i(TAG, "========== onTagFocus START ==========");
                 // android.util.Log.i(TAG, "onTagFocus | tagIndex=" + tagIndex 
                 //         + " | videoStartPosition=" + videoStartPosition
@@ -1034,7 +1044,7 @@ public class VideoListSection extends LinearLayout {
 
         int dataSize = (dataList == null ? 0 : dataList.size());
         if (position < 0 || position >= dataSize) {
-            // android.util.Log.i(TAG, "scrollToDataPositionOnly | position越界，返回 | dataSize=" + dataSize);
+            android.util.Log.i("ShotPerf", "[scroll-skip] pos=" + position + " | dataSize=" + dataSize);
             return;
         }
 
@@ -1047,7 +1057,7 @@ public class VideoListSection extends LinearLayout {
         if (pendingVideoScrollRunnable != null) {
             recyclerView.removeCallbacks(pendingVideoScrollRunnable);
             pendingVideoScrollRunnable = null;
-            // android.util.Log.i(TAG, "scrollToDataPositionOnly | 取消之前的滚动请求");
+            android.util.Log.i("ShotPerf", "[scroll-cancel] pos=" + position);
         }
 
         final int finalPos = position;
@@ -1055,11 +1065,11 @@ public class VideoListSection extends LinearLayout {
             @Override
             public void run() {
                 if (!recyclerView.isAttachedToWindow()) {
-                    // android.util.Log.i(TAG, "scrollToDataPositionOnly | recyclerView未attached，返回");
+                    android.util.Log.i("ShotPerf", "[scroll-abort] pos=" + finalPos + " | notAttached");
                     return;
                 }
 
-                // android.util.Log.i(TAG, "scrollToDataPositionOnly | 执行滚动到position=" + finalPos);
+                android.util.Log.i("ShotPerf", "[scroll-exec] pos=" + finalPos + " | dataSize=" + dataSize);
                 // 使用b(int,int)方法（scrollToPositionWithOffset），offset=0
                 // 强制将目标项滚动到屏幕最左边，而不是最小滚动
                 try {

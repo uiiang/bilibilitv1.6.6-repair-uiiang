@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 364
+    .line 356
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 4
 
     .prologue
-    .line 367
+    .line 359
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -54,7 +54,7 @@
 
     if-nez v0, :cond_18
 
-    .line 368
+    .line 360
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -66,11 +66,11 @@
 
     invoke-virtual {v0, p0, v2, v3}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 387
+    .line 379
     :goto_17
     return-void
 
-    .line 371
+    .line 363
     :cond_18
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
@@ -81,7 +81,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->scrollToCurrentItem()V
 
-    .line 373
+    .line 365
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
