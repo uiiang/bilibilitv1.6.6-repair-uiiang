@@ -35,7 +35,7 @@
     .end annotation
 
     .prologue
-    .line 5799
+    .line 5836
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iput-wide p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->val$staffMid:J
@@ -57,7 +57,7 @@
 
     const-wide/16 v2, 0x0
 
-    .line 5803
+    .line 5840
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -67,26 +67,26 @@
 
     move-result-object v4
 
-    .line 5804
+    .line 5841
     if-eqz v4, :cond_3b
 
     invoke-virtual {v4}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->getMid()J
 
     move-result-wide v0
 
-    .line 5805
+    .line 5842
     :goto_11
     if-eqz v4, :cond_3d
 
     iget-object v6, v4, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mBvid:Ljava/lang/String;
 
-    .line 5806
+    .line 5843
     :goto_15
     if-eqz v4, :cond_19
 
     iget-object v7, v4, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mTitle:Ljava/lang/String;
 
-    .line 5807
+    .line 5844
     :cond_19
     iget-object v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
@@ -97,7 +97,7 @@
 
     move-result-wide v4
 
-    .line 5808
+    .line 5845
     cmp-long v8, v0, v2
 
     if-lez v8, :cond_3f
@@ -112,7 +112,7 @@
 
     if-lez v0, :cond_3f
 
-    .line 5809
+    .line 5846
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -123,23 +123,23 @@
 
     invoke-static/range {v0 .. v7}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->start(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;)V
 
-    .line 5813
+    .line 5850
     :goto_3a
     return-void
 
     :cond_3b
     move-wide v0, v2
 
-    .line 5804
+    .line 5841
     goto :goto_11
 
     :cond_3d
     move-object v6, v7
 
-    .line 5805
+    .line 5842
     goto :goto_15
 
-    .line 5811
+    .line 5848
     :cond_3f
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 

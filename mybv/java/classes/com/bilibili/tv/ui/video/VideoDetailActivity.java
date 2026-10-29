@@ -181,6 +181,7 @@ public final class VideoDetailActivity extends BaseActivity
     private TextView pgcNewEp;
     private LinearLayout titleSection;
     private TextView interactionVideoTag;
+    private TextView chargingExclusiveTag;
 
     /* renamed from: u reason: collision with root package name */
     private BiliVideoDetail u;
@@ -328,6 +329,37 @@ public final class VideoDetailActivity extends BaseActivity
         this.pgcNewEp = (TextView) d(R.id.pgc_new_ep);
         this.titleSection = (LinearLayout) d(R.id.title_section);
         this.interactionVideoTag = (TextView) d(R.id.interaction_video_tag);
+        // 充电专属标签：动态创建，背景为 B 站粉（#FB7299），避免新增资源 ID
+        try {
+            LinearLayout badgeRow = (LinearLayout) this.interactionVideoTag.getParent();
+            if (badgeRow != null && this.chargingExclusiveTag == null) {
+                TextView chargingTag = new TextView(this);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                lp.setMargins(adl.b(R.dimen.px_30), 0, 0, 0);
+                chargingTag.setLayoutParams(lp);
+                chargingTag.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,
+                        getResources().getDimensionPixelSize(R.dimen.px_24));
+                chargingTag.setTextColor(getResources().getColor(R.color.white));
+                chargingTag.setText("充电专属");
+                chargingTag.setPadding(adl.b(R.dimen.px_8), adl.b(R.dimen.px_4),
+                        adl.b(R.dimen.px_8), adl.b(R.dimen.px_4));
+                chargingTag.setGravity(android.view.Gravity.CENTER);
+                chargingTag.setFocusable(false);
+                float cornerRadius = 4 * getResources().getDisplayMetrics().density;
+                android.graphics.drawable.GradientDrawable gd =
+                        new android.graphics.drawable.GradientDrawable();
+                gd.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
+                gd.setCornerRadius(cornerRadius);
+                gd.setColor(0xFFFB7299);
+                chargingTag.setBackground(gd);
+                chargingTag.setVisibility(View.GONE);
+                badgeRow.addView(chargingTag);
+                this.chargingExclusiveTag = chargingTag;
+            }
+        } catch (Exception e) {
+            // 忽略：不影响主流程
+        }
         this.j = (DrawLinearLayout) d(R.id.video_detail_favorite);
         this.k = (ImageView) d(R.id.video_detail_favorite_img);
         this.l = (TextView) d(R.id.video_detail_favorite_text);
@@ -5614,6 +5646,11 @@ public final class VideoDetailActivity extends BaseActivity
                     boolean isInteractionVideo = biliVideoDetail.mRights != null && 
                                                   biliVideoDetail.mRights.isSteinGate == 1;
                     interactionTag.setVisibility(isInteractionVideo ? View.VISIBLE : View.GONE);
+                }
+
+                if (VideoDetailActivity.this.chargingExclusiveTag != null) {
+                    VideoDetailActivity.this.chargingExclusiveTag.setVisibility(
+                            biliVideoDetail.mIsUpowerExclusive ? View.VISIBLE : View.GONE);
                 }
                 
                 LinearLayout staffContainer = VideoDetailActivity.this.staffContainer;

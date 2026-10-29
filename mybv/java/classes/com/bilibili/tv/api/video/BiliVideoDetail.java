@@ -147,6 +147,10 @@ public class BiliVideoDetail implements Parcelable {
     public String badgeText;
     public String badgeBgColor;
 
+    /** 是否为充电专属视频（来自 /x/web-interface/view 返回的 is_upower_exclusive） */
+    @JSONField(name = "is_upower_exclusive")
+    public boolean mIsUpowerExclusive;
+
     public BiliVideoDetail.Page sourcePage;
     public Object sourceEpisode;
     public long mCid;
@@ -1085,6 +1089,7 @@ public class BiliVideoDetail implements Parcelable {
         this.mRelatedList = biliVideoDetail.mRelatedList;
         this.movieRecommendList = biliVideoDetail.movieRecommendList;
         this.ownerExt = biliVideoDetail.ownerExt;
+        this.mIsUpowerExclusive = biliVideoDetail.mIsUpowerExclusive;
     }
 
     public BiliVideoDetail() {
