@@ -24,6 +24,7 @@ error/
 json/
 .trae/
 .codebuddy/
+.workbuddy/
 monitor/
 docs/
 .aider*
