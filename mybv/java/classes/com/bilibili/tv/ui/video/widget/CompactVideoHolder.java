@@ -1,19 +1,12 @@
 package com.bilibili.tv.ui.video.widget;
 
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
 import android.widget.TextView;
-import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.DrawLinearLayout;
-import bl.adl;
-import bl.adh;
-import bl.abd;
-import bl.nv;
 import bl.bbi;
 
 public class CompactVideoHolder extends android.support.v7.widget.RecyclerView.v {
@@ -45,23 +38,8 @@ public class CompactVideoHolder extends android.support.v7.widget.RecyclerView.v
         this.rootLayout.setUpDrawable(R.drawable.shadow_white_rect);
         
         android.content.Context ctx = itemView.getContext();
-        int iconSize = ctx.getResources().getDimensionPixelSize(R.dimen.px_26);
-        int iconColor = ctx.getResources().getColor(R.color.white_50);
-        
-        Drawable upIcon = ctx.getResources().getDrawable(R.drawable.ic_video_info_up);
-        upIcon.setBounds(0, 0, iconSize, iconSize);
-        upIcon.setColorFilter(iconColor, PorterDuff.Mode.MULTIPLY);
-        this.upView.setCompoundDrawables(upIcon, null, null, null);
-        
-        Drawable playIcon = ctx.getResources().getDrawable(R.drawable.ic_video_info_play);
-        playIcon.setBounds(0, 0, iconSize, iconSize);
-        playIcon.setColorFilter(iconColor, PorterDuff.Mode.MULTIPLY);
-        this.playCountView.setCompoundDrawables(playIcon, null, null, null);
-        
-        Drawable danmakuIcon = ctx.getResources().getDrawable(R.drawable.ic_video_info_danmaku);
-        danmakuIcon.setBounds(0, 0, iconSize, iconSize);
-        danmakuIcon.setColorFilter(iconColor, PorterDuff.Mode.MULTIPLY);
-        this.danmakuView.setCompoundDrawables(danmakuIcon, null, null, null);
+        VideoCardIcons.apply(ctx, this.upView, this.playCountView, this.danmakuView,
+                VideoCardIcons.SIZE_COMPACT, R.color.white_50);
     }
 
     public ScalableImageView getCoverImageView() {

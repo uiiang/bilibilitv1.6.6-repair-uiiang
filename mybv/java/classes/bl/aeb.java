@@ -2,8 +2,6 @@ package bl;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,12 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import bl.adc;
-import bl.abd;
-import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.area.BiliVideoV2;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
-import com.bilibili.tv.util.DateHelper;
 import com.bilibili.tv.widget.ScalableImageView;
 import kotlin.TypeCastException;
 
@@ -43,20 +38,9 @@ public final class aeb extends adc.a implements View.OnClickListener {
         this.r = (TextView) a(view, R.id.danmaku);
         this.s = (TextView) a(view, R.id.duration);
         this.t = (TextView) a(view, R.id.pubdate);
-        Drawable c = adl.a.c(R.drawable.ic_video_info_up);
-        Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
-        Drawable c3 = adl.a.c(R.drawable.ic_video_info_danmaku);
-        int b2 = adl.b(R.dimen.px_34);
-        c.setBounds(0, 0, b2, b2);
-        c2.setBounds(0, 0, b2, b2);
-        c3.setBounds(0, 0, b2, b2);
-        int d = adl.d(R.color.white_50);
-        c.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
-        c2.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
-        c3.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
-        this.p.setCompoundDrawables(c, null, null, null);
-        this.q.setCompoundDrawables(c2, null, null, null);
-        this.r.setCompoundDrawables(c3, null, null, null);
+        com.bilibili.tv.ui.video.widget.VideoCardIcons.apply(view.getContext(),
+                this.p, this.q, this.r,
+                com.bilibili.tv.ui.video.widget.VideoCardIcons.SIZE_WIDE, R.color.white_50);
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         if (layoutParams == null) {
             throw new TypeCastException("null cannot be cast to non-null type android.support.v7.widget.RecyclerView.LayoutParams");
@@ -105,21 +89,9 @@ public final class aeb extends adc.a implements View.OnClickListener {
             }
             this.q.setText(adh.a(a2.play));
             this.r.setText(adh.a(a2.danmaku));
-            int duration = a2.duration;
-            if (duration >= 3600) {
-                this.s.setText(String.format("%d:%02d:%02d", duration / 3600, (duration % 3600) / 60, duration % 60));
-            } else {
-                this.s.setText(String.format("%02d:%02d", duration / 60, duration % 60));
-            }
-            if (a2.pubdate > 0) {
-                this.t.setText(DateHelper.formatDate(a2.pubdate));
-                this.t.setVisibility(View.VISIBLE);
-            } else {
-                this.t.setVisibility(View.GONE);
-            }
-            if (a2.cover != null) {
-                nv.a().a(abd.get_thumb_url_c(MainApplication.a(), a2.cover), this.n);
-            }
+            com.bilibili.tv.ui.video.widget.VideoCardTexts.bindDuration(this.s, a2.duration, false);
+            com.bilibili.tv.ui.video.widget.VideoCardTexts.bindPubDate(this.t, a2.pubdate, null, true);
+            com.bilibili.tv.ui.video.widget.VideoCardCoverLoader.load(null, this.n, a2.cover);
             if (aVar.b()) {
                 this.a.setTag(R.id.isNeedPx, true);
             } else {

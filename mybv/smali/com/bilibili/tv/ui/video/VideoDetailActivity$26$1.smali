@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 2504
+    .line 2470
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$26$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$26;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$26$1;->val$relatedList:Ljava/util/List;
@@ -49,7 +49,7 @@
     .locals 2
 
     .prologue
-    .line 2507
+    .line 2473
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$26$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$26;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$26;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -60,11 +60,11 @@
 
     if-eqz v0, :cond_b
 
-    .line 2511
+    .line 2477
     :goto_a
     return-void
 
-    .line 2510
+    .line 2476
     :cond_b
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$26$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$26;
 

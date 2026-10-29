@@ -50,7 +50,7 @@
     .locals 2
 
     .prologue
-    .line 366
+    .line 345
     new-instance v0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d$a;
 
     const/4 v1, 0x0
@@ -66,19 +66,15 @@
     .locals 6
 
     .prologue
-    const/4 v4, 0x0
-
-    const/4 v5, 0x0
-
-    .line 377
+    .line 356
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 378
+    .line 357
     const-string v0, "itemView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 379
+    .line 358
     const v0, 0x7f0800a1
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -89,7 +85,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->n:Lcom/bilibili/tv/widget/ScalableImageView;
 
-    .line 380
+    .line 359
     const v0, 0x7f080132
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -100,7 +96,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->o:Landroid/widget/TextView;
 
-    .line 381
+    .line 360
     const v0, 0x7f08013f
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -111,7 +107,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->p:Landroid/widget/TextView;
 
-    .line 382
+    .line 361
     const v0, 0x7f0800d4
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -122,7 +118,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->q:Landroid/widget/TextView;
 
-    .line 383
+    .line 362
     const v0, 0x7f0801af
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -133,7 +129,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->r:Landroid/widget/TextView;
 
-    .line 384
+    .line 363
     const v0, 0x7f0801a6
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -144,7 +140,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->duration:Landroid/widget/TextView;
 
-    .line 385
+    .line 364
     const v0, 0x7f08006c
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -155,7 +151,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->danmakuInImage:Landroid/widget/TextView;
 
-    .line 386
+    .line 365
     const v0, 0x7f080074
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -166,90 +162,27 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->s:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
-    .line 387
-    sget-object v0, Lbl/adl;->a:Lbl/adl;
-
-    const v1, 0x7f0700b2
-
-    invoke-virtual {v0, v1}, Lbl/adl;->c(I)Landroid/graphics/drawable/Drawable;
+    .line 366
+    invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 388
-    sget-object v1, Lbl/adl;->a:Lbl/adl;
+    iget-object v1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->p:Landroid/widget/TextView;
 
-    const v2, 0x7f0700b1
+    iget-object v2, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->q:Landroid/widget/TextView;
 
-    invoke-virtual {v1, v2}, Lbl/adl;->c(I)Landroid/graphics/drawable/Drawable;
+    iget-object v3, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->danmakuInImage:Landroid/widget/TextView;
 
-    move-result-object v1
+    const v4, 0x7f060120
 
-    .line 389
-    sget-object v2, Lbl/adl;->a:Lbl/adl;
+    const v5, 0x7f0500a1
 
-    const v3, 0x7f0700b0
+    invoke-static/range {v0 .. v5}, Lcom/bilibili/tv/ui/video/widget/VideoCardIcons;->apply(Landroid/content/Context;Landroid/widget/TextView;Landroid/widget/TextView;Landroid/widget/TextView;II)V
 
-    invoke-virtual {v2, v3}, Lbl/adl;->c(I)Landroid/graphics/drawable/Drawable;
-
-    move-result-object v2
-
-    .line 390
-    const v3, 0x7f060120
-
-    invoke-static {v3}, Lbl/adl;->b(I)I
-
-    move-result v3
-
-    .line 391
-    invoke-virtual {v0, v4, v4, v3, v3}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
-
-    .line 392
-    invoke-virtual {v1, v4, v4, v3, v3}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
-
-    .line 393
-    invoke-virtual {v2, v4, v4, v3, v3}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
-
-    .line 394
-    const v3, 0x7f0500a1
-
-    invoke-static {v3}, Lbl/adl;->d(I)I
-
-    move-result v3
-
-    .line 395
-    sget-object v4, Landroid/graphics/PorterDuff$Mode;->MULTIPLY:Landroid/graphics/PorterDuff$Mode;
-
-    invoke-virtual {v0, v3, v4}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
-
-    .line 396
-    sget-object v4, Landroid/graphics/PorterDuff$Mode;->MULTIPLY:Landroid/graphics/PorterDuff$Mode;
-
-    invoke-virtual {v1, v3, v4}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
-
-    .line 397
-    sget-object v4, Landroid/graphics/PorterDuff$Mode;->MULTIPLY:Landroid/graphics/PorterDuff$Mode;
-
-    invoke-virtual {v2, v3, v4}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
-
-    .line 398
-    iget-object v3, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->p:Landroid/widget/TextView;
-
-    invoke-virtual {v3, v0, v5, v5, v5}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
-
-    .line 399
-    iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->q:Landroid/widget/TextView;
-
-    invoke-virtual {v0, v1, v5, v5, v5}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
-
-    .line 400
-    iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->danmakuInImage:Landroid/widget/TextView;
-
-    invoke-virtual {v0, v2, v5, v5, v5}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
-
-    .line 401
+    .line 368
     invoke-virtual {p1, p0}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 402
+    .line 369
     return-void
 .end method
 
@@ -257,7 +190,7 @@
     .locals 1
 
     .prologue
-    .line 365
+    .line 344
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->danmakuInImage:Landroid/widget/TextView;
 
     return-object v0
@@ -269,7 +202,7 @@
     .locals 1
 
     .prologue
-    .line 409
+    .line 376
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->o:Landroid/widget/TextView;
 
     return-object v0
@@ -279,7 +212,7 @@
     .locals 1
 
     .prologue
-    .line 413
+    .line 380
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->p:Landroid/widget/TextView;
 
     return-object v0
@@ -289,7 +222,7 @@
     .locals 1
 
     .prologue
-    .line 417
+    .line 384
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->q:Landroid/widget/TextView;
 
     return-object v0
@@ -299,7 +232,7 @@
     .locals 1
 
     .prologue
-    .line 421
+    .line 388
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->r:Landroid/widget/TextView;
 
     return-object v0
@@ -309,7 +242,7 @@
     .locals 1
 
     .prologue
-    .line 425
+    .line 392
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->duration:Landroid/widget/TextView;
 
     return-object v0
@@ -319,7 +252,7 @@
     .locals 1
 
     .prologue
-    .line 429
+    .line 396
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->s:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     return-object v0
@@ -329,16 +262,16 @@
     .locals 1
 
     .prologue
-    .line 434
+    .line 401
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->s:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
-    .line 435
+    .line 402
     if-eqz v0, :cond_7
 
-    .line 436
+    .line 403
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawRelativeLayout;->setUpEnabled(Z)V
 
-    .line 438
+    .line 405
     :cond_7
     return-void
 .end method
@@ -347,7 +280,7 @@
     .locals 1
 
     .prologue
-    .line 405
+    .line 372
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;->n:Lcom/bilibili/tv/widget/ScalableImageView;
 
     return-object v0

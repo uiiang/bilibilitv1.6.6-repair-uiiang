@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 221
+    .line 216
     iput-object p1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
@@ -48,7 +48,7 @@
     .prologue
     const/4 v3, 0x0
 
-    .line 224
+    .line 219
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->c:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$c;
@@ -58,40 +58,40 @@
 
     if-nez v0, :cond_a
 
-    .line 247
+    .line 242
     :goto_9
     return-void
 
-    .line 227
+    .line 222
     :cond_a
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->j()V
 
-    .line 228
+    .line 223
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
     # setter for: Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->h:Z
     invoke-static {v0, v3}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->access$102(Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;Z)Z
 
-    .line 229
+    .line 224
     if-eqz p1, :cond_57
 
-    .line 230
+    .line 225
     const-string v0, "list"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
 
     move-result-object v1
 
-    .line 231
+    .line 226
     const-string v0, "config"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v2
 
-    .line 233
+    .line 228
     if-eqz v1, :cond_57
 
     invoke-virtual {v1}, Lcom/alibaba/fastjson/JSONArray;->isEmpty()Z
@@ -100,7 +100,7 @@
 
     if-nez v0, :cond_57
 
-    .line 234
+    .line 229
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->c:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$c;
@@ -110,7 +110,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$c;->a(Lcom/alibaba/fastjson/JSONArray;)V
 
-    .line 236
+    .line 231
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->name:Ljava/lang/String;
@@ -118,7 +118,7 @@
 
     move-result-object v0
 
-    .line 237
+    .line 232
     if-eqz v2, :cond_4d
 
     const-string v3, "subject"
@@ -133,14 +133,14 @@
 
     if-nez v3, :cond_4d
 
-    .line 238
+    .line 233
     const-string v0, "subject"
 
     invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 240
+    .line 235
     :cond_4d
     iget-object v2, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
@@ -152,19 +152,19 @@
 
     goto :goto_9
 
-    .line 244
+    .line 239
     :cond_57
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
     # setter for: Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->g:Z
     invoke-static {v0, v3}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->access$202(Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;Z)Z
 
-    .line 245
+    .line 240
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->l()V
 
-    .line 246
+    .line 241
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
     const v1, 0x7f0c00d8
@@ -178,7 +178,7 @@
     .locals 0
 
     .prologue
-    .line 221
+    .line 216
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$1;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -190,7 +190,7 @@
     .locals 1
 
     .prologue
-    .line 251
+    .line 246
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -224,7 +224,7 @@
     .locals 2
 
     .prologue
-    .line 256
+    .line 251
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
@@ -235,7 +235,7 @@
 
     invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
 
-    .line 257
+    .line 252
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->c:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$c;
@@ -245,11 +245,11 @@
 
     if-nez v0, :cond_14
 
-    .line 262
+    .line 257
     :goto_13
     return-void
 
-    .line 260
+    .line 255
     :cond_14
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
@@ -258,7 +258,7 @@
     # setter for: Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->h:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->access$102(Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;Z)Z
 
-    .line 261
+    .line 256
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->k()V

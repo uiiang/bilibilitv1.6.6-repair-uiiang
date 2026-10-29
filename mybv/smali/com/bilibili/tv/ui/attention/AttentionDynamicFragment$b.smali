@@ -32,12 +32,12 @@
     .locals 0
 
     .prologue
-    .line 418
+    .line 414
     iput-object p1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$b;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
 
-    .line 419
+    .line 415
     return-void
 .end method
 
@@ -47,7 +47,7 @@
     .locals 0
 
     .prologue
-    .line 440
+    .line 436
     return-void
 .end method
 
@@ -55,7 +55,7 @@
     .locals 1
 
     .prologue
-    .line 423
+    .line 419
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$b;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -89,7 +89,7 @@
     .locals 2
 
     .prologue
-    .line 428
+    .line 424
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$b;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
@@ -100,7 +100,7 @@
 
     invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
 
-    .line 429
+    .line 425
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$b;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->c:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$c;
@@ -110,12 +110,12 @@
 
     if-nez v0, :cond_14
 
-    .line 436
+    .line 432
     :cond_13
     :goto_13
     return-void
 
-    .line 432
+    .line 428
     :cond_14
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$b;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
@@ -124,7 +124,7 @@
     # setter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->h:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$202(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;Z)Z
 
-    .line 433
+    .line 429
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$b;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->f:I
@@ -136,7 +136,7 @@
 
     if-ne v0, v1, :cond_13
 
-    .line 434
+    .line 430
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$b;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->k()V

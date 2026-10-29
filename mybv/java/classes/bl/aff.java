@@ -2,7 +2,6 @@ package bl;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,17 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.rank.BiliRankV2;
 import com.bilibili.tv.ui.ranking.RankingActivity;
-import com.bilibili.tv.util.DateHelper;
 import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
 import com.bilibili.tv.widget.side.SideRightGridLayoutManger;
 import java.util.List;
 import kotlin.TypeCastException;
-import bl.abd;
 
 import mybl.BiliFilter;
 
@@ -256,20 +252,12 @@ public final class aff extends ady {
                 dVar.B().setText(biliRankV2.getName());
                 dVar.C().setText(adh.a(biliRankV2.getPlay()));
                 dVar.D().setText(adh.a(biliRankV2.getDanmaku()));
-                int duration = biliRankV2.getDuration();
-                if (duration >= 3600) {
-                    dVar.G().setText(String.format("%d:%02d:%02d", duration / 3600, (duration % 3600) / 60, duration % 60));
-                } else {
-                    dVar.G().setText(String.format("%02d:%02d", duration / 60, duration % 60));
-                }
-                long pubDate = biliRankV2.getPub_date();
-                if (pubDate > 0) {
-                    dVar.H().setText(DateHelper.formatDate(pubDate));
-                    dVar.H().setVisibility(View.VISIBLE);
-                } else {
-                    dVar.H().setVisibility(View.GONE);
-                }
-                nv.a().a(abd.get_thumb_url_c(MainApplication.a(), biliRankV2.getCover()), dVar.z());
+                com.bilibili.tv.ui.video.widget.VideoCardTexts.bindDuration(
+                        dVar.G(), biliRankV2.getDuration(), false);
+                com.bilibili.tv.ui.video.widget.VideoCardTexts.bindPubDate(
+                        dVar.H(), biliRankV2.getPub_date(), null, true);
+                com.bilibili.tv.ui.video.widget.VideoCardCoverLoader.load(
+                        null, dVar.z(), biliRankV2.getCover());
                 switch (i) {
                     case 0:
                         dVar.E().setBackgroundResource(R.drawable.ic_ranking_one);
@@ -364,20 +352,9 @@ public final class aff extends ady {
             this.t = (TextView) a(view, R.id.tag_text);
             this.u = (TextView) a(view, R.id.duration);
             this.v = (TextView) a(view, R.id.pubdate);
-            Drawable c = adl.a.c(R.drawable.ic_video_info_up);
-            Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
-            Drawable c3 = adl.a.c(R.drawable.ic_video_info_danmaku);
-            int b = adl.b(R.dimen.px_34);
-            c.setBounds(0, 0, b, b);
-            c2.setBounds(0, 0, b, b);
-            c3.setBounds(0, 0, b, b);
-            int d = adl.d(R.color.white_50);
-            c.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
-            c2.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
-            c3.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
-            this.p.setCompoundDrawables(c, null, null, null);
-            this.q.setCompoundDrawables(c2, null, null, null);
-            this.r.setCompoundDrawables(c3, null, null, null);
+            com.bilibili.tv.ui.video.widget.VideoCardIcons.apply(view.getContext(),
+                    this.p, this.q, this.r,
+                    com.bilibili.tv.ui.video.widget.VideoCardIcons.SIZE_WIDE, R.color.white_50);
         }
 
         public final ScalableImageView z() {

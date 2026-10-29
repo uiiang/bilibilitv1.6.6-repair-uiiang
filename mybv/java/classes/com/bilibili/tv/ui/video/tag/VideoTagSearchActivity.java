@@ -3,13 +3,11 @@ package com.bilibili.tv.ui.video.tag;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +15,6 @@ import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
-import bl.ach;
-import bl.abd;
 import bl.adh;
 import bl.adl;
 import bl.adv;
@@ -29,10 +24,8 @@ import bl.aj;
 import bl.bbg;
 import bl.bbi;
 import bl.lr;
-import bl.nv;
 import bl.vn;
 import bl.vo;
-import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.favorite.BiliFavoriteVideoApiService;
 import com.bilibili.tv.api.video.tag.TagArchives;
@@ -41,7 +34,9 @@ import com.bilibili.tv.api.video.tag.TagVideoDetail;
 import com.bilibili.tv.ui.base.BaseReloadActivity;
 import com.bilibili.tv.ui.base.LoadingImageView;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
-import com.bilibili.tv.util.DateHelper;
+import com.bilibili.tv.ui.video.widget.VideoCardCoverLoader;
+import com.bilibili.tv.ui.video.widget.VideoCardIcons;
+import com.bilibili.tv.ui.video.widget.VideoCardTexts;
 import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
 import java.util.ArrayList;
@@ -468,32 +463,10 @@ public final class VideoTagSearchActivity extends BaseReloadActivity {
                 cVar.A().setText(tagVideoDetail2.mTitle);
                 cVar.B().setText(tagVideoDetail2.getAuthor());
                 cVar.C().setText(adh.a(tagVideoDetail2.getPlays()));
-                int danmaku = 0;
-                try {
-                    danmaku = Integer.parseInt(tagVideoDetail2.getDanmakus());
-                } catch (Exception e) {}
-                if (danmaku > 0) {
-                    cVar.danmakuInImage.setText(adh.a(danmaku));
-                    cVar.danmakuInImage.setVisibility(View.VISIBLE);
-                } else {
-                    cVar.danmakuInImage.setVisibility(View.GONE);
-                }
-                long pubdate = tagVideoDetail2.mCreatedTimestamp;
-                if (pubdate > 0) {
-                    cVar.D().setText(DateHelper.formatDate(pubdate));
-                    cVar.D().setVisibility(View.VISIBLE);
-                } else {
-                    cVar.D().setVisibility(View.GONE);
-                }
-                int durationVal = (int) tagVideoDetail2.mDuration;
-                if (durationVal >= 3600) {
-                    cVar.E().setText(String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60));
-                } else {
-                    cVar.E().setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
-                }
-                if (tagVideoDetail2.mCover != null) {
-                    nv.a().a(abd.get_thumb_url_c(MainApplication.a(), tagVideoDetail2.mCover), cVar.z());
-                }
+                VideoCardTexts.bindDanmaku(cVar.danmakuInImage, tagVideoDetail2.getDanmakus(), true);
+                VideoCardTexts.bindPubDate(cVar.D(), tagVideoDetail2.mCreatedTimestamp, null, true);
+                VideoCardTexts.bindDuration(cVar.E(), (int) tagVideoDetail2.mDuration, false);
+                VideoCardCoverLoader.load(null, cVar.z(), tagVideoDetail2.mCover);
                 View view = advVar.a;
                 bbi.a((Object) view, "holder.itemView");
                 view.setTag(tagVideoDetail2);
@@ -551,26 +524,8 @@ public final class VideoTagSearchActivity extends BaseReloadActivity {
             this.r = (TextView) a(view, R.id.pubdate);
             this.danmakuInImage = (TextView) a(view, R.id.danmaku);
             this.duration = (TextView) a(view, R.id.duration);
-            Drawable c = adl.a.c(R.drawable.ic_video_info_up);
-            Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
-            Drawable c3 = adl.a.c(R.drawable.ic_video_info_danmaku);
-            int b = adl.b(R.dimen.px_26);
-            c.setBounds(0, 0, b, b);
-            c2.setBounds(0, 0, b, b);
-            c3.setBounds(0, 0, b, b);
-            int danmakuColor = adl.d(R.color.white);
-            if (c != null) {
-                c.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
-            }
-            if (c2 != null) {
-                c2.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
-            }
-            if (c3 != null) {
-                c3.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
-            }
-            this.p.setCompoundDrawables(c, null, null, null);
-            this.q.setCompoundDrawables(c2, null, null, null);
-            this.danmakuInImage.setCompoundDrawables(c3, null, null, null);
+            VideoCardIcons.apply(view.getContext(), this.p, this.q, this.danmakuInImage,
+                    VideoCardIcons.SIZE_COMPACT, R.color.white);
         }
 
         public final ScalableImageView z() {

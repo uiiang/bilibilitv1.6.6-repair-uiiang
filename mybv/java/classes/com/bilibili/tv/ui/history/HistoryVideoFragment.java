@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import bl.ach;
 import bl.abd;
 import bl.adl;
 import bl.adv;
@@ -23,17 +22,18 @@ import bl.agd;
 import bl.bbi;
 import bl.bbg;
 import bl.mg;
-import bl.nv;
 import bl.vo;
 import bl.vn;
 import mybl.CookieUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.history.BiliPlayerHistoryService;
 import com.bilibili.tv.api.video.BiliVideoDetail;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
+import com.bilibili.tv.ui.video.widget.VideoCardCoverLoader;
+import com.bilibili.tv.ui.video.widget.VideoCardIcons;
+import com.bilibili.tv.ui.video.widget.VideoCardTexts;
 import com.bilibili.tv.widget.DrawRelativeLayout;
 import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
@@ -456,10 +456,7 @@ public final class HistoryVideoFragment extends ady {
             JSONObject item = this.videos.getJSONObject(position);
             if (item == null) return;
             
-            String cover = item.getString("cover");
-            if (!TextUtils.isEmpty(cover)) {
-                nv.a().a(abd.get_thumb_url_c(MainApplication.a(), cover), holder.z());
-            }
+            VideoCardCoverLoader.load(null, holder.z(), item.getString("cover"));
             
             String title = item.getString("title");
             if (!TextUtils.isEmpty(title)) {
@@ -493,13 +490,7 @@ public final class HistoryVideoFragment extends ady {
                         holder.A().setMaxLines(3);
                         if (!TextUtils.isEmpty(authorName)) {
                             holder.B().setText(authorName);
-                            android.graphics.drawable.Drawable upIcon = bl.adl.a.c(R.drawable.ic_video_info_up);
-                            int iconSize = bl.adl.b(R.dimen.px_26);
-                            if (upIcon != null) {
-                                upIcon.setBounds(0, 0, iconSize, iconSize);
-                                upIcon.setColorFilter(bl.adl.d(R.color.white_50), android.graphics.PorterDuff.Mode.MULTIPLY);
-                            }
-                            holder.B().setCompoundDrawables(upIcon, null, null, null);
+                            VideoCardIcons.setUp(holder.B(), VideoCardIcons.SIZE_COMPACT, R.color.white_50);
                             holder.B().setVisibility(View.VISIBLE);
                         } else {
                             holder.B().setVisibility(View.GONE);
@@ -671,11 +662,7 @@ public final class HistoryVideoFragment extends ady {
         }
         
         private String formatDuration(int seconds) {
-            if (seconds >= 3600) {
-                return String.format("%d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, seconds % 60);
-            } else {
-                return String.format("%02d:%02d", seconds / 60, seconds % 60);
-            }
+            return VideoCardTexts.formatDuration(seconds);
         }
     }
     

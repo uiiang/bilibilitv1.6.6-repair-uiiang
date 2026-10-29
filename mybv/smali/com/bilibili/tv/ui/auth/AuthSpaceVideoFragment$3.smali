@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 271
+    .line 265
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
@@ -46,7 +46,7 @@
     .locals 2
 
     .prologue
-    .line 280
+    .line 274
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     if-eqz p1, :cond_16
@@ -65,16 +65,16 @@
     # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->isSeasonFav:Z
     invoke-static {v1, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$102(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
 
-    .line 281
+    .line 275
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     # invokes: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->updateSubscribeButtonUI()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$200(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
 
-    .line 282
+    .line 276
     return-void
 
-    .line 280
+    .line 274
     :cond_16
     const/4 v0, 0x0
 
@@ -85,7 +85,7 @@
     .locals 0
 
     .prologue
-    .line 271
+    .line 265
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$3;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -97,7 +97,7 @@
     .locals 1
 
     .prologue
-    .line 274
+    .line 268
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -134,6 +134,6 @@
     .locals 0
 
     .prologue
-    .line 285
+    .line 279
     return-void
 .end method

@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import bl.ach;
-import bl.abd;
 import bl.adh;
 import bl.adl;
 import bl.adv;
@@ -23,13 +21,11 @@ import bl.aj;
 import bl.bbg;
 import bl.bbi;
 import bl.mg;
-import bl.nv;
 import bl.ok;
 import bl.vn;
 import bl.vo;
 import bl.wf;
 import bl.wg;
-import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.favorite.BiliFavoriteVideoApiService;
 import com.bilibili.tv.api.favorite.BiliSearchFavoriteBox;
@@ -329,9 +325,8 @@ public final class BoxListInfoActivity extends BaseReloadActivity implements wf 
                 aebVar.B().setText(biliVideoDetail.getAuthor());
                 aebVar.C().setText(adh.a(biliVideoDetail.getPlays()));
                 aebVar.D().setText(adh.a(biliVideoDetail.getDanmakus()));
-                if (biliVideoDetail.mCover != null) {
-                    nv.a().a(abd.get_thumb_url_c(MainApplication.a(), biliVideoDetail.mCover), aebVar.z());
-                }
+                com.bilibili.tv.ui.video.widget.VideoCardCoverLoader.load(
+                        null, aebVar.z(), biliVideoDetail.mCover);
                 View view = advVar.a;
                 bbi.a((Object) view, "viewHolder.itemView");
                 view.setTag(biliVideoDetail);

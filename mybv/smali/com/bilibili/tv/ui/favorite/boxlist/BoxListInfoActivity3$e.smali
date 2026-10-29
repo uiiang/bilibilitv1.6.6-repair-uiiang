@@ -23,12 +23,12 @@
     .locals 0
 
     .prologue
-    .line 179
+    .line 170
     iput-object p1, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$e;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$m;-><init>()V
 
-    .line 180
+    .line 171
     return-void
 .end method
 
@@ -38,10 +38,10 @@
     .locals 2
 
     .prologue
-    .line 184
+    .line 175
     invoke-super {p0, p1, p2, p3}, Landroid/support/v7/widget/RecyclerView$m;->a(Landroid/support/v7/widget/RecyclerView;II)V
 
-    .line 185
+    .line 176
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$e;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->i:Z
@@ -69,12 +69,12 @@
 
     if-nez v0, :cond_1c
 
-    .line 198
+    .line 189
     :cond_1b
     :goto_1b
     return-void
 
-    .line 188
+    .line 179
     :cond_1c
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$e;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;
 
@@ -87,7 +87,7 @@
 
     move-result v0
 
-    .line 189
+    .line 180
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$e;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->c:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
@@ -101,7 +101,7 @@
 
     if-lez v1, :cond_1b
 
-    .line 190
+    .line 181
     add-int/lit8 v0, v0, 0x1
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$e;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;
@@ -119,7 +119,7 @@
 
     if-lt v0, v1, :cond_1b
 
-    .line 191
+    .line 182
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$e;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->c:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
@@ -131,7 +131,7 @@
 
     move-result v0
 
-    .line 192
+    .line 183
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$e;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->c:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
@@ -145,13 +145,13 @@
 
     if-le v0, v1, :cond_1b
 
-    .line 193
+    .line 184
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$e;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;
 
     # operator++ for: Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->g:I
     invoke-static {v0}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->access$408(Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;)I
 
-    .line 194
+    .line 185
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$e;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->n()V

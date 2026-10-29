@@ -45,7 +45,7 @@
     .locals 2
 
     .prologue
-    .line 33
+    .line 29
     new-instance v0, Lbl/aff$a;
 
     const/4 v1, 0x0
@@ -61,15 +61,15 @@
     .locals 1
 
     .prologue
-    .line 32
+    .line 28
     invoke-direct {p0}, Lbl/ady;-><init>()V
 
-    .line 41
+    .line 37
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lbl/aff;->need_more:Z
 
-    .line 43
+    .line 39
     const/4 v0, 0x0
 
     iput v0, p0, Lbl/aff;->page_number:I
@@ -81,7 +81,7 @@
     .locals 1
 
     .prologue
-    .line 32
+    .line 28
     iget-boolean v0, p0, Lbl/aff;->e:Z
 
     return v0
@@ -91,7 +91,7 @@
     .locals 0
 
     .prologue
-    .line 32
+    .line 28
     iput-boolean p1, p0, Lbl/aff;->e:Z
 
     return p1
@@ -101,7 +101,7 @@
     .locals 1
 
     .prologue
-    .line 32
+    .line 28
     iget-object v0, p0, Lbl/aff;->c:Lbl/aff$c;
 
     return-object v0
@@ -111,7 +111,7 @@
     .locals 1
 
     .prologue
-    .line 32
+    .line 28
     iget v0, p0, Lbl/aff;->page_number:I
 
     return v0
@@ -121,7 +121,7 @@
     .locals 0
 
     .prologue
-    .line 32
+    .line 28
     iput-boolean p1, p0, Lbl/aff;->need_more:Z
 
     return p1
@@ -131,7 +131,7 @@
     .locals 0
 
     .prologue
-    .line 32
+    .line 28
     iput-boolean p1, p0, Lbl/aff;->is_loading:Z
 
     return p1
@@ -141,28 +141,28 @@
     .locals 4
 
     .prologue
-    .line 185
+    .line 181
     iget-object v0, p0, Lbl/aff;->d:Lbl/aff$b;
 
     if-nez v0, :cond_7
 
-    .line 186
+    .line 182
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 188
+    .line 184
     :cond_7
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lbl/aff;->is_loading:Z
 
-    .line 189
+    .line 185
     iget v0, p0, Lbl/aff;->page_number:I
 
     add-int/lit8 v0, v0, 0x1
 
     iput v0, p0, Lbl/aff;->page_number:I
 
-    .line 190
+    .line 186
     iget v0, p0, Lbl/aff;->f:I
 
     if-lez v0, :cond_20
@@ -177,11 +177,11 @@
 
     invoke-virtual {v0, v1, v2, v3}, Lbl/afe;->a(IILbl/vn;)V
 
-    .line 192
+    .line 188
     :goto_1f
     return-void
 
-    .line 191
+    .line 187
     :cond_20
     sget-object v0, Lbl/afe;->a:Lbl/afe;
 
@@ -202,23 +202,23 @@
     .locals 3
 
     .prologue
-    .line 70
+    .line 66
     const-string v0, "recyclerView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 71
+    .line 67
     invoke-super {p0, p1, p2}, Lbl/ady;->a(Landroid/support/v7/widget/RecyclerView;Landroid/os/Bundle;)V
 
-    .line 72
+    .line 68
     invoke-virtual {p0}, Lbl/aff;->getArguments()Landroid/os/Bundle;
 
     move-result-object v0
 
-    .line 73
+    .line 69
     if-eqz v0, :cond_16
 
-    .line 74
+    .line 70
     const-string v1, "ranking_type_or_tid"
 
     invoke-virtual {v0, v1}, Landroid/os/Bundle;->getInt(Ljava/lang/String;)I
@@ -227,7 +227,7 @@
 
     iput v0, p0, Lbl/aff;->f:I
 
-    .line 76
+    .line 72
     :cond_16
     new-instance v0, Lbl/aff$b;
 
@@ -235,7 +235,7 @@
 
     iput-object v0, p0, Lbl/aff;->d:Lbl/aff$b;
 
-    .line 77
+    .line 73
     new-instance v1, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
     invoke-virtual {p0}, Lbl/aff;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -246,15 +246,15 @@
 
     invoke-direct {v1, v0, v2}, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;-><init>(Landroid/content/Context;I)V
 
-    .line 78
+    .line 74
     invoke-virtual {p0}, Lbl/aff;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 79
+    .line 75
     if-nez v0, :cond_35
 
-    .line 80
+    .line 76
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type com.bilibili.tv.ui.ranking.RankingActivity"
@@ -263,7 +263,7 @@
 
     throw v0
 
-    .line 82
+    .line 78
     :cond_35
     new-instance v2, Lbl/aff$e;
 
@@ -273,59 +273,59 @@
 
     invoke-virtual {v1, v2}, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;->a(Lcom/bilibili/tv/widget/border/BorderGridLayoutManager$a;)V
 
-    .line 83
+    .line 79
     new-instance v0, Lbl/aff$c;
 
     invoke-direct {v0}, Lbl/aff$c;-><init>()V
 
     iput-object v0, p0, Lbl/aff;->c:Lbl/aff$c;
 
-    .line 84
+    .line 80
     invoke-virtual {p1, v1}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 85
+    .line 81
     const v0, 0x7f06009b
 
     invoke-static {v0}, Lbl/adl;->b(I)I
 
     move-result v0
 
-    .line 86
+    .line 82
     const v1, 0x7f0600e9
 
     invoke-static {v1}, Lbl/adl;->b(I)I
 
     move-result v1
 
-    .line 87
+    .line 83
     const v2, 0x7f060158
 
     invoke-static {v2}, Lbl/adl;->b(I)I
 
     move-result v2
 
-    .line 88
+    .line 84
     invoke-virtual {p1, v2, v2, v2, v2}, Landroid/support/v7/widget/RecyclerView;->setPadding(IIII)V
 
-    .line 89
+    .line 85
     new-instance v2, Lbl/aff$f;
 
     invoke-direct {v2, v0, v1}, Lbl/aff$f;-><init>(II)V
 
     invoke-virtual {p1, v2}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$g;)V
 
-    .line 102
+    .line 98
     iget-object v0, p0, Lbl/aff;->c:Lbl/aff$c;
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 103
+    .line 99
     invoke-virtual {p0}, Lbl/aff;->i()V
 
-    .line 104
+    .line 100
     invoke-direct {p0}, Lbl/aff;->e()V
 
-    .line 105
+    .line 101
     return-void
 .end method
 
@@ -333,7 +333,7 @@
     .locals 1
 
     .prologue
-    .line 159
+    .line 155
     invoke-virtual {p0}, Lbl/aff;->isVisible()Z
 
     move-result v0
@@ -344,16 +344,16 @@
 
     if-eqz v0, :cond_19
 
-    .line 160
+    .line 156
     iget-object v0, p0, Lbl/aff;->c:Lbl/aff$c;
 
-    .line 161
+    .line 157
     if-nez v0, :cond_11
 
-    .line 162
+    .line 158
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 164
+    .line 160
     :cond_11
     invoke-virtual {v0}, Lbl/aff$c;->a()I
 
@@ -361,10 +361,10 @@
 
     if-lez v0, :cond_19
 
-    .line 165
+    .line 161
     const/4 v0, 0x1
 
-    .line 168
+    .line 164
     :goto_18
     return v0
 
@@ -378,13 +378,13 @@
     .locals 0
 
     .prologue
-    .line 180
+    .line 176
     invoke-super {p0}, Lbl/ady;->d_()V
 
-    .line 181
+    .line 177
     invoke-direct {p0}, Lbl/aff;->e()V
 
-    .line 182
+    .line 178
     return-void
 .end method
 
@@ -394,15 +394,15 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 173
+    .line 169
     iput-object v0, p0, Lbl/aff;->c:Lbl/aff$c;
 
-    .line 174
+    .line 170
     iput-object v0, p0, Lbl/aff;->d:Lbl/aff$b;
 
-    .line 175
+    .line 171
     invoke-super {p0}, Lbl/ady;->onDestroyView()V
 
-    .line 176
+    .line 172
     return-void
 .end method

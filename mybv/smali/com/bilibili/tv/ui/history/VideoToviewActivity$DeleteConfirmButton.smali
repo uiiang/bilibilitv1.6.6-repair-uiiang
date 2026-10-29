@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 286
+    .line 271
     iput-object p1, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$DeleteConfirmButton;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 6
 
     .prologue
-    .line 289
+    .line 274
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -49,17 +49,17 @@
 
     move-result-object v0
 
-    .line 290
+    .line 275
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 291
+    .line 276
     invoke-static {v0}, Lmybl/CookieUtil;->getBiliJct(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v2
 
-    .line 292
+    .line 277
     const-class v0, Lcom/bilibili/tv/api/history/BiliPlayerHistoryService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -76,12 +76,12 @@
 
     invoke-virtual {v0}, Lbl/vp;->a()V
 
-    .line 293
+    .line 278
     const-wide/16 v0, -0x1
 
     sput-wide v0, Lcom/bilibili/tv/ui/history/VideoToviewActivity;->current_avid:J
 
-    .line 294
+    .line 279
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$DeleteConfirmButton;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     # getter for: Lcom/bilibili/tv/ui/history/VideoToviewActivity;->d:Ljava/util/List;
@@ -93,12 +93,12 @@
 
     invoke-interface {v0, v1}, Ljava/util/List;->remove(I)Ljava/lang/Object;
 
-    .line 295
+    .line 280
     const/4 v0, -0x1
 
     sput v0, Lcom/bilibili/tv/ui/history/VideoToviewActivity;->current_pos:I
 
-    .line 296
+    .line 281
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$DeleteConfirmButton;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     # getter for: Lcom/bilibili/tv/ui/history/VideoToviewActivity;->a:Lcom/bilibili/tv/ui/history/VideoToviewActivity$g;
@@ -106,13 +106,13 @@
 
     move-result-object v0
 
-    .line 297
+    .line 282
     if-eqz v0, :cond_3e
 
-    .line 298
+    .line 283
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/history/VideoToviewActivity$g;->d()V
 
-    .line 300
+    .line 285
     :cond_3e
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$DeleteConfirmButton;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
@@ -120,7 +120,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/history/VideoToviewActivity;->b(I)V
 
-    .line 301
+    .line 286
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$DeleteConfirmButton;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     # getter for: Lcom/bilibili/tv/ui/history/VideoToviewActivity;->d:Ljava/util/List;
@@ -134,7 +134,7 @@
 
     if-eqz v0, :cond_5b
 
-    .line 302
+    .line 287
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$DeleteConfirmButton;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$DeleteConfirmButton;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
@@ -145,10 +145,10 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->c()V
 
-    .line 304
+    .line 289
     :cond_5b
     invoke-virtual {p1}, Lbl/agb;->dismiss()V
 
-    .line 305
+    .line 290
     return-void
 .end method

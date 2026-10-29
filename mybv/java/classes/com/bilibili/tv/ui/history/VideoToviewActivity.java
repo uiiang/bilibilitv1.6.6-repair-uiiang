@@ -3,14 +3,10 @@ package com.bilibili.tv.ui.history;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.text.format.DateUtils;
-import android.util.LongSparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,58 +15,47 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
-import bl.ach;
 import bl.abd;
-import bl.adh;
 import bl.adl;
 import bl.adv;
 import bl.adz;
 import bl.agb;
 import bl.agd;
 import bl.aj;
-import bl.att;
 import bl.baf;
 import bl.bbg;
 import bl.bbi;
 import bl.mg;
-import bl.nv;
 import bl.ok;
 import bl.vn;
 import bl.vo;
 import bl.wf;
 import bl.wg;
-import bl.zp;
 import mybl.CookieUtil;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.history.BiliPlayerHistoryService;
 import com.bilibili.tv.api.video.BiliVideoDetail;
-import com.bilibili.tv.api.video.BiliVideoHistorylList;
 import com.bilibili.tv.ui.base.BaseUpViewActivity;
 import com.bilibili.tv.ui.base.LoadingImageView;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
-import com.bilibili.tv.util.DateHelper;
-import com.bilibili.tv.widget.DrawRelativeLayout;
+import com.bilibili.tv.ui.video.widget.VideoCardCoverLoader;
+import com.bilibili.tv.ui.video.widget.VideoCardIcons;
+import com.bilibili.tv.ui.video.widget.VideoCardTexts;
 import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
-import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import kotlin.TypeCastException;
 import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import mybl.LogUtil;
 
-import bl.xg;
-import android.widget.Toast;
 import android.view.KeyEvent;
 import com.alibaba.fastjson.*;
-import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -403,50 +388,27 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements wf 
                 }
                 upTextView.setText(upText);
                 if (showUpIcon) {
-                    Drawable c = adl.a.c(R.drawable.ic_video_info_up);
-                    int b = adl.b(R.dimen.px_26);
-                    c.setBounds(0, 0, b, b);
-                    int danmakuColor = adl.d(R.color.white);
-                    c.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
-                    upTextView.setCompoundDrawables(c, null, null, null);
+                    VideoCardIcons.setUp(upTextView, VideoCardIcons.SIZE_COMPACT, R.color.white);
                 } else {
-                    upTextView.setCompoundDrawables(null, null, null, null);
+                    VideoCardIcons.clear(upTextView);
                 }
                 ((f) holder).C().setVisibility(View.GONE);
                 ((f) holder).danmakuInImage.setVisibility(View.GONE);
-                long pubdate = biliVideoDetail.mCreatedTimestamp;
-                if (pubdate > 0) {
-                    ((f) holder).D().setText(DateHelper.formatDate(pubdate));
-                    ((f) holder).D().setVisibility(View.VISIBLE);
-                } else {
-                    ((f) holder).D().setVisibility(View.GONE);
-                }
+                VideoCardTexts.bindPubDate(((f) holder).D(), biliVideoDetail.mCreatedTimestamp, null, true);
                 int durationVal = biliVideoDetail.mDuration;
                 int progressVal = biliVideoDetail.mProgress;
                 if (progressVal == -1) {
                     ((f) holder).E().setText("已看完");
                 } else {
-                    String durationStr;
-                    if (durationVal >= 3600) {
-                        durationStr = String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60);
-                    } else {
-                        durationStr = String.format("%02d:%02d", durationVal / 60, durationVal % 60);
-                    }
+                    String durationStr = VideoCardTexts.formatDuration(durationVal);
                     if (progressVal > 0) {
-                        String progressStr;
-                        if (progressVal >= 3600) {
-                            progressStr = String.format("%d:%02d:%02d", progressVal / 3600, (progressVal % 3600) / 60, progressVal % 60);
-                        } else {
-                            progressStr = String.format("%02d:%02d", progressVal / 60, progressVal % 60);
-                        }
+                        String progressStr = VideoCardTexts.formatDuration(progressVal);
                         ((f) holder).E().setText(progressStr + "/" + durationStr);
                     } else {
                         ((f) holder).E().setText(durationStr);
                     }
                 }
-                if (biliVideoDetail.mCover != null) {
-                    nv.a().a(abd.get_thumb_url_c(MainApplication.a(), biliVideoDetail.mCover), ((f) holder).z());
-                }
+                VideoCardCoverLoader.load(null, ((f) holder).z(), biliVideoDetail.mCover);
                 View view = holder.a;
                 bbi.a((Object) view, "holder.itemView");
                 view.setTag(biliVideoDetail);
@@ -543,20 +505,8 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements wf 
             this.duration = (TextView) a(view, R.id.duration);
             this.danmakuInImage = (TextView) a(view, R.id.danmaku);
 
-            Drawable c = adl.a.c(R.drawable.ic_video_info_up);
-            Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
-            Drawable c3 = adl.a.c(R.drawable.ic_video_info_danmaku);
-            int b = adl.b(R.dimen.px_26);
-            c.setBounds(0, 0, b, b);
-            c2.setBounds(0, 0, b, b);
-            c3.setBounds(0, 0, b, b);
-            int danmakuColor = adl.d(R.color.white);
-            c.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
-            c2.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
-            c3.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
-            this.p.setCompoundDrawables(c, null, null, null);
-            this.q.setCompoundDrawables(c2, null, null, null);
-            this.danmakuInImage.setCompoundDrawables(c3, null, null, null);
+            VideoCardIcons.apply(view.getContext(), this.p, this.q, this.danmakuInImage,
+                    VideoCardIcons.SIZE_COMPACT, R.color.white);
         }
 
         public final ScalableImageView z() {

@@ -40,7 +40,7 @@
     .locals 0
 
     .prologue
-    .line 567
+    .line 561
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$12;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     iput p2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$12;->val$slot:I
@@ -62,14 +62,14 @@
     .locals 4
 
     .prologue
-    .line 583
+    .line 577
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$12;->val$results:[Lcom/alibaba/fastjson/JSONObject;
 
     iget v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$12;->val$slot:I
 
     aput-object p1, v0, v1
 
-    .line 584
+    .line 578
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$12;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     iget v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$12;->val$gen:I
@@ -81,7 +81,7 @@
     # invokes: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->onLocateResponse(I[I[Lcom/alibaba/fastjson/JSONObject;)V
     invoke-static {v0, v1, v2, v3}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$800(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;I[I[Lcom/alibaba/fastjson/JSONObject;)V
 
-    .line 585
+    .line 579
     return-void
 .end method
 
@@ -89,7 +89,7 @@
     .locals 0
 
     .prologue
-    .line 567
+    .line 561
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$12;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -101,7 +101,7 @@
     .locals 1
 
     .prologue
-    .line 570
+    .line 564
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$12;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -125,7 +125,7 @@
     .locals 4
 
     .prologue
-    .line 575
+    .line 569
     const-string v0, "AuthSpaceVideo"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -164,7 +164,7 @@
 
     invoke-static {v0, v1}, Lmybl/LogUtil;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 576
+    .line 570
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$12;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
@@ -175,7 +175,7 @@
 
     invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
 
-    .line 577
+    .line 571
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$12;->val$results:[Lcom/alibaba/fastjson/JSONObject;
 
     iget v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$12;->val$slot:I
@@ -184,7 +184,7 @@
 
     aput-object v2, v0, v1
 
-    .line 578
+    .line 572
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$12;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     iget v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$12;->val$gen:I
@@ -196,6 +196,6 @@
     # invokes: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->onLocateResponse(I[I[Lcom/alibaba/fastjson/JSONObject;)V
     invoke-static {v0, v1, v2, v3}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$800(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;I[I[Lcom/alibaba/fastjson/JSONObject;)V
 
-    .line 579
+    .line 573
     return-void
 .end method

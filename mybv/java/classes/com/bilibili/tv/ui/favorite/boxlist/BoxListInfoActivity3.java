@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import bl.ach;
-import bl.abd;
 import bl.adh;
 import bl.adl;
 import bl.adv;
@@ -22,23 +20,16 @@ import bl.agd;
 import bl.aj;
 import bl.bbg;
 import bl.bbi;
-import bl.mg;
-import bl.nv;
 import bl.ok;
 import bl.vn;
 import bl.vo;
 import bl.wf;
 import bl.wg;
-import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
-import com.bilibili.tv.api.favorite.BiliFavoriteVideoApiService;
-import com.bilibili.tv.api.favorite.BiliSearchFavoriteBox;
 import com.bilibili.tv.api.video.BiliVideoDetail;
 import com.bilibili.tv.ui.base.BaseReloadActivity;
 import com.bilibili.tv.ui.base.LoadingImageView;
-import com.bilibili.tv.ui.video.VideoDetailActivity;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
-import java.util.ArrayList;
 import java.util.List;
 import kotlin.TypeCastException;
 
@@ -317,9 +308,8 @@ public final class BoxListInfoActivity3 extends BaseReloadActivity implements wf
                 aebVar.C().setText(adh.a(biliVideoDetail.getLong("play")));
                 //aebVar.D().setText(adh.a(biliVideoDetail.getLong("danmaku")));
                 aebVar.D().setVisibility(View.GONE);
-                if (biliVideoDetail.getString("cover") != null) {
-                    nv.a().a(abd.get_thumb_url_c(MainApplication.a(), biliVideoDetail.getString("cover")), aebVar.z());
-                }
+                com.bilibili.tv.ui.video.widget.VideoCardCoverLoader.load(
+                        null, aebVar.z(), biliVideoDetail.getString("cover"));
                 View view = advVar.a;
                 bbi.a((Object) view, "viewHolder.itemView");
                 view.setTag(biliVideoDetail);

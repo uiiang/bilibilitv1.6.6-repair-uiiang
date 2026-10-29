@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.favorite.BiliFavVideoDetailList;
 import com.bilibili.tv.api.favorite.BiliFavoriteVideoApiService;
@@ -23,7 +22,6 @@ import com.bilibili.tv.widget.border.BorderGridLayoutManager;
 import com.bilibili.tv.widget.side.SideRightGridLayoutManger;
 import java.util.ArrayList;
 import java.util.List;
-import bl.abd;
 import kotlin.TypeCastException;
 
 /* compiled from: BL */
@@ -280,9 +278,8 @@ public final class aee extends ady {
             bbi.b(advVar, "viewHolder");
             if (advVar instanceof d) {
                 BiliVideoDetail biliVideoDetail = this.a.get(i);
-                if (biliVideoDetail.mCover != null) {
-                    nv.a().a(abd.get_thumb_url_c(MainApplication.a(), biliVideoDetail.mCover), ((d) advVar).z());
-                }
+                com.bilibili.tv.ui.video.widget.VideoCardCoverLoader.load(
+                        null, ((d) advVar).z(), biliVideoDetail.mCover);
                 if (biliVideoDetail.mTitle != null) {
                     ((d) advVar).A().setText(biliVideoDetail.mTitle);
                 }

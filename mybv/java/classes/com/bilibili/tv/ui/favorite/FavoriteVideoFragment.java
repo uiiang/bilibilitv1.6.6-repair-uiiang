@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.LinearLayout;
 
-import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import bl.adl;
 import bl.ady;
 import bl.abd;
@@ -25,18 +23,16 @@ import bl.bbi;
 import bl.bbg;
 import bl.adv;
 import bl.mg;
-import bl.nv;
-import bl.ach;
 import bl.vo;
 import bl.vn;
 import bl.ok;
 import bl.xg;
-import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.video.BiliVideoDetail;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
-import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
-import com.bilibili.tv.util.DateHelper;
+import com.bilibili.tv.ui.video.widget.VideoCardCoverLoader;
+import com.bilibili.tv.ui.video.widget.VideoCardIcons;
+import com.bilibili.tv.ui.video.widget.VideoCardTexts;
 import com.bilibili.tv.widget.DrawRelativeLayout;
 import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
@@ -630,7 +626,7 @@ public final class FavoriteVideoFragment extends ady {
                 if (isFavoriteVideoMode) {
                     JSONObject item = this.b.getJSONObject(i);
                     if (item.containsKey("cover")) {
-                        nv.a().a(abd.get_thumb_url_c(MainApplication.a(), item.getString("cover")), ((d) advVar).z());
+                        VideoCardCoverLoader.load(null, ((d) advVar).z(), item.getString("cover"));
                     }
                     if (item.containsKey("title")) {
                         ((d) advVar).A().setText(item.getString("title"));
@@ -651,38 +647,23 @@ public final class FavoriteVideoFragment extends ady {
                     JSONObject cntInfo = item.getJSONObject("cnt_info");
                     if (cntInfo != null) {
                         ((d) advVar).C().setText(bl.adh.a(cntInfo.getLongValue("play")));
-                        int danmaku = cntInfo.getIntValue("danmaku");
-                        if (danmaku > 0) {
-                            ((d) advVar).danmakuInImage.setText(bl.adh.a(danmaku));
-                            ((d) advVar).danmakuInImage.setVisibility(View.VISIBLE);
-                        } else {
-                            ((d) advVar).danmakuInImage.setVisibility(View.GONE);
-                        }
+                        VideoCardTexts.bindDanmaku(((d) advVar).danmakuInImage,
+                                String.valueOf(cntInfo.getIntValue("danmaku")), true);
                     }
                     // 合集模式medias含pubtime（发布时间），收藏夹模式用fav_time（收藏时间）
                     long pubdate = item.getLongValue("pubtime");
                     if (pubdate <= 0) {
                         pubdate = item.getLongValue("fav_time");
                     }
-                    if (pubdate > 0) {
-                        ((d) advVar).D().setText(DateHelper.formatDate(pubdate));
-                        ((d) advVar).D().setVisibility(View.VISIBLE);
-                    } else {
-                        ((d) advVar).D().setVisibility(View.GONE);
-                    }
-                    int durationVal = item.getIntValue("duration");
-                    if (durationVal >= 3600) {
-                        ((d) advVar).E().setText(String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60));
-                    } else {
-                        ((d) advVar).E().setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
-                    }
+                    VideoCardTexts.bindPubDate(((d) advVar).D(), pubdate, null, true);
+                    VideoCardTexts.bindDuration(((d) advVar).E(), item.getIntValue("duration"), false);
                     View view = advVar.a;
                     bbi.a((Object) view, "viewHolder.itemView");
                     view.setTag(item);
                 } else if (isCourseMode) {
                     JSONObject item = this.b.getJSONObject(i);
                     if (item.containsKey("cover")) {
-                        nv.a().a(abd.get_thumb_url_c(MainApplication.a(), item.getString("cover")), ((d) advVar).z());
+                        VideoCardCoverLoader.load(null, ((d) advVar).z(), item.getString("cover"));
                     }
                     if (item.containsKey("title")) {
                         ((d) advVar).A().setText(item.getString("title"));
@@ -694,7 +675,7 @@ public final class FavoriteVideoFragment extends ady {
                 } else {
                     BiliVideoDetail biliVideoDetail = this.a.get(i);
                     if (biliVideoDetail.mCover != null) {
-                        nv.a().a(abd.get_thumb_url_c(MainApplication.a(), biliVideoDetail.mCover), ((d) advVar).z());
+                        VideoCardCoverLoader.load(null, ((d) advVar).z(), biliVideoDetail.mCover);
                     }
                     if (biliVideoDetail.mTitle != null) {
                         ((d) advVar).A().setText(biliVideoDetail.mTitle);
@@ -702,12 +683,7 @@ public final class FavoriteVideoFragment extends ady {
                     if (biliVideoDetail.mTypeName != null) {
                         ((d) advVar).B().setText(adl.e(R.string.type_name) + biliVideoDetail.mTypeName);
                     }
-                    int durationVal = biliVideoDetail.mDuration;
-                    if (durationVal >= 3600) {
-                        ((d) advVar).E().setText(String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60));
-                    } else {
-                        ((d) advVar).E().setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
-                    }
+                    VideoCardTexts.bindDuration(((d) advVar).E(), biliVideoDetail.mDuration, false);
                     View view = advVar.a;
                     bbi.a((Object) view, "viewHolder.itemView");
                     view.setTag(biliVideoDetail);
@@ -855,20 +831,8 @@ public final class FavoriteVideoFragment extends ady {
             this.duration = (TextView) a(view, R.id.duration);
             this.danmakuInImage = (TextView) a(view, R.id.danmaku);
             this.s = (DrawRelativeLayout) a(view, R.id.draw);
-            android.graphics.drawable.Drawable c = bl.adl.a.c(R.drawable.ic_video_info_up);
-            android.graphics.drawable.Drawable c2 = bl.adl.a.c(R.drawable.ic_video_info_play);
-            android.graphics.drawable.Drawable c3 = bl.adl.a.c(R.drawable.ic_video_info_danmaku);
-            int b = bl.adl.b(R.dimen.px_26);
-            c.setBounds(0, 0, b, b);
-            c2.setBounds(0, 0, b, b);
-            c3.setBounds(0, 0, b, b);
-            int danmakuColor = bl.adl.d(R.color.white);
-            c.setColorFilter(danmakuColor, android.graphics.PorterDuff.Mode.MULTIPLY);
-            c2.setColorFilter(danmakuColor, android.graphics.PorterDuff.Mode.MULTIPLY);
-            c3.setColorFilter(danmakuColor, android.graphics.PorterDuff.Mode.MULTIPLY);
-            this.p.setCompoundDrawables(c, null, null, null);
-            this.q.setCompoundDrawables(c2, null, null, null);
-            this.danmakuInImage.setCompoundDrawables(c3, null, null, null);
+            VideoCardIcons.apply(view.getContext(), this.p, this.q, this.danmakuInImage,
+                    VideoCardIcons.SIZE_COMPACT, R.color.white);
             Object context = view.getContext();
             if (context instanceof View.OnLongClickListener) {
                 view.setOnLongClickListener((View.OnLongClickListener) context);

@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 257
+    .line 242
     iput-object p1, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$1;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 5
 
     .prologue
-    .line 260
+    .line 245
     sget-wide v0, Lcom/bilibili/tv/ui/history/VideoToviewActivity;->current_avid:J
 
     const-wide/16 v2, 0x0
@@ -53,14 +53,14 @@
 
     if-ltz v0, :cond_47
 
-    .line 261
+    .line 246
     new-instance v0, Lbl/agb$a;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$1;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     invoke-direct {v0, v1}, Lbl/agb$a;-><init>(Landroid/app/Activity;)V
 
-    .line 262
+    .line 247
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Lbl/agb$a;->a(I)Lbl/agb$a;
@@ -103,14 +103,14 @@
 
     invoke-virtual {v1, v2, v3}, Lbl/agb$a;->a(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
 
-    .line 263
+    .line 248
     invoke-virtual {v0}, Lbl/agb$a;->a()Lbl/agb;
 
     move-result-object v0
 
     invoke-virtual {v0}, Lbl/agb;->show()V
 
-    .line 265
+    .line 250
     :cond_47
     return-void
 .end method

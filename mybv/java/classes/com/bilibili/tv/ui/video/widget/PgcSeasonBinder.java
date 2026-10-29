@@ -1,14 +1,9 @@
 package com.bilibili.tv.ui.video.widget;
 
-import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.api.video.PgcInfo;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
-import bl.abd;
-import bl.nv;
 
 public class PgcSeasonBinder implements VideoCardBinder {
     private static final String TAG = "PgcBinder";
@@ -106,12 +101,7 @@ public class PgcSeasonBinder implements VideoCardBinder {
     }
 
     private void bindCover(com.bilibili.tv.widget.ScalableImageView coverView, String coverUrl, int position) {
-        if (coverUrl != null) {
-            nv imageLoader = nv.a();
-            Context context = MainApplication.a().getApplicationContext();
-            String thumbUrl = abd.get_thumb_url_c(context, coverUrl);
-            imageLoader.a(thumbUrl, coverView);
-        }
+        VideoCardCoverLoader.load(null, coverView, coverUrl);
     }
 
     @Override

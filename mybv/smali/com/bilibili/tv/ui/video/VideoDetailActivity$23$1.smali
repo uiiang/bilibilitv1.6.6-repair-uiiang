@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 2358
+    .line 2324
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23$1;->val$history:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
@@ -49,7 +49,7 @@
     .locals 2
 
     .prologue
-    .line 2361
+    .line 2327
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -60,12 +60,12 @@
 
     if-eqz v0, :cond_b
 
-    .line 2370
+    .line 2336
     :cond_a
     :goto_a
     return-void
 
-    .line 2364
+    .line 2330
     :cond_b
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;
 
@@ -75,7 +75,7 @@
 
     iput-object v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
 
-    .line 2365
+    .line 2331
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -87,7 +87,7 @@
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateHistoryDisplay(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
-    .line 2366
+    .line 2332
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -103,7 +103,7 @@
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    .line 2367
+    .line 2333
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/ProgressPlayButton;
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/ProgressPlayButton;
 
@@ -115,7 +115,7 @@
 
     if-nez v0, :cond_a
 
-    .line 2368
+    .line 2334
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;

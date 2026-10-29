@@ -1,22 +1,12 @@
 package com.bilibili.tv.ui.video.widget;
 
-import android.content.Context;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
-import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.video.BiliVideoDetail;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
-import com.bilibili.tv.util.DateHelper;
 import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.player.basic.context.ResolveResourceParams;
-import bl.adh;
-import bl.adl;
-import bl.abd;
-import bl.nv;
 
 public class UnifiedVideoCardBinder implements VideoCardBinder {
     private int listType;
@@ -28,79 +18,62 @@ public class UnifiedVideoCardBinder implements VideoCardBinder {
     @Override
     public void bind(VideoDetailActivity.f holder, Object data, int position) {
         if (data instanceof BiliVideoDetail) {
-            bindFromBiliVideoDetail(holder, (BiliVideoDetail) data);
+            bindFields(holder.getTitleView(), holder.getUpView(), holder.getPlayCountView(),
+                    holder.getDanmakuInImageView(), holder.getPubdateView(), holder.getDurationView(),
+                    holder.getBadgeView(), holder.getCoverImageView(), (BiliVideoDetail) data);
         } else if (data instanceof ResolveResourceParams) {
-            bindFromResolveParams(holder, (ResolveResourceParams) data);
+            bindFields(holder.getTitleView(), holder.getUpView(), holder.getPlayCountView(),
+                    holder.getDanmakuInImageView(), holder.getPubdateView(), holder.getDurationView(),
+                    holder.getBadgeView(), holder.getCoverImageView(), (ResolveResourceParams) data);
         }
     }
 
     @Override
     public void bindCompact(CompactVideoHolder holder, Object data, int position) {
         if (data instanceof BiliVideoDetail) {
-            bindFromBiliVideoDetailCompact(holder, (BiliVideoDetail) data);
+            bindFields(holder.getTitleView(), holder.getUpView(), holder.getPlayCountView(),
+                    holder.getDanmakuView(), holder.getPubdateView(), holder.getDurationView(),
+                    holder.getBadgeView(), holder.getCoverImageView(), (BiliVideoDetail) data);
         } else if (data instanceof ResolveResourceParams) {
-            bindFromResolveParamsCompact(holder, (ResolveResourceParams) data);
+            bindFields(holder.getTitleView(), holder.getUpView(), holder.getPlayCountView(),
+                    holder.getDanmakuView(), holder.getPubdateView(), holder.getDurationView(),
+                    holder.getBadgeView(), holder.getCoverImageView(), (ResolveResourceParams) data);
         }
     }
 
-    private void bindFromBiliVideoDetail(VideoDetailActivity.f holder, BiliVideoDetail detail) {
-        holder.getTitleView().setText(detail.mTitle);
-        
+    /**
+     * 普通卡片与紧凑卡片的唯一差异只在“弹幕文字挂在哪个 View 上”，
+     * 因此统一走这一份绑定逻辑，避免两份近似代码再次漂移。
+     */
+    private void bindFields(TextView titleView, TextView upView, TextView playCountView,
+                            TextView danmakuView, TextView pubdateView, TextView durationView,
+                            TextView badgeView, ScalableImageView coverView, BiliVideoDetail detail) {
+        titleView.setText(detail.mTitle);
+
         String author = getAuthorFromBiliVideoDetail(detail);
-        boolean hideUpIcon = detail.hideUpIcon;
-        bindUpView(holder.getUpView(), author, hideUpIcon);
-        
-        String plays = detail.getPlays();
-        String danmakus = detail.getDanmakus();
-        bindPlayAndDanmaku(holder.getPlayCountView(), holder.getDanmakuInImageView(), plays, danmakus);
-        
-        bindPubDate(holder.getPubdateView(), detail.mCreatedTimestamp, detail.mPubDateText);
-        bindDuration(holder.getDurationView(), detail.mDuration);
-        bindBadge(holder.getBadgeView(), detail.badgeText, detail.badgeBgColor);
-        bindCover(holder.getCoverImageView(), detail.mCover);
+        bindUpView(upView, author, detail.hideUpIcon);
+        bindPlayAndDanmaku(playCountView, danmakuView, detail.getPlays(), detail.getDanmakus());
+        VideoCardTexts.bindPubDate(pubdateView, detail.mCreatedTimestamp, detail.mPubDateText, true);
+        VideoCardTexts.bindDuration(durationView, detail.mDuration, true);
+        VideoBadgeStyler.apply(badgeView, detail.badgeText, detail.badgeBgColor, true);
+        VideoCardCoverLoader.load(null, coverView, detail.mCover);
     }
 
-    private void bindFromBiliVideoDetailCompact(CompactVideoHolder holder, BiliVideoDetail detail) {
-        holder.getTitleView().setText(detail.mTitle);
-        
-        String author = getAuthorFromBiliVideoDetail(detail);
-        boolean hideUpIcon = detail.hideUpIcon;
-        bindUpView(holder.getUpView(), author, hideUpIcon);
-        
-        String plays = detail.getPlays();
-        String danmakus = detail.getDanmakus();
-        bindPlayAndDanmakuCompact(holder.getPlayCountView(), holder.getDanmakuView(), plays, danmakus);
-        
-        bindPubDate(holder.getPubdateView(), detail.mCreatedTimestamp, detail.mPubDateText);
-        bindDuration(holder.getDurationView(), detail.mDuration);
-        bindBadge(holder.getBadgeView(), detail.badgeText, detail.badgeBgColor);
-        bindCover(holder.getCoverImageView(), detail.mCover);
-    }
+    private void bindFields(TextView titleView, TextView upView, TextView playCountView,
+                            TextView danmakuView, TextView pubdateView, TextView durationView,
+                            TextView badgeView, ScalableImageView coverView, ResolveResourceParams params) {
+        titleView.setText(params.mPageTitle);
 
-    private void bindFromResolveParams(VideoDetailActivity.f holder, ResolveResourceParams params) {
-        holder.getTitleView().setText(params.mPageTitle);
-        
-        bindUpView(holder.getUpView(), params.mAuthor, params.mHideUpIcon);
-        bindPlayAndDanmaku(holder.getPlayCountView(), holder.getDanmakuInImageView(), params.mPlays, params.mDanmakus);
-        bindPubDate(holder.getPubdateView(), params.mPubDate, null);
-        bindDuration(holder.getDurationView(), params.mDuration);
-        bindBadge(holder.getBadgeView(), params.mBadgeText, params.mBadgeBgColor);
-        bindCover(holder.getCoverImageView(), params.mEpCover);
-    }
-
-    private void bindFromResolveParamsCompact(CompactVideoHolder holder, ResolveResourceParams params) {
-        holder.getTitleView().setText(params.mPageTitle);
-        
-        bindUpView(holder.getUpView(), params.mAuthor, params.mHideUpIcon);
-        bindPlayAndDanmakuCompact(holder.getPlayCountView(), holder.getDanmakuView(), params.mPlays, params.mDanmakus);
-        bindPubDate(holder.getPubdateView(), params.mPubDate, null);
-        bindDuration(holder.getDurationView(), params.mDuration);
-        bindBadge(holder.getBadgeView(), params.mBadgeText, params.mBadgeBgColor);
-        bindCover(holder.getCoverImageView(), params.mEpCover);
+        bindUpView(upView, params.mAuthor, params.mHideUpIcon);
+        bindPlayAndDanmaku(playCountView, danmakuView, params.mPlays, params.mDanmakus);
+        VideoCardTexts.bindPubDate(pubdateView, params.mPubDate, null, true);
+        VideoCardTexts.bindDuration(durationView, params.mDuration, true);
+        VideoBadgeStyler.apply(badgeView, params.mBadgeText, params.mBadgeBgColor, true);
+        VideoCardCoverLoader.load(null, coverView, params.mEpCover);
     }
 
     private String getAuthorFromBiliVideoDetail(BiliVideoDetail detail) {
-        if (!TextUtils.isEmpty(detail.vtText)) {
+        if (!VideoCardIcons.isEmpty(detail.vtText)) {
             return detail.vtText;
         }
         return detail.getAuthor();
@@ -109,27 +82,22 @@ public class UnifiedVideoCardBinder implements VideoCardBinder {
     private void bindUpView(TextView upView, String author, boolean hideUpIcon) {
         if (listType == 2) {
             upView.setVisibility(View.GONE);
-            upView.setCompoundDrawables(null, null, null, null);
+            VideoCardIcons.clear(upView);
             return;
         }
-        
+
         if (author != null && !author.isEmpty()) {
             upView.setText(author);
             upView.setVisibility(View.VISIBLE);
-            
+
             if (listType == 1 || hideUpIcon) {
-                upView.setCompoundDrawables(null, null, null, null);
+                VideoCardIcons.clear(upView);
             } else {
-                Drawable upIcon = adl.a.c(R.drawable.ic_video_info_up);
-                int iconSize = adl.b(R.dimen.px_26);
-                upIcon.setBounds(0, 0, iconSize, iconSize);
-                int color = adl.d(R.color.white);
-                upIcon.setColorFilter(color, PorterDuff.Mode.MULTIPLY);
-                upView.setCompoundDrawables(upIcon, null, null, null);
+                VideoCardIcons.setUp(upView, VideoCardIcons.SIZE_COMPACT, R.color.white);
             }
         } else {
             upView.setVisibility(View.GONE);
-            upView.setCompoundDrawables(null, null, null, null);
+            VideoCardIcons.clear(upView);
         }
     }
 
@@ -139,89 +107,8 @@ public class UnifiedVideoCardBinder implements VideoCardBinder {
             danmakuView.setVisibility(View.GONE);
             return;
         }
-        
-        if (plays != null && !"0".equals(plays)) {
-            playCountView.setText(adh.a(plays));
-            playCountView.setVisibility(View.VISIBLE);
-        } else {
-            playCountView.setVisibility(View.GONE);
-        }
-        
-        int danmaku = 0;
-        try {
-            danmaku = Integer.parseInt(danmakus != null ? danmakus : "0");
-        } catch (Exception e) {}
-        if (danmaku > 0) {
-            danmakuView.setText(adh.a(danmaku));
-            danmakuView.setVisibility(View.VISIBLE);
-        } else {
-            danmakuView.setVisibility(View.GONE);
-        }
-    }
-
-    private void bindPlayAndDanmakuCompact(TextView playCountView, TextView danmakuView, String plays, String danmakus) {
-        if (listType == 2) {
-            playCountView.setVisibility(View.GONE);
-            danmakuView.setVisibility(View.GONE);
-            return;
-        }
-        
-        if (plays != null && !"0".equals(plays)) {
-            playCountView.setText(adh.a(plays));
-            playCountView.setVisibility(View.VISIBLE);
-        } else {
-            playCountView.setVisibility(View.GONE);
-        }
-        
-        int danmaku = 0;
-        try {
-            danmaku = Integer.parseInt(danmakus != null ? danmakus : "0");
-        } catch (Exception e) {}
-        if (danmaku > 0) {
-            danmakuView.setText(adh.a(danmaku));
-            danmakuView.setVisibility(View.VISIBLE);
-        } else {
-            danmakuView.setVisibility(View.GONE);
-        }
-    }
-
-    private void bindPubDate(TextView pubdateView, long pubDate, String pubDateText) {
-        if (pubDateText != null && !pubDateText.isEmpty()) {
-            pubdateView.setText(pubDateText);
-            pubdateView.setVisibility(View.VISIBLE);
-        } else if (pubDate > 0) {
-            pubdateView.setText(DateHelper.formatDate(pubDate));
-            pubdateView.setVisibility(View.VISIBLE);
-        } else {
-            pubdateView.setVisibility(View.GONE);
-        }
-    }
-
-    private void bindDuration(TextView durationView, int duration) {
-        if (duration > 0) {
-            if (duration >= 3600) {
-                durationView.setText(String.format("%d:%02d:%02d",
-                        duration / 3600, (duration % 3600) / 60, duration % 60));
-            } else {
-                durationView.setText(String.format("%02d:%02d", duration / 60, duration % 60));
-            }
-            durationView.setVisibility(View.VISIBLE);
-        } else {
-            durationView.setVisibility(View.GONE);
-        }
-    }
-
-    private void bindBadge(TextView badgeView, String badgeText, String badgeBgColor) {
-        VideoBadgeStyler.apply(badgeView, badgeText, badgeBgColor, true);
-    }
-
-    private void bindCover(ScalableImageView coverView, String coverUrl) {
-        if (coverUrl != null && !coverUrl.isEmpty()) {
-            nv imageLoader = nv.a();
-            Context context = MainApplication.a().getApplicationContext();
-            String thumbUrl = abd.get_thumb_url_c(context, coverUrl);
-            imageLoader.a(thumbUrl, coverView);
-        }
+        VideoCardTexts.bindPlayCount(playCountView, plays, true);
+        VideoCardTexts.bindDanmaku(danmakuView, danmakus, true);
     }
 
     @Override

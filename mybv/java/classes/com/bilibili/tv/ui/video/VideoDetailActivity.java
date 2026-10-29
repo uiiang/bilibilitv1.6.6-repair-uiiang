@@ -3,18 +3,15 @@ package com.bilibili.tv.ui.video;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.provider.SearchRecentSuggestions;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextPaint;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +27,6 @@ import android.widget.TextView;
 import android.widget.CheckBox;
 import bl.abi;
 import bl.abd;
-import bl.ach;
 import bl.adc;
 import bl.add;
 import bl.adh;
@@ -41,7 +37,6 @@ import bl.aft;
 import bl.afz;
 import bl.bbg;
 import bl.bbi;
-import bl.ke;
 import bl.lr;
 import bl.mg;
 import bl.nv;
@@ -49,24 +44,17 @@ import bl.ok;
 import bl.vm;
 import bl.vn;
 import bl.vo;
-import bl.vp;
 import bl.wf;
 import bl.wg;
 import bl.xg;
 import mybl.CookieUtil;
 import com.bilibili.api.BiliApiException;
-import com.bilibili.bangumi.api.BangumiApiResponse;
-import com.bilibili.bangumi.api.uniform.BangumiUniformSeason;
 import com.bilibili.lib.account.model.AccountInfo;
-import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.favorite.BiliFavoriteVideoApiService;
 import com.bilibili.tv.api.video.BiliVideoDetail;
 import com.bilibili.tv.api.video.BiliUser;
 import com.bilibili.tv.api.video.PgcInfo;
-import com.bilibili.tv.api.video.PgcInfoParser;
-import com.bilibili.tv.api.video.VideoApiParser;
-import com.bilibili.tv.api.video.VideoApiParser2;
 import com.bilibili.tv.api.video.VideoApiParser3;
 import com.bilibili.tv.api.video.RelatedVideoParser;
 import com.bilibili.tv.api.video.TagParser;
@@ -74,10 +62,8 @@ import com.bilibili.tv.api.video.VideoApiService;
 import com.bilibili.tv.api.history.BiliPlayerHistoryService;
 import com.bilibili.tv.ui.account.LoginActivity;
 import com.bilibili.tv.ui.auth.AuthSpaceSideActivity;
-import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
 import com.bilibili.tv.ui.base.BaseActivity;
 import com.bilibili.tv.ui.base.LoadingImageView;
-import com.bilibili.tv.ui.video.tag.VideoTagSearchActivity;
 import com.bilibili.tv.ui.search.SearchResultSideActivity;
 import com.bilibili.tv.util.DateHelper;
 import com.bilibili.tv.widget.DrawLinearLayout;
@@ -94,10 +80,8 @@ import java.util.Map;
 import java.util.TreeMap;
 import kotlin.TypeCastException;
 import retrofit2.HttpException;
-import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import tv.danmaku.videoplayer.core.pluginapk.PluginApk;
 import mybl.MyBiliApiService;
-import com.bilibili.tv.api.video.PgcRelatedParser;
 import com.bilibili.tv.api.video.PgcRelatedSeason;
 import android.app.AlertDialog;
 import com.alibaba.fastjson.JSON;
@@ -185,7 +169,6 @@ public final class VideoDetailActivity extends BaseActivity
 
     /* renamed from: u reason: collision with root package name */
     private BiliVideoDetail u;
-    private e v;
     private com.bilibili.tv.ui.video.widget.VideoCardAdapter relateCardAdapter;
     private com.bilibili.tv.ui.video.widget.BiliVideoDetailBinder relateBinder;
     private add w;
@@ -226,7 +209,6 @@ public final class VideoDetailActivity extends BaseActivity
 
     public TextView episodes_title;
     public RecyclerView episodes_video;
-    public EpisodesVideoAdapter episodes_video_adapter;
     private com.bilibili.tv.ui.video.widget.VideoCardAdapter episodesCardAdapter;
     // 多合集列表容器
     public LinearLayout seasonsContainer;
@@ -238,15 +220,7 @@ public final class VideoDetailActivity extends BaseActivity
     public static class SeasonSectionView {
         public TextView titleView;
         public RecyclerView recyclerView;
-        public EpisodesVideoAdapter adapter;
         public int sectionId;
-        
-        public SeasonSectionView(TextView titleView, RecyclerView recyclerView, EpisodesVideoAdapter adapter, int sectionId) {
-            this.titleView = titleView;
-            this.recyclerView = recyclerView;
-            this.adapter = adapter;
-            this.sectionId = sectionId;
-        }
 
         public SeasonSectionView(TextView titleView, RecyclerView recyclerView, int sectionId) {
             this.titleView = titleView;
@@ -346,13 +320,7 @@ public final class VideoDetailActivity extends BaseActivity
                         adl.b(R.dimen.px_8), adl.b(R.dimen.px_4));
                 chargingTag.setGravity(android.view.Gravity.CENTER);
                 chargingTag.setFocusable(false);
-                float cornerRadius = 4 * getResources().getDisplayMetrics().density;
-                android.graphics.drawable.GradientDrawable gd =
-                        new android.graphics.drawable.GradientDrawable();
-                gd.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
-                gd.setCornerRadius(cornerRadius);
-                gd.setColor(0xFFFB7299);
-                chargingTag.setBackground(gd);
+                com.bilibili.tv.ui.video.widget.VideoTagStyler.applySolid(chargingTag, 0xFFFB7299);
                 chargingTag.setVisibility(View.GONE);
                 badgeRow.addView(chargingTag);
                 this.chargingExclusiveTag = chargingTag;
@@ -542,7 +510,6 @@ public final class VideoDetailActivity extends BaseActivity
             }
         }
         this.r = (RecyclerView) d(R.id.video_detail_relate_video);
-        this.v = new e();
         relateBinder = new com.bilibili.tv.ui.video.widget.BiliVideoDetailBinder();
         relateCardAdapter = new com.bilibili.tv.ui.video.widget.VideoCardAdapter(this);
         if (this.r != null) {
@@ -603,7 +570,6 @@ public final class VideoDetailActivity extends BaseActivity
         });
         }
         this.episodes_video = (RecyclerView) d(R.id.video_detail_episodes_video);
-        this.episodes_video_adapter = new EpisodesVideoAdapter();
         episodesCardAdapter = new com.bilibili.tv.ui.video.widget.VideoCardAdapter(this);
         episodesCardAdapter.setShowIndexBadge(true);
         if (this.episodes_video != null) {
@@ -3279,22 +3245,7 @@ public final class VideoDetailActivity extends BaseActivity
             badgeView.setPadding(adl.b(R.dimen.px_8), adl.b(R.dimen.px_4), adl.b(R.dimen.px_8), adl.b(R.dimen.px_4));
             badgeView.setGravity(android.view.Gravity.CENTER);
             badgeView.setFocusable(false);
-            float cornerRadius = 4 * getResources().getDisplayMetrics().density;
-            try {
-                int bgColor = android.graphics.Color.parseColor(pgcInfo.badgeInfo.bgColor);
-                int alphaColor = (bgColor & 0x00FFFFFF) | (153 << 24);
-                android.graphics.drawable.GradientDrawable drawable = new android.graphics.drawable.GradientDrawable();
-                drawable.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
-                drawable.setCornerRadius(cornerRadius);
-                drawable.setColor(alphaColor);
-                badgeView.setBackground(drawable);
-            } catch (Exception e) {
-                android.graphics.drawable.GradientDrawable drawable = new android.graphics.drawable.GradientDrawable();
-                drawable.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
-                drawable.setCornerRadius(cornerRadius);
-                drawable.setColor(0x99FB7299);
-                badgeView.setBackground(drawable);
-            }
+            com.bilibili.tv.ui.video.widget.VideoTagStyler.applyTranslucent(badgeView, pgcInfo.badgeInfo.bgColor);
             pgcInfoContainer.addView(badgeView);
         }
         
@@ -4883,125 +4834,6 @@ public final class VideoDetailActivity extends BaseActivity
 
     /* compiled from: BL */
     /* loaded from: classes.dex */
-    final class e extends RecyclerView.a<RecyclerView.v> {
-        private List<? extends BiliVideoDetail> b = new ArrayList();
-
-        /* JADX DEBUG: Incorrect args count in method signature: ()V */
-        public e() {
-        }
-
-        @Override // android.support.v7.widget.RecyclerView.a
-        public RecyclerView.v a(ViewGroup parent, int i) {
-            bbi.b(parent, "parent");
-            return f.Companion.a(parent);
-        }
-
-        @Override // android.support.v7.widget.RecyclerView.a
-        public void a(RecyclerView.v holder, int i) {
-            bbi.b(holder, "holder");
-            if (!(holder instanceof f)) {
-                holder = null;
-            }
-            f fVar = (f) holder;
-            if (fVar != null) {
-                List<? extends BiliVideoDetail> list = this.b;
-                fVar.b(list != null ? list.get(i) : null);
-                View itemView = fVar.a;
-                if (itemView != null) {
-                    int size = this.b != null ? this.b.size() : 0;
-                    if (i == 0) {
-                        itemView.setNextFocusLeftId(itemView.getId());
-                    } else {
-                        itemView.setNextFocusLeftId(View.NO_ID);
-                    }
-                    if (i == size - 1) {
-                        itemView.setNextFocusRightId(itemView.getId());
-                    } else {
-                        itemView.setNextFocusRightId(View.NO_ID);
-                    }
-                }
-            }
-        }
-
-        @Override // android.support.v7.widget.RecyclerView.a
-        public int a() {
-            List<? extends BiliVideoDetail> list = this.b;
-            if (list == null || list.isEmpty()) {
-                return 0;
-            }
-            return list.size();
-        }
-
-        public final void a(List<? extends BiliVideoDetail> list) {
-            bbi.b(list, "list");
-            this.b = list;
-            d();
-        }
-    }
-
-    final class EpisodesVideoAdapter extends RecyclerView.a<RecyclerView.v> {
-        private List<Object> data = new ArrayList();
-
-        public EpisodesVideoAdapter() {
-        }
-
-        @Override // android.support.v7.widget.RecyclerView.a
-        public RecyclerView.v a(ViewGroup parent, int position) {
-            bbi.b(parent, "parent");
-            return f.Companion.a(parent);
-        }
-
-        @Override // android.support.v7.widget.RecyclerView.a
-        public void a(RecyclerView.v holder, int position) {
-            bbi.b(holder, "holder");
-            if (!(holder instanceof f)) {
-                holder = null;
-            }
-            f fVar = (f) holder;
-            if (fVar != null) {
-                List<Object> list = this.data;
-                fVar.b(list != null ? list.get(position) : null);
-                // 设置序号badge
-                TextView indexBadge = fVar.getIndexBadgeView();
-                if (indexBadge != null) {
-                    indexBadge.setText(String.valueOf(position + 1));
-                    indexBadge.setVisibility(View.VISIBLE);
-                }
-                View itemView = fVar.a;
-                if (itemView != null) {
-                    int size = this.data != null ? this.data.size() : 0;
-                    if (position == 0) {
-                        itemView.setNextFocusLeftId(itemView.getId());
-                    } else {
-                        itemView.setNextFocusLeftId(View.NO_ID);
-                    }
-                    if (position == size - 1) {
-                        itemView.setNextFocusRightId(itemView.getId());
-                    } else {
-                        itemView.setNextFocusRightId(View.NO_ID);
-                    }
-                }
-            }
-        }
-
-        @Override // android.support.v7.widget.RecyclerView.a
-        public int a() {
-            List<Object> list = this.data;
-            if (list == null || list.isEmpty()) {
-                return 0;
-            }
-            return list.size();
-        }
-
-        public final void setData(List<Object> list) {
-            bbi.b(list, "list");
-            this.data = list;
-            d();
-        }
-    }
-
-    /* compiled from: BL */
-    /* loaded from: classes.dex */
     final class g extends RecyclerView.a<RecyclerView.v> {
         private final ArrayList<String> b = new ArrayList<>();
         private final HashMap<String, Integer> c = new HashMap<>();
@@ -5087,17 +4919,11 @@ public final class VideoDetailActivity extends BaseActivity
             this.danmakuInImage = (TextView) a(view, R.id.danmaku);
             this.badge = (TextView) a(view, R.id.badge);
             this.indexBadge = (TextView) a(view, R.id.index_badge);
-            Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
-            Drawable c3 = adl.a.c(R.drawable.ic_video_info_danmaku);
-            int b2 = adl.b(R.dimen.px_26);
-            c2.setBounds(0, 0, b2, b2);
-            c3.setBounds(0, 0, b2, b2);
-            int danmakuColor = adl.d(R.color.white);
-            c2.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
-            c3.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
-            this.p.setCompoundDrawables(null, null, null, null);
-            this.q.setCompoundDrawables(c2, null, null, null);
-            this.danmakuInImage.setCompoundDrawables(c3, null, null, null);
+            com.bilibili.tv.ui.video.widget.VideoCardIcons.clear(this.p);
+            com.bilibili.tv.ui.video.widget.VideoCardIcons.setPlay(view.getContext(), this.q,
+                    com.bilibili.tv.ui.video.widget.VideoCardIcons.SIZE_COMPACT, R.color.white);
+            com.bilibili.tv.ui.video.widget.VideoCardIcons.setDanmaku(view.getContext(), this.danmakuInImage,
+                    com.bilibili.tv.ui.video.widget.VideoCardIcons.SIZE_COMPACT, R.color.white);
             this.s = (DrawRelativeLayout) view;
             this.s.setUpDrawable(R.drawable.shadow_white_rect);
         }
@@ -5120,132 +4946,7 @@ public final class VideoDetailActivity extends BaseActivity
 
         @Override // bl.adc.a
         public void b(Object obj) {
-            if (obj instanceof BiliVideoDetail) {
-                BiliVideoDetail biliVideoDetail = (BiliVideoDetail) obj;
-                if (biliVideoDetail.mTitle != null) {
-                    this.o.setText(biliVideoDetail.mTitle);
-                }
-                String author = biliVideoDetail.getAuthor();
-                if (author != null && !author.isEmpty()) {
-                    this.p.setText(author);
-                    if (!biliVideoDetail.hideUpIcon) {
-                        Drawable upIcon = adl.a.c(R.drawable.ic_video_info_up);
-                        int iconSize = adl.b(R.dimen.px_26);
-                        upIcon.setBounds(0, 0, iconSize, iconSize);
-                        int danmakuColor = adl.d(R.color.white);
-                        upIcon.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
-                        this.p.setCompoundDrawables(upIcon, null, null, null);
-                    } else {
-                        this.p.setCompoundDrawables(null, null, null, null);
-                    }
-                } else {
-                    this.p.setCompoundDrawables(null, null, null, null);
-                }
-                if (biliVideoDetail.getPlays() != null) {
-                    this.q.setText(adh.a(biliVideoDetail.getPlays()));
-                }
-                int danmaku = 0;
-                try {
-                    danmaku = Integer.parseInt(biliVideoDetail.getDanmakus());
-                } catch (Exception e) {}
-                if (danmaku > 0) {
-                    this.danmakuInImage.setText(adh.a(danmaku));
-                    this.danmakuInImage.setVisibility(View.VISIBLE);
-                } else {
-                    this.danmakuInImage.setVisibility(View.GONE);
-                }
-                long pubdate = biliVideoDetail.mCreatedTimestamp;
-                if (pubdate > 0) {
-                    this.r.setText(DateHelper.formatDate(pubdate));
-                    this.r.setVisibility(View.VISIBLE);
-                } else {
-                    this.r.setVisibility(View.GONE);
-                }
-                int durationVal = biliVideoDetail.mDuration;
-                if (durationVal >= 3600) {
-                    this.duration.setText(String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60));
-                } else {
-                    this.duration.setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
-                }
-                com.bilibili.tv.ui.video.widget.VideoBadgeStyler.apply(this.badge,
-                        biliVideoDetail.badgeText, biliVideoDetail.badgeBgColor, true);
-                if (biliVideoDetail.mCover != null) {
-                    nv a2 = nv.a();
-                    MainApplication a3 = MainApplication.a();
-                    bbi.a((Object) a3, "MainApplication.getInstance()");
-                    a2.a(abd.get_thumb_url_c(a3.getApplicationContext(), biliVideoDetail.mCover), this.n);
-                }
-                View view = this.a;
-                bbi.a((Object) view, "itemView");
-                view.setOnFocusChangeListener(new b());
-                View view2 = this.a;
-                bbi.a((Object) view2, "itemView");
-                view2.setTag(obj);
-                this.a.setOnClickListener(this);
-            } else if (obj instanceof PgcInfo.Season) {
-                PgcInfo.Season season = (PgcInfo.Season) obj;
-                String displayTitle = "";
-                if (season.title != null && !season.title.isEmpty()) {
-                    displayTitle = season.title;
-                    if (season.seasonTitle != null && !season.seasonTitle.isEmpty()) {
-                        displayTitle = displayTitle + "-" + season.seasonTitle;
-                    }
-                } else if (season.seasonTitle != null) {
-                    displayTitle = season.seasonTitle;
-                }
-                if (!displayTitle.isEmpty()) {
-                    this.o.setText(displayTitle);
-                }
-                if (season.newEp != null && season.newEp.indexShow != null) {
-                    this.p.setText(season.newEp.indexShow);
-                    this.p.setCompoundDrawables(null, null, null, null);
-                } else {
-                    this.p.setText("");
-                    this.p.setCompoundDrawables(null, null, null, null);
-                }
-                if (season.iconFont != null && season.iconFont.text != null) {
-                    this.r.setText(season.iconFont.text + "播放");
-                    this.r.setVisibility(View.VISIBLE);
-                } else {
-                    this.r.setVisibility(View.GONE);
-                }
-                this.q.setVisibility(View.GONE);
-                this.danmakuInImage.setVisibility(View.GONE);
-                this.duration.setVisibility(View.GONE);
-                com.bilibili.tv.ui.video.widget.VideoBadgeStyler.apply(this.badge,
-                        season.badgeInfo != null ? season.badgeInfo.text : null,
-                        season.badgeInfo != null ? season.badgeInfo.bgColor : null, true);
-                String cover = season.getBestCover();
-                if (cover != null) {
-                    nv a2 = nv.a();
-                    MainApplication a3 = MainApplication.a();
-                    bbi.a((Object) a3, "MainApplication.getInstance()");
-                    a2.a(abd.get_thumb_url_c(a3.getApplicationContext(), cover), this.n);
-                }
-                View view = this.a;
-                bbi.a((Object) view, "itemView");
-                view.setOnFocusChangeListener(new b());
-                View view2 = this.a;
-                bbi.a((Object) view2, "itemView");
-                view2.setTag(obj);
-                this.a.setOnClickListener(this);
-            }
-        }
-
-        /* compiled from: BL */
-        /* loaded from: classes.dex */
-        final class b implements View.OnFocusChangeListener {
-            b() {
-            }
-
-            @Override // android.view.View.OnFocusChangeListener
-            public final void onFocusChange(View view, boolean z) {
-                if (z) {
-                    f.this.z().setUpEnabled(true);
-                } else {
-                    f.this.z().setUpEnabled(false);
-                }
-            }
+            // 旧版内联绑定已移除：该 Holder 现仅由 VideoCardAdapter + VideoCardBinder 绑定
         }
 
         @Override // android.view.View.OnClickListener

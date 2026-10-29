@@ -49,7 +49,6 @@ classes\bl\bgy.java
 classes\bl\BottomEpisodeMenu.java
 classes\bl\CollectionFavoriteFolder.java
 classes\bl\CourseFavoriteFolder.java
-classes\bl\EpisodeBinder.java
 classes\bl\FavoriteFolder.java
 classes\bl\HistoryFolder.java
 classes\bl\ji.java
@@ -282,15 +281,18 @@ classes\com\bilibili\tv\ui\video\widget\CompactVideoHolder.java
 classes\com\bilibili\tv\ui\video\widget\CurrentItemMatcher.java
 classes\com\bilibili\tv\ui\video\widget\NavigationTagAdapter.java
 classes\com\bilibili\tv\ui\video\widget\NavigationTagBinder.java
-classes\com\bilibili\tv\ui\video\widget\PageVideoDetailBinder.java
 classes\com\bilibili\tv\ui\video\widget\PgcSeasonBinder.java
 classes\com\bilibili\tv\ui\video\widget\ShotBinder.java
 classes\com\bilibili\tv\ui\video\widget\UnifiedVideoCardBinder.java
 classes\com\bilibili\tv\ui\video\widget\VideoBadgeStyler.java
 classes\com\bilibili\tv\ui\video\widget\VideoCardAdapter.java
 classes\com\bilibili\tv\ui\video\widget\VideoCardBinder.java
+classes\com\bilibili\tv\ui\video\widget\VideoCardCoverLoader.java
+classes\com\bilibili\tv\ui\video\widget\VideoCardIcons.java
+classes\com\bilibili\tv\ui\video\widget\VideoCardTexts.java
 classes\com\bilibili\tv\ui\video\widget\VideoListNavigator.java
 classes\com\bilibili\tv\ui\video\widget\VideoListSection.java
+classes\com\bilibili\tv\ui\video\widget\VideoTagStyler.java
 classes\com\bilibili\tv\ui\weekly\WeeklyActivity.java
 classes\com\bilibili\tv\ui\weekly\WeeklyVideoFragment.java
 classes\com\bilibili\tv\util\DateHelper.java

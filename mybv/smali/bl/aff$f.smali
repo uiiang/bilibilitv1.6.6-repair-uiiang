@@ -25,16 +25,16 @@
     .locals 0
 
     .prologue
-    .line 134
+    .line 130
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$g;-><init>()V
 
-    .line 135
+    .line 131
     iput p1, p0, Lbl/aff$f;->a:I
 
-    .line 136
+    .line 132
     iput p2, p0, Lbl/aff$f;->b:I
 
-    .line 137
+    .line 133
     return-void
 .end method
 
@@ -46,22 +46,22 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 143
+    .line 139
     const-string v0, "outRect"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 144
+    .line 140
     const-string v0, "view"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 145
+    .line 141
     const-string v0, "parent"
 
     invoke-static {p3, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 146
+    .line 142
     invoke-virtual {p3, p2}, Landroid/support/v7/widget/RecyclerView;->g(Landroid/view/View;)I
 
     move-result v0
@@ -70,26 +70,26 @@
 
     if-nez v0, :cond_21
 
-    .line 147
+    .line 143
     iget v0, p0, Lbl/aff$f;->a:I
 
     move v2, v1
 
-    .line 153
+    .line 149
     :goto_1b
     iget v3, p0, Lbl/aff$f;->b:I
 
     invoke-virtual {p1, v2, v3, v0, v1}, Landroid/graphics/Rect;->set(IIII)V
 
-    .line 154
+    .line 150
     return-void
 
-    .line 150
+    .line 146
     :cond_21
     iget v2, p0, Lbl/aff$f;->a:I
 
     move v0, v1
 
-    .line 151
+    .line 147
     goto :goto_1b
 .end method

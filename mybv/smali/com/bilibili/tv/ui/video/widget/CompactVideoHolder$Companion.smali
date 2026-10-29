@@ -19,7 +19,7 @@
     .locals 0
 
     .prologue
-    .line 108
+    .line 86
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -29,7 +29,7 @@
     .locals 0
 
     .prologue
-    .line 107
+    .line 85
     invoke-direct {p0}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder$Companion;-><init>()V
 
     return-void
@@ -41,12 +41,12 @@
     .locals 3
 
     .prologue
-    .line 111
+    .line 89
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 112
+    .line 90
     invoke-virtual {p1}, Landroid/view/ViewGroup;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -59,17 +59,17 @@
 
     const/4 v2, 0x0
 
-    .line 113
+    .line 91
     invoke-virtual {v0, v1, p1, v2}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;Z)Landroid/view/View;
 
     move-result-object v0
 
-    .line 114
+    .line 92
     const-string v1, "view"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 115
+    .line 93
     new-instance v1, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;
 
     invoke-direct {v1, v0}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;-><init>(Landroid/view/View;)V

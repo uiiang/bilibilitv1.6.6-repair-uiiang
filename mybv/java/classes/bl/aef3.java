@@ -1,7 +1,6 @@
 package bl;
 
 import android.app.Activity;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -218,20 +217,9 @@ public class aef3 extends ady {
             this.p = (TextView) a(itemView, R.id.up);
             this.q = (TextView) a(itemView, R.id.play);
             this.r = (TextView) a(itemView, R.id.danmaku);
-            Drawable c = adl.a.c(R.drawable.ic_video_info_up);
-            Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
-            Drawable c3 = adl.a.c(R.drawable.ic_video_info_danmaku);
-            int b2 = adl.b(R.dimen.px_34);
-            c.setBounds(0, 0, b2, b2);
-            c2.setBounds(0, 0, b2, b2);
-            c3.setBounds(0, 0, b2, b2);
-            int d = adl.d(R.color.white_50);
-            c.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
-            c2.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
-            c3.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
-            this.p.setCompoundDrawables(c, null, null, null);
-            this.q.setCompoundDrawables(c2, null, null, null);
-            this.r.setCompoundDrawables(c3, null, null, null);
+            com.bilibili.tv.ui.video.widget.VideoCardIcons.apply(itemView.getContext(),
+                    this.p, this.q, this.r,
+                    com.bilibili.tv.ui.video.widget.VideoCardIcons.SIZE_WIDE, R.color.white_50);
             this.s = (DrawRelativeLayout) itemView;
             this.s.setUpDrawable(R.drawable.shadow_white_rect);
             itemView.setOnClickListener(this);

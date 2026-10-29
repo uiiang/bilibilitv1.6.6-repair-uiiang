@@ -31,10 +31,10 @@
     .locals 2
 
     .prologue
-    .line 1439
+    .line 1425
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 1440
+    .line 1426
     const v0, 0x7f0800a1
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$UserViewHolder;->a(Landroid/view/View;I)Landroid/view/View;
@@ -45,7 +45,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$UserViewHolder;->img:Lcom/bilibili/tv/widget/ScalableImageView;
 
-    .line 1441
+    .line 1427
     const v0, 0x7f080132
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$UserViewHolder;->a(Landroid/view/View;I)Landroid/view/View;
@@ -56,7 +56,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$UserViewHolder;->title:Landroid/widget/TextView;
 
-    .line 1442
+    .line 1428
     const v0, 0x7f080081
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$UserViewHolder;->a(Landroid/view/View;I)Landroid/view/View;
@@ -67,7 +67,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$UserViewHolder;->fans:Landroid/widget/TextView;
 
-    .line 1443
+    .line 1429
     const v0, 0x7f08001f
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$UserViewHolder;->a(Landroid/view/View;I)Landroid/view/View;
@@ -80,34 +80,34 @@
 
     move-object v0, p1
 
-    .line 1444
+    .line 1430
     check-cast v0, Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$UserViewHolder;->root:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
-    .line 1445
+    .line 1431
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$UserViewHolder;->root:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     const v1, 0x7f0700e8
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawRelativeLayout;->setUpDrawable(I)V
 
-    .line 1447
+    .line 1433
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 1448
+    .line 1434
     instance-of v1, v0, Landroid/view/View$OnLongClickListener;
 
     if-eqz v1, :cond_49
 
-    .line 1449
+    .line 1435
     check-cast v0, Landroid/view/View$OnLongClickListener;
 
     invoke-virtual {p1, v0}, Landroid/view/View;->setOnLongClickListener(Landroid/view/View$OnLongClickListener;)V
 
-    .line 1451
+    .line 1437
     :cond_49
     return-void
 .end method
@@ -116,7 +116,7 @@
     .locals 3
 
     .prologue
-    .line 1454
+    .line 1440
     invoke-virtual {p0}, Landroid/view/ViewGroup;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -133,7 +133,7 @@
 
     move-result-object v0
 
-    .line 1455
+    .line 1441
     new-instance v1, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$UserViewHolder;
 
     invoke-direct {v1, v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$UserViewHolder;-><init>(Landroid/view/View;)V

@@ -9,14 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.text.TextUtils;
 
 import com.bilibili.tv.ui.video.widget.VideoBadgeStyler;
+import com.bilibili.tv.ui.video.widget.VideoCardIcons;
 import com.bilibili.tv.widget.CircleImageView;
 import com.bilibili.tv.widget.DrawTextView;
-import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import bl.adl;
 import bl.ady;
 import bl.abd;
@@ -27,7 +25,6 @@ import bl.bbg;
 import bl.adv;
 import bl.mg;
 import bl.nv;
-import bl.ach;
 import bl.vo;
 import bl.vn;
 import bl.lr;
@@ -35,7 +32,6 @@ import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.auth.BiliSpaceVideo;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
-import com.bilibili.tv.util.DateHelper;
 import com.bilibili.tv.widget.DrawRelativeLayout;
 import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
@@ -827,20 +823,8 @@ public final class AttentionDynamicFragment extends ady {
             this.duration = (TextView) a(view, R.id.duration);
             this.danmakuInImage = (TextView) a(view, R.id.danmaku);
             this.badge = (TextView) a(view, R.id.badge);
-            android.graphics.drawable.Drawable c = bl.adl.a.c(R.drawable.ic_video_info_up);
-            android.graphics.drawable.Drawable c2 = bl.adl.a.c(R.drawable.ic_video_info_play);
-            android.graphics.drawable.Drawable c3 = bl.adl.a.c(R.drawable.ic_video_info_danmaku);
-            int b = bl.adl.b(R.dimen.px_26);
-            c.setBounds(0, 0, b, b);
-            c2.setBounds(0, 0, b, b);
-            c3.setBounds(0, 0, b, b);
-            int danmakuColor = bl.adl.d(R.color.white);
-            c.setColorFilter(danmakuColor, android.graphics.PorterDuff.Mode.MULTIPLY);
-            c2.setColorFilter(danmakuColor, android.graphics.PorterDuff.Mode.MULTIPLY);
-            c3.setColorFilter(danmakuColor, android.graphics.PorterDuff.Mode.MULTIPLY);
-            this.p.setCompoundDrawables(c, null, null, null);
-            this.q.setCompoundDrawables(c2, null, null, null);
-            this.danmakuInImage.setCompoundDrawables(c3, null, null, null);
+            VideoCardIcons.apply(view.getContext(), this.p, this.q, this.danmakuInImage,
+                    VideoCardIcons.SIZE_COMPACT, R.color.white);
         }
 
         public final ScalableImageView z() {

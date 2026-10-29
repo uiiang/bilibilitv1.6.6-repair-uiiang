@@ -44,7 +44,7 @@
     .locals 2
 
     .prologue
-    .line 119
+    .line 97
     new-instance v0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder$Companion;
 
     const/4 v1, 0x0
@@ -57,20 +57,16 @@
 .end method
 
 .method public constructor <init>(Landroid/view/View;)V
-    .locals 7
+    .locals 6
 
     .prologue
-    const/4 v6, 0x0
-
-    const/4 v5, 0x0
-
-    .line 33
+    .line 26
     invoke-direct {p0, p1}, Landroid/support/v7/widget/RecyclerView$v;-><init>(Landroid/view/View;)V
 
-    .line 34
+    .line 27
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->a:Landroid/view/View;
 
-    .line 35
+    .line 28
     const v0, 0x7f0800a1
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -81,7 +77,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->coverImageView:Lcom/bilibili/tv/widget/ScalableImageView;
 
-    .line 36
+    .line 29
     const v0, 0x7f080132
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -92,7 +88,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->titleView:Landroid/widget/TextView;
 
-    .line 37
+    .line 30
     const v0, 0x7f08013f
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -103,7 +99,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->upView:Landroid/widget/TextView;
 
-    .line 38
+    .line 31
     const v0, 0x7f0800d4
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -114,7 +110,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->playCountView:Landroid/widget/TextView;
 
-    .line 39
+    .line 32
     const v0, 0x7f08006c
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -125,7 +121,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->danmakuView:Landroid/widget/TextView;
 
-    .line 40
+    .line 33
     const v0, 0x7f0801af
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -136,7 +132,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->pubdateView:Landroid/widget/TextView;
 
-    .line 41
+    .line 34
     const v0, 0x7f0801a6
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -147,7 +143,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->durationView:Landroid/widget/TextView;
 
-    .line 42
+    .line 35
     const v0, 0x7f0801d8
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -158,7 +154,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->badgeView:Landroid/widget/TextView;
 
-    .line 43
+    .line 36
     const v0, 0x7f0801ea
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -171,118 +167,37 @@
 
     move-object v0, p1
 
-    .line 44
+    .line 37
     check-cast v0, Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->rootLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
 
-    .line 45
+    .line 38
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->rootLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     const v1, 0x7f0700e8
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setUpDrawable(I)V
 
-    .line 47
+    .line 40
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 48
-    invoke-virtual {v0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+    .line 41
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->upView:Landroid/widget/TextView;
 
-    move-result-object v1
+    iget-object v2, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->playCountView:Landroid/widget/TextView;
 
-    const v2, 0x7f060120
+    iget-object v3, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->danmakuView:Landroid/widget/TextView;
 
-    invoke-virtual {v1, v2}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
+    const v4, 0x7f060120
 
-    move-result v1
+    const v5, 0x7f0500a7
 
-    .line 49
-    invoke-virtual {v0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+    invoke-static/range {v0 .. v5}, Lcom/bilibili/tv/ui/video/widget/VideoCardIcons;->apply(Landroid/content/Context;Landroid/widget/TextView;Landroid/widget/TextView;Landroid/widget/TextView;II)V
 
-    move-result-object v2
-
-    const v3, 0x7f0500a7
-
-    invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getColor(I)I
-
-    move-result v2
-
-    .line 51
-    invoke-virtual {v0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v3
-
-    const v4, 0x7f0700b2
-
-    invoke-virtual {v3, v4}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
-
-    move-result-object v3
-
-    .line 52
-    invoke-virtual {v3, v6, v6, v1, v1}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
-
-    .line 53
-    sget-object v4, Landroid/graphics/PorterDuff$Mode;->MULTIPLY:Landroid/graphics/PorterDuff$Mode;
-
-    invoke-virtual {v3, v2, v4}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
-
-    .line 54
-    iget-object v4, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->upView:Landroid/widget/TextView;
-
-    invoke-virtual {v4, v3, v5, v5, v5}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
-
-    .line 56
-    invoke-virtual {v0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v3
-
-    const v4, 0x7f0700b1
-
-    invoke-virtual {v3, v4}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
-
-    move-result-object v3
-
-    .line 57
-    invoke-virtual {v3, v6, v6, v1, v1}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
-
-    .line 58
-    sget-object v4, Landroid/graphics/PorterDuff$Mode;->MULTIPLY:Landroid/graphics/PorterDuff$Mode;
-
-    invoke-virtual {v3, v2, v4}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
-
-    .line 59
-    iget-object v4, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->playCountView:Landroid/widget/TextView;
-
-    invoke-virtual {v4, v3, v5, v5, v5}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
-
-    .line 61
-    invoke-virtual {v0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v0
-
-    const v3, 0x7f0700b0
-
-    invoke-virtual {v0, v3}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
-
-    move-result-object v0
-
-    .line 62
-    invoke-virtual {v0, v6, v6, v1, v1}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
-
-    .line 63
-    sget-object v1, Landroid/graphics/PorterDuff$Mode;->MULTIPLY:Landroid/graphics/PorterDuff$Mode;
-
-    invoke-virtual {v0, v2, v1}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
-
-    .line 64
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->danmakuView:Landroid/widget/TextView;
-
-    invoke-virtual {v1, v0, v5, v5, v5}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
-
-    .line 65
+    .line 43
     return-void
 .end method
 
@@ -292,7 +207,7 @@
     .locals 1
 
     .prologue
-    .line 96
+    .line 74
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->badgeView:Landroid/widget/TextView;
 
     return-object v0
@@ -302,7 +217,7 @@
     .locals 1
 
     .prologue
-    .line 68
+    .line 46
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->coverImageView:Lcom/bilibili/tv/widget/ScalableImageView;
 
     return-object v0
@@ -312,7 +227,7 @@
     .locals 1
 
     .prologue
-    .line 84
+    .line 62
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->danmakuView:Landroid/widget/TextView;
 
     return-object v0
@@ -322,7 +237,7 @@
     .locals 1
 
     .prologue
-    .line 92
+    .line 70
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->durationView:Landroid/widget/TextView;
 
     return-object v0
@@ -332,7 +247,7 @@
     .locals 1
 
     .prologue
-    .line 100
+    .line 78
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->indexBadgeView:Landroid/widget/TextView;
 
     return-object v0
@@ -342,7 +257,7 @@
     .locals 1
 
     .prologue
-    .line 80
+    .line 58
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->playCountView:Landroid/widget/TextView;
 
     return-object v0
@@ -352,7 +267,7 @@
     .locals 1
 
     .prologue
-    .line 88
+    .line 66
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->pubdateView:Landroid/widget/TextView;
 
     return-object v0
@@ -362,7 +277,7 @@
     .locals 1
 
     .prologue
-    .line 104
+    .line 82
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->rootLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     return-object v0
@@ -372,7 +287,7 @@
     .locals 1
 
     .prologue
-    .line 72
+    .line 50
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->titleView:Landroid/widget/TextView;
 
     return-object v0
@@ -382,7 +297,7 @@
     .locals 1
 
     .prologue
-    .line 76
+    .line 54
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->upView:Landroid/widget/TextView;
 
     return-object v0

@@ -6,7 +6,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import java.net.URLEncoder;
@@ -16,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import bl.ach;
 import bl.abd;
 import bl.adl;
 import bl.adv;
@@ -30,9 +28,9 @@ import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.search.BiliSearchResultUper;
 import com.bilibili.tv.ui.auth.AuthSpaceSideActivity;
-import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
 import com.bilibili.tv.ui.base.LoadingImageView;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
+import com.bilibili.tv.ui.video.widget.VideoCardIcons;
 import com.bilibili.tv.widget.DrawRelativeLayout;
 import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
@@ -1376,20 +1374,8 @@ public final class SearchResultVideoFragment extends ady {
             root = (DrawRelativeLayout) itemView;
             root.setUpDrawable(R.drawable.shadow_white_rect);
             
-            Drawable c = adl.a.c(R.drawable.ic_video_info_up);
-            Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
-            Drawable c3 = adl.a.c(R.drawable.ic_video_info_danmaku);
-            int b = adl.b(R.dimen.px_34);
-            c.setBounds(0, 0, b, b);
-            c2.setBounds(0, 0, b, b);
-            c3.setBounds(0, 0, b, b);
-            int d = adl.d(R.color.white_50);
-            c.setColorFilter(d, android.graphics.PorterDuff.Mode.MULTIPLY);
-            c2.setColorFilter(d, android.graphics.PorterDuff.Mode.MULTIPLY);
-            c3.setColorFilter(d, android.graphics.PorterDuff.Mode.MULTIPLY);
-            up.setCompoundDrawables(c, null, null, null);
-            play.setCompoundDrawables(c2, null, null, null);
-            danmaku.setCompoundDrawables(c3, null, null, null);
+            VideoCardIcons.apply(itemView.getContext(), up, play, danmaku,
+                    VideoCardIcons.SIZE_WIDE, R.color.white_50);
             
             Object context = itemView.getContext();
             if (context instanceof View.OnLongClickListener) {

@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 911
+    .line 875
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 912
+    .line 876
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 915
+    .line 879
     invoke-direct {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d$a;-><init>()V
 
-    .line 916
+    .line 880
     return-void
 .end method
 
@@ -43,12 +43,12 @@
     .locals 3
 
     .prologue
-    .line 919
+    .line 883
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 920
+    .line 884
     invoke-virtual {p1}, Landroid/view/ViewGroup;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -61,17 +61,17 @@
 
     const/4 v2, 0x0
 
-    .line 921
+    .line 885
     invoke-virtual {v0, v1, p1, v2}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;Z)Landroid/view/View;
 
     move-result-object v0
 
-    .line 922
+    .line 886
     const-string v1, "view"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 923
+    .line 887
     new-instance v1, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;
 
     invoke-direct {v1, v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;-><init>(Landroid/view/View;)V

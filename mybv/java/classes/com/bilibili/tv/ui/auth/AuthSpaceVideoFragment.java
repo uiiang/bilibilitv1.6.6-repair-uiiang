@@ -5,33 +5,28 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bilibili.tv.ui.video.widget.VideoBadgeStyler;
+import com.bilibili.tv.ui.video.widget.VideoCardCoverLoader;
+import com.bilibili.tv.ui.video.widget.VideoCardIcons;
 
-import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import bl.adl;
 import bl.ady;
 import bl.abd;
 import bl.adv;
-import bl.adz;
 import bl.agd;
 import bl.bbi;
 import bl.lr;
 import bl.vn;
 import bl.vo;
 import bl.aj;
-import bl.ach;
-import bl.nv;
-import bl.adh;
 import com.bilibili.tv.R;
 import com.bilibili.tv.widget.DrawTextView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
@@ -40,7 +35,6 @@ import mybl.CookieUtil;
 import mybl.LogUtil;
 import mybl.MyBiliApiService;
 import com.bilibili.tv.api.auth.BiliSpaceVideo;
-import com.bilibili.tv.util.DateHelper;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -1448,22 +1442,9 @@ public final class AuthSpaceVideoFragment extends ady {
           vh.E().setText(v.durationStr);
         }
         
-        int iconSize = bl.adl.b(R.dimen.px_26);
-        android.graphics.drawable.Drawable playIcon = bl.adl.a.c(R.drawable.ic_video_info_play);
-        android.graphics.drawable.Drawable danmakuIcon = bl.adl.a.c(R.drawable.ic_video_info_danmaku);
-        if (playIcon != null) {
-          playIcon.setBounds(0, 0, iconSize, iconSize);
-          playIcon.setColorFilter(bl.adl.d(R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
-        }
-        if (danmakuIcon != null) {
-          danmakuIcon.setBounds(0, 0, iconSize, iconSize);
-          danmakuIcon.setColorFilter(bl.adl.d(R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
-        }
-        vh.C().setCompoundDrawables(playIcon, null, null, null);
-        vh.danmakuInImage.setCompoundDrawables(danmakuIcon, null, null, null);
-        
-        if (v.cover != null)
-          nv.a().a(abd.get_thumb_url_c(com.bilibili.tv.MainApplication.a(), v.cover), vh.z());
+        VideoCardIcons.setPlay(vh.C(), VideoCardIcons.SIZE_COMPACT, R.color.white);
+        VideoCardIcons.setDanmaku(vh.danmakuInImage, VideoCardIcons.SIZE_COMPACT, R.color.white);
+        VideoCardCoverLoader.load(null, vh.z(), v.cover);
         
         VideoBadgeStyler.apply(vh.F(), v.badgeText, v.badgeBgColor, false);
         

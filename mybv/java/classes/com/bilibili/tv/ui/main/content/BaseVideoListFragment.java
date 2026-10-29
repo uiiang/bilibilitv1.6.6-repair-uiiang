@@ -20,6 +20,9 @@ import com.bilibili.tv.R;
 import com.bilibili.tv.api.main.MainRecommendEx;
 import com.bilibili.tv.ui.main.MainActivity;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
+import com.bilibili.tv.ui.video.widget.VideoCardCoverLoader;
+import com.bilibili.tv.ui.video.widget.VideoCardIcons;
+import com.bilibili.tv.ui.video.widget.VideoCardTexts;
 import com.bilibili.tv.util.DateHelper;
 import com.bilibili.tv.widget.DrawLinearLayout;
 import com.bilibili.tv.widget.DrawRelativeLayout;
@@ -28,11 +31,8 @@ import com.bilibili.tv.widget.border.BorderGridLayoutManager;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-import kotlin.TypeCastException;
-import tv.danmaku.android.log.BLog;
 
 import bl.*;
-import com.alibaba.fastjson.JSONObject;
 
 public abstract class BaseVideoListFragment extends adu implements aez, wf {
     
@@ -467,9 +467,8 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
                     vh.getBadgeView().setVisibility(View.GONE);
                 }
                 
-                if (!TextUtils.isEmpty(content.getCover())) {
-                    nv.a().a(abd.get_thumb_url_with_size(MainApplication.a().getApplicationContext(), content.getCover(), this.thumbWidth, this.thumbHeight), vh.getCoverView());
-                }
+                VideoCardCoverLoader.loadWithSize(null, vh.getCoverView(), content.getCover(),
+                        this.thumbWidth, this.thumbHeight);
                 if (!TextUtils.isEmpty(content.getUri())) {
                     holder.a.setTag(content.getUri());
                 }
@@ -493,19 +492,8 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
                     }
                     vh.getPlayView().setVisibility(View.VISIBLE);
                     vh.getPlayView().setText(adh.a(content.getPlay()));
-                    int danmaku = content.getDanmaku();
-                    if (danmaku > 0) {
-                        vh.getDanmakuView().setText(adh.a(danmaku));
-                        vh.getDanmakuView().setVisibility(View.VISIBLE);
-                    } else {
-                        vh.getDanmakuView().setVisibility(View.GONE);
-                    }
-                    int duration = content.getDuration();
-                    if (duration >= 3600) {
-                        vh.getDurationView().setText(String.format("%d:%02d:%02d", duration / 3600, (duration % 3600) / 60, duration % 60));
-                    } else {
-                        vh.getDurationView().setText(String.format("%02d:%02d", duration / 60, duration % 60));
-                    }
+                    VideoCardTexts.bindDanmaku(vh.getDanmakuView(), String.valueOf(content.getDanmaku()), true);
+                    VideoCardTexts.bindDuration(vh.getDurationView(), content.getDuration(), false);
                     vh.getDurationView().setVisibility(View.VISIBLE);
                 }
                 long pubdate = content.getPubdate();
@@ -656,20 +644,8 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
             }
 
             Context ctx = view.getContext();
-            android.graphics.drawable.Drawable upIcon = ctx.getResources().getDrawable(R.drawable.ic_video_info_up);
-            android.graphics.drawable.Drawable playIcon = ctx.getResources().getDrawable(R.drawable.ic_video_info_play);
-            android.graphics.drawable.Drawable danmakuIcon = ctx.getResources().getDrawable(R.drawable.ic_video_info_danmaku);
-            int iconSize = ctx.getResources().getDimensionPixelSize(R.dimen.px_26);
-            upIcon.setBounds(0, 0, iconSize, iconSize);
-            playIcon.setBounds(0, 0, iconSize, iconSize);
-            danmakuIcon.setBounds(0, 0, iconSize, iconSize);
-            int color = ctx.getResources().getColor(R.color.white);
-            upIcon.setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY);
-            playIcon.setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY);
-            danmakuIcon.setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY);
-            this.upView.setCompoundDrawables(upIcon, null, null, null);
-            this.playView.setCompoundDrawables(playIcon, null, null, null);
-            this.danmakuView.setCompoundDrawables(danmakuIcon, null, null, null);
+            VideoCardIcons.apply(ctx, this.upView, this.playView, this.danmakuView,
+                    VideoCardIcons.SIZE_COMPACT, R.color.white);
 
             view.setOnClickListener(this);
             view.setOnFocusChangeListener(this);

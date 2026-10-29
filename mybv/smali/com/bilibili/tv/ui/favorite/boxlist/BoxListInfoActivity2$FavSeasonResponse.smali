@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 245
+    .line 237
     iput-object p1, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
@@ -50,7 +50,7 @@
 
     const/4 v1, 0x0
 
-    .line 267
+    .line 259
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->a:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$b;
@@ -69,24 +69,24 @@
 
     if-nez v0, :cond_13
 
-    .line 294
+    .line 286
     :cond_12
     :goto_12
     return-void
 
-    .line 270
+    .line 262
     :cond_13
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
     # setter for: Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->i:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->access$002(Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;Z)Z
 
-    .line 271
+    .line 263
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->a(Z)V
 
-    .line 272
+    .line 264
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->d:Lcom/bilibili/tv/ui/base/LoadingImageView;
@@ -96,7 +96,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->b()V
 
-    .line 273
+    .line 265
     if-eqz p1, :cond_76
 
     const-string v0, "medias"
@@ -107,7 +107,7 @@
 
     if-eqz v0, :cond_76
 
-    .line 274
+    .line 266
     const-string v0, "medias"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
@@ -120,7 +120,7 @@
 
     if-nez v0, :cond_76
 
-    .line 275
+    .line 267
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->a:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$b;
@@ -130,19 +130,19 @@
 
     if-eqz v0, :cond_12
 
-    .line 278
+    .line 270
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
     # setter for: Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->i:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->access$002(Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;Z)Z
 
-    .line 280
+    .line 272
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
     # setter for: Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->h:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->access$102(Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;Z)Z
 
-    .line 282
+    .line 274
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->g:I
@@ -152,7 +152,7 @@
 
     if-ne v0, v2, :cond_66
 
-    .line 283
+    .line 275
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->a:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$b;
@@ -170,7 +170,7 @@
 
     goto :goto_12
 
-    .line 286
+    .line 278
     :cond_66
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
@@ -189,7 +189,7 @@
 
     goto :goto_12
 
-    .line 290
+    .line 282
     :cond_76
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
@@ -200,7 +200,7 @@
 
     if-ne v0, v2, :cond_12
 
-    .line 291
+    .line 283
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->d:Lcom/bilibili/tv/ui/base/LoadingImageView;
@@ -210,7 +210,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->c()V
 
-    .line 292
+    .line 284
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->d:Lcom/bilibili/tv/ui/base/LoadingImageView;
@@ -229,7 +229,7 @@
     .locals 0
 
     .prologue
-    .line 245
+    .line 237
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -241,7 +241,7 @@
     .locals 1
 
     .prologue
-    .line 248
+    .line 240
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->isFinishing()Z
@@ -257,19 +257,19 @@
     .prologue
     const/4 v2, 0x1
 
-    .line 253
+    .line 245
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 254
+    .line 246
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
     invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
 
-    .line 255
+    .line 247
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->a:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$b;
@@ -288,12 +288,12 @@
 
     if-nez v0, :cond_1e
 
-    .line 263
+    .line 255
     :cond_1d
     :goto_1d
     return-void
 
-    .line 258
+    .line 250
     :cond_1e
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
@@ -302,7 +302,7 @@
     # setter for: Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->i:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->access$002(Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;Z)Z
 
-    .line 259
+    .line 251
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->g:I
@@ -312,12 +312,12 @@
 
     if-ne v0, v2, :cond_1d
 
-    .line 260
+    .line 252
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->a(Z)V
 
-    .line 261
+    .line 253
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$FavSeasonResponse;->this$0:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;->d:Lcom/bilibili/tv/ui/base/LoadingImageView;
