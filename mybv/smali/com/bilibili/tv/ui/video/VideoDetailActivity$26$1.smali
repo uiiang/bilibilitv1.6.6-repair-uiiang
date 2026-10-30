@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 2470
+    .line 2531
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$26$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$26;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$26$1;->val$relatedList:Ljava/util/List;
@@ -49,7 +49,7 @@
     .locals 2
 
     .prologue
-    .line 2473
+    .line 2534
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$26$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$26;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$26;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -60,18 +60,18 @@
 
     if-eqz v0, :cond_b
 
-    .line 2477
+    .line 2538
     :goto_a
     return-void
 
-    .line 2476
+    .line 2537
     :cond_b
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$26$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$26;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$26;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->A:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2800(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2900(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     move-result-object v0
 

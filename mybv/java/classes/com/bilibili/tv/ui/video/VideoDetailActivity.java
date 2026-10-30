@@ -206,6 +206,18 @@ public final class VideoDetailActivity extends BaseActivity
      */
     private static final long LOCAL_PROGRESS_PROTECT_MS = 15000L;
     private long localProgressProtectedUntilMs = 0L;
+    /**
+     * 播放历史异步拉取是否已"收口"（成功/无历史/回查完成都算收口）。
+     * false=拉取仍在进行，详情页不应提交任何播放按钮组（避免先把"无痕"误上屏再翻面闪烁）；
+     * true=拉取已结束，updateHistoryDisplay 可一次性渲染最终态（有进度→进度UI，无进度→无痕UI）。
+     * 每次发起新的拉取前置回 false，拉取完成时置 true。
+     */
+    private boolean mHistoryResolved = false;
+
+    // 三组播放按钮可见性的顶层状态，由 applyPlayButtonVisibility 统一解释（单一事实来源）。
+    private static final int STATE_LOADING = 0;      // 历史拉取进行中：三组全 GONE（中性占位，避免闪烁）
+    private static final int STATE_HAS_HISTORY = 1;  // 有进度：继续播放 VISIBLE，无痕 GONE，重播 VISIBLE（已看完时由调用方细化）
+    private static final int STATE_NO_HISTORY = 2;   // 确认无历史：开始播放 VISIBLE，无痕 VISIBLE，重播 GONE
 
     public TextView episodes_title;
     public RecyclerView episodes_video;
@@ -1567,6 +1579,7 @@ public final class VideoDetailActivity extends BaseActivity
         }
         
         if (cid == 0) {
+            mHistoryResolved = true;
             if (callback != null) {
                 callback.run();
             }
@@ -1581,7 +1594,13 @@ public final class VideoDetailActivity extends BaseActivity
         new Thread(new Runnable() {
             @Override
             public void run() {
+                mHistoryResolved = false;
+                final boolean[] fellBack = {false};
                 try {
+                    android.util.Log.i("HistoryDebug", "[FETCH_FORCE_START] cid=" + finalCid
+                        + ", force=" + force + ", hasHistoryBefore=" + (biliVideoDetail.mHistory != null)
+                        + ", resolved=" + mHistoryResolved
+                        + ", avid=" + VideoDetailActivity.this.s);
                     TreeMap<String, String> params = new TreeMap<>();
                     params.put("bvid", finalBvid);
                     params.put("cid", String.valueOf(finalCid));
@@ -1638,6 +1657,7 @@ public final class VideoDetailActivity extends BaseActivity
                                     + lastPlayCid + " != reqCid(A)=" + finalCid
                                     + "; fall back to per-cid history (/x/v2/view) for A");
                                 fallbackLoadHistory(biliVideoDetail, a2.e());
+                                fellBack[0] = true;
                             } else if (lastPlayTime == -1) {
                                 // 后端用 last_play_time=-1(秒，即 -1000ms) 表示已看完。
                                 // 之前的实现把它当 <=0 当成"无效"丢弃，导致已看完的视频停在旧进度/显示成视频时长。
@@ -1670,6 +1690,11 @@ public final class VideoDetailActivity extends BaseActivity
                     public void run() {
                         if (isFinishing()) {
                             return;
+                        }
+                        // 仅当未触发 fallback 时，本次拉取即最终结论（有/无历史都已确定）；
+                        // fallback 路径会在其 onSuccess 中再置位，避免中途误判为"已收口"。
+                        if (!fellBack[0]) {
+                            mHistoryResolved = true;
                         }
                         if (callback != null) {
                             callback.run();
@@ -1931,20 +1956,16 @@ public final class VideoDetailActivity extends BaseActivity
                 noHistoryPlayCheckBox.setChecked(globalDefault);
             }
         }
-        if (noHistoryPlayBtnLayout != null) {
-            if (hasHistory) {
-                // 有历史 => 不允许无痕：按钮整体隐藏，焦点链由 updateHistoryDisplay 重建成
-                // 主播放按钮 -> 重播/展开按钮
-                noHistoryPlayBtnLayout.setVisibility(View.GONE);
-            } else {
-                noHistoryPlayBtnLayout.setVisibility(View.VISIBLE);
-                if (historyPlayBtnLayout != null) {
-                    historyPlayBtnLayout.setNextFocusRightId(R.id.video_no_history_play_btn_layout);
-                }
-                noHistoryPlayBtnLayout.setNextFocusRightId(R.id.video_detail_expand_btn);
-                if (expandBtn != null) {
-                    expandBtn.setNextFocusLeftId(R.id.video_no_history_play_btn_layout);
-                }
+        // 无痕按钮可见性统一交由 applyPlayButtonVisibility 控制（有历史/LOADING => GONE，无历史 => VISIBLE），
+        // 此处不再 setVisibility，避免与 initDefaultPlayButtons/updateHistoryDisplay 形成双重 ownership 漂移。
+        // 仅在没有历史时重建焦点链：主播放按钮 -> 无痕按钮 -> 展开按钮。
+        if (noHistoryPlayBtnLayout != null && !hasHistory) {
+            if (historyPlayBtnLayout != null) {
+                historyPlayBtnLayout.setNextFocusRightId(R.id.video_no_history_play_btn_layout);
+            }
+            noHistoryPlayBtnLayout.setNextFocusRightId(R.id.video_detail_expand_btn);
+            if (expandBtn != null) {
+                expandBtn.setNextFocusLeftId(R.id.video_no_history_play_btn_layout);
             }
         }
         refreshNoHistoryLabel();
@@ -1957,6 +1978,9 @@ public final class VideoDetailActivity extends BaseActivity
                         ? biliVideoDetail.mHistory.mProgress : -999)
                 + ", checked=" + (noHistoryPlayCheckBox != null && noHistoryPlayCheckBox.isChecked())
                 + ", sNoHistoryPlayMode=" + sNoHistoryPlayMode
+                + ", noHistVis=" + (noHistoryPlayBtnLayout != null ? noHistoryPlayBtnLayout.getVisibility() : -1)
+                + ", histVis=" + (historyPlayBtnLayout != null ? historyPlayBtnLayout.getVisibility() : -1)
+                + ", replayVis=" + (rePlayBtnLayout != null ? rePlayBtnLayout.getVisibility() : -1)
                 + ", avid=" + this.s);
     }
 
@@ -1965,16 +1989,32 @@ public final class VideoDetailActivity extends BaseActivity
             return;
         }
         historyPlayBtn.setText("开始播放");
+        android.util.Log.i("HistoryDebug", "[INIT_DEFAULT] entry, mHistoryCid=" + (biliVideoDetail != null && biliVideoDetail.mHistory != null ? biliVideoDetail.mHistory.mCid : 0)
+            + ", resolved=" + mHistoryResolved
+            + ", noHistVis=" + (noHistoryPlayBtnLayout != null ? noHistoryPlayBtnLayout.getVisibility() : -1)
+            + ", histVis=" + (historyPlayBtnLayout != null ? historyPlayBtnLayout.getVisibility() : -1)
+            + ", replayVis=" + (rePlayBtnLayout != null ? rePlayBtnLayout.getVisibility() : -1)
+            + ", avid=" + this.s);
         if (historyBtnProgress != null) {
             historyBtnProgress.setVisibility(View.GONE);
         }
         if (historyPlayBtnLayout != null) {
             historyPlayBtnLayout.setProgress(0, 1);
         }
-        // 无痕初值：一律按"该视频当前是否有播放历史"判定，不读上次的选择
-        applyNoHistoryState(biliVideoDetail, true);
-        if (rePlayBtnLayout != null) {
-            rePlayBtnLayout.setVisibility(View.GONE);
+        // 历史未收口前不提交任何播放按钮组：先把"无痕"误上屏再翻成"进度"会肉眼闪烁
+        // （多P视频"请求的集≠账号上次看的集"会触发 fallback 多一轮网络，此窗口尤其明显）。
+        // 三组按钮可见性统一由 applyPlayButtonVisibility 解释，不再在此处各自 setVisibility。
+        if (biliVideoDetail != null && biliVideoDetail.mHistory != null) {
+            // mHistory 已就位 => resolved 必然已由拉取收口处置为 true，此处无需再置。
+            applyPlayButtonVisibility(STATE_HAS_HISTORY);
+            applyNoHistoryState(biliVideoDetail, false);
+        } else if (mHistoryResolved) {
+            // 拉取已收口且无历史：确认无痕，直接给出"开始播放+无痕"初态
+            applyPlayButtonVisibility(STATE_NO_HISTORY);
+            applyNoHistoryState(biliVideoDetail, true);
+        } else {
+            // 拉取仍在进行：中性占位（三组全 GONE），等 mHistoryResolved 后由 updateHistoryDisplay 渲染终态
+            applyPlayButtonVisibility(STATE_LOADING);
         }
         final BiliVideoDetail finalBiliVideoDetail = biliVideoDetail;
         if (historyPlayBtnLayout != null) {
@@ -2039,6 +2079,23 @@ public final class VideoDetailActivity extends BaseActivity
                     playVideo(finalBiliVideoDetail, 0, 0);
                 }
             });
+        }
+    }
+
+    /**
+     * 三组播放按钮可见性的唯一事实来源：消除 initDefaultPlayButtons / updateHistoryDisplay /
+     * applyNoHistoryState 各自 setVisibility 造成的双重 ownership 与漏设（如"只显示重播、不显继续播放"）。
+     * 仅解释顶层状态，重播按钮在 HAS_HISTORY 下"已看完"时的细化隐藏仍由 updateHistoryDisplay 负责。
+     */
+    private final void applyPlayButtonVisibility(int state) {
+        if (historyPlayBtnLayout != null) {
+            historyPlayBtnLayout.setVisibility(state == STATE_LOADING ? View.GONE : View.VISIBLE);
+        }
+        if (noHistoryPlayBtnLayout != null) {
+            noHistoryPlayBtnLayout.setVisibility(state == STATE_NO_HISTORY ? View.VISIBLE : View.GONE);
+        }
+        if (rePlayBtnLayout != null) {
+            rePlayBtnLayout.setVisibility(state == STATE_HAS_HISTORY ? View.VISIBLE : View.GONE);
         }
     }
 
@@ -2278,6 +2335,7 @@ public final class VideoDetailActivity extends BaseActivity
         new Thread(new Runnable() {
             @Override
             public void run() {
+                mHistoryResolved = false;
                 boolean playurlSuccess = false;
                 try {
                     TreeMap<String, String> params = new TreeMap<>();
@@ -2392,6 +2450,8 @@ public final class VideoDetailActivity extends BaseActivity
             }
             @Override
             public void onError(Throwable th) {
+                // 回查失败：无法确认历史，按"已收口无历史"处理，避免出现空白按钮区
+                mHistoryResolved = true;
             }
             @Override
             public void onSuccess(GeneralResponse<JSONObject> result) {
@@ -2420,6 +2480,7 @@ public final class VideoDetailActivity extends BaseActivity
                         }
                     }
                 }
+                mHistoryResolved = true;
                 updateHistoryDisplay(biliVideoDetail);
                 if (VideoDetailActivity.this.historyPlayBtnLayout != null &&
                         VideoDetailActivity.this.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
@@ -2584,11 +2645,28 @@ public final class VideoDetailActivity extends BaseActivity
             return;
         }
         if (biliVideoDetail == null || biliVideoDetail.mHistory == null) {
+            if (mHistoryResolved) {
+                // 拉取已收口且确认无历史：渲染"开始播放+无痕"终态，不再空白等待
+                android.util.Log.i("HistoryDebug", "[UPDATE_DISPLAY] NO_HISTORY_CONFIRMED, show incognito UI; avid=" + this.s);
+                historyPlayBtn.setText("开始播放");
+                if (historyBtnProgress != null) {
+                    historyBtnProgress.setVisibility(View.GONE);
+                }
+                if (historyPlayBtnLayout != null) {
+                    historyPlayBtnLayout.setProgress(0, 1);
+                }
+                applyPlayButtonVisibility(STATE_NO_HISTORY);
+                applyNoHistoryState(biliVideoDetail, true);
+            } else {
+                android.util.Log.i("HistoryDebug", "[UPDATE_DISPLAY] SKIP mHistory=null (history not ready yet), keep current UI; avid=" + this.s);
+            }
             return;
         }
-        // 历史已确定：先收敛无痕状态（有历史 => 取消勾选并隐藏按钮），再渲染进度。
-        // 这一步覆盖"历史异步到达"的路径（PGC 的 loadHistory、UGC 的 force 校准、fallback），
-        // 保证不会出现"进度已经显示出来、复选框却仍勾着无痕且按钮不可见"的状态。
+        mHistoryResolved = true;
+        // 历史已确定：统一设置三组按钮可见性（单一事实来源），再渲染进度文案/进度条。
+        // 覆盖"历史异步到达"路径（PGC 的 loadHistory、UGC 的 force 校准、fallback），
+        // 不再依赖零散的 setVisibility，彻底消除"只显示重播、不显继续播放"的漏设。
+        applyPlayButtonVisibility(STATE_HAS_HISTORY);
         applyNoHistoryState(biliVideoDetail, false);
 
         int episodeCount = 0;
@@ -2626,7 +2704,9 @@ public final class VideoDetailActivity extends BaseActivity
         rePlayBtn.setText("重播");
         android.util.Log.i("HistoryDebug", "[UPDATE_DISPLAY] cid=" + cid + ", progressSec=" + progress
             + ", totalDuration=" + totalDuration + ", pageIndex=" + pageIndex
-            + ", episodeCount=" + episodeCount + ", multi=" + hasMultipleEpisodes);
+            + ", episodeCount=" + episodeCount + ", multi=" + hasMultipleEpisodes
+            + ", histVis=" + (historyPlayBtnLayout != null ? historyPlayBtnLayout.getVisibility() : -1)
+            + ", replayVis=" + (rePlayBtnLayout != null ? rePlayBtnLayout.getVisibility() : -1));
         
         // 无痕按钮的显隐与勾选已由 applyNoHistoryState 统一处理（有历史 => GONE + 不勾），
         // 此处不再重复设置，避免"按钮隐藏了但勾选还在"的两套逻辑。

@@ -43,7 +43,7 @@
     .end annotation
 
     .prologue
-    .line 2278
+    .line 2335
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->val$finalBvid:Ljava/lang/String;
@@ -71,25 +71,30 @@
     .prologue
     const/4 v1, 0x1
 
-    const-wide/16 v10, 0x0
-
-    .line 2281
     const/4 v2, 0x0
 
-    .line 2283
-    :try_start_4
+    const-wide/16 v10, 0x0
+
+    .line 2338
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->mHistoryResolved:Z
+    invoke-static {v0, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2002(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Z)Z
+
+    .line 2341
+    :try_start_9
     new-instance v0, Ljava/util/TreeMap;
 
     invoke-direct {v0}, Ljava/util/TreeMap;-><init>()V
 
-    .line 2284
+    .line 2342
     const-string v3, "bvid"
 
     iget-object v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->val$finalBvid:Ljava/lang/String;
 
     invoke-virtual {v0, v3, v4}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 2285
+    .line 2343
     const-string v3, "cid"
 
     iget-wide v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->val$finalCid:J
@@ -100,14 +105,14 @@
 
     invoke-virtual {v0, v3, v4}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 2286
+    .line 2344
     iget-wide v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->val$finalEpisodeId:J
 
     cmp-long v3, v4, v10
 
-    if-lez v3, :cond_2c
+    if-lez v3, :cond_31
 
-    .line 2287
+    .line 2345
     const-string v3, "ep_id"
 
     iget-wide v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->val$finalEpisodeId:J
@@ -118,8 +123,8 @@
 
     invoke-virtual {v0, v3, v4}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 2290
-    :cond_2c
+    .line 2348
+    :cond_31
     invoke-static {}, Lmybl/WbiSigner;->getInstance()Lmybl/WbiSigner;
 
     move-result-object v3
@@ -128,7 +133,7 @@
 
     move-result-object v0
 
-    .line 2291
+    .line 2349
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
@@ -147,21 +152,21 @@
 
     move-result-object v0
 
-    .line 2293
+    .line 2351
     new-instance v3, Lbl/qa$a;
 
     const-class v4, Lcom/bilibili/tv/api/video/BiliVideoDetail$JsonResponse;
 
     invoke-direct {v3, v4}, Lbl/qa$a;-><init>(Ljava/lang/Class;)V
 
-    .line 2294
+    .line 2352
     invoke-virtual {v3, v0}, Lbl/qa$a;->a(Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
 
     const/4 v3, 0x1
 
-    .line 2295
+    .line 2353
     invoke-virtual {v0, v3}, Lbl/qa$a;->a(Z)Lbl/qa$a;
 
     move-result-object v0
@@ -188,14 +193,14 @@
 
     move-result-object v4
 
-    .line 2296
+    .line 2354
     invoke-virtual {v0, v3, v4}, Lbl/qa$a;->a(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
 
     const-string v3, ""
 
-    .line 2297
+    .line 2355
     invoke-virtual {v0, v3}, Lbl/qa$a;->b(Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
@@ -204,17 +209,17 @@
 
     invoke-direct {v3}, Lbl/qb;-><init>()V
 
-    .line 2298
+    .line 2356
     invoke-virtual {v0, v3}, Lbl/qa$a;->a(Lbl/qf;)Lbl/qa$a;
 
     move-result-object v0
 
-    .line 2299
+    .line 2357
     invoke-virtual {v0}, Lbl/qa$a;->a()Lbl/qa;
 
     move-result-object v0
 
-    .line 2301
+    .line 2359
     const-string v3, "GET"
 
     invoke-static {v0, v3}, Lbl/pz;->a(Lbl/qa;Ljava/lang/String;)Lbl/qe;
@@ -223,12 +228,12 @@
 
     check-cast v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$JsonResponse;
 
-    .line 2302
+    .line 2360
     invoke-virtual {v0}, Lcom/bilibili/tv/api/video/BiliVideoDetail$JsonResponse;->result()Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v3
 
-    .line 2304
+    .line 2362
     const-string v4, "HistoryDebug"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -241,12 +246,12 @@
 
     move-result-object v5
 
-    .line 2305
-    if-nez v3, :cond_14f
+    .line 2363
+    if-nez v3, :cond_154
 
     const/16 v0, -0x3e7
 
-    :goto_a2
+    :goto_a7
     invoke-virtual {v5, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     move-result-object v0
@@ -257,12 +262,12 @@
 
     move-result-object v5
 
-    .line 2306
-    if-nez v3, :cond_157
+    .line 2364
+    if-nez v3, :cond_15c
 
     const-string v0, "null"
 
-    :goto_b0
+    :goto_b5
     invoke-virtual {v5, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
@@ -271,11 +276,11 @@
 
     move-result-object v0
 
-    .line 2304
+    .line 2362
     invoke-static {v4, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2307
-    if-eqz v3, :cond_17b
+    .line 2365
+    if-eqz v3, :cond_180
 
     const-string v0, "code"
 
@@ -283,36 +288,36 @@
 
     move-result v0
 
-    if-nez v0, :cond_17b
+    if-nez v0, :cond_180
 
-    .line 2308
+    .line 2366
     const-string v0, "data"
 
     invoke-virtual {v3, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 2309
-    if-eqz v0, :cond_17b
+    .line 2367
+    if-eqz v0, :cond_180
 
-    .line 2310
+    .line 2368
     const-string v3, "last_play_cid"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
 
     move-result-wide v4
 
-    .line 2311
+    .line 2369
     const-string v3, "last_play_time"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
     move-result v0
 
-    .line 2312
+    .line 2370
     div-int/lit16 v6, v0, 0x3e8
 
-    .line 2313
+    .line 2371
     const-string v3, "HistoryDebug"
 
     new-instance v7, Ljava/lang/StringBuilder;
@@ -366,31 +371,31 @@
     move-result-object v0
 
     invoke-static {v3, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_113
-    .catch Ljava/lang/Exception; {:try_start_4 .. :try_end_113} :catch_162
+    :try_end_118
+    .catch Ljava/lang/Exception; {:try_start_9 .. :try_end_118} :catch_167
 
-    .line 2317
+    .line 2375
     cmp-long v0, v4, v10
 
-    if-lez v0, :cond_17b
+    if-lez v0, :cond_180
 
-    .line 2319
-    :try_start_117
+    .line 2377
+    :try_start_11c
     new-instance v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;-><init>()V
 
-    .line 2320
+    .line 2378
     cmp-long v2, v4, v10
 
-    if-lez v2, :cond_15f
+    if-lez v2, :cond_164
 
     move-wide v2, v4
 
-    :goto_121
+    :goto_126
     iput-wide v2, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mCid:J
 
-    .line 2321
+    .line 2379
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iget-wide v4, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mCid:J
@@ -401,21 +406,21 @@
 
     iget-wide v8, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mCid:J
 
-    .line 2322
+    .line 2380
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getDurationForCid(Lcom/bilibili/tv/api/video/BiliVideoDetail;J)I
-    invoke-static {v3, v7, v8, v9}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;J)I
+    invoke-static {v3, v7, v8, v9}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2200(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;J)I
 
     move-result v3
 
-    .line 2321
+    .line 2379
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->normalizeFinishedProgress(JII)I
-    invoke-static {v2, v4, v5, v6, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;JII)I
+    invoke-static {v2, v4, v5, v6, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;JII)I
 
     move-result v2
 
     iput v2, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mProgress:I
 
-    .line 2324
+    .line 2382
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     new-instance v3, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23$1;
@@ -423,16 +428,16 @@
     invoke-direct {v3, p0, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23$1;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;Lcom/bilibili/tv/api/video/BiliVideoDetail$History;)V
 
     invoke-virtual {v2, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->runOnUiThread(Ljava/lang/Runnable;)V
-    :try_end_141
-    .catch Ljava/lang/Exception; {:try_start_117 .. :try_end_141} :catch_17d
+    :try_end_146
+    .catch Ljava/lang/Exception; {:try_start_11c .. :try_end_146} :catch_182
 
     move v0, v1
 
-    .line 2345
-    :goto_142
-    if-nez v0, :cond_14e
+    .line 2403
+    :goto_147
+    if-nez v0, :cond_153
 
-    .line 2346
+    .line 2404
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23$2;
@@ -441,48 +446,48 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->runOnUiThread(Ljava/lang/Runnable;)V
 
-    .line 2356
-    :cond_14e
+    .line 2414
+    :cond_153
     return-void
 
-    .line 2305
-    :cond_14f
-    :try_start_14f
+    .line 2363
+    :cond_154
+    :try_start_154
     const-string v0, "code"
 
     invoke-virtual {v3, v0}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
     move-result v0
 
-    goto/16 :goto_a2
+    goto/16 :goto_a7
 
-    .line 2306
-    :cond_157
+    .line 2364
+    :cond_15c
     const-string v0, "message"
 
     invoke-virtual {v3, v0}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
-    :try_end_15c
-    .catch Ljava/lang/Exception; {:try_start_14f .. :try_end_15c} :catch_162
+    :try_end_161
+    .catch Ljava/lang/Exception; {:try_start_154 .. :try_end_161} :catch_167
 
     move-result-object v0
 
-    goto/16 :goto_b0
+    goto/16 :goto_b5
 
-    .line 2320
-    :cond_15f
-    :try_start_15f
+    .line 2378
+    :cond_164
+    :try_start_164
     iget-wide v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->val$finalCid:J
-    :try_end_161
-    .catch Ljava/lang/Exception; {:try_start_15f .. :try_end_161} :catch_17d
+    :try_end_166
+    .catch Ljava/lang/Exception; {:try_start_164 .. :try_end_166} :catch_182
 
-    goto :goto_121
+    goto :goto_126
 
-    .line 2341
-    :catch_162
+    .line 2399
+    :catch_167
     move-exception v0
 
-    .line 2342
-    :goto_163
+    .line 2400
+    :goto_168
     const-string v1, "HistoryDebug"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -505,16 +510,16 @@
 
     invoke-static {v1, v3, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    :cond_17b
+    :cond_180
     move v0, v2
 
-    goto :goto_142
+    goto :goto_147
 
-    .line 2341
-    :catch_17d
+    .line 2399
+    :catch_182
     move-exception v0
 
     move v2, v1
 
-    goto :goto_163
+    goto :goto_168
 .end method

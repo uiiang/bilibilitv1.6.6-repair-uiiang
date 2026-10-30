@@ -35,7 +35,7 @@
     .end annotation
 
     .prologue
-    .line 5498
+    .line 5578
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iput-wide p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->val$staffMid:J
@@ -57,7 +57,7 @@
 
     const-wide/16 v2, 0x0
 
-    .line 5502
+    .line 5582
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -67,37 +67,37 @@
 
     move-result-object v4
 
-    .line 5503
+    .line 5583
     if-eqz v4, :cond_3b
 
     invoke-virtual {v4}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->getMid()J
 
     move-result-wide v0
 
-    .line 5504
+    .line 5584
     :goto_11
     if-eqz v4, :cond_3d
 
     iget-object v6, v4, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mBvid:Ljava/lang/String;
 
-    .line 5505
+    .line 5585
     :goto_15
     if-eqz v4, :cond_19
 
     iget-object v7, v4, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mTitle:Ljava/lang/String;
 
-    .line 5506
+    .line 5586
     :cond_19
     iget-object v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v4, v4, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->s:J
-    invoke-static {v4}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)J
+    invoke-static {v4}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)J
 
     move-result-wide v4
 
-    .line 5507
+    .line 5587
     cmp-long v8, v0, v2
 
     if-lez v8, :cond_3f
@@ -112,7 +112,7 @@
 
     if-lez v0, :cond_3f
 
-    .line 5508
+    .line 5588
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -123,23 +123,23 @@
 
     invoke-static/range {v0 .. v7}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->start(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;)V
 
-    .line 5512
+    .line 5592
     :goto_3a
     return-void
 
     :cond_3b
     move-wide v0, v2
 
-    .line 5503
+    .line 5583
     goto :goto_11
 
     :cond_3d
     move-object v6, v7
 
-    .line 5504
+    .line 5584
     goto :goto_15
 
-    .line 5510
+    .line 5590
     :cond_3f
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
