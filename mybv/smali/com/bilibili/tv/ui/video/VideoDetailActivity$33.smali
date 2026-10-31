@@ -3,12 +3,12 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagClickListener;
+.implements Lcom/bilibili/tv/ui/video/VideoDetailActivity$SectionBuildTask;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->setupNavigationTagsForSection(Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->showPgcSections(Lcom/bilibili/tv/api/video/PgcInfo;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,14 +20,27 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
+.field final synthetic val$hasSeasons:Z
+
+.field final synthetic val$pgcInfo:Lcom/bilibili/tv/api/video/PgcInfo;
+
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;ZLcom/bilibili/tv/api/video/PgcInfo;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
-    .line 3694
+    .line 3703
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$33;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    iput-boolean p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$33;->val$hasSeasons:Z
+
+    iput-object p3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$33;->val$pgcInfo:Lcom/bilibili/tv/api/video/PgcInfo;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,28 +49,53 @@
 
 
 # virtual methods
-.method public onNavTagClick(III)V
+.method public buildSection(I)V
     .locals 3
 
     .prologue
-    .line 3697
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$33;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+    .line 3706
+    iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$33;->val$hasSeasons:Z
 
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonSectionNavTagFocusPositions:Ljava/util/Map;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$5600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Ljava/util/Map;
+    if-eqz v0, :cond_16
+
+    .line 3707
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$33;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$33;->val$pgcInfo:Lcom/bilibili/tv/api/video/PgcInfo;
+
+    iget-object v0, v0, Lcom/bilibili/tv/api/video/PgcInfo;->sections:Ljava/util/List;
+
+    add-int/lit8 v2, p1, -0x1
+
+    invoke-interface {v0, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
 
-    invoke-static {p1}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+    check-cast v0, Lcom/bilibili/tv/api/video/PgcInfo$Section;
 
-    move-result-object v1
+    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->createPgcSectionView(Lcom/bilibili/tv/api/video/PgcInfo$Section;I)V
+    invoke-static {v1, v0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$5500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/PgcInfo$Section;I)V
 
-    invoke-static {p2}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-
-    move-result-object v2
-
-    invoke-interface {v0, v1, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 3698
+    .line 3711
+    :goto_15
     return-void
+
+    .line 3709
+    :cond_16
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$33;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$33;->val$pgcInfo:Lcom/bilibili/tv/api/video/PgcInfo;
+
+    iget-object v0, v0, Lcom/bilibili/tv/api/video/PgcInfo;->sections:Ljava/util/List;
+
+    invoke-interface {v0, p1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/api/video/PgcInfo$Section;
+
+    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->createPgcSectionView(Lcom/bilibili/tv/api/video/PgcInfo$Section;I)V
+    invoke-static {v1, v0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$5500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/PgcInfo$Section;I)V
+
+    goto :goto_15
 .end method

@@ -3,12 +3,12 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoClickListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->onPlayerReturned(ILandroid/content/Intent;)V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->createSeasonsSectionView(Ljava/util/List;I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 4134
+    .line 3928
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,36 +36,42 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 2
+.method public onVideoClicked(Ljava/lang/Object;I)V
+    .locals 5
 
     .prologue
-    .line 4137
+    .line 3931
+    instance-of v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
+
+    if-eqz v0, :cond_1d
+
+    .line 3932
+    check-cast p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
+
+    .line 3933
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
+    sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
-    move-result v0
+    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    if-eqz v0, :cond_9
+    iget v3, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;->seasonId:I
 
-    .line 4141
-    :goto_8
-    return-void
+    invoke-static {v3}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
 
-    .line 4140
-    :cond_9
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+    move-result-object v3
 
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+    invoke-virtual {p1}, Lcom/bilibili/tv/api/video/PgcInfo$Season;->getBestCover()Ljava/lang/String;
 
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-    invoke-static {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    move-result-object v4
+
+    invoke-virtual {v1, v2, v3, v4}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
     move-result-object v1
 
-    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateHistoryDisplay(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->startActivity(Landroid/content/Intent;)V
 
-    goto :goto_8
+    .line 3935
+    :cond_1d
+    return-void
 .end method

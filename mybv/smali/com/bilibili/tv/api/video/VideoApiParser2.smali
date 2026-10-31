@@ -41,7 +41,7 @@
     .locals 3
 
     .prologue
-    .line 116
+    .line 120
     const-string v0, "season"
 
     invoke-virtual {p0, v0}, Lcom/alibaba/fastjson/JSONObject;->containsKey(Ljava/lang/Object;)Z
@@ -50,21 +50,21 @@
 
     if-eqz v0, :cond_3d
 
-    .line 117
+    .line 121
     const-string v0, "season"
 
     invoke-virtual {p0, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 118
+    .line 122
     const-string v1, "is_finish"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 119
+    .line 123
     const-string v2, "season_id"
 
     invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -101,13 +101,13 @@
 
     if-nez v0, :cond_3d
 
-    .line 120
+    .line 124
     :cond_38
     const-string v0, "season"
 
     invoke-virtual {p0, v0}, Lcom/alibaba/fastjson/JSONObject;->remove(Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 123
+    .line 127
     :cond_3d
     return-void
 .end method
@@ -116,7 +116,7 @@
     .locals 3
 
     .prologue
-    .line 106
+    .line 110
     const-string v0, "sp"
 
     invoke-virtual {p0, v0}, Lcom/alibaba/fastjson/JSONObject;->containsKey(Ljava/lang/Object;)Z
@@ -125,21 +125,21 @@
 
     if-eqz v0, :cond_31
 
-    .line 107
+    .line 111
     const-string v0, "sp"
 
     invoke-virtual {p0, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 108
+    .line 112
     const-string v1, "spid"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 109
+    .line 113
     const-string v2, "title"
 
     invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -164,13 +164,13 @@
 
     if-nez v0, :cond_31
 
-    .line 110
+    .line 114
     :cond_2c
     const-string v0, "sp"
 
     invoke-virtual {p0, v0}, Lcom/alibaba/fastjson/JSONObject;->remove(Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 113
+    .line 117
     :cond_31
     return-void
 .end method
@@ -179,14 +179,14 @@
     .locals 3
 
     .prologue
-    .line 126
+    .line 130
     if-nez p0, :cond_3
 
-    .line 135
+    .line 139
     :goto_2
     return-void
 
-    .line 129
+    .line 133
     :cond_3
     iget-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mTitle:Ljava/lang/String;
 
@@ -196,7 +196,7 @@
 
     if-eqz v0, :cond_25
 
-    .line 130
+    .line 134
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -219,13 +219,13 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mTitle:Ljava/lang/String;
 
-    .line 134
+    .line 138
     :goto_22
     iput p1, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mTid:I
 
     goto :goto_2
 
-    .line 132
+    .line 136
     :cond_25
     iget-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mTitle:Ljava/lang/String;
 
@@ -250,13 +250,13 @@
     .locals 1
 
     .prologue
-    .line 138
+    .line 142
     if-nez p0, :cond_4
 
-    .line 139
+    .line 143
     const-string p0, ""
 
-    .line 141
+    .line 145
     :cond_4
     invoke-static {p0}, Lbl/jq;->a(Ljava/lang/String;)Ljava/lang/String;
 
@@ -320,7 +320,7 @@
     .line 33
     instance-of v1, v0, Lcom/alibaba/fastjson/JSONObject;
 
-    if-eqz v1, :cond_16d
+    if-eqz v1, :cond_173
 
     .line 34
     new-instance v5, Lcom/bilibili/okretro/GeneralResponse;
@@ -367,11 +367,11 @@
 
     iput-object v1, v5, Lcom/bilibili/okretro/GeneralResponse;->message:Ljava/lang/String;
 
-    .line 99
+    .line 103
     :goto_41
     invoke-virtual {v0}, Lcom/alibaba/fastjson/JSONObject;->clear()V
 
-    .line 100
+    .line 104
     return-object v5
 
     .line 40
@@ -573,7 +573,7 @@
 
     .line 76
     :cond_ea
-    if-eqz v7, :cond_167
+    if-eqz v7, :cond_16d
 
     invoke-virtual {v7}, Lcom/alibaba/fastjson/JSONArray;->toString()Ljava/lang/String;
 
@@ -611,7 +611,7 @@
 
     move-result v2
 
-    if-eqz v2, :cond_169
+    if-eqz v2, :cond_16f
 
     .line 79
     const-string v2, "ugc_season"
@@ -625,7 +625,7 @@
     .line 80
     iget-object v2, v1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->ugcSeason:Lcom/alibaba/fastjson/JSONObject;
 
-    if-eqz v2, :cond_169
+    if-eqz v2, :cond_16f
 
     .line 81
     iget-object v2, v1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->ugcSeason:Lcom/alibaba/fastjson/JSONObject;
@@ -648,7 +648,7 @@
     move-result-object v3
 
     .line 83
-    if-eqz v3, :cond_169
+    if-eqz v3, :cond_16f
 
     .line 84
     iput-object v3, v1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->sections:Lcom/alibaba/fastjson/JSONArray;
@@ -668,7 +668,7 @@
 
     move-result v4
 
-    if-ge v2, v4, :cond_169
+    if-ge v2, v4, :cond_16f
 
     .line 87
     invoke-virtual {v3, v2}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
@@ -704,33 +704,41 @@
     move-result v4
 
     .line 92
-    iget-object v9, v1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->sectionInfoList:Ljava/util/List;
+    new-instance v9, Lcom/bilibili/tv/api/video/BiliVideoDetail$SectionInfo;
 
-    new-instance v10, Lcom/bilibili/tv/api/video/BiliVideoDetail$SectionInfo;
+    invoke-direct {v9, v6, v7, v8, v4}, Lcom/bilibili/tv/api/video/BiliVideoDetail$SectionInfo;-><init>(Ljava/lang/String;Lcom/alibaba/fastjson/JSONArray;II)V
 
-    invoke-direct {v10, v6, v7, v8, v4}, Lcom/bilibili/tv/api/video/BiliVideoDetail$SectionInfo;-><init>(Ljava/lang/String;Lcom/alibaba/fastjson/JSONArray;II)V
+    .line 95
+    invoke-static {v7}, Lcom/bilibili/tv/api/video/BiliVideoDetail$SectionInfo;->parseEpisodes(Lcom/alibaba/fastjson/JSONArray;)Ljava/util/List;
 
-    invoke-interface {v9, v10}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    move-result-object v4
+
+    iput-object v4, v9, Lcom/bilibili/tv/api/video/BiliVideoDetail$SectionInfo;->parsedEpisodes:Ljava/util/List;
+
+    .line 96
+    iget-object v4, v1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->sectionInfoList:Ljava/util/List;
+
+    invoke-interface {v4, v9}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 86
     add-int/lit8 v2, v2, 0x1
 
     goto :goto_138
 
-    :cond_167
+    :cond_16d
     move-object v2, v3
 
     .line 76
     goto :goto_f6
 
-    .line 97
-    :cond_169
+    .line 101
+    :cond_16f
     iput-object v1, v5, Lcom/bilibili/okretro/GeneralResponse;->data:Ljava/lang/Object;
 
     goto/16 :goto_41
 
-    .line 102
-    :cond_16d
+    .line 106
+    :cond_173
     new-instance v0, Lcom/alibaba/fastjson/JSONException;
 
     const-string v1, "Response is not a jsonobject!"

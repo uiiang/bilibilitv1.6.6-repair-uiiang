@@ -34,15 +34,15 @@
     .locals 0
 
     .prologue
-    .line 2208
+    .line 2331
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcFollowResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
 
-    .line 2209
+    .line 2332
     iput-boolean p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcFollowResponse;->follow:Z
 
-    .line 2210
+    .line 2333
     return-void
 .end method
 
@@ -50,12 +50,12 @@
     .locals 2
 
     .prologue
-    .line 2215
+    .line 2338
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcFollowResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    .line 2214
+    .line 2337
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->mPgcInfo:Lcom/bilibili/tv/api/video/PgcInfo;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/PgcInfo;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/PgcInfo;
 
     move-result-object v0
 
@@ -63,9 +63,9 @@
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcFollowResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    .line 2215
+    .line 2338
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->mPgcInfo:Lcom/bilibili/tv/api/video/PgcInfo;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/PgcInfo;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/PgcInfo;
 
     move-result-object v0
 
@@ -77,9 +77,9 @@
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcFollowResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    .line 2216
+    .line 2339
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->mPgcInfo:Lcom/bilibili/tv/api/video/PgcInfo;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/PgcInfo;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/PgcInfo;
 
     move-result-object v0
 
@@ -92,11 +92,11 @@
     :cond_1e
     const-string v0, "\u8ffd\u756a"
 
-    .line 2214
+    .line 2337
     :goto_20
     return-object v0
 
-    .line 2216
+    .line 2339
     :cond_21
     const-string v0, "\u8ffd\u5267"
 
@@ -109,7 +109,7 @@
     .locals 0
 
     .prologue
-    .line 2205
+    .line 2328
     check-cast p1, Ljava/lang/String;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcFollowResponse;->a(Ljava/lang/String;)V
@@ -121,33 +121,33 @@
     .locals 4
 
     .prologue
-    .line 2221
+    .line 2344
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcFollowResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iget-boolean v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcFollowResponse;->follow:Z
 
     # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isPgcFollowed:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2702(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Z)Z
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3102(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Z)Z
 
-    .line 2222
+    .line 2345
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcFollowResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateSubscribeButtonUI()V
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
-    .line 2223
+    .line 2346
     invoke-direct {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcFollowResponse;->getFollowAction()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 2224
+    .line 2347
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcFollowResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getApplicationContext()Landroid/content/Context;
 
     move-result-object v1
 
-    .line 2225
+    .line 2348
     iget-boolean v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcFollowResponse;->follow:Z
 
     if-eqz v2, :cond_31
@@ -170,14 +170,14 @@
 
     move-result-object v0
 
-    .line 2224
+    .line 2347
     :goto_2d
     invoke-static {v1, v0}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 2226
+    .line 2349
     return-void
 
-    .line 2225
+    .line 2348
     :cond_31
     new-instance v2, Ljava/lang/StringBuilder;
 
@@ -204,7 +204,7 @@
     .locals 1
 
     .prologue
-    .line 2238
+    .line 2361
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcFollowResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
@@ -218,24 +218,24 @@
     .locals 4
 
     .prologue
-    .line 2230
+    .line 2353
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 2231
+    .line 2354
     invoke-direct {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcFollowResponse;->getFollowAction()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 2232
+    .line 2355
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcFollowResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getApplicationContext()Landroid/content/Context;
 
     move-result-object v1
 
-    .line 2233
+    .line 2356
     iget-boolean v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcFollowResponse;->follow:Z
 
     if-eqz v2, :cond_2a
@@ -258,14 +258,14 @@
 
     move-result-object v0
 
-    .line 2232
+    .line 2355
     :goto_26
     invoke-static {v1, v0}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 2234
+    .line 2357
     return-void
 
-    .line 2233
+    .line 2356
     :cond_2a
     new-instance v2, Ljava/lang/StringBuilder;
 

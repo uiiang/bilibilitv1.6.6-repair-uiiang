@@ -42,6 +42,10 @@ public class VideoCardAdapter extends RecyclerView.a<RecyclerView.v> {
     private long currentCid = -1;
     private int currentSeasonId = -1;
 
+    // 卡片绑定耗时统计（加载性能插桩，稳定后移除）
+    private long perfBindTotalMs = 0;
+    private int perfBindCount = 0;
+
     public VideoCardAdapter() {}
 
     public VideoCardAdapter(Context context) {
@@ -116,6 +120,7 @@ public class VideoCardAdapter extends RecyclerView.a<RecyclerView.v> {
 
     @Override
     public void a(RecyclerView.v holder, int position) {
+        long perfStart = android.os.SystemClock.uptimeMillis();
         Object item = dataList.get(position);
         View itemView = holder.a;
         int size = dataList.size();
@@ -124,6 +129,17 @@ public class VideoCardAdapter extends RecyclerView.a<RecyclerView.v> {
             bindNormalHolder((VideoDetailActivity.f) holder, item, position, size);
         } else if (holder instanceof CompactVideoHolder) {
             bindCompactHolder((CompactVideoHolder) holder, item, position, size);
+        }
+
+        long perfCost = android.os.SystemClock.uptimeMillis() - perfStart;
+        perfBindTotalMs += perfCost;
+        perfBindCount++;
+        if (perfBindCount % 15 == 0 || perfCost >= 8) {
+            android.util.Log.i("LoadPerf", "[card] bind pos=" + position
+                    + " | cost=" + perfCost + "ms"
+                    + " | binds=" + perfBindCount
+                    + " | bindTotal=" + perfBindTotalMs + "ms"
+                    + " | type=" + (holder instanceof VideoDetailActivity.f ? "normal" : "compact"));
         }
     }
 

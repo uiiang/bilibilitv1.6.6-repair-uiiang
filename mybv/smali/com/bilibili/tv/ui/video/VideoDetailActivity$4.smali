@@ -1,6 +1,9 @@
 .class Lcom/bilibili/tv/ui/video/VideoDetailActivity$4;
-.super Lcom/bilibili/tv/widget/FixLinearLayoutManager;
+.super Ljava/lang/Object;
 .source "VideoDetailActivity.java"
+
+# interfaces
+.implements Landroid/view/View$OnClickListener;
 
 
 # annotations
@@ -19,102 +22,30 @@
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Landroid/content/Context;IZ)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
     .locals 0
 
     .prologue
-    .line 449
+    .line 490
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$4;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    invoke-direct {p0, p2, p3, p4}, Lcom/bilibili/tv/widget/FixLinearLayoutManager;-><init>(Landroid/content/Context;IZ)V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public d(Landroid/view/View;I)Landroid/view/View;
-    .locals 2
+.method public onClick(Landroid/view/View;)V
+    .locals 1
 
     .prologue
-    .line 453
-    if-eqz p1, :cond_35
-
-    .line 454
-    invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$4;->d(Landroid/view/View;)I
-
-    move-result v0
-
-    .line 455
-    const/16 v1, 0x11
-
-    if-eq p2, v1, :cond_32
-
-    .line 456
-    const/16 v1, 0x21
-
-    if-eq p2, v1, :cond_2d
-
-    .line 457
-    const/16 v1, 0x42
-
-    if-eq p2, v1, :cond_25
-
-    .line 458
-    const/16 v0, 0x82
-
-    if-ne p2, v0, :cond_2d
-
-    .line 459
+    .line 493
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$4;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    const v1, 0x7f080167
+    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->onSubscribeButtonClick()V
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
-    .line 460
-    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->d(I)Landroid/view/View;
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;I)Landroid/view/View;
-
-    move-result-object v0
-
-    check-cast v0, Lcom/bilibili/tv/widget/DrawLinearLayout;
-
-    .line 461
-    if-eqz v0, :cond_24
-
-    move-object p1, v0
-
-    .line 475
-    :cond_24
-    :goto_24
-    return-object p1
-
-    .line 466
-    :cond_25
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$4;->H()I
-
-    move-result v1
-
-    add-int/lit8 v1, v1, -0x1
-
-    if-eq v0, v1, :cond_24
-
-    .line 473
-    :cond_2d
-    invoke-super {p0, p1, p2}, Lcom/bilibili/tv/widget/FixLinearLayoutManager;->d(Landroid/view/View;I)Landroid/view/View;
-
-    move-result-object p1
-
-    goto :goto_24
-
-    .line 470
-    :cond_32
-    if-nez v0, :cond_2d
-
-    goto :goto_24
-
-    .line 475
-    :cond_35
-    const/4 p1, 0x0
-
-    goto :goto_24
+    .line 494
+    return-void
 .end method

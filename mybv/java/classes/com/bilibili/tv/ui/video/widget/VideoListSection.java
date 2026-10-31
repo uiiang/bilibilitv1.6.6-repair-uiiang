@@ -735,11 +735,15 @@ public class VideoListSection extends LinearLayout {
     }
 
     public void setData(List<?> data, VideoCardBinder b) {
+        long perfStart = android.os.SystemClock.uptimeMillis();
         this.dataList = data;
         this.binder = b;
         if (adapter != null) {
             adapter.setData(data, b);
         }
+        android.util.Log.i("LoadPerf", "[section] setData size=" + (data == null ? 0 : data.size())
+                + " | sectionId=" + sectionId
+                + " | cost=" + (android.os.SystemClock.uptimeMillis() - perfStart) + "ms");
     }
 
     public void setShowIndexBadge(boolean show) {
@@ -811,6 +815,7 @@ public class VideoListSection extends LinearLayout {
     }
 
     public void scrollToCurrentVideo() {
+        long perfStart = android.os.SystemClock.uptimeMillis();
         if (recyclerView == null) {
             return;
         }
@@ -843,8 +848,14 @@ public class VideoListSection extends LinearLayout {
         }
 
         if (currentPosition < 0) {
+            android.util.Log.i("LoadPerf", "[section] scrollToCurrentVideo no match | size=" + dataList.size()
+                    + " | cost=" + (android.os.SystemClock.uptimeMillis() - perfStart) + "ms");
             return;
         }
+
+        android.util.Log.i("LoadPerf", "[section] scrollToCurrentVideo pos=" + currentPosition
+                + " | size=" + dataList.size()
+                + " | cost=" + (android.os.SystemClock.uptimeMillis() - perfStart) + "ms");
 
         final int finalPos = currentPosition;
         recyclerView.post(new Runnable() {
@@ -1434,6 +1445,7 @@ public class VideoListSection extends LinearLayout {
     }
 
     public void setupNavigationTags(int totalCount, int groupSize, NavigationTagBinder binder) {
+        long perfStart = android.os.SystemClock.uptimeMillis();
         this.groupSize = groupSize;
         if (navTagRecyclerView == null || navTagAdapter == null) {
             return;
@@ -1447,6 +1459,10 @@ public class VideoListSection extends LinearLayout {
         } else {
             navTagRecyclerView.setVisibility(View.GONE);
         }
+        android.util.Log.i("LoadPerf", "[section] setupNavTags total=" + totalCount + " | groupSize=" + groupSize
+                + " | tagCount=" + navTagAdapter.getTagCount()
+                + " | visible=" + (navTagRecyclerView.getVisibility() == View.VISIBLE)
+                + " | cost=" + (android.os.SystemClock.uptimeMillis() - perfStart) + "ms");
     }
 
     public void setupCustomNavigationTags(java.util.List<NavigationTagAdapter.TagItem> customTags, int groupSize) {

@@ -20,10 +20,18 @@ public class VideoApiParser3 implements vu<GeneralResponse<BiliVideoDetail>> {
     @Override
     @NonNull
     public GeneralResponse<BiliVideoDetail> convert(ResponseBody responseBody) throws IOException {
+        long perfStart = android.os.SystemClock.uptimeMillis();
         String rawResponse = responseBody.string();
+        long perfRead = android.os.SystemClock.uptimeMillis();
         LogUtil.i("VideoInfoApi", "========== /x/web-interface/view Response ==========");
         LogUtil.i("VideoInfoApi", rawResponse);
+        long perfLog = android.os.SystemClock.uptimeMillis();
+        LogUtil.i("LoadPerf", "[api] body=" + rawResponse.length() + " chars"
+                + " | readBody=" + (perfRead - perfStart) + "ms"
+                + " | dumpRawLog=" + (perfLog - perfRead) + "ms");
         Object a = jp.a(rawResponse);
+        long perfJson = android.os.SystemClock.uptimeMillis();
+        LogUtil.i("LoadPerf", "[api] parseJsonTree=" + (perfJson - perfLog) + "ms");
         if (a instanceof JSONObject) {
             GeneralResponse<BiliVideoDetail> generalResponse = new GeneralResponse<>();
             JSONObject jSONObject = (JSONObject) a;
@@ -41,7 +49,9 @@ public class VideoApiParser3 implements vu<GeneralResponse<BiliVideoDetail>> {
                         bpObj.remove("mine");
                     }
                 }
+                long perfMapStart = android.os.SystemClock.uptimeMillis();
                 BiliVideoDetail videoDetail = data.toJavaObject(BiliVideoDetail.class);
+                long perfMap = android.os.SystemClock.uptimeMillis();
                 LogUtil.i("VideoInfoApi", "========== Parsed BiliVideoDetail ==========");
                 LogUtil.i("VideoInfoApi", "mCover = " + videoDetail.mCover);
                 LogUtil.i("VideoInfoApi", "mTitle = " + videoDetail.mTitle);
@@ -72,20 +82,47 @@ public class VideoApiParser3 implements vu<GeneralResponse<BiliVideoDetail>> {
                         if (sections != null) {
                             videoDetail.sections = sections;
                             videoDetail.sectionInfoList = new ArrayList<>();
+                            long perfPreParseStart = android.os.SystemClock.uptimeMillis();
                             for (int i = 0; i < sections.size(); i++) {
                                 JSONObject sectionObj = sections.getJSONObject(i);
                                 String sectionTitle = sectionObj.getString("title");
                                 JSONArray sectionEpisodes = sectionObj.getJSONArray("episodes");
                                 int sectionId = sectionObj.getIntValue("id");
                                 int sectionType = sectionObj.getIntValue("type");
-                                videoDetail.sectionInfoList.add(new BiliVideoDetail.SectionInfo(sectionTitle, sectionEpisodes, sectionId, sectionType));
+                                BiliVideoDetail.SectionInfo sectionInfo =
+                                        new BiliVideoDetail.SectionInfo(sectionTitle, sectionEpisodes, sectionId, sectionType);
+                                // 在工作线程预解析每集的 arc/author/badge_info，主线程只做引用拷贝
+                                sectionInfo.parsedEpisodes = BiliVideoDetail.SectionInfo.parseEpisodes(sectionEpisodes);
+                                videoDetail.sectionInfoList.add(sectionInfo);
                             }
+                            LogUtil.i("LoadPerf", "[api] preParseEpisodes="
+                                    + (android.os.SystemClock.uptimeMillis() - perfPreParseStart) + "ms");
                         }
                     }
                 }
+                long perfSections = android.os.SystemClock.uptimeMillis();
+                int perfEpisodeCount = 0;
+                int perfSectionCount = 0;
+                if (videoDetail.sectionInfoList != null) {
+                    perfSectionCount = videoDetail.sectionInfoList.size();
+                    for (int pi = 0; pi < perfSectionCount; pi++) {
+                        BiliVideoDetail.SectionInfo si = videoDetail.sectionInfoList.get(pi);
+                        if (si != null && si.episodes != null) {
+                            perfEpisodeCount += si.episodes.size();
+                        }
+                    }
+                }
+                LogUtil.i("LoadPerf", "[api] toJavaObject=" + (perfMap - perfMapStart) + "ms"
+                        + " | sectionsBuild=" + (perfSections - perfMap) + "ms"
+                        + " | sections=" + perfSectionCount
+                        + " | episodes=" + perfEpisodeCount
+                        + " | totalToData=" + (perfSections - perfStart) + "ms");
                 generalResponse.data = videoDetail;
             }
+            long perfClearStart = android.os.SystemClock.uptimeMillis();
             jSONObject.clear();
+            LogUtil.i("LoadPerf", "[api] clearJsonTree=" + (android.os.SystemClock.uptimeMillis() - perfClearStart)
+                    + "ms | convertTotal=" + (android.os.SystemClock.uptimeMillis() - perfStart) + "ms");
             return generalResponse;
         }
         throw new JSONException("Response is not a jsonobject!");

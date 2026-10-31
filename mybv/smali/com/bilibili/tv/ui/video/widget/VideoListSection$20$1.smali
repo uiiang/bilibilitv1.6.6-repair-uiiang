@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1572
+    .line 1588
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$20$1;->this$1:Lcom/bilibili/tv/ui/video/widget/VideoListSection$20;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 1575
+    .line 1591
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$20$1;->this$1:Lcom/bilibili/tv/ui/video/widget/VideoListSection$20;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$20;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -51,6 +51,6 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->requestFocusOnPosition(I)V
 
-    .line 1576
+    .line 1592
     return-void
 .end method

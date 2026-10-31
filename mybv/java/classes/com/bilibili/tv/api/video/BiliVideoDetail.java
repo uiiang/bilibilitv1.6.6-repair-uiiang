@@ -171,12 +171,59 @@ public class BiliVideoDetail implements Parcelable {
         public JSONArray episodes;
         public int id;
         public int type;
+        /**
+         * 预解析结果：在工作线程（解析器 convert）内构建。
+         * 详情页 UI 线程直接引用该列表，避免逐集 JSON.parseObject(arc.toString()) 造成主线程卡顿。
+         */
+        public List<BiliVideoDetail> parsedEpisodes;
         
         public SectionInfo(String title, JSONArray episodes, int id, int type) {
             this.title = title;
             this.episodes = episodes;
             this.id = id;
             this.type = type;
+        }
+
+        /**
+         * 将 episodes 数组中每一条的 arc/author/badge_info 解析成 BiliVideoDetail。
+         * 解析字段与详情页原有逐集解析逻辑保持一致，仅由 UI 线程挪到工作线程、并去掉
+         * "JSONObject.toString() 再 parseObject" 的二次序列化开销。
+         */
+        public static List<BiliVideoDetail> parseEpisodes(JSONArray episodes) {
+            if (episodes == null || episodes.isEmpty()) {
+                return new ArrayList<BiliVideoDetail>();
+            }
+            List<BiliVideoDetail> list = new ArrayList<BiliVideoDetail>(episodes.size());
+            for (int i = 0; i < episodes.size(); i++) {
+                try {
+                    JSONObject episodeObj = episodes.getJSONObject(i);
+                    if (episodeObj == null) {
+                        continue;
+                    }
+                    JSONObject arcObj = episodeObj.getJSONObject("arc");
+                    if (arcObj == null) {
+                        continue;
+                    }
+                    BiliVideoDetail detail = arcObj.toJavaObject(BiliVideoDetail.class);
+                    JSONObject authorObj = arcObj.getJSONObject("author");
+                    if (authorObj != null) {
+                        detail.mOwner = authorObj.toJavaObject(BiliUser.class);
+                    }
+                    JSONObject badgeInfo = episodeObj.getJSONObject("badge_info");
+                    if (badgeInfo != null) {
+                        String badgeText = badgeInfo.getString("text");
+                        String badgeBgColor = badgeInfo.getString("bg_color");
+                        if (badgeText != null && !badgeText.isEmpty()) {
+                            detail.badgeText = badgeText;
+                            detail.badgeBgColor = badgeBgColor;
+                        }
+                    }
+                    list.add(detail);
+                } catch (Exception e) {
+                    // 单集解析失败不影响其它集
+                }
+            }
+            return list;
         }
     }
 

@@ -20,18 +20,23 @@
 # instance fields
 .field final synthetic this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
 
-.field final synthetic val$history:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
+.field final synthetic val$fellBack:[Z
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;Lcom/bilibili/tv/api/video/BiliVideoDetail$History;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;[Z)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
-    .line 1884
+    .line 1808
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->val$history:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
+    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->val$fellBack:[Z
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -41,71 +46,111 @@
 
 # virtual methods
 .method public run()V
-    .locals 2
+    .locals 7
 
     .prologue
-    .line 1887
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
+    const/4 v6, 0x0
 
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->val$history:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
-
-    iput-object v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
-
-    .line 1888
+    .line 1811
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
-
-    iget-object v1, v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
-    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateHistoryDisplay(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
-
-    .line 1889
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
-
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_36
-
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
-
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    .line 1890
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawLinearLayout;->getVisibility()I
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
 
     move-result v0
 
-    if-nez v0, :cond_36
+    if-eqz v0, :cond_c
 
-    .line 1891
+    .line 1825
+    :cond_b
+    :goto_b
+    return-void
+
+    .line 1816
+    :cond_c
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->val$fellBack:[Z
+
+    aget-boolean v0, v0, v6
+
+    if-nez v0, :cond_1a
+
+    .line 1817
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
+    const/4 v1, 0x1
 
-    move-result-object v0
+    # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->mHistoryResolved:Z
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2402(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Z)Z
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawLinearLayout;->requestFocus()Z
+    .line 1819
+    :cond_1a
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
 
-    .line 1893
-    :cond_36
-    return-void
+    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "history resolved \u2192 start UI build | fetchCost="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    .line 1820
+    invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
+
+    move-result-wide v2
+
+    iget-object v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
+
+    iget-wide v4, v4, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->val$perfFetchStart:J
+
+    sub-long/2addr v2, v4
+
+    invoke-virtual {v1, v2, v3}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, "ms | fellBack="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->val$fellBack:[Z
+
+    aget-boolean v2, v2, v6
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 1819
+    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->loadPerf(Ljava/lang/String;)V
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$200(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Ljava/lang/String;)V
+
+    .line 1822
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
+
+    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->val$callback:Ljava/lang/Runnable;
+
+    if-eqz v0, :cond_b
+
+    .line 1823
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
+
+    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->val$callback:Ljava/lang/Runnable;
+
+    invoke-interface {v0}, Ljava/lang/Runnable;->run()V
+
+    goto :goto_b
 .end method

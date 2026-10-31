@@ -198,6 +198,9 @@ public final class VideoDetailActivity extends BaseActivity
     private static final int H = G + 1;
     private static final int REQUEST_CODE_PLAY_VIDEO = 10068;
 
+    // 其余合集分区逐帧补建的间隔（ms）：保证每次新增独占一帧，避免同帧布局所有分区的卡片
+    private static final long SEASON_SECTION_BUILD_INTERVAL_MS = 32L;
+
     /**
      * 播放页回传进度的保护窗口（毫秒）。
      * 播放页 finish 回传的 last_progress 是播放器当前真实位置，是权威值；
@@ -213,6 +216,118 @@ public final class VideoDetailActivity extends BaseActivity
      * 每次发起新的拉取前置回 false，拉取完成时置 true。
      */
     private boolean mHistoryResolved = false;
+
+    // ===== 加载性能插桩（定位"合集数量多时详情页加载慢"，稳定后按规范注释/移除） =====
+    private static final String LOAD_PERF_TAG = "LoadPerf";
+    private long loadPerfStartMs = android.os.SystemClock.uptimeMillis();
+
+    private void loadPerf(String msg) {
+        android.util.Log.i(LOAD_PERF_TAG, "[page] +" + (android.os.SystemClock.uptimeMillis() - loadPerfStartMs) + "ms " + msg);
+    }
+
+    /**
+     * 数据就绪后记录前若干帧的帧间隔（单帧间隔过大 = 该帧measure/layout/draw卡住），
+     * 首帧额外输出每个section的可见子View数量，用于判断是否一次性布局了全部卡片。
+     * 仅用 API 1 即存在的 OnPreDrawListener，兼容 Android 4.x。
+     */
+    private void startFramePerf(final String stage) {
+        final View root = findViewById(android.R.id.content);
+        if (root == null) {
+            return;
+        }
+        final android.view.ViewTreeObserver vto = root.getViewTreeObserver();
+        final long startMs = android.os.SystemClock.uptimeMillis();
+        final long[] lastPreDraw = {0L};
+        final int[] count = {0};
+        final android.view.ViewTreeObserver.OnPreDrawListener preDrawListener = new android.view.ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                long now = android.os.SystemClock.uptimeMillis();
+                long frameInterval = lastPreDraw[0] == 0L ? 0L : (now - lastPreDraw[0]);
+                StringBuilder detail = new StringBuilder();
+                if (count[0] == 0 && ugcSeasonSections != null) {
+                    for (int i = 0; i < ugcSeasonSections.size(); i++) {
+                        com.bilibili.tv.ui.video.widget.VideoListSection vls = ugcSeasonSections.get(i);
+                        RecyclerView rv = vls.getRecyclerView();
+                        detail.append(" [s").append(vls.getSectionId())
+                                .append(" visible=").append(rv == null ? -1 : rv.getChildCount())
+                                .append("/").append(vls.getDataSize()).append("]");
+                    }
+                }
+                android.util.Log.i(LOAD_PERF_TAG, "[frame] " + stage + " #" + count[0]
+                        + " sinceStage=" + (now - startMs) + "ms"
+                        + " frameInterval=" + frameInterval + "ms"
+                        + " sections=" + (seasonsContainer == null ? -1 : seasonsContainer.getChildCount())
+                        + detail.toString());
+                lastPreDraw[0] = now;
+                count[0]++;
+                if (count[0] >= 10) {
+                    android.view.ViewTreeObserver observer = root.getViewTreeObserver();
+                    if (observer.isAlive()) {
+                        observer.removeOnPreDrawListener(this);
+                    }
+                }
+                return true;
+            }
+        };
+        vto.addOnPreDrawListener(preDrawListener);
+    }
+
+    // ===== 合集分区逐帧补建（UGC多合集 / PGC多季共用） =====
+    private interface SectionBuildTask {
+        void buildSection(int index);
+    }
+
+    /** 待执行的分区补建任务，重新加载/切换页面时需要取消，避免给已清空的容器继续加分区 */
+    private Runnable pendingSectionBuildRunnable;
+
+    private void cancelPendingSectionBuilds() {
+        if (pendingSectionBuildRunnable != null && seasonsContainer != null) {
+            seasonsContainer.removeCallbacks(pendingSectionBuildRunnable);
+        }
+        pendingSectionBuildRunnable = null;
+    }
+
+    /**
+     * 首帧之后逐帧补建其余分区：每帧只新增一个分区，
+     * 避免一帧内测量/布局所有分区卡片（合集多时单帧可达 1s+）。
+     * 调用方负责同步创建第 0 个分区，本方法从 index=1 开始补建。
+     */
+    private void scheduleRemainingSectionBuilds(final int totalCount, final SectionBuildTask task) {
+        if (totalCount <= 1 || seasonsContainer == null || task == null) {
+            return;
+        }
+        cancelPendingSectionBuilds();
+        final int[] next = {1};
+        final Runnable step = new Runnable() {
+            @Override
+            public void run() {
+                if (isFinishing() || seasonsContainer == null) {
+                    pendingSectionBuildRunnable = null;
+                    return;
+                }
+                int index = next[0];
+                if (index >= totalCount) {
+                    pendingSectionBuildRunnable = null;
+                    loadPerf("season sections build finish | total=" + totalCount
+                            + " | containerChildren=" + seasonsContainer.getChildCount());
+                    return;
+                }
+                next[0] = index + 1;
+                task.buildSection(index);
+                refreshVisualOrder();
+                if (next[0] < totalCount) {
+                    seasonsContainer.postDelayed(this, SEASON_SECTION_BUILD_INTERVAL_MS);
+                } else {
+                    pendingSectionBuildRunnable = null;
+                    loadPerf("season sections build finish | total=" + totalCount
+                            + " | containerChildren=" + seasonsContainer.getChildCount());
+                }
+            }
+        };
+        pendingSectionBuildRunnable = step;
+        seasonsContainer.postDelayed(step, SEASON_SECTION_BUILD_INTERVAL_MS);
+    }
 
     // 三组播放按钮可见性的顶层状态，由 applyPlayButtonVisibility 统一解释（单一事实来源）。
     private static final int STATE_LOADING = 0;      // 历史拉取进行中：三组全 GONE（中性占位，避免闪烁）
@@ -263,6 +378,7 @@ public final class VideoDetailActivity extends BaseActivity
 
     @Override // com.bilibili.tv.ui.base.BaseActivity
     public void a(Bundle bundle) {
+        loadPerf("activity init | entry=" + mEntryType);
         m();
         if (!mIsPgcMode && this.s <= 0) {
             lr.a(this, (int) R.string.video_not_exist);
@@ -1526,6 +1642,7 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final void n() {
+        loadPerf("data load start | entry=" + mEntryType + " | avid=" + this.s + " | seasonId=" + this.mSeasonId);
         switch (mEntryType) {
             case PGC_BY_SEASON_ID:
                 loadPgcBySeasonId();
@@ -1546,6 +1663,7 @@ public final class VideoDetailActivity extends BaseActivity
             loadingImageView.a();
         }
         ((MyBiliApiService) vo.a(MyBiliApiService.class)).getVideoInfo(this.s).a(new VideoApiParser3()).a(this.A);
+        loadPerf("video info request sent | avid=" + this.s);
     }
     
     private void requestHistoryForUgc(final BiliVideoDetail biliVideoDetail, final Runnable callback) {
@@ -1591,6 +1709,8 @@ public final class VideoDetailActivity extends BaseActivity
         final String sessdata = a2.getSESSDATA();
         final String finalBvid = bvid;
         
+        final long perfFetchStart = android.os.SystemClock.uptimeMillis();
+        loadPerf("history request start | cid=" + finalCid + " | force=" + force);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -1696,6 +1816,9 @@ public final class VideoDetailActivity extends BaseActivity
                         if (!fellBack[0]) {
                             mHistoryResolved = true;
                         }
+                        loadPerf("history resolved → start UI build | fetchCost="
+                                + (android.os.SystemClock.uptimeMillis() - perfFetchStart) + "ms"
+                                + " | fellBack=" + fellBack[0]);
                         if (callback != null) {
                             callback.run();
                         }
@@ -2641,6 +2764,7 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final void updateHistoryDisplay(BiliVideoDetail biliVideoDetail) {
+        long perfStart = android.os.SystemClock.uptimeMillis();
         if (historyPlayBtn == null) {
             return;
         }
@@ -2779,6 +2903,7 @@ public final class VideoDetailActivity extends BaseActivity
             expandBtn.setNextFocusLeftId(replayVisible
                     ? R.id.video_re_play_btn_layout : R.id.video_history_play_btn_layout);
         }
+        loadPerf("updateHistoryDisplay done | cost=" + (android.os.SystemClock.uptimeMillis() - perfStart) + "ms");
     }
 
     /**
@@ -3546,11 +3671,12 @@ public final class VideoDetailActivity extends BaseActivity
         }
     }
 
-    private void showPgcSections(PgcInfo pgcInfo) {
+    private void showPgcSections(final PgcInfo pgcInfo) {
         if (seasonsContainer == null) {
             return;
         }
         
+        cancelPendingSectionBuilds();
         seasonsContainer.setVisibility(View.VISIBLE);
         seasonsContainer.removeAllViews();
         seasonSectionViews.clear();
@@ -3558,26 +3684,32 @@ public final class VideoDetailActivity extends BaseActivity
             videoListNavigator.clearSections();
         }
         
-        boolean hasSeasons = pgcInfo.seasons != null && !pgcInfo.seasons.isEmpty();
-        boolean hasSections = pgcInfo.sections != null && !pgcInfo.sections.isEmpty();
+        final boolean hasSeasons = pgcInfo.seasons != null && !pgcInfo.seasons.isEmpty();
+        final boolean hasSections = pgcInfo.sections != null && !pgcInfo.sections.isEmpty();
         
         if (!hasSeasons && !hasSections) {
             return;
         }
-        
-        int sectionIndex = 0;
-        
+
+        int totalBuild = (hasSeasons ? 1 : 0) + (hasSections ? pgcInfo.sections.size() : 0);
+        // 首帧只建第一个分区，其余分区逐帧补建（与UGC多合集一致），
+        // 避免 PGC 多季/多分区页面在一帧内布局全部分区卡片（实测单帧可达 800ms）。
         if (hasSeasons) {
-            createSeasonsSectionView(pgcInfo.seasons, sectionIndex);
-            sectionIndex++;
+            createSeasonsSectionView(pgcInfo.seasons, 0);
+        } else {
+            createPgcSectionView(pgcInfo.sections.get(0), 0);
         }
-        
-        if (hasSections) {
-            for (int i = 0; i < pgcInfo.sections.size(); i++) {
-                PgcInfo.Section section = pgcInfo.sections.get(i);
-                createPgcSectionView(section, sectionIndex);
-                sectionIndex++;
-            }
+        if (totalBuild > 1) {
+            scheduleRemainingSectionBuilds(totalBuild, new SectionBuildTask() {
+                @Override
+                public void buildSection(int index) {
+                    if (hasSeasons) {
+                        createPgcSectionView(pgcInfo.sections.get(index - 1), index);
+                    } else {
+                        createPgcSectionView(pgcInfo.sections.get(index), index);
+                    }
+                }
+            });
         }
     }
 
@@ -5323,6 +5455,19 @@ public final class VideoDetailActivity extends BaseActivity
         /* JADX DEBUG: Method merged with bridge method */
         @Override // bl.vn
         public void a(BiliVideoDetail biliVideoDetail) {
+            if (biliVideoDetail != null) {
+                int perfSectionCount = biliVideoDetail.sectionInfoList == null ? 0 : biliVideoDetail.sectionInfoList.size();
+                int perfEpisodeCount = 0;
+                for (int pi = 0; pi < perfSectionCount; pi++) {
+                    BiliVideoDetail.SectionInfo si = biliVideoDetail.sectionInfoList.get(pi);
+                    if (si != null && si.episodes != null) {
+                        perfEpisodeCount += si.episodes.size();
+                    }
+                }
+                loadPerf("video info callback | sections=" + perfSectionCount
+                        + " | episodes=" + perfEpisodeCount
+                        + " | pages=" + (biliVideoDetail.mPageList == null ? 0 : biliVideoDetail.mPageList.size()));
+            }
             VideoDetailActivity.this.y = false;
             if (biliVideoDetail == null) {
                 ImageView blurView = VideoDetailActivity.this.b;
@@ -5357,6 +5502,8 @@ public final class VideoDetailActivity extends BaseActivity
         }
         
         private void updateAllUIForUgc(final BiliVideoDetail biliVideoDetail) {
+            long perfT0 = android.os.SystemClock.uptimeMillis();
+            loadPerf("UI build start | sections=" + (biliVideoDetail.sectionInfoList == null ? 0 : biliVideoDetail.sectionInfoList.size()));
             VideoDetailActivity.this.y = false;
             VideoDetailActivity.this.u = biliVideoDetail;
             View view = VideoDetailActivity.this.m;
@@ -5435,17 +5582,28 @@ public final class VideoDetailActivity extends BaseActivity
             if (textView3 != null) {
                 textView3.setText(adh.a(biliVideoDetail.getDanmakus()));
             }
+            long perfStep = android.os.SystemClock.uptimeMillis();
             b(biliVideoDetail);
+            long perfAfterBasic = android.os.SystemClock.uptimeMillis();
             showEpisodes(biliVideoDetail);
+            long perfAfterSections = android.os.SystemClock.uptimeMillis();
             d(biliVideoDetail);
+            long perfAfterEpisodes = android.os.SystemClock.uptimeMillis();
             refreshVisualOrder();
+            long perfAfterOrder = android.os.SystemClock.uptimeMillis();
+            loadPerf("UI basicInfo=" + (perfAfterBasic - perfStep) + "ms"
+                    + " | showEpisodes=" + (perfAfterSections - perfAfterBasic) + "ms"
+                    + " | episodesList=" + (perfAfterEpisodes - perfAfterSections) + "ms"
+                    + " | refreshVisualOrder=" + (perfAfterOrder - perfAfterEpisodes) + "ms");
 
             abi.a.a("tv_detail_view2_resp", abi.a.a(String.valueOf(VideoDetailActivity.this.s),
                     String.valueOf(mg.a(VideoDetailActivity.this).d()), "success", "0"));
             initDefaultPlayButtons(biliVideoDetail);
             loadArchiveRelation(biliVideoDetail);
             
+            long perfHistStart = android.os.SystemClock.uptimeMillis();
             updateHistoryDisplay(biliVideoDetail);
+            loadPerf("updateHistoryDisplay call=" + (android.os.SystemClock.uptimeMillis() - perfHistStart) + "ms");
             if (VideoDetailActivity.this.historyPlayBtnLayout != null &&
                     VideoDetailActivity.this.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
                 VideoDetailActivity.this.historyPlayBtnLayout.requestFocus();
@@ -5462,10 +5620,14 @@ public final class VideoDetailActivity extends BaseActivity
             }
 
             loadRelatedVideosAndTags();
+            loadPerf("UI build done | total=" + (android.os.SystemClock.uptimeMillis() - perfT0) + "ms"
+                    + " | seasonsContainerChildCount=" + (seasonsContainer == null ? -1 : seasonsContainer.getChildCount()));
+            startFramePerf("afterData");
         }
         
         private void loadRelatedVideosAndTags() {
             final long aid = VideoDetailActivity.this.s;
+            loadPerf("related videos request sent | aid=" + aid);
             ((MyBiliApiService) vo.a(MyBiliApiService.class)).getRelatedVideos(aid).a(new RelatedVideoParser()).a(new vn<List<BiliVideoDetail>>() {
                 @Override
                 public boolean isCancel() {
@@ -5486,6 +5648,7 @@ public final class VideoDetailActivity extends BaseActivity
                 
                 @Override
                 public void a(List<BiliVideoDetail> relatedList) {
+                    loadPerf("related videos response | count=" + (relatedList == null ? 0 : relatedList.size()));
                     if (relatedList == null || relatedList.isEmpty()) {
                         if (VideoDetailActivity.this.i != null) {
                             VideoDetailActivity.this.i.setVisibility(8);
@@ -5663,6 +5826,7 @@ public final class VideoDetailActivity extends BaseActivity
         }
 
         private final void showEpisodes(BiliVideoDetail biliVideoDetail) {
+            long perfT0 = android.os.SystemClock.uptimeMillis();
             if (VideoDetailActivity.this.mIsPgcMode) {
                 return;
             }
@@ -5753,12 +5917,33 @@ public final class VideoDetailActivity extends BaseActivity
             }
             
             // 为每个section创建独立的列表（按排序后的顺序）
+            long perfScan = android.os.SystemClock.uptimeMillis();
+            loadPerf("showEpisodes scan done | sections=" + biliVideoDetail.sectionInfoList.size()
+                    + " | episodes=" + totalEpisodesCount
+                    + " | currentSectionIndex=" + currentVideoSectionIndex
+                    + " | scanCost=" + (perfScan - perfT0) + "ms");
             int totalSections = biliVideoDetail.sectionInfoList.size();
-            for (int displayIndex = 0; displayIndex < sortedIndices.size(); displayIndex++) {
-                int originalIndex = sortedIndices.get(displayIndex);
-                BiliVideoDetail.SectionInfo sectionInfo = biliVideoDetail.sectionInfoList.get(originalIndex);
-                createSeasonSectionView(sectionInfo, displayIndex, totalSections, biliVideoDetail);
+            // 取消上一次加载遗留的分区补建任务，避免重复/串台
+            cancelPendingSectionBuilds();
+            // 首帧只创建当前视频所在分区（sortedIndices 首位），保证首屏内容尽快出现；
+            // 其余分区在首帧之后逐帧补建，避免一帧内测量/布局数十张卡片（合集多时可达 1s+）。
+            if (!sortedIndices.isEmpty()) {
+                int firstOriginalIndex = sortedIndices.get(0);
+                createSeasonSectionView(biliVideoDetail.sectionInfoList.get(firstOriginalIndex), 0, totalSections, biliVideoDetail);
             }
+            if (sortedIndices.size() > 1) {
+                final List<Integer> sorted = sortedIndices;
+                final int total = totalSections;
+                final BiliVideoDetail detail = biliVideoDetail;
+                scheduleRemainingSectionBuilds(sortedIndices.size(), new SectionBuildTask() {
+                    @Override
+                    public void buildSection(int index) {
+                        createSeasonSectionView(detail.sectionInfoList.get(sorted.get(index)), index, total, detail);
+                    }
+                });
+            }
+            loadPerf("showEpisodes done | total=" + (android.os.SystemClock.uptimeMillis() - perfT0) + "ms"
+                    + " | sectionsNow=1/" + sortedIndices.size());
         }
         
         private void createSeasonSectionView(BiliVideoDetail.SectionInfo sectionInfo, int sectionIndex, int totalSections, BiliVideoDetail biliVideoDetail) {
@@ -5766,7 +5951,10 @@ public final class VideoDetailActivity extends BaseActivity
                 return;
             }
 
+            long perfT0 = android.os.SystemClock.uptimeMillis();
+            int perfEpCount = sectionInfo.episodes.size();
             com.bilibili.tv.ui.video.widget.VideoListSection section = new com.bilibili.tv.ui.video.widget.VideoListSection(VideoDetailActivity.this);
+            long perfCreated = android.os.SystemClock.uptimeMillis();
             final int sectionId = sectionInfo.id;
             section.setSectionId(sectionId);
             section.setShowIndexBadge(true);
@@ -5780,39 +5968,47 @@ public final class VideoDetailActivity extends BaseActivity
             }
             section.setTitle(displayTitle, totalEpisodes);
 
+            long perfParseStart = android.os.SystemClock.uptimeMillis();
             List<Object> list = new ArrayList<Object>();
-            for (int i = 0; i < sectionInfo.episodes.size(); i++) {
-                JSONObject episodeObj = sectionInfo.episodes.getJSONObject(i);
-                BiliVideoDetail t = JSON.parseObject(
-                        episodeObj.getJSONObject("arc").toString(),
-                        BiliVideoDetail.class);
-                
-                JSONObject arcObj = episodeObj.getJSONObject("arc");
-                if (arcObj != null) {
-                    JSONObject authorObj = arcObj.getJSONObject("author");
-                    if (authorObj != null) {
-                        BiliUser author = JSON.parseObject(authorObj.toString(), BiliUser.class);
-                        t.mOwner = author;
+            if (sectionInfo.parsedEpisodes != null) {
+                // 解析器工作线程已预解析，主线程只做引用拷贝（避免逐集 JSON 二次解析卡 UI 线程）
+                list.addAll(sectionInfo.parsedEpisodes);
+            } else {
+                for (int i = 0; i < sectionInfo.episodes.size(); i++) {
+                    JSONObject episodeObj = sectionInfo.episodes.getJSONObject(i);
+                    BiliVideoDetail t = JSON.parseObject(
+                            episodeObj.getJSONObject("arc").toString(),
+                            BiliVideoDetail.class);
+
+                    JSONObject arcObj = episodeObj.getJSONObject("arc");
+                    if (arcObj != null) {
+                        JSONObject authorObj = arcObj.getJSONObject("author");
+                        if (authorObj != null) {
+                            BiliUser author = JSON.parseObject(authorObj.toString(), BiliUser.class);
+                            t.mOwner = author;
+                        }
                     }
-                }
-                
-                JSONObject badgeInfo = episodeObj.getJSONObject("badge_info");
-                if (badgeInfo != null) {
-                    String badgeText = badgeInfo.getString("text");
-                    String badgeBgColor = badgeInfo.getString("bg_color");
-                    if (badgeText != null && !badgeText.isEmpty()) {
-                        t.badgeText = badgeText;
-                        t.badgeBgColor = badgeBgColor;
+
+                    JSONObject badgeInfo = episodeObj.getJSONObject("badge_info");
+                    if (badgeInfo != null) {
+                        String badgeText = badgeInfo.getString("text");
+                        String badgeBgColor = badgeInfo.getString("bg_color");
+                        if (badgeText != null && !badgeText.isEmpty()) {
+                            t.badgeText = badgeText;
+                            t.badgeBgColor = badgeBgColor;
+                        }
                     }
+
+                    list.add(t);
                 }
-                
-                list.add(t);
             }
 
+            long perfParsed = android.os.SystemClock.uptimeMillis();
             com.bilibili.tv.ui.video.widget.UnifiedVideoCardBinder binder = new com.bilibili.tv.ui.video.widget.UnifiedVideoCardBinder(3);
             section.setData(list, binder);
             section.setCurrentVideoId(VideoDetailActivity.this.s);
             section.syncAdapterCurrentState();
+            long perfData = android.os.SystemClock.uptimeMillis();
 
             section.setOnVideoClickListener(new com.bilibili.tv.ui.video.widget.VideoListSection.OnVideoClickListener() {
                 @Override
@@ -5844,11 +6040,21 @@ public final class VideoDetailActivity extends BaseActivity
                 videoListNavigator.registerSection(section);
             }
 
+            long perfScroll = android.os.SystemClock.uptimeMillis();
             section.scrollToCurrentVideo();
 
+            long perfNav = android.os.SystemClock.uptimeMillis();
             setupNavigationTagsForSection(section, totalEpisodes);
 
             VideoDetailActivity.this.seasonsContainer.addView(section);
+            loadPerf("section[" + sectionIndex + "/" + totalSections + "] \"" + sectionInfo.title + "\" eps=" + perfEpCount
+                    + " | createView=" + (perfCreated - perfT0) + "ms"
+                    + " | jsonParse=" + (perfParsed - perfParseStart) + "ms"
+                    + " | setData=" + (perfData - perfParsed) + "ms"
+                    + " | scroll=" + (perfScroll - perfData) + "ms"
+                    + " | navTags=" + (perfNav - perfScroll) + "ms"
+                    + " | addView=" + (android.os.SystemClock.uptimeMillis() - perfNav) + "ms"
+                    + " | total=" + (android.os.SystemClock.uptimeMillis() - perfT0) + "ms");
         }
 
         private final void c(BiliVideoDetail biliVideoDetail) {
@@ -5869,6 +6075,8 @@ public final class VideoDetailActivity extends BaseActivity
                 return;
             }
 
+            long perfT0 = android.os.SystemClock.uptimeMillis();
+            loadPerf("related section build start | count=" + relatedList.size());
             if (seasonsContainer.getVisibility() != View.VISIBLE) {
                 seasonsContainer.setVisibility(View.VISIBLE);
             }
@@ -6021,6 +6229,8 @@ public final class VideoDetailActivity extends BaseActivity
             if (VideoDetailActivity.this.r != null) {
                 VideoDetailActivity.this.r.setVisibility(8);
             }
+            loadPerf("related section build done | cost=" + (android.os.SystemClock.uptimeMillis() - perfT0) + "ms"
+                    + " | sectionsContainerChildCount=" + seasonsContainer.getChildCount());
         }
 
         private final void d(BiliVideoDetail biliVideoDetail) {
@@ -6055,6 +6265,8 @@ public final class VideoDetailActivity extends BaseActivity
                 return;
             }
 
+            long perfT0 = android.os.SystemClock.uptimeMillis();
+            loadPerf("ugcEpisodes section build start | pages=" + biliVideoDetail.mPageList.size());
             if (seasonsContainer.getVisibility() != View.VISIBLE) {
                 seasonsContainer.setVisibility(View.VISIBLE);
             }
@@ -6130,6 +6342,9 @@ public final class VideoDetailActivity extends BaseActivity
             if (o != null) {
                 o.setVisibility(8);
             }
+            loadPerf("ugcEpisodes section build done | cost=" + (android.os.SystemClock.uptimeMillis() - perfT0) + "ms"
+                    + " | pages=" + totalPages
+                    + " | sectionsContainerChildCount=" + seasonsContainer.getChildCount());
         }
 
         private BiliVideoDetail convertUgcPageToBiliVideoDetail(BiliVideoDetail.Page page, BiliVideoDetail mainVideo) {

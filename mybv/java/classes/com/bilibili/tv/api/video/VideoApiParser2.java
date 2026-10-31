@@ -89,7 +89,11 @@ public class VideoApiParser2 implements vu<GeneralResponse<BiliVideoDetail>> {
                                 JSONArray sectionEpisodes = sectionObj.getJSONArray("episodes");
                                 int sectionId = sectionObj.getIntValue("id");
                                 int sectionType = sectionObj.getIntValue("type");
-                                r1.sectionInfoList.add(new BiliVideoDetail.SectionInfo(sectionTitle, sectionEpisodes, sectionId, sectionType));
+                                BiliVideoDetail.SectionInfo sectionInfo =
+                                        new BiliVideoDetail.SectionInfo(sectionTitle, sectionEpisodes, sectionId, sectionType);
+                                // 与 VideoApiParser3 保持一致：工作线程预解析每集数据
+                                sectionInfo.parsedEpisodes = BiliVideoDetail.SectionInfo.parseEpisodes(sectionEpisodes);
+                                r1.sectionInfoList.add(sectionInfo);
                             }
                         }
                     }

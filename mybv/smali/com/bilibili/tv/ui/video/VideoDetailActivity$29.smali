@@ -3,12 +3,12 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Landroid/view/View$OnFocusChangeListener;
+.implements Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->addStaffView(Landroid/widget/LinearLayout;Ljava/lang/String;JLjava/lang/String;II)V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->loadPgcInfo(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,17 +20,11 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-.field final synthetic val$hasMultipleStaff:Z
-
-.field final synthetic val$isFirstStaff:Z
-
-.field final synthetic val$staffView:Lcom/bilibili/tv/widget/DrawTextView;
-
-.field final synthetic val$wrapper:Lcom/bilibili/tv/widget/DrawLinearLayout;
+.field final synthetic val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/widget/DrawLinearLayout;ZZLcom/bilibili/tv/widget/DrawTextView;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
     .locals 0
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -39,16 +33,10 @@
     .end annotation
 
     .prologue
-    .line 3252
+    .line 3038
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->val$wrapper:Lcom/bilibili/tv/widget/DrawLinearLayout;
-
-    iput-boolean p3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->val$hasMultipleStaff:Z
-
-    iput-boolean p4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->val$isFirstStaff:Z
-
-    iput-object p5, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->val$staffView:Lcom/bilibili/tv/widget/DrawTextView;
+    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -57,41 +45,73 @@
 
 
 # virtual methods
-.method public onFocusChange(Landroid/view/View;Z)V
-    .locals 2
+.method public onError(Ljava/lang/String;)V
+    .locals 0
 
     .prologue
-    .line 3255
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->val$wrapper:Lcom/bilibili/tv/widget/DrawLinearLayout;
+    .line 3117
+    return-void
+.end method
 
-    invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setUpEnabled(Z)V
+.method public onSuccess(Lcom/bilibili/tv/api/video/PgcInfo;)V
+    .locals 3
 
-    .line 3256
-    iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->val$hasMultipleStaff:Z
+    .prologue
+    const/4 v0, 0x1
 
-    if-eqz v0, :cond_15
+    .line 3041
+    if-nez p1, :cond_4
 
-    iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->val$isFirstStaff:Z
-
-    if-nez v0, :cond_15
-
-    .line 3257
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->val$staffView:Lcom/bilibili/tv/widget/DrawTextView;
-
-    if-eqz p2, :cond_16
-
-    const/4 v0, 0x0
-
-    :goto_12
-    invoke-virtual {v1, v0}, Lcom/bilibili/tv/widget/DrawTextView;->setVisibility(I)V
-
-    .line 3259
-    :cond_15
+    .line 3113
+    :goto_3
     return-void
 
-    .line 3257
-    :cond_16
-    const/16 v0, 0x8
+    .line 3044
+    :cond_4
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    goto :goto_12
+    # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->mPgcInfo:Lcom/bilibili/tv/api/video/PgcInfo;
+    invoke-static {v1, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3002(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/PgcInfo;)Lcom/bilibili/tv/api/video/PgcInfo;
+
+    .line 3045
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    iget-object v2, p1, Lcom/bilibili/tv/api/video/PgcInfo;->userStatus:Lcom/bilibili/tv/api/video/PgcInfo$UserStatus;
+
+    if-eqz v2, :cond_2a
+
+    iget-object v2, p1, Lcom/bilibili/tv/api/video/PgcInfo;->userStatus:Lcom/bilibili/tv/api/video/PgcInfo$UserStatus;
+
+    iget v2, v2, Lcom/bilibili/tv/api/video/PgcInfo$UserStatus;->follow:I
+
+    if-ne v2, v0, :cond_2a
+
+    :goto_15
+    # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isPgcFollowed:Z
+    invoke-static {v1, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3102(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Z)Z
+
+    .line 3046
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateBiliVideoDetailWithPgcInfo(Lcom/bilibili/tv/api/video/BiliVideoDetail;Lcom/bilibili/tv/api/video/PgcInfo;)V
+    invoke-static {v0, v1, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$4200(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;Lcom/bilibili/tv/api/video/PgcInfo;)V
+
+    .line 3047
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29$1;
+
+    invoke-direct {v1, p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29$1;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;Lcom/bilibili/tv/api/video/PgcInfo;)V
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->runOnUiThread(Ljava/lang/Runnable;)V
+
+    goto :goto_3
+
+    .line 3045
+    :cond_2a
+    const/4 v0, 0x0
+
+    goto :goto_15
 .end method

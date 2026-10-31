@@ -35,7 +35,7 @@
     .end annotation
 
     .prologue
-    .line 259
+    .line 265
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$2;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$2;->val$tagPos:I
@@ -53,10 +53,10 @@
     .locals 3
 
     .prologue
-    .line 262
+    .line 268
     if-eqz p2, :cond_17
 
-    .line 263
+    .line 269
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$2;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->listener:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$OnTagFocusListener;
@@ -66,7 +66,7 @@
 
     if-eqz v0, :cond_17
 
-    .line 264
+    .line 270
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$2;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->listener:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$OnTagFocusListener;
@@ -80,7 +80,7 @@
 
     invoke-interface {v0, v1, v2}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$OnTagFocusListener;->onTagFocus(II)V
 
-    .line 267
+    .line 273
     :cond_17
     return-void
 .end method

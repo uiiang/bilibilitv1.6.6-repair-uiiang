@@ -88,7 +88,7 @@
     .locals 1
 
     .prologue
-    .line 739
+    .line 786
     new-instance v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo$1;-><init>()V
@@ -102,10 +102,10 @@
     .locals 0
 
     .prologue
-    .line 782
+    .line 829
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 783
+    .line 830
     return-void
 .end method
 
@@ -113,24 +113,24 @@
     .locals 1
 
     .prologue
-    .line 785
+    .line 832
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 786
+    .line 833
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo;->mSeasonId:Ljava/lang/String;
 
-    .line 787
+    .line 834
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo;->mTitle:Ljava/lang/String;
 
-    .line 788
+    .line 835
     return-void
 .end method
 
@@ -140,7 +140,7 @@
     .locals 1
 
     .prologue
-    .line 773
+    .line 820
     const/4 v0, 0x0
 
     return v0
@@ -152,7 +152,7 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 791
+    .line 838
     iget v1, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo;->mIsFinish:I
 
     if-ne v1, v0, :cond_6
@@ -170,16 +170,16 @@
     .locals 1
 
     .prologue
-    .line 778
+    .line 825
     iget-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo;->mSeasonId:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 779
+    .line 826
     iget-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo;->mTitle:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 780
+    .line 827
     return-void
 .end method

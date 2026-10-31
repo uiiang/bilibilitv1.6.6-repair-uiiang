@@ -37,7 +37,7 @@
     .end annotation
 
     .prologue
-    .line 169
+    .line 175
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$1;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$1;->val$finalOldSelected:I
@@ -57,7 +57,7 @@
     .locals 2
 
     .prologue
-    .line 172
+    .line 178
     iget v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$1;->val$finalOldSelected:I
 
     if-ltz v0, :cond_11
@@ -68,14 +68,14 @@
 
     if-ge v0, v1, :cond_11
 
-    .line 173
+    .line 179
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$1;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     iget v1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$1;->val$finalOldSelected:I
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->c(I)V
 
-    .line 175
+    .line 181
     :cond_11
     iget v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$1;->val$finalPosition:I
 
@@ -87,14 +87,14 @@
 
     if-ge v0, v1, :cond_22
 
-    .line 176
+    .line 182
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$1;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     iget v1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$1;->val$finalPosition:I
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->c(I)V
 
-    .line 178
+    .line 184
     :cond_22
     return-void
 .end method

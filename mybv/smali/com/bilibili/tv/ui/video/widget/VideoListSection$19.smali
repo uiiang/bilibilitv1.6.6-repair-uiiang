@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 1213
+    .line 1224
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$19;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$19;->val$targetPosition:I
@@ -49,7 +49,7 @@
     .locals 2
 
     .prologue
-    .line 1216
+    .line 1227
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$19;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     iget v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$19;->val$targetPosition:I
@@ -57,6 +57,6 @@
     # invokes: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->restoreFocusWithRetry(I)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$3000(Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)V
 
-    .line 1217
+    .line 1228
     return-void
 .end method

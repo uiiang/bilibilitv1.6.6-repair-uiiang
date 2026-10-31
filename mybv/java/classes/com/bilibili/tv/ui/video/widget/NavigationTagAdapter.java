@@ -69,12 +69,15 @@ public class NavigationTagAdapter extends RecyclerView.a<NavigationTagAdapter.Ta
     }
 
     public void setTags(int totalCount, int groupSize, NavigationTagBinder binder) {
+        long perfStart = android.os.SystemClock.uptimeMillis();
         this.groupSize = groupSize;
         this.tagBinder = binder;
 
         tags.clear();
         if (totalCount <= groupSize) {
             d();
+            android.util.Log.i("LoadPerf", "[navTag] setTags total=" + totalCount + " <= groupSize=" + groupSize
+                    + " | notify=" + (android.os.SystemClock.uptimeMillis() - perfStart) + "ms");
             return;
         }
 
@@ -94,6 +97,9 @@ public class NavigationTagAdapter extends RecyclerView.a<NavigationTagAdapter.Ta
 
         selectedPosition = -1;
         d();
+        android.util.Log.i("LoadPerf", "[navTag] setTags total=" + totalCount + " | groupSize=" + groupSize
+                + " | tagCount=" + tags.size()
+                + " | notify=" + (android.os.SystemClock.uptimeMillis() - perfStart) + "ms");
     }
 
     public void setCustomTags(java.util.List<TagItem> customTags, int groupSize) {
