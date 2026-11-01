@@ -35,7 +35,7 @@
     .end annotation
 
     .prologue
-    .line 874
+    .line 843
     iput-object p1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchLiveRoomResponse$2;->this$1:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchLiveRoomResponse;
 
     iput p2, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchLiveRoomResponse$2;->val$code:I
@@ -55,12 +55,12 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 877
+    .line 846
     iget v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchLiveRoomResponse$2;->val$code:I
 
     if-nez v0, :cond_f
 
-    .line 878
+    .line 847
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchLiveRoomResponse$2;->this$1:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchLiveRoomResponse;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchLiveRoomResponse;->this$0:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
@@ -70,11 +70,11 @@
     # invokes: Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->handleLiveRoomResponse(Lcom/alibaba/fastjson/JSONObject;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->access$800(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;Lcom/alibaba/fastjson/JSONObject;)V
 
-    .line 883
+    .line 852
     :goto_e
     return-void
 
-    .line 880
+    .line 849
     :cond_f
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchLiveRoomResponse$2;->this$1:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchLiveRoomResponse;
 
@@ -83,7 +83,7 @@
     # setter for: Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->isLoading:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->access$002(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;Z)Z
 
-    .line 881
+    .line 850
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchLiveRoomResponse$2;->this$1:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchLiveRoomResponse;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchLiveRoomResponse;->this$0:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;

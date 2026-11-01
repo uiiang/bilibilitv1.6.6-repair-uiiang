@@ -136,9 +136,65 @@ public class WbiSigner {
         return mixin.toString();
     }
 
+    public interface WbiSignCallback {
+        void onSignReady(String signedQuery);
+
+        void onSignError(Exception e);
+    }
+
+    /**
+     * 异步签名：缓存失效时在子线程拉取 WBI 密钥，避免主线程发起网络请求
+     * 触发 NetworkOnMainThreadException 导致签名为 null、接口返回 -400。
+     * 回调统一 post 到主线程，可安全操作 UI。
+     */
+    public void signAsync(TreeMap<String, String> params, final WbiSignCallback callback) {
+        final TreeMap<String, String> requestParams = new TreeMap<>(params);
+
+        if (mixinKey != null && System.currentTimeMillis() - lastUpdateTime < CACHE_DURATION) {
+            final String query = sign(requestParams, mixinKey);
+            mainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onSignReady(query);
+                }
+            });
+            return;
+        }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // 单飞模式：多线程并发首次获取WBI密钥时，只允许一个线程执行拉取
+                final String query;
+                synchronized (WbiSigner.this) {
+                    if (mixinKey == null || System.currentTimeMillis() - lastUpdateTime > CACHE_DURATION) {
+                        if (!updateKeysBlocking()) {
+                            Log.e(TAG, "Failed to get WBI keys (async)");
+                            mainHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    callback.onSignError(new Exception("Failed to update WBI keys"));
+                                }
+                            });
+                            return;
+                        }
+                    }
+                    query = sign(requestParams, mixinKey);
+                }
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onSignReady(query);
+                    }
+                });
+            }
+        }).start();
+    }
+
     public String encWbiAndGetQuery(TreeMap<String, String> params) {
         // 单飞模式：多线程并发首次获取WBI密钥时，只允许一个线程执行拉取，
         // 其余线程等待锁释放后直接复用缓存密钥，避免多分P并发下载时重复请求nav接口导致部分失败
+        // 注意：本方法会在调用线程发起网络请求，禁止在主线程调用，主线程请使用 signAsync
         synchronized (this) {
             if (mixinKey == null || System.currentTimeMillis() - lastUpdateTime > CACHE_DURATION) {
                 if (!updateKeysBlocking()) {
@@ -154,6 +210,10 @@ public class WbiSigner {
             return null;
         }
 
+        return sign(params, currentMixinKey);
+    }
+
+    private String sign(TreeMap<String, String> params, String currentMixinKey) {
         TreeMap<String, String> signed = new TreeMap<>();
         signed.putAll(params);
 

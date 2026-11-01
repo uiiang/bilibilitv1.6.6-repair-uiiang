@@ -6,7 +6,8 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lmybl/WbiSigner$WbiKeyCallback;
+        Lmybl/WbiSigner$WbiKeyCallback;,
+        Lmybl/WbiSigner$WbiSignCallback;
     }
 .end annotation
 
@@ -165,20 +166,42 @@
     return-object v0
 .end method
 
+.method static synthetic access$200(Lmybl/WbiSigner;)J
+    .locals 2
+
+    .prologue
+    .line 15
+    iget-wide v0, p0, Lmybl/WbiSigner;->lastUpdateTime:J
+
+    return-wide v0
+.end method
+
+.method static synthetic access$300(Lmybl/WbiSigner;Ljava/util/TreeMap;Ljava/lang/String;)Ljava/lang/String;
+    .locals 1
+
+    .prologue
+    .line 15
+    invoke-direct {p0, p1, p2}, Lmybl/WbiSigner;->sign(Ljava/util/TreeMap;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
 .method private encodeURIComponent(Ljava/lang/String;)Ljava/lang/String;
     .locals 3
 
     .prologue
-    .line 208
+    .line 268
     if-nez p1, :cond_5
 
     const-string p1, ""
 
-    .line 219
+    .line 279
     :goto_4
     return-object p1
 
-    .line 210
+    .line 270
     :cond_5
     :try_start_5
     const-string v0, "UTF-8"
@@ -191,7 +214,7 @@
 
     const-string v2, "%20"
 
-    .line 211
+    .line 271
     invoke-virtual {v0, v1, v2}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
 
     move-result-object v0
@@ -200,7 +223,7 @@
 
     const-string v2, "%2A"
 
-    .line 212
+    .line 272
     invoke-virtual {v0, v1, v2}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
 
     move-result-object v0
@@ -209,7 +232,7 @@
 
     const-string v2, "!"
 
-    .line 213
+    .line 273
     invoke-virtual {v0, v1, v2}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
 
     move-result-object v0
@@ -218,7 +241,7 @@
 
     const-string v2, "\'"
 
-    .line 214
+    .line 274
     invoke-virtual {v0, v1, v2}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
 
     move-result-object v0
@@ -227,7 +250,7 @@
 
     const-string v2, "("
 
-    .line 215
+    .line 275
     invoke-virtual {v0, v1, v2}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
 
     move-result-object v0
@@ -236,7 +259,7 @@
 
     const-string v2, ")"
 
-    .line 216
+    .line 276
     invoke-virtual {v0, v1, v2}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
 
     move-result-object v0
@@ -245,7 +268,7 @@
 
     const-string v2, "~"
 
-    .line 217
+    .line 277
     invoke-virtual {v0, v1, v2}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
     :try_end_42
     .catch Ljava/lang/Exception; {:try_start_5 .. :try_end_42} :catch_44
@@ -254,7 +277,7 @@
 
     goto :goto_4
 
-    .line 218
+    .line 278
     :catch_44
     move-exception v0
 
@@ -321,44 +344,44 @@
     .prologue
     const/16 v2, 0x1388
 
-    .line 243
+    .line 303
     new-instance v0, Ljava/net/URL;
 
     invoke-direct {v0, p1}, Ljava/net/URL;-><init>(Ljava/lang/String;)V
 
-    .line 244
+    .line 304
     invoke-virtual {v0}, Ljava/net/URL;->openConnection()Ljava/net/URLConnection;
 
     move-result-object v0
 
     check-cast v0, Ljava/net/HttpURLConnection;
 
-    .line 245
+    .line 305
     const-string v1, "GET"
 
     invoke-virtual {v0, v1}, Ljava/net/HttpURLConnection;->setRequestMethod(Ljava/lang/String;)V
 
-    .line 246
+    .line 306
     invoke-virtual {v0, v2}, Ljava/net/HttpURLConnection;->setConnectTimeout(I)V
 
-    .line 247
+    .line 307
     invoke-virtual {v0, v2}, Ljava/net/HttpURLConnection;->setReadTimeout(I)V
 
-    .line 248
+    .line 308
     const-string v1, "User-Agent"
 
     const-string v2, "Mozilla/5.0 (Linux; Android 9; Redmi 6 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.147 Mobile Safari/537.36"
 
     invoke-virtual {v0, v1, v2}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 249
+    .line 309
     const-string v1, "Referer"
 
     const-string v2, "https://www.bilibili.com/"
 
     invoke-virtual {v0, v1, v2}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 251
+    .line 311
     new-instance v1, Ljava/io/BufferedReader;
 
     new-instance v2, Ljava/io/InputStreamReader;
@@ -373,12 +396,12 @@
 
     invoke-direct {v1, v2}, Ljava/io/BufferedReader;-><init>(Ljava/io/Reader;)V
 
-    .line 252
+    .line 312
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 254
+    .line 314
     :goto_3b
     invoke-virtual {v1}, Ljava/io/BufferedReader;->readLine()Ljava/lang/String;
 
@@ -386,16 +409,16 @@
 
     if-eqz v2, :cond_45
 
-    .line 255
+    .line 315
     invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     goto :goto_3b
 
-    .line 257
+    .line 317
     :cond_45
     invoke-virtual {v1}, Ljava/io/BufferedReader;->close()V
 
-    .line 258
+    .line 318
     invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v0
@@ -407,12 +430,12 @@
     .locals 2
 
     .prologue
-    .line 203
+    .line 263
     if-nez p1, :cond_5
 
     const-string v0, ""
 
-    .line 204
+    .line 264
     :goto_4
     return-object v0
 
@@ -514,7 +537,7 @@
     .locals 7
 
     .prologue
-    .line 225
+    .line 285
     :try_start_0
     const-string v0, "MD5"
 
@@ -522,7 +545,7 @@
 
     move-result-object v0
 
-    .line 226
+    .line 286
     const-string v1, "UTF-8"
 
     invoke-virtual {p1, v1}, Ljava/lang/String;->getBytes(Ljava/lang/String;)[B
@@ -533,12 +556,12 @@
 
     move-result-object v1
 
-    .line 227
+    .line 287
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 228
+    .line 288
     array-length v3, v1
 
     const/4 v0, 0x0
@@ -548,14 +571,14 @@
 
     aget-byte v4, v1, v0
 
-    .line 229
+    .line 289
     and-int/lit16 v4, v4, 0xff
 
     invoke-static {v4}, Ljava/lang/Integer;->toHexString(I)Ljava/lang/String;
 
     move-result-object v4
 
-    .line 230
+    .line 290
     invoke-virtual {v4}, Ljava/lang/String;->length()I
 
     move-result v5
@@ -564,21 +587,21 @@
 
     if-ne v5, v6, :cond_2d
 
-    .line 231
+    .line 291
     const/16 v5, 0x30
 
     invoke-virtual {v2, v5}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
 
-    .line 233
+    .line 293
     :cond_2d
     invoke-virtual {v2, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 228
+    .line 288
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_17
 
-    .line 235
+    .line 295
     :cond_33
     invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
     :try_end_36
@@ -586,49 +609,29 @@
 
     move-result-object v0
 
-    .line 238
+    .line 298
     :goto_37
     return-object v0
 
-    .line 236
+    .line 296
     :catch_38
     move-exception v0
 
-    .line 237
+    .line 297
     const-string v1, "WbiSigner"
 
     const-string v2, "MD5 error"
 
     invoke-static {v1, v2, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    .line 238
+    .line 298
     const-string v0, ""
 
     goto :goto_37
 .end method
 
-
-# virtual methods
-.method public clearCache()V
-    .locals 2
-
-    .prologue
-    .line 262
-    const/4 v0, 0x0
-
-    iput-object v0, p0, Lmybl/WbiSigner;->mixinKey:Ljava/lang/String;
-
-    .line 263
-    const-wide/16 v0, 0x0
-
-    iput-wide v0, p0, Lmybl/WbiSigner;->lastUpdateTime:J
-
-    .line 264
-    return-void
-.end method
-
-.method public encWbiAndGetQuery(Ljava/util/TreeMap;)Ljava/lang/String;
-    .locals 13
+.method private sign(Ljava/util/TreeMap;Ljava/lang/String;)Ljava/lang/String;
+    .locals 12
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
@@ -636,234 +639,156 @@
             "<",
             "Ljava/lang/String;",
             "Ljava/lang/String;",
-            ">;)",
+            ">;",
+            "Ljava/lang/String;",
+            ")",
             "Ljava/lang/String;"
         }
     .end annotation
 
     .prologue
-    const/4 v0, 0x0
-
     const/4 v3, 0x1
 
     const/4 v4, 0x0
 
-    .line 142
-    monitor-enter p0
+    .line 217
+    new-instance v5, Ljava/util/TreeMap;
 
-    .line 143
-    :try_start_4
-    iget-object v1, p0, Lmybl/WbiSigner;->mixinKey:Ljava/lang/String;
+    invoke-direct {v5}, Ljava/util/TreeMap;-><init>()V
 
-    if-eqz v1, :cond_16
+    .line 218
+    invoke-virtual {v5, p1}, Ljava/util/TreeMap;->putAll(Ljava/util/Map;)V
 
-    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
-
-    move-result-wide v6
-
-    iget-wide v8, p0, Lmybl/WbiSigner;->lastUpdateTime:J
-
-    sub-long/2addr v6, v8
-
-    const-wide/32 v8, 0x36ee80
-
-    cmp-long v1, v6, v8
-
-    if-lez v1, :cond_25
-
-    .line 144
-    :cond_16
-    invoke-virtual {p0}, Lmybl/WbiSigner;->updateKeysBlocking()Z
-
-    move-result v1
-
-    if-nez v1, :cond_25
-
-    .line 145
-    const-string v1, "WbiSigner"
-
-    const-string v2, "Failed to get WBI keys"
-
-    invoke-static {v1, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 146
-    monitor-exit p0
-
-    .line 199
-    :goto_24
-    return-object v0
-
-    .line 149
-    :cond_25
-    monitor-exit p0
-    :try_end_26
-    .catchall {:try_start_4 .. :try_end_26} :catchall_32
-
-    .line 151
-    iget-object v5, p0, Lmybl/WbiSigner;->mixinKey:Ljava/lang/String;
-
-    .line 152
-    if-nez v5, :cond_35
-
-    .line 153
-    const-string v1, "WbiSigner"
-
-    const-string v2, "mixinKey is still null"
-
-    invoke-static {v1, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
-
-    goto :goto_24
-
-    .line 149
-    :catchall_32
-    move-exception v0
-
-    :try_start_33
-    monitor-exit p0
-    :try_end_34
-    .catchall {:try_start_33 .. :try_end_34} :catchall_32
-
-    throw v0
-
-    .line 157
-    :cond_35
-    new-instance v6, Ljava/util/TreeMap;
-
-    invoke-direct {v6}, Ljava/util/TreeMap;-><init>()V
-
-    .line 158
-    invoke-virtual {v6, p1}, Ljava/util/TreeMap;->putAll(Ljava/util/Map;)V
-
-    .line 160
+    .line 220
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v0
 
-    const-wide/16 v8, 0x3e8
+    const-wide/16 v6, 0x3e8
 
-    div-long/2addr v0, v8
+    div-long/2addr v0, v6
 
-    .line 161
+    .line 221
     const-string v2, "wts"
 
     invoke-static {v0, v1}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
 
     move-result-object v0
 
-    invoke-virtual {v6, v2, v0}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-virtual {v5, v2, v0}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 163
-    new-instance v7, Ljava/lang/StringBuilder;
+    .line 223
+    new-instance v6, Ljava/lang/StringBuilder;
 
-    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 165
-    invoke-virtual {v6}, Ljava/util/TreeMap;->keySet()Ljava/util/Set;
+    .line 225
+    invoke-virtual {v5}, Ljava/util/TreeMap;->keySet()Ljava/util/Set;
 
     move-result-object v0
 
     invoke-interface {v0}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
 
-    move-result-object v8
+    move-result-object v7
 
     move v2, v3
 
-    :goto_5b
-    invoke-interface {v8}, Ljava/util/Iterator;->hasNext()Z
+    :goto_28
+    invoke-interface {v7}, Ljava/util/Iterator;->hasNext()Z
 
     move-result v0
 
-    if-eqz v0, :cond_b5
+    if-eqz v0, :cond_82
 
-    invoke-interface {v8}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    invoke-interface {v7}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
     move-result-object v0
 
     check-cast v0, Ljava/lang/String;
 
-    .line 166
-    invoke-virtual {v6, v0}, Ljava/util/TreeMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
+    .line 226
+    invoke-virtual {v5, v0}, Ljava/util/TreeMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
 
     move-result-object v1
 
     check-cast v1, Ljava/lang/String;
 
-    .line 167
+    .line 227
     invoke-direct {p0, v1}, Lmybl/WbiSigner;->filterSpecialChars(Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v9
+    move-result-object v8
 
-    .line 169
-    :try_start_71
+    .line 229
+    :try_start_3e
     invoke-direct {p0, v0}, Lmybl/WbiSigner;->encodeURIComponent(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 170
-    invoke-direct {p0, v9}, Lmybl/WbiSigner;->encodeURIComponent(Ljava/lang/String;)Ljava/lang/String;
+    .line 230
+    invoke-direct {p0, v8}, Lmybl/WbiSigner;->encodeURIComponent(Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v10
+    move-result-object v9
 
-    .line 171
-    if-nez v2, :cond_80
+    .line 231
+    if-nez v2, :cond_4d
 
-    .line 172
-    const-string v11, "&"
+    .line 232
+    const-string v10, "&"
 
-    invoke-virtual {v7, v11}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v6, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 174
-    :cond_80
-    invoke-virtual {v7, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v11, "="
-
-    invoke-virtual {v1, v11}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    .line 234
+    :cond_4d
+    invoke-virtual {v6, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
+
+    const-string v10, "="
 
     invoke-virtual {v1, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    :try_end_8d
-    .catch Ljava/lang/Exception; {:try_start_71 .. :try_end_8d} :catch_90
+
+    move-result-object v1
+
+    invoke-virtual {v1, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    :try_end_5a
+    .catch Ljava/lang/Exception; {:try_start_3e .. :try_end_5a} :catch_5d
 
     move v0, v4
 
-    :goto_8e
+    :goto_5b
     move v2, v0
 
-    .line 179
-    goto :goto_5b
+    .line 239
+    goto :goto_28
 
-    .line 176
-    :catch_90
+    .line 236
+    :catch_5d
     move-exception v1
 
-    .line 177
-    const-string v10, "WbiSigner"
+    .line 237
+    const-string v9, "WbiSigner"
 
-    new-instance v11, Ljava/lang/StringBuilder;
+    new-instance v10, Ljava/lang/StringBuilder;
 
-    invoke-direct {v11}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v10}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v12, "Error encoding: "
+    const-string v11, "Error encoding: "
 
-    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v10, v11}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v11
+    move-result-object v10
 
-    invoke-virtual {v11, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    const-string v11, "="
-
-    invoke-virtual {v0, v11}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v10, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
-    invoke-virtual {v0, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    const-string v10, "="
+
+    invoke-virtual {v0, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
@@ -871,19 +796,19 @@
 
     move-result-object v0
 
-    invoke-static {v10, v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+    invoke-static {v9, v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
     move v0, v2
 
-    goto :goto_8e
+    goto :goto_5b
 
-    .line 181
-    :cond_b5
+    .line 241
+    :cond_82
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v1
 
@@ -891,7 +816,7 @@
 
     move-result-object v0
 
-    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, p2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
@@ -903,18 +828,18 @@
 
     move-result-object v0
 
-    .line 182
+    .line 242
     const-string v1, "w_rid"
 
-    invoke-virtual {v6, v1, v0}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-virtual {v5, v1, v0}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 184
+    .line 244
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 186
-    invoke-virtual {v6}, Ljava/util/TreeMap;->keySet()Ljava/util/Set;
+    .line 246
+    invoke-virtual {v5}, Ljava/util/TreeMap;->keySet()Ljava/util/Set;
 
     move-result-object v0
 
@@ -922,12 +847,12 @@
 
     move-result-object v2
 
-    :goto_e0
+    :goto_ad
     invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
 
     move-result v0
 
-    if-eqz v0, :cond_119
+    if-eqz v0, :cond_e6
 
     invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
@@ -935,32 +860,32 @@
 
     check-cast v0, Ljava/lang/String;
 
-    .line 187
-    if-nez v3, :cond_f3
+    .line 247
+    if-nez v3, :cond_c0
 
-    .line 188
-    const-string v5, "&"
+    .line 248
+    const-string v6, "&"
 
-    invoke-virtual {v1, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 191
-    :cond_f3
-    :try_start_f3
+    .line 251
+    :cond_c0
+    :try_start_c0
     invoke-direct {p0, v0}, Lmybl/WbiSigner;->encodeURIComponent(Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v5
+    move-result-object v6
 
-    invoke-virtual {v1, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v5
+    move-result-object v6
 
     const-string v7, "="
 
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v5
+    move-result-object v6
 
-    invoke-virtual {v6, v0}, Ljava/util/TreeMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-virtual {v5, v0}, Ljava/util/TreeMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
 
     move-result-object v0
 
@@ -970,30 +895,30 @@
 
     move-result-object v0
 
-    invoke-virtual {v5, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    :try_end_10e
-    .catch Ljava/lang/Exception; {:try_start_f3 .. :try_end_10e} :catch_110
+    invoke-virtual {v6, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    :try_end_db
+    .catch Ljava/lang/Exception; {:try_start_c0 .. :try_end_db} :catch_dd
 
     move v3, v4
 
-    .line 195
-    goto :goto_e0
+    .line 255
+    goto :goto_ad
 
-    .line 193
-    :catch_110
+    .line 253
+    :catch_dd
     move-exception v0
 
-    .line 194
-    const-string v5, "WbiSigner"
+    .line 254
+    const-string v6, "WbiSigner"
 
     const-string v7, "Error building query"
 
-    invoke-static {v5, v7, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+    invoke-static {v6, v7, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    goto :goto_e0
+    goto :goto_ad
 
-    .line 198
-    :cond_119
+    .line 258
+    :cond_e6
     const-string v0, "WbiSigner"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1020,19 +945,142 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 199
+    .line 259
     invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v0
 
-    goto/16 :goto_24
+    return-object v0
+.end method
+
+
+# virtual methods
+.method public clearCache()V
+    .locals 2
+
+    .prologue
+    .line 322
+    const/4 v0, 0x0
+
+    iput-object v0, p0, Lmybl/WbiSigner;->mixinKey:Ljava/lang/String;
+
+    .line 323
+    const-wide/16 v0, 0x0
+
+    iput-wide v0, p0, Lmybl/WbiSigner;->lastUpdateTime:J
+
+    .line 324
+    return-void
+.end method
+
+.method public encWbiAndGetQuery(Ljava/util/TreeMap;)Ljava/lang/String;
+    .locals 6
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/util/TreeMap",
+            "<",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            ">;)",
+            "Ljava/lang/String;"
+        }
+    .end annotation
+
+    .prologue
+    const/4 v0, 0x0
+
+    .line 198
+    monitor-enter p0
+
+    .line 199
+    :try_start_2
+    iget-object v1, p0, Lmybl/WbiSigner;->mixinKey:Ljava/lang/String;
+
+    if-eqz v1, :cond_14
+
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+
+    move-result-wide v2
+
+    iget-wide v4, p0, Lmybl/WbiSigner;->lastUpdateTime:J
+
+    sub-long/2addr v2, v4
+
+    const-wide/32 v4, 0x36ee80
+
+    cmp-long v1, v2, v4
+
+    if-lez v1, :cond_23
+
+    .line 200
+    :cond_14
+    invoke-virtual {p0}, Lmybl/WbiSigner;->updateKeysBlocking()Z
+
+    move-result v1
+
+    if-nez v1, :cond_23
+
+    .line 201
+    const-string v1, "WbiSigner"
+
+    const-string v2, "Failed to get WBI keys"
+
+    invoke-static {v1, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 202
+    monitor-exit p0
+
+    .line 213
+    :goto_22
+    return-object v0
+
+    .line 205
+    :cond_23
+    monitor-exit p0
+    :try_end_24
+    .catchall {:try_start_2 .. :try_end_24} :catchall_30
+
+    .line 207
+    iget-object v1, p0, Lmybl/WbiSigner;->mixinKey:Ljava/lang/String;
+
+    .line 208
+    if-nez v1, :cond_33
+
+    .line 209
+    const-string v1, "WbiSigner"
+
+    const-string v2, "mixinKey is still null"
+
+    invoke-static {v1, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_22
+
+    .line 205
+    :catchall_30
+    move-exception v0
+
+    :try_start_31
+    monitor-exit p0
+    :try_end_32
+    .catchall {:try_start_31 .. :try_end_32} :catchall_30
+
+    throw v0
+
+    .line 213
+    :cond_33
+    invoke-direct {p0, p1, v1}, Lmybl/WbiSigner;->sign(Ljava/util/TreeMap;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    goto :goto_22
 .end method
 
 .method public getImgKey()Ljava/lang/String;
     .locals 1
 
     .prologue
-    .line 267
+    .line 327
     iget-object v0, p0, Lmybl/WbiSigner;->imgKey:Ljava/lang/String;
 
     return-object v0
@@ -1090,10 +1138,86 @@
     .locals 1
 
     .prologue
-    .line 271
+    .line 331
     iget-object v0, p0, Lmybl/WbiSigner;->subKey:Ljava/lang/String;
 
     return-object v0
+.end method
+
+.method public signAsync(Ljava/util/TreeMap;Lmybl/WbiSigner$WbiSignCallback;)V
+    .locals 6
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/util/TreeMap",
+            "<",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            ">;",
+            "Lmybl/WbiSigner$WbiSignCallback;",
+            ")V"
+        }
+    .end annotation
+
+    .prologue
+    .line 151
+    new-instance v0, Ljava/util/TreeMap;
+
+    invoke-direct {v0, p1}, Ljava/util/TreeMap;-><init>(Ljava/util/SortedMap;)V
+
+    .line 153
+    iget-object v1, p0, Lmybl/WbiSigner;->mixinKey:Ljava/lang/String;
+
+    if-eqz v1, :cond_28
+
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+
+    move-result-wide v2
+
+    iget-wide v4, p0, Lmybl/WbiSigner;->lastUpdateTime:J
+
+    sub-long/2addr v2, v4
+
+    const-wide/32 v4, 0x36ee80
+
+    cmp-long v1, v2, v4
+
+    if-gez v1, :cond_28
+
+    .line 154
+    iget-object v1, p0, Lmybl/WbiSigner;->mixinKey:Ljava/lang/String;
+
+    invoke-direct {p0, v0, v1}, Lmybl/WbiSigner;->sign(Ljava/util/TreeMap;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 155
+    iget-object v1, p0, Lmybl/WbiSigner;->mainHandler:Landroid/os/Handler;
+
+    new-instance v2, Lmybl/WbiSigner$2;
+
+    invoke-direct {v2, p0, p2, v0}, Lmybl/WbiSigner$2;-><init>(Lmybl/WbiSigner;Lmybl/WbiSigner$WbiSignCallback;Ljava/lang/String;)V
+
+    invoke-virtual {v1, v2}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
+
+    .line 192
+    :goto_27
+    return-void
+
+    .line 164
+    :cond_28
+    new-instance v1, Ljava/lang/Thread;
+
+    new-instance v2, Lmybl/WbiSigner$3;
+
+    invoke-direct {v2, p0, p2, v0}, Lmybl/WbiSigner$3;-><init>(Lmybl/WbiSigner;Lmybl/WbiSigner$WbiSignCallback;Ljava/util/TreeMap;)V
+
+    invoke-direct {v1, v2}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;)V
+
+    .line 191
+    invoke-virtual {v1}, Ljava/lang/Thread;->start()V
+
+    goto :goto_27
 .end method
 
 .method public updateKeysBlocking()Z

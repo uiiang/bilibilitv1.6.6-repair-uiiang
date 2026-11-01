@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lmybl/WbiSigner;->encWbiAndGetQuery(Ljava/util/TreeMap;)Ljava/lang/String;
+    value = Lmybl/WbiSigner;->signAsync(Ljava/util/TreeMap;Lmybl/WbiSigner$WbiSignCallback;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,22 +20,27 @@
 # instance fields
 .field final synthetic this$0:Lmybl/WbiSigner;
 
-.field final synthetic val$latch:Ljava/util/concurrent/CountDownLatch;
+.field final synthetic val$callback:Lmybl/WbiSigner$WbiSignCallback;
 
-.field final synthetic val$success:Ljava/util/concurrent/atomic/AtomicBoolean;
+.field final synthetic val$query:Ljava/lang/String;
 
 
 # direct methods
-.method constructor <init>(Lmybl/WbiSigner;Ljava/util/concurrent/atomic/AtomicBoolean;Ljava/util/concurrent/CountDownLatch;)V
+.method constructor <init>(Lmybl/WbiSigner;Lmybl/WbiSigner$WbiSignCallback;Ljava/lang/String;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
-    .line 149
+    .line 155
     iput-object p1, p0, Lmybl/WbiSigner$2;->this$0:Lmybl/WbiSigner;
 
-    iput-object p2, p0, Lmybl/WbiSigner$2;->val$success:Ljava/util/concurrent/atomic/AtomicBoolean;
+    iput-object p2, p0, Lmybl/WbiSigner$2;->val$callback:Lmybl/WbiSigner$WbiSignCallback;
 
-    iput-object p3, p0, Lmybl/WbiSigner$2;->val$latch:Ljava/util/concurrent/CountDownLatch;
+    iput-object p3, p0, Lmybl/WbiSigner$2;->val$query:Ljava/lang/String;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -48,28 +53,13 @@
     .locals 2
 
     .prologue
-    .line 152
-    iget-object v0, p0, Lmybl/WbiSigner$2;->this$0:Lmybl/WbiSigner;
+    .line 158
+    iget-object v0, p0, Lmybl/WbiSigner$2;->val$callback:Lmybl/WbiSigner$WbiSignCallback;
 
-    invoke-virtual {v0}, Lmybl/WbiSigner;->updateKeysBlocking()Z
+    iget-object v1, p0, Lmybl/WbiSigner$2;->val$query:Ljava/lang/String;
 
-    move-result v0
+    invoke-interface {v0, v1}, Lmybl/WbiSigner$WbiSignCallback;->onSignReady(Ljava/lang/String;)V
 
-    if-eqz v0, :cond_e
-
-    .line 153
-    iget-object v0, p0, Lmybl/WbiSigner$2;->val$success:Ljava/util/concurrent/atomic/AtomicBoolean;
-
-    const/4 v1, 0x1
-
-    invoke-virtual {v0, v1}, Ljava/util/concurrent/atomic/AtomicBoolean;->set(Z)V
-
-    .line 155
-    :cond_e
-    iget-object v0, p0, Lmybl/WbiSigner$2;->val$latch:Ljava/util/concurrent/CountDownLatch;
-
-    invoke-virtual {v0}, Ljava/util/concurrent/CountDownLatch;->countDown()V
-
-    .line 156
+    .line 159
     return-void
 .end method

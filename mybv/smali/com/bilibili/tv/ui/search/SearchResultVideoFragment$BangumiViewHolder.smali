@@ -33,10 +33,10 @@
     .locals 2
 
     .prologue
-    .line 1401
+    .line 1370
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 1402
+    .line 1371
     const v0, 0x7f0800a1
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiViewHolder;->a(Landroid/view/View;I)Landroid/view/View;
@@ -47,7 +47,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiViewHolder;->img:Lcom/bilibili/tv/widget/ScalableImageView;
 
-    .line 1403
+    .line 1372
     const v0, 0x7f080132
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiViewHolder;->a(Landroid/view/View;I)Landroid/view/View;
@@ -58,7 +58,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiViewHolder;->title:Landroid/widget/TextView;
 
-    .line 1404
+    .line 1373
     const v0, 0x7f08013d
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiViewHolder;->a(Landroid/view/View;I)Landroid/view/View;
@@ -69,7 +69,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiViewHolder;->type:Landroid/widget/TextView;
 
-    .line 1405
+    .line 1374
     const v0, 0x7f0800cc
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiViewHolder;->a(Landroid/view/View;I)Landroid/view/View;
@@ -80,7 +80,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiViewHolder;->num:Landroid/widget/TextView;
 
-    .line 1406
+    .line 1375
     const v0, 0x7f080068
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiViewHolder;->a(Landroid/view/View;I)Landroid/view/View;
@@ -91,19 +91,19 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiViewHolder;->count:Landroid/widget/TextView;
 
-    .line 1407
+    .line 1376
     check-cast p1, Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     iput-object p1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiViewHolder;->root:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
-    .line 1408
+    .line 1377
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiViewHolder;->root:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     const v1, 0x7f0700e8
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawRelativeLayout;->setUpDrawable(I)V
 
-    .line 1409
+    .line 1378
     return-void
 .end method
 
@@ -111,7 +111,7 @@
     .locals 3
 
     .prologue
-    .line 1412
+    .line 1381
     invoke-virtual {p0}, Landroid/view/ViewGroup;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -128,7 +128,7 @@
 
     move-result-object v0
 
-    .line 1413
+    .line 1382
     new-instance v1, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiViewHolder;
 
     invoke-direct {v1, v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiViewHolder;-><init>(Landroid/view/View;)V

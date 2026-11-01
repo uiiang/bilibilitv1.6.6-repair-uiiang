@@ -47,7 +47,6 @@ import mybl.WbiSigner;
 import bl.mg;
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -307,7 +306,6 @@ public final class SearchResultVideoFragment extends ady {
     }
     
     public void searchVideo() {
-        WbiSigner wbi = WbiSigner.getInstance();
         java.util.TreeMap<String, String> params = new java.util.TreeMap<>();
         params.put("search_type", "video");
         params.put("keyword", keyword);
@@ -331,25 +329,10 @@ public final class SearchResultVideoFragment extends ady {
         params.put("single_column", "0");
         params.put("ad_resource", "5654");
         params.put("source_tag", "3");
-        String signedQuery = wbi.encWbiAndGetQuery(params);
-        String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
-        LogUtil.d(TAG, "=== SearchVideo URL ===\n" + url);
-
-        String cookie = CookieUtil.getFullCookieWithDevice(mg.a(MainApplication.a()));
-        String encodedKeyword;
-        try { encodedKeyword = URLEncoder.encode(keyword, "UTF-8"); } catch (Exception e) { encodedKeyword = keyword; }
-        String referer = "https://search.bilibili.com/video?keyword=" + encodedKeyword + "&from_source=webtop_search&spm_id_from=333.1007&search_source=3";
-        OkHttpClient client = vo.getOkHttpClient();
-        Request request = new Request.Builder().url(url).get()
-            .addHeader("Cookie", cookie)
-            .addHeader("Referer", referer)
-            .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 9; Redmi 6 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.147 Mobile Safari/537.36")
-            .build();
-        client.newCall(request).enqueue(new SearchVideoResponse());
+        enqueueSignedSearch(params, "video", new SearchVideoResponse());
     }
     
     public void searchBangumi() {
-        WbiSigner wbi = WbiSigner.getInstance();
         java.util.TreeMap<String, String> params = new java.util.TreeMap<>();
         params.put("search_type", "media_bangumi");
         params.put("keyword", keyword);
@@ -357,25 +340,10 @@ public final class SearchResultVideoFragment extends ady {
         params.put("page", String.valueOf(currentPage));
         params.put("page_size", "20");
         params.put("platform", "pc");
-        String signedQuery = wbi.encWbiAndGetQuery(params);
-        String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
-        LogUtil.d(TAG, "=== SearchBangumi URL ===\n" + url);
-
-        String cookie = CookieUtil.getFullCookieWithDevice(mg.a(MainApplication.a()));
-        String encodedKeyword;
-        try { encodedKeyword = URLEncoder.encode(keyword, "UTF-8"); } catch (Exception e) { encodedKeyword = keyword; }
-        String referer = "https://search.bilibili.com/bangumi?keyword=" + encodedKeyword + "&from_source=webtop_search&spm_id_from=333.1007&search_source=3";
-        OkHttpClient client = vo.getOkHttpClient();
-        Request request = new Request.Builder().url(url).get()
-            .addHeader("Cookie", cookie)
-            .addHeader("Referer", referer)
-            .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 9; Redmi 6 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.147 Mobile Safari/537.36")
-            .build();
-        client.newCall(request).enqueue(new SearchBangumiResponse());
+        enqueueSignedSearch(params, "bangumi", new SearchBangumiResponse());
     }
     
     public void searchMediaFt() {
-        WbiSigner wbi = WbiSigner.getInstance();
         java.util.TreeMap<String, String> params = new java.util.TreeMap<>();
         params.put("search_type", "media_ft");
         params.put("keyword", keyword);
@@ -383,25 +351,10 @@ public final class SearchResultVideoFragment extends ady {
         params.put("page", String.valueOf(currentPage));
         params.put("page_size", "20");
         params.put("platform", "pc");
-        String signedQuery = wbi.encWbiAndGetQuery(params);
-        String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
-        LogUtil.d(TAG, "=== SearchMediaFt URL ===\n" + url);
-
-        String cookie = CookieUtil.getFullCookieWithDevice(mg.a(MainApplication.a()));
-        String encodedKeyword;
-        try { encodedKeyword = URLEncoder.encode(keyword, "UTF-8"); } catch (Exception e) { encodedKeyword = keyword; }
-        String referer = "https://search.bilibili.com/movie?keyword=" + encodedKeyword + "&from_source=webtop_search&spm_id_from=333.1007&search_source=3";
-        OkHttpClient client = vo.getOkHttpClient();
-        Request request = new Request.Builder().url(url).get()
-            .addHeader("Cookie", cookie)
-            .addHeader("Referer", referer)
-            .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 9; Redmi 6 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.147 Mobile Safari/537.36")
-            .build();
-        client.newCall(request).enqueue(new SearchBangumiResponse());
+        enqueueSignedSearch(params, "movie", new SearchBangumiResponse());
     }
     
     public void searchLiveRoom() {
-        WbiSigner wbi = WbiSigner.getInstance();
         java.util.TreeMap<String, String> params = new java.util.TreeMap<>();
         params.put("search_type", "live_room");
         params.put("keyword", keyword);
@@ -409,25 +362,10 @@ public final class SearchResultVideoFragment extends ady {
         params.put("page", String.valueOf(currentPage));
         params.put("page_size", "20");
         params.put("platform", "pc");
-        String signedQuery = wbi.encWbiAndGetQuery(params);
-        String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
-        LogUtil.d(TAG, "=== SearchLiveRoom URL ===\n" + url);
-
-        String cookie = CookieUtil.getFullCookieWithDevice(mg.a(MainApplication.a()));
-        String encodedKeyword;
-        try { encodedKeyword = URLEncoder.encode(keyword, "UTF-8"); } catch (Exception e) { encodedKeyword = keyword; }
-        String referer = "https://search.bilibili.com/live?keyword=" + encodedKeyword + "&from_source=webtop_search&spm_id_from=333.1007&search_source=3";
-        OkHttpClient client = vo.getOkHttpClient();
-        Request request = new Request.Builder().url(url).get()
-            .addHeader("Cookie", cookie)
-            .addHeader("Referer", referer)
-            .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 9; Redmi 6 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.147 Mobile Safari/537.36")
-            .build();
-        client.newCall(request).enqueue(new SearchLiveRoomResponse());
+        enqueueSignedSearch(params, "live", new SearchLiveRoomResponse());
     }
     
     public void searchUser() {
-        WbiSigner wbi = WbiSigner.getInstance();
         java.util.TreeMap<String, String> params = new java.util.TreeMap<>();
         params.put("search_type", "bili_user");
         params.put("keyword", keyword);
@@ -438,21 +376,52 @@ public final class SearchResultVideoFragment extends ady {
         params.put("page", String.valueOf(currentPage));
         params.put("page_size", "20");
         params.put("platform", "pc");
-        String signedQuery = wbi.encWbiAndGetQuery(params);
-        String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
-        LogUtil.d(TAG, "=== SearchUser URL ===\n" + url);
+        enqueueSignedSearch(params, "upuser", new SearchUserResponse());
+    }
 
-        String cookie = CookieUtil.getFullCookieWithDevice(mg.a(MainApplication.a()));
+    /**
+     * 异步签名后再发起搜索请求：WBI 密钥失效时由 WbiSigner 在子线程拉取，
+     * 避免主线程网络请求触发 NetworkOnMainThreadException 导致签名失败、接口返回 -400。
+     */
+    private void enqueueSignedSearch(final java.util.TreeMap<String, String> params,
+                                     final String refererPage,
+                                     final Callback responseCallback) {
+        final String searchKeyword = keyword;
+        final String cookie = CookieUtil.getFullCookieWithDevice(mg.a(MainApplication.a()));
         String encodedKeyword;
-        try { encodedKeyword = URLEncoder.encode(keyword, "UTF-8"); } catch (Exception e) { encodedKeyword = keyword; }
-        String referer = "https://search.bilibili.com/upuser?keyword=" + encodedKeyword + "&from_source=webtop_search&spm_id_from=333.1007&search_source=3";
-        OkHttpClient client = vo.getOkHttpClient();
-        Request request = new Request.Builder().url(url).get()
-            .addHeader("Cookie", cookie)
-            .addHeader("Referer", referer)
-            .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 9; Redmi 6 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.147 Mobile Safari/537.36")
-            .build();
-        client.newCall(request).enqueue(new SearchUserResponse());
+        try { encodedKeyword = URLEncoder.encode(searchKeyword, "UTF-8"); } catch (Exception e) { encodedKeyword = searchKeyword; }
+        final String referer = "https://search.bilibili.com/" + refererPage + "?keyword=" + encodedKeyword
+                + "&from_source=webtop_search&spm_id_from=333.1007&search_source=3";
+
+        WbiSigner.getInstance().signAsync(params, new WbiSigner.WbiSignCallback() {
+            @Override
+            public void onSignReady(String signedQuery) {
+                if (signedQuery == null) {
+                    onSignError(new Exception("signedQuery is null"));
+                    return;
+                }
+                String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
+                LogUtil.d(TAG, "=== Search URL ===\n" + url);
+                Request request = new Request.Builder().url(url).get()
+                    .addHeader("Cookie", cookie)
+                    .addHeader("Referer", referer)
+                    .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 9; Redmi 6 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.147 Mobile Safari/537.36")
+                    .build();
+                vo.getOkHttpClient().newCall(request).enqueue(responseCallback);
+            }
+
+            @Override
+            public void onSignError(Exception e) {
+                Log.e(TAG, "WBI sign failed, abort search request", e);
+                isLoading = false;
+                if (loadingView != null) {
+                    loadingView.setRefreshError(false);
+                }
+                if (getActivity() != null) {
+                    Toast.makeText(getActivity(), "搜索失败", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public void updateSearchParams(String newOrder, String newDateType, String newDuration) {
