@@ -35,7 +35,7 @@
     .end annotation
 
     .prologue
-    .line 3703
+    .line 3705
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$33;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-boolean p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$33;->val$hasSeasons:Z
@@ -53,12 +53,12 @@
     .locals 3
 
     .prologue
-    .line 3706
+    .line 3708
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$33;->val$hasSeasons:Z
 
     if-eqz v0, :cond_16
 
-    .line 3707
+    .line 3709
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$33;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$33;->val$pgcInfo:Lcom/bilibili/tv/api/video/PgcInfo;
@@ -76,11 +76,11 @@
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->createPgcSectionView(Lcom/bilibili/tv/api/video/PgcInfo$Section;I)V
     invoke-static {v1, v0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$5500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/PgcInfo$Section;I)V
 
-    .line 3711
+    .line 3713
     :goto_15
     return-void
 
-    .line 3709
+    .line 3711
     :cond_16
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$33;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 

@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 4436
+    .line 4438
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$43;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$43;->val$scrollView:Landroid/view/View;
@@ -49,7 +49,7 @@
     .locals 1
 
     .prologue
-    .line 4439
+    .line 4441
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$43;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
@@ -58,12 +58,12 @@
 
     if-nez v0, :cond_d
 
-    .line 4440
+    .line 4442
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$43;->val$scrollView:Landroid/view/View;
 
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 4442
+    .line 4444
     :cond_d
     return-void
 .end method

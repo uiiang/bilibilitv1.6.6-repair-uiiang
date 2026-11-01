@@ -303,6 +303,7 @@ classes\com\google\android\exoplayer2\container\CreationTime.java
 classes\com\google\android\exoplayer2\util\NalUnitUtil.java
 classes\mybl\ApiLogInterceptor.java
 classes\mybl\AppRecommendLoader.java
+classes\mybl\AppSeasonBadgesLoader.java
 classes\mybl\BiliFilter.java
 classes\mybl\BiliLiveContent.java
 classes\mybl\BiliLiveContentEx1.java

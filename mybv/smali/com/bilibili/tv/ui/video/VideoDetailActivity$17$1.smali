@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 1808
+    .line 1810
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->val$fellBack:[Z
@@ -51,7 +51,7 @@
     .prologue
     const/4 v6, 0x0
 
-    .line 1811
+    .line 1813
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -62,12 +62,12 @@
 
     if-eqz v0, :cond_c
 
-    .line 1825
+    .line 1827
     :cond_b
     :goto_b
     return-void
 
-    .line 1816
+    .line 1818
     :cond_c
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->val$fellBack:[Z
 
@@ -75,7 +75,7 @@
 
     if-nez v0, :cond_1a
 
-    .line 1817
+    .line 1819
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -85,7 +85,7 @@
     # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->mHistoryResolved:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2402(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Z)Z
 
-    .line 1819
+    .line 1821
     :cond_1a
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
 
@@ -101,7 +101,7 @@
 
     move-result-object v1
 
-    .line 1820
+    .line 1822
     invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
 
     move-result-wide v2
@@ -134,18 +134,18 @@
 
     move-result-object v1
 
-    .line 1819
+    .line 1821
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->loadPerf(Ljava/lang/String;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$200(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Ljava/lang/String;)V
 
-    .line 1822
+    .line 1824
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->val$callback:Ljava/lang/Runnable;
 
     if-eqz v0, :cond_b
 
-    .line 1823
+    .line 1825
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->val$callback:Ljava/lang/Runnable;

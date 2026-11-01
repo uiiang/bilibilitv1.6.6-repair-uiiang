@@ -34,15 +34,15 @@
     .locals 0
 
     .prologue
-    .line 2303
+    .line 2305
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
 
-    .line 2304
+    .line 2306
     iput-boolean p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->subscribe:Z
 
-    .line 2305
+    .line 2307
     return-void
 .end method
 
@@ -52,7 +52,7 @@
     .locals 0
 
     .prologue
-    .line 2300
+    .line 2302
     check-cast p1, Ljava/lang/String;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->a(Ljava/lang/String;)V
@@ -64,7 +64,7 @@
     .locals 2
 
     .prologue
-    .line 2309
+    .line 2311
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iget-boolean v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->subscribe:Z
@@ -72,34 +72,34 @@
     # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isSeasonFav:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3902(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Z)Z
 
-    .line 2310
+    .line 2312
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateSubscribeButtonUI()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
-    .line 2311
+    .line 2313
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getApplicationContext()Landroid/content/Context;
 
     move-result-object v1
 
-    .line 2312
+    .line 2314
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->subscribe:Z
 
     if-eqz v0, :cond_1c
 
     const-string v0, "\u8ba2\u9605\u5408\u96c6\u6210\u529f"
 
-    .line 2311
+    .line 2313
     :goto_18
     invoke-static {v1, v0}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 2313
+    .line 2315
     return-void
 
-    .line 2312
+    .line 2314
     :cond_1c
     const-string v0, "\u5df2\u53d6\u6d88\u8ba2\u9605\u5408\u96c6"
 
@@ -110,7 +110,7 @@
     .locals 1
 
     .prologue
-    .line 2324
+    .line 2326
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
@@ -124,33 +124,33 @@
     .locals 2
 
     .prologue
-    .line 2317
+    .line 2319
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 2318
+    .line 2320
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getApplicationContext()Landroid/content/Context;
 
     move-result-object v1
 
-    .line 2319
+    .line 2321
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->subscribe:Z
 
     if-eqz v0, :cond_15
 
     const-string v0, "\u8ba2\u9605\u5408\u96c6\u5931\u8d25"
 
-    .line 2318
+    .line 2320
     :goto_11
     invoke-static {v1, v0}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 2320
+    .line 2322
     return-void
 
-    .line 2319
+    .line 2321
     :cond_15
     const-string v0, "\u53d6\u6d88\u8ba2\u9605\u5931\u8d25"
 

@@ -342,6 +342,8 @@ public final class VideoDetailActivity extends BaseActivity
     // 存储动态创建的合集列表
     private List<SeasonSectionView> seasonSectionViews = new ArrayList<>();
     private List<com.bilibili.tv.ui.video.widget.VideoListSection> ugcSeasonSections = new ArrayList<>();
+    // 合集角标后台加载标记：同一合集只触发一次
+    private long seasonBadgesLoadedSeasonId = -1;
     private com.bilibili.tv.ui.video.widget.VideoListNavigator videoListNavigator;
 
     public static class SeasonSectionView {
@@ -5388,6 +5390,87 @@ public final class VideoDetailActivity extends BaseActivity
         }
     }
 
+    /**
+     * 合集「充电专属」角标后台加载（Web 合集分集不返回 badge_info，改由 App JSON 接口补齐）。
+     * 只触发一次，网络请求在子线程完成，结果回主线程合并并刷新卡片，不阻塞首屏。
+     */
+    private void startSeasonBadgesLoad(final BiliVideoDetail detail) {
+        if (detail == null || detail.ugcSeason == null
+                || detail.sectionInfoList == null || detail.sectionInfoList.isEmpty()) {
+            return;
+        }
+        final long seasonId = detail.ugcSeason.getLongValue("id");
+        long vmid = detail.ugcSeason.getLongValue("mid");
+        if (vmid <= 0 && detail.mOwner != null) {
+            vmid = detail.mOwner.mid;
+        }
+        if (seasonId <= 0 || vmid <= 0) {
+            return;
+        }
+        if (seasonBadgesLoadedSeasonId == seasonId) {
+            return;
+        }
+        seasonBadgesLoadedSeasonId = seasonId;
+        final long finalVmid = vmid;
+        final int expectedCount = detail.ugcSeason.getIntValue("ep_count");
+        android.util.Log.i("SeasonBadges", "start season=" + seasonId + " vmid=" + finalVmid
+                + " ep=" + expectedCount);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final java.util.Map<Long, mybl.AppSeasonBadgesLoader.Badge> badges =
+                        mybl.AppSeasonBadgesLoader.load(seasonId, finalVmid, expectedCount);
+                if (badges.isEmpty()) {
+                    android.util.Log.i("SeasonBadges", "no badges season=" + seasonId);
+                    return;
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (isFinishing()) {
+                            return;
+                        }
+                        applySeasonBadges(detail, badges);
+                    }
+                });
+            }
+        }, "SeasonBadgesLoad").start();
+    }
+
+    /** 主线程：按 aid 把角标合并到合集分集模型，并通知现有卡片重新绑定 */
+    private void applySeasonBadges(BiliVideoDetail detail,
+                                   java.util.Map<Long, mybl.AppSeasonBadgesLoader.Badge> badges) {
+        if (detail == null || detail.sectionInfoList == null || badges.isEmpty()) {
+            return;
+        }
+        int merged = 0;
+        for (BiliVideoDetail.SectionInfo sectionInfo : detail.sectionInfoList) {
+            if (sectionInfo == null || sectionInfo.parsedEpisodes == null) {
+                continue;
+            }
+            for (BiliVideoDetail episode : sectionInfo.parsedEpisodes) {
+                if (episode == null) {
+                    continue;
+                }
+                mybl.AppSeasonBadgesLoader.Badge badge = badges.get(Long.valueOf(episode.mAvid));
+                if (badge != null && !TextUtils.isEmpty(badge.text)) {
+                    episode.badgeText = badge.text;
+                    episode.badgeBgColor = badge.bgColor;
+                    merged++;
+                }
+            }
+        }
+        android.util.Log.i("SeasonBadges", "apply merged=" + merged + " total=" + badges.size());
+        if (merged == 0 || ugcSeasonSections == null) {
+            return;
+        }
+        for (com.bilibili.tv.ui.video.widget.VideoListSection section : ugcSeasonSections) {
+            if (section != null) {
+                section.refreshVisibleItems();
+            }
+        }
+    }
+
     /* compiled from: BL */
     /* loaded from: classes.dex */
     final class i extends vn<BiliVideoDetail> {
@@ -5586,6 +5669,7 @@ public final class VideoDetailActivity extends BaseActivity
             b(biliVideoDetail);
             long perfAfterBasic = android.os.SystemClock.uptimeMillis();
             showEpisodes(biliVideoDetail);
+            VideoDetailActivity.this.startSeasonBadgesLoad(biliVideoDetail);
             long perfAfterSections = android.os.SystemClock.uptimeMillis();
             d(biliVideoDetail);
             long perfAfterEpisodes = android.os.SystemClock.uptimeMillis();

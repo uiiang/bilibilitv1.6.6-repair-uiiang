@@ -32,10 +32,10 @@ public final class AppRecommendLoader {
     private static final String TAG = "AppRecommendLoader";
     private static final String FEED_URL = "https://app.bilibili.com/x/v2/feed/index";
     /** 安卓App appkey/appsec（与参考项目BT解码后一致，已验证可用） */
-    private static final String APP_KEY = "783bbb7264451d82";
-    private static final String APP_SEC = "2653583c8873dea268ab9386918b1d65";
+    static final String APP_KEY = "783bbb7264451d82";
+    static final String APP_SEC = "2653583c8873dea268ab9386918b1d65";
     /** App UA（BT X5.b(z)→C1386p0(5) 同款格式，固定小米13设备档案，对应 build 8830500） */
-    private static final String APP_UA =
+    static final String APP_UA =
             "Dalvik/2.1.0 (Linux; U; Android 13; 2211133C Build/TKQ1.221114.001) 8.83.0 os/android"
                     + " model/2211133C mobi_app/android build/8830500 channel/xiaomi innerVer/8830500"
                     + " osVer/13 network/2 grpc-java-cronet/1.36.1";
@@ -163,7 +163,6 @@ public final class AppRecommendLoader {
 
     /** 单次请求（BT s() 参数 + LT.c() 签名 + X5.U0 请求同款） */
     private static JSONObject requestOnce(long idx, String accessKey, boolean firstPage) {
-        HttpURLConnection conn = null;
         try {
             // 业务参数（BT s() L2484同款；TreeMap自动按key排序，与签名字序一致）
             TreeMap<String, String> params = new TreeMap<String, String>();
@@ -182,7 +181,21 @@ public final class AppRecommendLoader {
             if (!TextUtils.isEmpty(accessKey)) {
                 params.put("access_key", accessKey);
             }
-            // 签名（BT LT.c() 同款：追加appkey/ts后 md5(排序query + appsec)）
+            return requestSignedJson(FEED_URL, params);
+        } catch (Exception e) {
+            Log.w(TAG, "[App推荐请求异常] idx=" + idx + " " + e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * App JSON 签名请求（包内复用）：
+     * params 自动追加 appkey/ts 后按 key 排序，sign = md5(query + appsec)，
+     * 返回响应中的 data 对象；网络/接口失败返回 null。
+     */
+    static JSONObject requestSignedJson(String baseUrl, TreeMap<String, String> params) {
+        HttpURLConnection conn = null;
+        try {
             params.put("appkey", APP_KEY);
             params.put("ts", String.valueOf(System.currentTimeMillis() / 1000L));
             StringBuilder query = new StringBuilder();
@@ -192,7 +205,7 @@ public final class AppRecommendLoader {
                 }
                 query.append(entry.getKey()).append('=').append(entry.getValue());
             }
-            String url = FEED_URL + "?" + query + "&sign=" + md5(query.toString() + APP_SEC);
+            String url = baseUrl + "?" + query + "&sign=" + md5(query.toString() + APP_SEC);
 
             conn = (HttpURLConnection) new URL(url).openConnection();
             conn.setRequestMethod("GET");
@@ -205,7 +218,7 @@ public final class AppRecommendLoader {
 
             int code = conn.getResponseCode();
             if (code != 200) {
-                Log.w(TAG, "[App推荐请求] HTTP " + code + " idx=" + idx);
+                Log.w(TAG, "[App签名请求] HTTP " + code);
                 return null;
             }
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
@@ -217,13 +230,13 @@ public final class AppRecommendLoader {
             reader.close();
             JSONObject resp = JSON.parseObject(sb.toString());
             if (resp == null || resp.getIntValue("code") != 0) {
-                Log.w(TAG, "[App推荐请求] code=" + (resp == null ? -1 : resp.getIntValue("code"))
+                Log.w(TAG, "[App签名请求] code=" + (resp == null ? -1 : resp.getIntValue("code"))
                         + " message=" + (resp == null ? "null" : resp.getString("message")));
                 return null;
             }
             return resp.getJSONObject("data");
         } catch (Exception e) {
-            Log.w(TAG, "[App推荐请求异常] idx=" + idx + " " + e.getMessage());
+            Log.w(TAG, "[App签名请求异常] " + e.getMessage());
             return null;
         } finally {
             if (conn != null) {
