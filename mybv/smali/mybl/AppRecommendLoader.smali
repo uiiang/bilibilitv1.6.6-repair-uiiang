@@ -303,7 +303,7 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 253
+    .line 263
     :try_start_1
     const-string v1, "MD5"
 
@@ -311,7 +311,7 @@
 
     move-result-object v1
 
-    .line 254
+    .line 264
     const-string v2, "UTF-8"
 
     invoke-virtual {p0, v2}, Ljava/lang/String;->getBytes(Ljava/lang/String;)[B
@@ -322,12 +322,12 @@
 
     move-result-object v1
 
-    .line 255
+    .line 265
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 256
+    .line 266
     array-length v3, v1
 
     :goto_17
@@ -335,7 +335,7 @@
 
     aget-byte v4, v1, v0
 
-    .line 257
+    .line 267
     const-string v5, "%02x"
 
     const/4 v6, 0x1
@@ -356,12 +356,12 @@
 
     invoke-virtual {v2, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 256
+    .line 266
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_17
 
-    .line 259
+    .line 269
     :cond_31
     invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
     :try_end_34
@@ -369,15 +369,15 @@
 
     move-result-object v0
 
-    .line 261
+    .line 271
     :goto_35
     return-object v0
 
-    .line 260
+    .line 270
     :catch_36
     move-exception v0
 
-    .line 261
+    .line 271
     const-string v0, ""
 
     goto :goto_35
@@ -900,6 +900,45 @@
 .end method
 
 .method static requestSignedJson(Ljava/lang/String;Ljava/util/TreeMap;)Lcom/alibaba/fastjson/JSONObject;
+    .locals 2
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            "Ljava/util/TreeMap",
+            "<",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            ">;)",
+            "Lcom/alibaba/fastjson/JSONObject;"
+        }
+    .end annotation
+
+    .prologue
+    .line 197
+    invoke-static {p0, p1}, Lmybl/AppRecommendLoader;->requestSignedResponse(Ljava/lang/String;Ljava/util/TreeMap;)Lcom/alibaba/fastjson/JSONObject;
+
+    move-result-object v0
+
+    .line 198
+    if-nez v0, :cond_8
+
+    const/4 v0, 0x0
+
+    :goto_7
+    return-object v0
+
+    :cond_8
+    const-string v1, "data"
+
+    invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
+
+    move-result-object v0
+
+    goto :goto_7
+.end method
+
+.method static requestSignedResponse(Ljava/lang/String;Ljava/util/TreeMap;)Lcom/alibaba/fastjson/JSONObject;
     .locals 8
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -917,8 +956,8 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 197
-    .line 199
+    .line 207
+    .line 209
     :try_start_1
     const-string v0, "appkey"
 
@@ -926,7 +965,7 @@
 
     invoke-virtual {p1, v0, v1}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 200
+    .line 210
     const-string v0, "ts"
 
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
@@ -943,12 +982,12 @@
 
     invoke-virtual {p1, v0, v1}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 201
+    .line 211
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 202
+    .line 212
     invoke-virtual {p1}, Ljava/util/TreeMap;->entrySet()Ljava/util/Set;
 
     move-result-object v0
@@ -970,19 +1009,19 @@
 
     check-cast v0, Ljava/util/Map$Entry;
 
-    .line 203
+    .line 213
     invoke-virtual {v3}, Ljava/lang/StringBuilder;->length()I
 
     move-result v1
 
     if-lez v1, :cond_3c
 
-    .line 204
+    .line 214
     const/16 v1, 0x26
 
     invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
 
-    .line 206
+    .line 216
     :cond_3c
     invoke-interface {v0}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
 
@@ -1009,11 +1048,11 @@
     invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
     :try_end_55
     .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_55} :catch_56
-    .catchall {:try_start_1 .. :try_end_55} :catchall_194
+    .catchall {:try_start_1 .. :try_end_55} :catchall_18e
 
     goto :goto_25
 
-    .line 238
+    .line 248
     :catch_56
     move-exception v0
 
@@ -1021,7 +1060,7 @@
 
     move-object v3, v2
 
-    .line 239
+    .line 249
     :goto_59
     :try_start_59
     const-string v0, "AppRecommendLoader"
@@ -1050,26 +1089,26 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
     :try_end_75
-    .catchall {:try_start_59 .. :try_end_75} :catchall_1ab
+    .catchall {:try_start_59 .. :try_end_75} :catchall_1a5
 
-    .line 242
+    .line 252
     if-eqz v3, :cond_7a
 
-    .line 244
+    .line 254
     :try_start_77
     invoke-virtual {v3}, Ljava/net/HttpURLConnection;->disconnect()V
     :try_end_7a
-    .catch Ljava/lang/Exception; {:try_start_77 .. :try_end_7a} :catch_1a3
+    .catch Ljava/lang/Exception; {:try_start_77 .. :try_end_7a} :catch_19d
 
     :cond_7a
     :goto_7a
     move-object v0, v2
 
-    .line 240
+    .line 250
     :goto_7b
     return-object v0
 
-    .line 208
+    .line 218
     :cond_7c
     :try_start_7c
     new-instance v0, Ljava/lang/StringBuilder;
@@ -1130,7 +1169,7 @@
 
     move-result-object v0
 
-    .line 210
+    .line 220
     new-instance v1, Ljava/net/URL;
 
     invoke-direct {v1, v0}, Ljava/net/URL;-><init>(Ljava/lang/String;)V
@@ -1142,56 +1181,56 @@
     check-cast v0, Ljava/net/HttpURLConnection;
     :try_end_c3
     .catch Ljava/lang/Exception; {:try_start_7c .. :try_end_c3} :catch_56
-    .catchall {:try_start_7c .. :try_end_c3} :catchall_194
+    .catchall {:try_start_7c .. :try_end_c3} :catchall_18e
 
-    .line 211
+    .line 221
     :try_start_c3
     const-string v1, "GET"
 
     invoke-virtual {v0, v1}, Ljava/net/HttpURLConnection;->setRequestMethod(Ljava/lang/String;)V
 
-    .line 212
+    .line 222
     const/16 v1, 0x2710
 
     invoke-virtual {v0, v1}, Ljava/net/HttpURLConnection;->setConnectTimeout(I)V
 
-    .line 213
+    .line 223
     const/16 v1, 0x2710
 
     invoke-virtual {v0, v1}, Ljava/net/HttpURLConnection;->setReadTimeout(I)V
 
-    .line 215
+    .line 225
     const-string v1, "User-Agent"
 
     const-string v3, "Dalvik/2.1.0 (Linux; U; Android 13; 2211133C Build/TKQ1.221114.001) 8.83.0 os/android model/2211133C mobi_app/android build/8830500 channel/xiaomi innerVer/8830500 osVer/13 network/2 grpc-java-cronet/1.36.1"
 
     invoke-virtual {v0, v1, v3}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 216
+    .line 226
     const-string v1, "APP-KEY"
 
     const-string v3, "android64"
 
     invoke-virtual {v0, v1, v3}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 217
+    .line 227
     const-string v1, "ENV"
 
     const-string v3, "prod"
 
     invoke-virtual {v0, v1, v3}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 219
+    .line 229
     invoke-virtual {v0}, Ljava/net/HttpURLConnection;->getResponseCode()I
 
     move-result v1
 
-    .line 220
+    .line 230
     const/16 v3, 0xc8
 
     if-eq v1, v3, :cond_10f
 
-    .line 221
+    .line 231
     const-string v3, "AppRecommendLoader"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -1215,25 +1254,25 @@
     invoke-static {v3, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
     :try_end_107
     .catch Ljava/lang/Exception; {:try_start_c3 .. :try_end_107} :catch_12e
-    .catchall {:try_start_c3 .. :try_end_107} :catchall_1a8
+    .catchall {:try_start_c3 .. :try_end_107} :catchall_1a2
 
-    .line 242
+    .line 252
     if-eqz v0, :cond_10c
 
-    .line 244
+    .line 254
     :try_start_109
     invoke-virtual {v0}, Ljava/net/HttpURLConnection;->disconnect()V
     :try_end_10c
-    .catch Ljava/lang/Exception; {:try_start_109 .. :try_end_10c} :catch_19c
+    .catch Ljava/lang/Exception; {:try_start_109 .. :try_end_10c} :catch_196
 
     :cond_10c
     :goto_10c
     move-object v0, v2
 
-    .line 222
+    .line 232
     goto/16 :goto_7b
 
-    .line 224
+    .line 234
     :cond_10f
     :try_start_10f
     new-instance v1, Ljava/io/BufferedReader;
@@ -1250,12 +1289,12 @@
 
     invoke-direct {v1, v3}, Ljava/io/BufferedReader;-><init>(Ljava/io/Reader;)V
 
-    .line 225
+    .line 235
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 227
+    .line 237
     :goto_124
     invoke-virtual {v1}, Ljava/io/BufferedReader;->readLine()Ljava/lang/String;
 
@@ -1263,12 +1302,12 @@
 
     if-eqz v4, :cond_132
 
-    .line 228
+    .line 238
     invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     goto :goto_124
 
-    .line 238
+    .line 248
     :catch_12e
     move-exception v1
 
@@ -1276,66 +1315,66 @@
 
     goto/16 :goto_59
 
-    .line 230
+    .line 240
     :cond_132
     invoke-virtual {v1}, Ljava/io/BufferedReader;->close()V
 
-    .line 231
+    .line 241
     invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v1
 
     invoke-static {v1}, Lcom/alibaba/fastjson/JSON;->parseObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
-    move-result-object v3
+    move-result-object v1
 
-    .line 232
-    if-eqz v3, :cond_147
+    .line 242
+    if-eqz v1, :cond_147
 
-    const-string v1, "code"
+    const-string v3, "code"
 
-    invoke-virtual {v3, v1}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+    invoke-virtual {v1, v3}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
-    move-result v1
+    move-result v3
 
-    if-eqz v1, :cond_186
+    if-eqz v3, :cond_186
 
-    .line 233
+    .line 243
     :cond_147
     const-string v4, "AppRecommendLoader"
 
-    new-instance v1, Ljava/lang/StringBuilder;
+    new-instance v3, Ljava/lang/StringBuilder;
 
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
     const-string v5, "[App\u7b7e\u540d\u8bf7\u6c42] code="
 
-    invoke-virtual {v1, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v5
 
-    if-nez v3, :cond_178
+    if-nez v1, :cond_178
 
-    const/4 v1, -0x1
+    const/4 v3, -0x1
 
     :goto_157
-    invoke-virtual {v5, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v5, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v1
+    move-result-object v3
 
     const-string v5, " message="
 
-    invoke-virtual {v1, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v5
+    move-result-object v3
 
-    .line 234
-    if-nez v3, :cond_17f
+    .line 244
+    if-nez v1, :cond_17f
 
     const-string v1, "null"
 
     :goto_165
-    invoke-virtual {v5, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
@@ -1343,136 +1382,129 @@
 
     move-result-object v1
 
-    .line 233
+    .line 243
     invoke-static {v4, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
     :try_end_170
     .catch Ljava/lang/Exception; {:try_start_10f .. :try_end_170} :catch_12e
-    .catchall {:try_start_10f .. :try_end_170} :catchall_1a8
+    .catchall {:try_start_10f .. :try_end_170} :catchall_1a2
 
-    .line 242
+    .line 252
     if-eqz v0, :cond_175
 
-    .line 244
+    .line 254
     :try_start_172
     invoke-virtual {v0}, Ljava/net/HttpURLConnection;->disconnect()V
     :try_end_175
-    .catch Ljava/lang/Exception; {:try_start_172 .. :try_end_175} :catch_19f
+    .catch Ljava/lang/Exception; {:try_start_172 .. :try_end_175} :catch_199
 
     :cond_175
     :goto_175
     move-object v0, v2
 
-    .line 235
+    .line 245
     goto/16 :goto_7b
 
-    .line 233
+    .line 243
     :cond_178
     :try_start_178
-    const-string v1, "code"
+    const-string v3, "code"
 
-    invoke-virtual {v3, v1}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+    invoke-virtual {v1, v3}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
-    move-result v1
+    move-result v3
 
     goto :goto_157
 
-    .line 234
+    .line 244
     :cond_17f
-    const-string v1, "message"
+    const-string v5, "message"
 
-    invoke-virtual {v3, v1}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v1, v5}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+    :try_end_184
+    .catch Ljava/lang/Exception; {:try_start_178 .. :try_end_184} :catch_12e
+    .catchall {:try_start_178 .. :try_end_184} :catchall_1a2
 
     move-result-object v1
 
     goto :goto_165
 
-    .line 237
+    .line 252
     :cond_186
-    const-string v1, "data"
+    if-eqz v0, :cond_18b
 
-    invoke-virtual {v3, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
-    :try_end_18b
-    .catch Ljava/lang/Exception; {:try_start_178 .. :try_end_18b} :catch_12e
-    .catchall {:try_start_178 .. :try_end_18b} :catchall_1a8
-
-    move-result-object v1
-
-    .line 242
-    if-eqz v0, :cond_191
-
-    .line 244
-    :try_start_18e
+    .line 254
+    :try_start_188
     invoke-virtual {v0}, Ljava/net/HttpURLConnection;->disconnect()V
-    :try_end_191
-    .catch Ljava/lang/Exception; {:try_start_18e .. :try_end_191} :catch_1a1
+    :try_end_18b
+    .catch Ljava/lang/Exception; {:try_start_188 .. :try_end_18b} :catch_19b
 
-    :cond_191
-    :goto_191
+    :cond_18b
+    :goto_18b
     move-object v0, v1
 
-    .line 237
+    .line 247
     goto/16 :goto_7b
 
-    .line 242
-    :catchall_194
+    .line 252
+    :catchall_18e
     move-exception v0
 
     move-object v1, v0
 
-    :goto_196
-    if-eqz v2, :cond_19b
+    :goto_190
+    if-eqz v2, :cond_195
 
-    .line 244
-    :try_start_198
+    .line 254
+    :try_start_192
     invoke-virtual {v2}, Ljava/net/HttpURLConnection;->disconnect()V
-    :try_end_19b
-    .catch Ljava/lang/Exception; {:try_start_198 .. :try_end_19b} :catch_1a6
+    :try_end_195
+    .catch Ljava/lang/Exception; {:try_start_192 .. :try_end_195} :catch_1a0
 
-    .line 248
-    :cond_19b
-    :goto_19b
+    .line 258
+    :cond_195
+    :goto_195
     throw v1
 
-    .line 245
-    :catch_19c
+    .line 255
+    :catch_196
     move-exception v0
 
     goto/16 :goto_10c
 
-    :catch_19f
+    :catch_199
     move-exception v0
 
     goto :goto_175
 
-    :catch_1a1
+    :catch_19b
     move-exception v0
 
-    goto :goto_191
+    goto :goto_18b
 
-    :catch_1a3
+    :catch_19d
     move-exception v0
 
     goto/16 :goto_7a
 
-    :catch_1a6
+    :catch_1a0
     move-exception v0
 
-    goto :goto_19b
+    goto :goto_195
 
-    .line 242
-    :catchall_1a8
+    .line 252
+    :catchall_1a2
     move-exception v1
 
     move-object v2, v0
 
-    goto :goto_196
+    goto :goto_190
 
-    :catchall_1ab
+    :catchall_1a5
     move-exception v0
 
     move-object v1, v0
 
     move-object v2, v3
 
-    goto :goto_196
+    goto :goto_190
 .end method

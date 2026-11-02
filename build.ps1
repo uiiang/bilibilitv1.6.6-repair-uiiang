@@ -1,4 +1,4 @@
-# build.ps1 - Windows native build (equivalent of build.sh)
+﻿# build.ps1 - Windows native build (equivalent of build.sh)
 # Usage: powershell -ExecutionPolicy Bypass -File build.ps1 [-PackageId uii.ang.bilitv]
 # Requires: JAVA_HOME (JDK 17), Android SDK build-tools with aapt2, platform key in repo root
 
@@ -22,6 +22,7 @@ if (-not (Test-Path $javac)) { throw "javac.exe not found: $javac" }
 $sdkBuildTools = "D:\DevTools\Android\Sdk\build-tools\35.0.0"
 $aapt2 = Join-Path $sdkBuildTools "aapt2.exe"
 if (-not (Test-Path $aapt2)) { throw "aapt2.exe not found: $aapt2" }
+$apksigner = Join-Path $sdkBuildTools "apksigner.bat"
 
 $apktoolJar = Join-Path $mybv "apktool.jar"
 $dxJar = Join-Path $javaDir "dx.jar"
@@ -199,14 +200,21 @@ Step "Build APK with apktool (aapt2)" {
 }
 
 # ============================================================
-# 6. Sign APK (signapk with platform key)
+# 6. Sign APK (platform key: apksigner preferred, signapk fallback)
 # ============================================================
 Step "Sign APK" {
     $inApk = Join-Path $mybv "dist\mybv.apk"
     $outApk = Join-Path $root "mybv.apk"
-    $cp = "$signapkJar;$(Join-Path $tools 'bcprov.jar');$(Join-Path $tools 'bcpkix.jar');$(Join-Path $tools 'apksig.jar')"
-    & $java -cp $cp com.android.signapk.SignApk "$root\platform.x509.pem" "$root\platform.pk8" $inApk $outApk
-    if ($LASTEXITCODE -ne 0) { throw "signapk failed (exit $LASTEXITCODE)" }
+    if (Test-Path $signapkJar) {
+        $cp = "$signapkJar;$(Join-Path $tools 'bcprov.jar');$(Join-Path $tools 'bcpkix.jar');$(Join-Path $tools 'apksig.jar')"
+        & $java -cp $cp com.android.signapk.SignApk "$root\platform.x509.pem" "$root\platform.pk8" $inApk $outApk
+        if ($LASTEXITCODE -ne 0) { throw "signapk failed (exit $LASTEXITCODE)" }
+    } else {
+        # build_tools/signapk.jar missing: fall back to SDK apksigner (platform pk8/pem)
+        if (-not (Test-Path $apksigner)) { throw "neither signapk.jar nor apksigner.bat found" }
+        & $apksigner sign --key (Join-Path $root "platform.pk8") --cert (Join-Path $root "platform.x509.pem") --out $outApk $inApk
+        if ($LASTEXITCODE -ne 0) { throw "apksigner failed (exit $LASTEXITCODE)" }
+    }
     Write-Host "  signed: $outApk"
 }
 

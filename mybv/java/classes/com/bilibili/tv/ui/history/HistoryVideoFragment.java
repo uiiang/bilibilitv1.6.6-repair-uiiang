@@ -23,14 +23,19 @@ import bl.bbi;
 import bl.bbg;
 import bl.mg;
 import bl.vo;
+import bl.vm;
 import bl.vn;
+import bl.vu;
 import mybl.CookieUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.bilibili.okretro.GeneralResponse;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.history.BiliPlayerHistoryService;
+import com.bilibili.tv.api.video.VideoApiService;
 import com.bilibili.tv.api.video.BiliVideoDetail;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
+import com.bilibili.tv.ui.video.widget.VideoBadgeStyler;
 import com.bilibili.tv.ui.video.widget.VideoCardCoverLoader;
 import com.bilibili.tv.ui.video.widget.VideoCardIcons;
 import com.bilibili.tv.ui.video.widget.VideoCardTexts;
@@ -41,6 +46,7 @@ import com.bilibili.tv.widget.side.SideRightGridLayoutManger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Locale;
 import kotlin.TypeCastException;
 import mybl.BiliLiveContent;
@@ -60,6 +66,14 @@ public final class HistoryVideoFragment extends ady {
     private long cursorMax = 0;
     private long cursorViewAt = 0;
     private String cursorBusiness = "";
+    // App历史接口（旧版x/v2/history）仅支持pn/ps页码翻页
+    private int appPageNum = 1;
+    // 已拉取条目去重key（business:oid）：pn页码翻页在观看新视频后页内容整体后移会出现重复条目
+    private final HashSet<String> appSeenKeys = new HashSet<String>();
+    // App接口是否已展示过数据（决定替换还是追加）
+    private boolean appHasData = false;
+    // 本地过滤后为空时自动续拉下一页的次数
+    private int appAutoLoadRetry = 0;
     
     private String historyType = "archive";
     private LinearLayout headerLayout;
@@ -218,6 +232,9 @@ public final class HistoryVideoFragment extends ady {
         cursorMax = 0;
         cursorViewAt = 0;
         cursorBusiness = "";
+        appPageNum = 1;
+        appSeenKeys.clear();
+        appHasData = false;
         hasMore = true;
         b();
     }
@@ -230,27 +247,197 @@ public final class HistoryVideoFragment extends ady {
         if (isLoading) {
             return;
         }
-        
+
         Activity activity = getActivity();
         if (activity == null || activity.isFinishing()) {
             isLoading = false;
             return;
         }
-        
+
         mg account = mg.a(activity);
         if (account == null) {
             isLoading = false;
             return;
         }
-        
+
+        // App历史接口优先（已登录且有access_key时）：卡片字段与Web同构，
+        // 目标是验证/使用App端角标字段（Web端充电专属条目badge为空串）
+        String accessKey = account.e();
+        if (!TextUtils.isEmpty(accessKey)) {
+            loadAppHistory(accessKey);
+            return;
+        }
+
+        loadWebHistory();
+    }
+
+    /**
+     * App历史接口加载（旧版x/v2/history，仅支持pn/ps页码翻页，不支持游标）。
+     * 请求由vo.a()创建（仅挂ApiLog/WbiSign拦截器，不带appkey签名），access_key直接鉴权可用；
+     * 之前用安卓appkey手动签名会-663鉴权失败。
+     * type筛选不生效，本地按history.business过滤；失败回退Web接口。
+     */
+    private void loadAppHistory(final String accessKey) {
+        isLoading = true;
+        // TODO 调试日志：验证App历史接口分页参数（已验证：pn/ps页码翻页生效，2026-11-02）
+        // Log.i(TAG, "[App历史] type=" + historyType + " pn=" + appPageNum + " ps=" + PAGE_SIZE);
+        ((VideoApiService) vo.a(VideoApiService.class))
+            .getVideoHistory(accessKey, appPageNum, PAGE_SIZE)
+            .a(new vu<GeneralResponse<JSONArray>>() {
+                @Override
+                public GeneralResponse<JSONArray> convert(okhttp3.ResponseBody responseBody) throws java.io.IOException {
+                    String rawResponse = responseBody.string();
+                    com.alibaba.fastjson.JSONObject jSONObject = com.alibaba.fastjson.JSON.parseObject(rawResponse);
+                    GeneralResponse<JSONArray> response = new GeneralResponse<>();
+                    response.code = jSONObject.getIntValue("code");
+                    if (response.code == 0) {
+                        response.data = jSONObject.getJSONArray("data");
+                    }
+                    return response;
+                }
+            })
+            .a(new vm<GeneralResponse<JSONArray>>() {
+                @Override
+                public boolean isCancel() {
+                    return getActivity() == null || getActivity().isFinishing() || adapter == null;
+                }
+
+                @Override
+                public void onError(Throwable th) {
+                    isLoading = false;
+                    Log.i(TAG, "App history load failed: " + th.getMessage() + ", fallback to web");
+                    loadWebHistory();
+                }
+
+                @Override
+                public void onSuccess(GeneralResponse<JSONArray> result) {
+                    if (adapter == null) {
+                        return;
+                    }
+                    j();
+                    isLoading = false;
+
+                    JSONArray list = (result != null) ? result.data : null;
+                    if (list == null) {
+                        // 接口失败：回退Web接口，保证列表可用
+                        Log.i(TAG, "App history load failed, fallback to web");
+                        loadWebHistory();
+                        return;
+                    }
+
+                    if (list.isEmpty()) {
+                        hasMore = false;
+                        if (adapter.a() == 0) {
+                            l();
+                            HistoryVideoFragment.this.a(R.string.nothing_show);
+                        }
+                        return;
+                    }
+
+                    // TODO 调试日志：验证App历史接口字段形态（已验证：badge/business字段正常，2026-11-02）
+                    // Log.i(TAG, "[App历史调试] item0=" + list.getJSONObject(0).toJSONString());
+                    // for (int i = 0; i < list.size(); i++) {
+                    //     JSONObject it = list.getJSONObject(i);
+                    //     Log.i(TAG, "[App历史调试] business=" + it.getJSONObject("history").getString("business")
+                    //             + " badge=" + it.getString("badge") + " title=" + it.getString("title"));
+                    // }
+
+                    // 成功拉取一页后页码推进（递归续拉/滚动加载都取下一页）。
+                    // 注意：服务端实际每页返回条数不稳定（请求ps=30只返回约18-20条），
+                    // 不能用"不足一页"判断最后一页，改用去重后无新条目判断（见下方deduped处理）
+                    appPageNum++;
+
+                    // 去重：pn页码翻页在观看新视频后页内容会整体后移出现重复条目，
+                    // 记录所有已拉取条目的key（business:oid），重复条目不再展示
+                    JSONArray deduped = new JSONArray();
+                    for (int i = 0; i < list.size(); i++) {
+                        JSONObject it = list.getJSONObject(i);
+                        JSONObject h = it.getJSONObject("history");
+                        String key = (h != null ? h.getString("business") : "") + ":"
+                                + (h != null ? h.getLongValue("oid") : 0);
+                        if (appSeenKeys.add(key)) {
+                            deduped.add(it);
+                        }
+                    }
+
+                    if (deduped.isEmpty()) {
+                        // 整页无新条目（已翻到尽头或内容后移全部重复）：停止加载
+                        hasMore = false;
+                        if (adapter.a() == 0) {
+                            l();
+                            HistoryVideoFragment.this.a(R.string.nothing_show);
+                        }
+                        return;
+                    }
+
+                    // type筛选实测不生效（archive请求返回视频+直播混合），
+                    // 本地按每条数据的history.business过滤，保证左侧筛选正确
+                    JSONArray filtered = new JSONArray();
+                    for (int i = 0; i < deduped.size(); i++) {
+                        JSONObject it = deduped.getJSONObject(i);
+                        JSONObject h = it.getJSONObject("history");
+                        String biz = h != null ? h.getString("business") : null;
+                        if ("live".equals(historyType)) {
+                            if ("live".equals(biz)) {
+                                filtered.add(it);
+                            }
+                        } else {
+                            if (!"live".equals(biz)) {
+                                filtered.add(it);
+                            }
+                        }
+                    }
+
+                    if (filtered.isEmpty()) {
+                        // 有新数据但全被业务过滤掉（如视频tab连续遇到直播记录）：自动续拉下一页，最多3次
+                        if (appAutoLoadRetry < 3) {
+                            appAutoLoadRetry++;
+                            loadAppHistory(accessKey);
+                            return;
+                        }
+                        appAutoLoadRetry = 0;
+                        hasMore = false;
+                        if (adapter.a() == 0) {
+                            l();
+                            HistoryVideoFragment.this.a(R.string.nothing_show);
+                        }
+                        return;
+                    }
+                    appAutoLoadRetry = 0;
+                    hasMore = true;
+
+                    if (appHasData) {
+                        adapter.b(filtered);
+                    } else {
+                        adapter.a(filtered);
+                        appHasData = true;
+                    }
+                    updateHeaderInfo();
+                }
+            });
+    }
+
+    private void loadWebHistory() {
+        Activity activity = getActivity();
+        if (activity == null || activity.isFinishing()) {
+            isLoading = false;
+            return;
+        }
+
+        mg account = mg.a(activity);
+        if (account == null) {
+            isLoading = false;
+            return;
+        }
+
         String cookie = CookieUtil.getFullCookieWithDevice(account);
         if (TextUtils.isEmpty(cookie)) {
             isLoading = false;
             return;
         }
-        
+
         isLoading = true;
-        
+
         ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class))
             .getVideoHistoryList(cookie, cursorMax, cursorViewAt, cursorBusiness, historyType, PAGE_SIZE)
             .a(new vn<JSONObject>() {
@@ -455,19 +642,27 @@ public final class HistoryVideoFragment extends ady {
             
             JSONObject item = this.videos.getJSONObject(position);
             if (item == null) return;
-            
+
+            // 按条目自身的history.business分支（App接口返回混合列表，页面historyType不可靠）
+            JSONObject itemHistory = item.getJSONObject("history");
+            String itemBusiness = itemHistory != null ? itemHistory.getString("business") : null;
+
             VideoCardCoverLoader.load(null, holder.z(), item.getString("cover"));
-            
+
             String title = item.getString("title");
             if (!TextUtils.isEmpty(title)) {
                 holder.A().setText(title);
             }
-            
+
             String showTitle = item.getString("show_title");
             String authorName = item.getString("author_name");
+            if (TextUtils.isEmpty(authorName)) {
+                // App历史接口的UP主字段是name（Web是author_name）
+                authorName = item.getString("name");
+            }
             String tagName = item.getString("tag_name");
             if (holder.B() != null) {
-                if ("live".equals(historyType)) {
+                if ("live".equals(itemBusiness)) {
                     if (!TextUtils.isEmpty(authorName)) {
                         holder.B().setText(authorName);
                         android.graphics.drawable.Drawable upIcon = bl.adl.a.c(R.drawable.ic_video_info_up);
@@ -502,15 +697,23 @@ public final class HistoryVideoFragment extends ady {
             int duration = item.getIntValue("duration");
             int progress = item.getIntValue("progress");
             String badge = item.getString("badge");
-            if (holder.C() != null) {
-                if ("live".equals(historyType)) {
-                    if (!TextUtils.isEmpty(badge)) {
-                        holder.C().setText(badge);
-                        holder.C().setVisibility(View.VISIBLE);
-                    } else {
-                        holder.C().setVisibility(View.GONE);
-                    }
-                } else {
+
+            if ("live".equals(itemBusiness)) {
+                // 直播条目：右上角显示直播状态角标（badge优先，其次live_status判断）
+                String liveBadge = badge;
+                if (TextUtils.isEmpty(liveBadge)) {
+                    int liveStatus = item.getIntValue("live_status");
+                    liveBadge = liveStatus == 1 ? "直播中" : "未开播";
+                }
+                VideoBadgeStyler.apply(holder.E(), liveBadge, null, false);
+                if (holder.C() != null) {
+                    holder.C().setVisibility(View.GONE);
+                }
+            } else {
+                // 视频条目：右上角充电专属等角标（复用详情页卡片角标渲染：
+                // 右上/左下圆角、默认B站粉#FB7299）+ 底部进度/看完状态
+                VideoBadgeStyler.apply(holder.E(), badge, null, false);
+                if (holder.C() != null) {
                     if (progress == -1) {
                         holder.C().setText("已看完");
                         holder.C().setVisibility(View.VISIBLE);
@@ -608,7 +811,8 @@ public final class HistoryVideoFragment extends ady {
                     Activity activity = adl.a(context);
                     if (activity == null) return;
                     
-                    if ("live".equals(historyType)) {
+                    if ("live".equals(history.getString("business"))) {
+                        // 按条目自身business分支（App接口返回混合列表，页面historyType不可靠）
                         int liveStatus = item.getIntValue("live_status");
                         if (liveStatus == 1) {
                             mybl.BiliLiveContent liveContent = new mybl.BiliLiveContent();
@@ -617,7 +821,7 @@ public final class HistoryVideoFragment extends ady {
                             liveContent.mUid = item.getLongValue("mid");
                             liveContent.mUname = item.getString("author_name");
                             liveContent.mRoomId = (int) history.getLongValue("oid");
-                            
+
                             com.bilibili.tv.ui.live.player.LivePlayerActivity.lives = new ArrayList<mybl.BiliLiveContent>();
                             com.bilibili.tv.ui.live.player.LivePlayerActivity.lives.add(liveContent);
                             com.bilibili.tv.ui.live.player.LivePlayerActivity.live_index = 0;
@@ -674,6 +878,7 @@ public final class HistoryVideoFragment extends ady {
         private TextView q;
         private TextView r;
         private DrawRelativeLayout s;
+        private TextView t;
         
         public h(View view) {
             super(view);
@@ -684,6 +889,7 @@ public final class HistoryVideoFragment extends ady {
             this.q = (TextView) a(view, R.id.duration);
             this.r = (TextView) a(view, R.id.sub_title);
             this.s = (DrawRelativeLayout) a(view, R.id.draw);
+            this.t = (TextView) a(view, R.id.badge);
             
             view.setOnFocusChangeListener(this);
         }
@@ -702,6 +908,10 @@ public final class HistoryVideoFragment extends ady {
         
         public final TextView C() {
             return this.q;
+        }
+
+        public final TextView E() {
+            return this.t;
         }
         
         public final TextView D() {

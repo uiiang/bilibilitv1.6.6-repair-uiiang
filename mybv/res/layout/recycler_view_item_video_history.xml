@@ -28,6 +28,22 @@
       android:paddingBottom="@dimen/px_4"
       android:background="@drawable/video_info_bottom_round_bg"
       android:focusable="false" />
+    <TextView android:id="@+id/badge"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="top|right"
+      android:paddingLeft="@dimen/px_8"
+      android:paddingRight="@dimen/px_8"
+      android:paddingTop="@dimen/px_4"
+      android:paddingBottom="@dimen/px_4"
+      android:textSize="@dimen/px_22"
+      android:textColor="@color/white"
+      android:gravity="center"
+      android:focusable="false"
+      android:visibility="gone"
+      android:maxLines="1"
+      android:ellipsize="end"
+      android:background="@drawable/badge_round_bg" />
   </FrameLayout>
   <LinearLayout android:id="@+id/bottom_info" android:layout_width="wrap_content"
     android:layout_height="wrap_content"

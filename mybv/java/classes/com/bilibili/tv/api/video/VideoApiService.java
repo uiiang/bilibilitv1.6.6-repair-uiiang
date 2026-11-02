@@ -4,6 +4,7 @@ import android.os.Looper;
 import android.text.TextUtils;
 import bl.abd;
 import bl.vp;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bilibili.api.base.util.ParamsMap;
 import com.bilibili.okretro.GeneralResponse;
@@ -31,6 +32,15 @@ public interface VideoApiService {
 
     @GET(value = "/x/v2/view")
     vp<GeneralResponse<JSONObject>> getVideoDetails(@QueryMap VideoParamsMapV2 videoParamsMapV2, @Query(value = "access_key") String str);
+
+    /**
+     * App历史记录列表（data为JSONArray，需用vu手动convert解析）。
+     * 旧版历史接口：仅支持pn（页码）/ps（每页条数）翻页，不支持游标参数
+     * （max/view_at/business/type会被服务端忽略，导致永远返回第一页）。
+     * type筛选同样不生效，需调用方本地按history.business过滤。
+     */
+    @GET(value = "/x/v2/history")
+    vp<GeneralResponse<JSONArray>> getVideoHistory(@Query(value = "access_key") String accessKey, @Query(value = "pn") int pn, @Query(value = "ps") int ps);
 
     /* compiled from: BL */
     /* loaded from: classes.dex */

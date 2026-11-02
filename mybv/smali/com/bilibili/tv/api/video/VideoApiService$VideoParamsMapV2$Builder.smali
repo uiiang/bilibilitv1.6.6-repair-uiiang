@@ -45,7 +45,7 @@
     .locals 1
 
     .prologue
-    .line 50
+    .line 60
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
@@ -59,10 +59,10 @@
     .locals 3
 
     .prologue
-    .line 53
+    .line 63
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 54
+    .line 64
     invoke-static {}, Landroid/os/Looper;->myLooper()Landroid/os/Looper;
 
     move-result-object v0
@@ -73,41 +73,41 @@
 
     if-eq v0, v1, :cond_50
 
-    .line 55
+    .line 65
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2$Builder;->mParams:Ljava/util/ArrayList;
 
-    .line 59
+    .line 69
     :goto_14
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2$Builder;->mParams:Ljava/util/ArrayList;
 
     invoke-virtual {v0}, Ljava/util/ArrayList;->clear()V
 
-    .line 60
+    .line 70
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2$Builder;->mParams:Ljava/util/ArrayList;
 
     const-string v1, "plat"
 
     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 61
+    .line 71
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2$Builder;->mParams:Ljava/util/ArrayList;
 
     const-string v1, "0"
 
     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 62
+    .line 72
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2$Builder;->mParams:Ljava/util/ArrayList;
 
     const-string v1, "aid"
 
     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 63
+    .line 73
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2$Builder;->mParams:Ljava/util/ArrayList;
 
     invoke-static {p1, p2}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
@@ -116,14 +116,14 @@
 
     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 64
+    .line 74
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2$Builder;->mParams:Ljava/util/ArrayList;
 
     const-string v1, "qn"
 
     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 65
+    .line 75
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2$Builder;->mParams:Ljava/util/ArrayList;
 
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
@@ -140,10 +140,10 @@
 
     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 66
+    .line 76
     return-void
 
-    .line 57
+    .line 67
     :cond_50
     sget-object v0, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2$Builder;->CommonParams:Ljava/util/ArrayList;
 
@@ -158,7 +158,7 @@
     .locals 3
 
     .prologue
-    .line 93
+    .line 103
     new-instance v1, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2;
 
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2$Builder;->mParams:Ljava/util/ArrayList;
@@ -173,7 +173,7 @@
 
     invoke-direct {v1, v0, v2}, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2;-><init>(ILcom/bilibili/tv/api/video/VideoApiService$1;)V
 
-    .line 94
+    .line 104
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2$Builder;->mParams:Ljava/util/ArrayList;
 
     iget-object v2, p0, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2$Builder;->mParams:Ljava/util/ArrayList;
@@ -193,7 +193,7 @@
     # invokes: Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2;->putParams([Ljava/lang/String;)V
     invoke-static {v1, v0}, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2;->access$100(Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2;[Ljava/lang/String;)V
 
-    .line 95
+    .line 105
     return-object v1
 .end method
 
@@ -201,26 +201,26 @@
     .locals 2
 
     .prologue
-    .line 85
+    .line 95
     invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v0
 
     if-nez v0, :cond_12
 
-    .line 86
+    .line 96
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2$Builder;->mParams:Ljava/util/ArrayList;
 
     const-string v1, "autoplay"
 
     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 87
+    .line 97
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2$Builder;->mParams:Ljava/util/ArrayList;
 
     invoke-virtual {v0, p1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 89
+    .line 99
     :cond_12
     return-object p0
 .end method
@@ -229,26 +229,26 @@
     .locals 2
 
     .prologue
-    .line 69
+    .line 79
     invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v0
 
     if-nez v0, :cond_12
 
-    .line 70
+    .line 80
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2$Builder;->mParams:Ljava/util/ArrayList;
 
     const-string v1, "from"
 
     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 71
+    .line 81
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2$Builder;->mParams:Ljava/util/ArrayList;
 
     invoke-virtual {v0, p1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 73
+    .line 83
     :cond_12
     return-object p0
 .end method
@@ -257,26 +257,26 @@
     .locals 2
 
     .prologue
-    .line 77
+    .line 87
     invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v0
 
     if-nez v0, :cond_12
 
-    .line 78
+    .line 88
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2$Builder;->mParams:Ljava/util/ArrayList;
 
     const-string v1, "trackid"
 
     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 79
+    .line 89
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2$Builder;->mParams:Ljava/util/ArrayList;
 
     invoke-virtual {v0, p1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 81
+    .line 91
     :cond_12
     return-object p0
 .end method

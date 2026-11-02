@@ -21,10 +21,10 @@
     .prologue
     const/4 v3, 0x2
 
-    .line 104
+    .line 114
     invoke-direct {p0, v3}, Lcom/bilibili/api/base/util/ParamsMap;-><init>(I)V
 
-    .line 105
+    .line 115
     const/4 v0, 0x4
 
     new-array v0, v0, [Ljava/lang/String;
@@ -55,7 +55,7 @@
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMap;->putParams([Ljava/lang/String;)V
 
-    .line 106
+    .line 116
     return-void
 .end method
 
@@ -65,10 +65,10 @@
     .prologue
     const/4 v3, 0x3
 
-    .line 118
+    .line 128
     invoke-direct {p0, v3}, Lcom/bilibili/api/base/util/ParamsMap;-><init>(I)V
 
-    .line 119
+    .line 129
     const/4 v0, 0x6
 
     new-array v0, v0, [Ljava/lang/String;
@@ -109,7 +109,7 @@
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMap;->putParams([Ljava/lang/String;)V
 
-    .line 120
+    .line 130
     return-void
 .end method
 
@@ -119,10 +119,10 @@
     .prologue
     const/4 v3, 0x4
 
-    .line 123
+    .line 133
     invoke-direct {p0, v3}, Lcom/bilibili/api/base/util/ParamsMap;-><init>(I)V
 
-    .line 124
+    .line 134
     const/16 v0, 0x8
 
     new-array v0, v0, [Ljava/lang/String;
@@ -173,7 +173,7 @@
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMap;->putParams([Ljava/lang/String;)V
 
-    .line 125
+    .line 135
     return-void
 .end method
 
@@ -191,13 +191,13 @@
 
     const/4 v2, 0x3
 
-    .line 128
+    .line 138
     invoke-direct {p0, v2}, Lcom/bilibili/api/base/util/ParamsMap;-><init>(I)V
 
-    .line 129
+    .line 139
     if-eqz p4, :cond_2a
 
-    .line 130
+    .line 140
     const/4 v0, 0x6
 
     new-array v0, v0, [Ljava/lang/String;
@@ -230,11 +230,11 @@
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMap;->putParams([Ljava/lang/String;)V
 
-    .line 134
+    .line 144
     :goto_29
     return-void
 
-    .line 132
+    .line 142
     :cond_2a
     const/4 v0, 0x6
 
@@ -285,13 +285,13 @@
 
     const/4 v2, 0x4
 
-    .line 137
+    .line 147
     invoke-direct {p0, v2}, Lcom/bilibili/api/base/util/ParamsMap;-><init>(I)V
 
-    .line 138
+    .line 148
     if-eqz p4, :cond_33
 
-    .line 139
+    .line 149
     const/16 v0, 0x8
 
     new-array v0, v0, [Ljava/lang/String;
@@ -334,11 +334,11 @@
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMap;->putParams([Ljava/lang/String;)V
 
-    .line 143
+    .line 153
     :goto_32
     return-void
 
-    .line 141
+    .line 151
     :cond_33
     const/16 v0, 0x8
 
@@ -399,13 +399,13 @@
 
     const/4 v2, 0x2
 
-    .line 109
+    .line 119
     invoke-direct {p0, v2}, Lcom/bilibili/api/base/util/ParamsMap;-><init>(I)V
 
-    .line 110
+    .line 120
     if-eqz p3, :cond_22
 
-    .line 111
+    .line 121
     new-array v0, v0, [Ljava/lang/String;
 
     const-string v1, "plat"
@@ -428,11 +428,11 @@
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMap;->putParams([Ljava/lang/String;)V
 
-    .line 115
+    .line 125
     :goto_21
     return-void
 
-    .line 113
+    .line 123
     :cond_22
     new-array v0, v0, [Ljava/lang/String;
 

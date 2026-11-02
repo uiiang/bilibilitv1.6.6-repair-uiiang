@@ -194,6 +194,16 @@ public final class AppRecommendLoader {
      * 返回响应中的 data 对象；网络/接口失败返回 null。
      */
     static JSONObject requestSignedJson(String baseUrl, TreeMap<String, String> params) {
+        JSONObject resp = requestSignedResponse(baseUrl, params);
+        return resp == null ? null : resp.getJSONObject("data");
+    }
+
+    /**
+     * App JSON 签名请求（返回完整响应，供 data 为数组等非对象形态的调用方使用）。
+     * params 自动追加 appkey/ts 后按 key 排序，sign = md5(query + appsec)；
+     * 网络/接口失败返回 null。
+     */
+    static JSONObject requestSignedResponse(String baseUrl, TreeMap<String, String> params) {
         HttpURLConnection conn = null;
         try {
             params.put("appkey", APP_KEY);
@@ -234,7 +244,7 @@ public final class AppRecommendLoader {
                         + " message=" + (resp == null ? "null" : resp.getString("message")));
                 return null;
             }
-            return resp.getJSONObject("data");
+            return resp;
         } catch (Exception e) {
             Log.w(TAG, "[App签名请求异常] " + e.getMessage());
             return null;
