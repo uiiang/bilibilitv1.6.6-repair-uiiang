@@ -3,6 +3,11 @@
 - fork于bilibilitv1.6.6-repair 感谢大佬的付出 [https://github.com/qidian55/bilibilitv1.6.6-repair]
 - 根据自己使用习惯做了一些修改
 
+v261102
+- 优化截图进度条加载速度
+- 显示充电专属标识
+- 解决一些bug
+
 v261029
 - 优化截图进度条加载速度
 - 详情页增加充电视频标识
