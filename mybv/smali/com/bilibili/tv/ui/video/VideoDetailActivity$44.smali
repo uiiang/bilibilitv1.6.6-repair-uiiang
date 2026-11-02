@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->startSeasonBadgesLoad(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->showVideoIntroPanel()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,17 +20,11 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-.field final synthetic val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
-.field final synthetic val$expectedCount:I
-
-.field final synthetic val$finalVmid:J
-
-.field final synthetic val$seasonId:J
+.field final synthetic val$scrollView:Landroid/view/View;
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;JJILcom/bilibili/tv/api/video/BiliVideoDetail;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Landroid/view/View;)V
     .locals 0
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -39,16 +33,10 @@
     .end annotation
 
     .prologue
-    .line 5411
+    .line 4509
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    iput-wide p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;->val$seasonId:J
-
-    iput-wide p4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;->val$finalVmid:J
-
-    iput p6, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;->val$expectedCount:I
-
-    iput-object p7, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;->val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;->val$scrollView:Landroid/view/View;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -58,66 +46,24 @@
 
 # virtual methods
 .method public run()V
-    .locals 5
+    .locals 1
 
     .prologue
-    .line 5414
-    iget-wide v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;->val$seasonId:J
+    .line 4512
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    iget-wide v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;->val$finalVmid:J
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
 
-    iget v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;->val$expectedCount:I
+    move-result v0
 
-    .line 5415
-    invoke-static {v0, v1, v2, v3, v4}, Lmybl/AppSeasonBadgesLoader;->load(JJI)Ljava/util/Map;
+    if-nez v0, :cond_d
 
-    move-result-object v0
+    .line 4513
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;->val$scrollView:Landroid/view/View;
 
-    .line 5416
-    invoke-interface {v0}, Ljava/util/Map;->isEmpty()Z
+    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    move-result v1
-
-    if-eqz v1, :cond_2b
-
-    .line 5417
-    const-string v0, "SeasonBadges"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "no badges season="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-wide v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;->val$seasonId:J
-
-    invoke-virtual {v1, v2, v3}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 5429
-    :goto_2a
+    .line 4515
+    :cond_d
     return-void
-
-    .line 5420
-    :cond_2b
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    new-instance v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44$1;
-
-    invoke-direct {v2, p0, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44$1;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;Ljava/util/Map;)V
-
-    invoke-virtual {v1, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->runOnUiThread(Ljava/lang/Runnable;)V
-
-    goto :goto_2a
 .end method

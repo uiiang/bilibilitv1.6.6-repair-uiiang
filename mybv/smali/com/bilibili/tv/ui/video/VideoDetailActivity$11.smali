@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 673
+    .line 686
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -42,25 +42,25 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 676
+    .line 689
     if-eqz p2, :cond_38
 
-    .line 677
+    .line 690
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getCurrentFocus()Landroid/view/View;
 
     move-result-object v1
 
-    .line 678
+    .line 691
     if-eqz v1, :cond_1e
 
-    .line 679
+    .line 692
     invoke-virtual {v1}, Landroid/view/View;->getId()I
 
     move-result v1
 
-    .line 680
+    .line 693
     const v2, 0x7f080192
 
     if-eq v1, v2, :cond_19
@@ -69,14 +69,14 @@
 
     if-ne v1, v2, :cond_1e
 
-    .line 682
+    .line 695
     :cond_19
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->relateVideoFocusPosition:I
     invoke-static {v1, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1302(Lcom/bilibili/tv/ui/video/VideoDetailActivity;I)I
 
-    .line 686
+    .line 699
     :cond_1e
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
@@ -99,18 +99,18 @@
 
     move-result-object v0
 
-    .line 687
+    .line 700
     if-eqz v0, :cond_35
 
-    .line 688
+    .line 701
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 699
+    .line 712
     :cond_35
     :goto_35
     return-void
 
-    .line 691
+    .line 704
     :cond_36
     add-int/lit8 v0, v0, 0x1
 
@@ -128,7 +128,7 @@
 
     if-ge v0, v1, :cond_35
 
-    .line 692
+    .line 705
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->r:Landroid/support/v7/widget/RecyclerView;
@@ -140,7 +140,7 @@
 
     move-result-object v1
 
-    .line 693
+    .line 706
     if-eqz v1, :cond_36
 
     invoke-virtual {v1}, Landroid/view/View;->hasFocus()Z
@@ -149,7 +149,7 @@
 
     if-eqz v1, :cond_36
 
-    .line 694
+    .line 707
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->relateVideoFocusPosition:I

@@ -155,6 +155,10 @@ public final class VideoDetailActivity extends BaseActivity
     private String preloadCoverUrl;
     private boolean isBlurLoaded = false;
     private View gradientMaskView;
+    // 焦点离开顶部控制区（UP主名称、播放/互动按钮）时叠加的加深遮罩，运行时创建，不新增资源 id
+    private View gradientMaskDimView;
+    private ViewTreeObserver.OnGlobalFocusChangeListener maskFocusListener;
+    private static final float MASK_DIM_ALPHA = 0.7f;
     private boolean mIsPgcMode = false;
     private PgcInfo mPgcInfo;
     private List<BiliVideoDetail.Page> t;
@@ -402,6 +406,13 @@ public final class VideoDetailActivity extends BaseActivity
         // 否则"在本页勾了无痕但没播就退出"会把状态带给番剧详情/下载页等其它入口，
         // 相当于用内存记住了"上次选过无痕"，与"每次播放以当前勾选为准"的定义冲突。
         sNoHistoryPlayMode = false;
+        if (this.maskFocusListener != null && this.gradientMaskDimView != null) {
+            ViewTreeObserver vto = this.gradientMaskDimView.getViewTreeObserver();
+            if (vto.isAlive()) {
+                vto.removeOnGlobalFocusChangeListener(this.maskFocusListener);
+            }
+            this.maskFocusListener = null;
+        }
         super.onDestroy();
     }
 
@@ -564,6 +575,8 @@ public final class VideoDetailActivity extends BaseActivity
             }
         }
         this.n = (RecyclerView) d(R.id.flow_tag_view);
+        // 遮罩随焦点区域切换：顶部控制区正常，进入列表区加深 50%
+        setupGradientMaskDim();
         FixLinearLayoutManager fixLinearLayoutManager = new FixLinearLayoutManager(this, 0, false) { // from class:
                                                                                                      // com.bilibili.tv.ui.video.VideoDetailActivity$initView$linearLayoutManager$1
             @Override // android.support.v7.widget.RecyclerView.h
@@ -1245,12 +1258,18 @@ public final class VideoDetailActivity extends BaseActivity
             if (gradientMask != null) {
                 gradientMask.setVisibility(View.GONE);
             }
+            if (this.gradientMaskDimView != null) {
+                this.gradientMaskDimView.setVisibility(View.GONE);
+            }
         } else {
             if (contentLayout != null) {
                 contentLayout.setVisibility(View.VISIBLE);
             }
             if (gradientMask != null) {
                 gradientMask.setVisibility(View.VISIBLE);
+            }
+            if (this.gradientMaskDimView != null) {
+                this.gradientMaskDimView.setVisibility(View.VISIBLE);
             }
             if (historyPlayBtnLayout != null && historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
                 historyPlayBtnLayout.requestFocus();
@@ -1505,6 +1524,58 @@ public final class VideoDetailActivity extends BaseActivity
         }
 
         return -1;
+    }
+
+    // ==================== 遮罩随焦点区域切换 ====================
+
+    /**
+     * 在渐变遮罩之上插入一层纯黑 View（默认全透明），用于焦点离开顶部控制区时压暗背景。
+     * 运行时创建，避免新增资源 id 需要同步 public.xml / R.java。
+     */
+    private void setupGradientMaskDim() {
+        if (this.q == null || this.gradientMaskView == null) {
+            return;
+        }
+        if (this.gradientMaskDimView == null) {
+            View dim = new View(this);
+            dim.setBackgroundColor(0xFF000000);
+            dim.setAlpha(0f);
+            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+            int index = this.q.indexOfChild(this.gradientMaskView) + 1;
+            if (index <= 0 || index > this.q.getChildCount()) {
+                index = this.q.getChildCount();
+            }
+            this.q.addView(dim, index, lp);
+            this.gradientMaskDimView = dim;
+        }
+        if (this.maskFocusListener == null) {
+            this.maskFocusListener = new ViewTreeObserver.OnGlobalFocusChangeListener() {
+                @Override
+                public void onGlobalFocusChanged(View oldFocus, View newFocus) {
+                    applyGradientMaskForFocus(newFocus);
+                }
+            };
+            this.q.getViewTreeObserver().addOnGlobalFocusChangeListener(this.maskFocusListener);
+        }
+        applyGradientMaskForFocus(getCurrentFocus());
+    }
+
+    /**
+     * 顶部控制区（UP 主名称、播放/点赞/投币/收藏/展开/信息等按钮）保持原遮罩；
+     * 焦点进入任意列表（选集 / 合集 / 分季 / 标签 / 相关推荐）时叠加 50% 黑。
+     */
+    private void applyGradientMaskForFocus(View focus) {
+        View dim = this.gradientMaskDimView;
+        if (dim == null) {
+            return;
+        }
+        boolean inList = getCurrentListType(focus) >= 0;
+        float target = inList ? MASK_DIM_ALPHA : 0f;
+        if (Math.abs(dim.getAlpha() - target) < 0.01f) {
+            return;
+        }
+        dim.animate().alpha(target).setDuration(180).start();
     }
 
     // 保存当前焦点位置

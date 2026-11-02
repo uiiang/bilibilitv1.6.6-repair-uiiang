@@ -23,7 +23,7 @@
     .locals 0
 
     .prologue
-    .line 567
+    .line 580
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$6;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0, p2, p3, p4}, Lcom/bilibili/tv/widget/FixLinearLayoutManager;-><init>(Landroid/content/Context;IZ)V
@@ -37,40 +37,40 @@
     .locals 2
 
     .prologue
-    .line 571
+    .line 584
     if-eqz p1, :cond_35
 
-    .line 572
+    .line 585
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$6;->d(Landroid/view/View;)I
 
     move-result v0
 
-    .line 573
+    .line 586
     const/16 v1, 0x11
 
     if-eq p2, v1, :cond_32
 
-    .line 574
+    .line 587
     const/16 v1, 0x21
 
     if-eq p2, v1, :cond_2d
 
-    .line 575
+    .line 588
     const/16 v1, 0x42
 
     if-eq p2, v1, :cond_25
 
-    .line 576
+    .line 589
     const/16 v0, 0x82
 
     if-ne p2, v0, :cond_2d
 
-    .line 577
+    .line 590
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$6;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     const v1, 0x7f080167
 
-    .line 578
+    .line 591
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->d(I)Landroid/view/View;
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;I)Landroid/view/View;
 
@@ -78,17 +78,17 @@
 
     check-cast v0, Lcom/bilibili/tv/widget/DrawLinearLayout;
 
-    .line 579
+    .line 592
     if-eqz v0, :cond_24
 
     move-object p1, v0
 
-    .line 593
+    .line 606
     :cond_24
     :goto_24
     return-object p1
 
-    .line 584
+    .line 597
     :cond_25
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$6;->H()I
 
@@ -98,7 +98,7 @@
 
     if-eq v0, v1, :cond_24
 
-    .line 591
+    .line 604
     :cond_2d
     invoke-super {p0, p1, p2}, Lcom/bilibili/tv/widget/FixLinearLayoutManager;->d(Landroid/view/View;I)Landroid/view/View;
 
@@ -106,13 +106,13 @@
 
     goto :goto_24
 
-    .line 588
+    .line 601
     :cond_32
     if-nez v0, :cond_2d
 
     goto :goto_24
 
-    .line 593
+    .line 606
     :cond_35
     const/4 p1, 0x0
 

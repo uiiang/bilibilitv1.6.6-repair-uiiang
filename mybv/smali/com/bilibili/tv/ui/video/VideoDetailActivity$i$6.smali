@@ -37,7 +37,7 @@
     .end annotation
 
     .prologue
-    .line 6015
+    .line 6086
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -57,7 +57,7 @@
     .locals 4
 
     .prologue
-    .line 6018
+    .line 6089
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -87,8 +87,8 @@
     iget-object v3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->createSeasonSectionView(Lcom/bilibili/tv/api/video/BiliVideoDetail$SectionInfo;IILcom/bilibili/tv/api/video/BiliVideoDetail;)V
-    invoke-static {v1, v0, p1, v2, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->access$9400(Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;Lcom/bilibili/tv/api/video/BiliVideoDetail$SectionInfo;IILcom/bilibili/tv/api/video/BiliVideoDetail;)V
+    invoke-static {v1, v0, p1, v2, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->access$9500(Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;Lcom/bilibili/tv/api/video/BiliVideoDetail$SectionInfo;IILcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
-    .line 6019
+    .line 6090
     return-void
 .end method

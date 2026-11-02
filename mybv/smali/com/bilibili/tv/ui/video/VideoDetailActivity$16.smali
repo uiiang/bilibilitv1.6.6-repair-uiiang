@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 788
+    .line 801
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -44,7 +44,7 @@
 
     const/4 v1, 0x0
 
-    .line 791
+    .line 804
     if-eqz p2, :cond_11
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -56,13 +56,13 @@
 
     if-eqz v0, :cond_11
 
-    .line 792
+    .line 805
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->scrollToViewIfNeeded(Landroid/view/View;)V
     invoke-static {v0, p2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1800(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Landroid/view/View;)V
 
-    .line 794
+    .line 807
     :cond_11
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
@@ -92,7 +92,7 @@
 
     move v3, v1
 
-    .line 797
+    .line 810
     :goto_28
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
@@ -107,7 +107,7 @@
 
     if-ge v0, v1, :cond_52
 
-    .line 798
+    .line 811
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->staffContainer:Landroid/widget/LinearLayout;
@@ -123,7 +123,7 @@
 
     move v3, v4
 
-    .line 801
+    .line 814
     :cond_41
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
@@ -140,7 +140,7 @@
 
     move v1, v4
 
-    .line 797
+    .line 810
     :goto_4e
     add-int/lit8 v0, v0, 0x1
 
@@ -148,19 +148,19 @@
 
     goto :goto_28
 
-    .line 805
+    .line 818
     :cond_52
     if-eqz v3, :cond_5b
 
     if-nez v2, :cond_5b
 
-    .line 806
+    .line 819
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->resetStaffNameVisibility()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
-    .line 809
+    .line 822
     :cond_5b
     return-void
 

@@ -41,7 +41,7 @@
     .end annotation
 
     .prologue
-    .line 242
+    .line 246
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$1;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$1;->val$lastPreDraw:[J
@@ -71,12 +71,12 @@
 
     const/4 v4, 0x0
 
-    .line 245
+    .line 249
     invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
 
     move-result-wide v8
 
-    .line 246
+    .line 250
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$1;->val$lastPreDraw:[J
 
     aget-wide v2, v2, v4
@@ -87,13 +87,13 @@
 
     move-wide v2, v0
 
-    .line 247
+    .line 251
     :goto_11
     new-instance v7, Ljava/lang/StringBuilder;
 
     invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 248
+    .line 252
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$1;->val$count:[I
 
     aget v0, v0, v4
@@ -111,7 +111,7 @@
 
     move v1, v4
 
-    .line 249
+    .line 253
     :goto_25
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$1;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
@@ -126,7 +126,7 @@
 
     if-ge v1, v0, :cond_80
 
-    .line 250
+    .line 254
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$1;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->ugcSeasonSections:Ljava/util/List;
@@ -140,12 +140,12 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
-    .line 251
+    .line 255
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->getRecyclerView()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v5
 
-    .line 252
+    .line 256
     const-string v10, " [s"
 
     invoke-virtual {v7, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -162,7 +162,7 @@
 
     const-string v11, " visible="
 
-    .line 253
+    .line 257
     invoke-virtual {v10, v11}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v10
@@ -178,7 +178,7 @@
 
     const-string v10, "/"
 
-    .line 254
+    .line 258
     invoke-virtual {v5, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v5
@@ -195,14 +195,14 @@
 
     invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 249
+    .line 253
     add-int/lit8 v0, v1, 0x1
 
     move v1, v0
 
     goto :goto_25
 
-    .line 246
+    .line 250
     :cond_73
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$1;->val$lastPreDraw:[J
 
@@ -214,7 +214,7 @@
 
     goto :goto_11
 
-    .line 253
+    .line 257
     :cond_7b
     invoke-virtual {v5}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
 
@@ -222,7 +222,7 @@
 
     goto :goto_58
 
-    .line 257
+    .line 261
     :cond_80
     const-string v0, "LoadPerf"
 
@@ -286,7 +286,7 @@
 
     move-result-object v1
 
-    .line 260
+    .line 264
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$1;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iget-object v2, v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonsContainer:Landroid/widget/LinearLayout;
@@ -298,7 +298,7 @@
 
     move-result-object v1
 
-    .line 261
+    .line 265
     invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v2
@@ -311,15 +311,15 @@
 
     move-result-object v1
 
-    .line 257
+    .line 261
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 262
+    .line 266
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$1;->val$lastPreDraw:[J
 
     aput-wide v8, v0, v4
 
-    .line 263
+    .line 267
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$1;->val$count:[I
 
     aget v1, v0, v4
@@ -328,7 +328,7 @@
 
     aput v1, v0, v4
 
-    .line 264
+    .line 268
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$1;->val$count:[I
 
     aget v0, v0, v4
@@ -337,30 +337,30 @@
 
     if-lt v0, v1, :cond_fb
 
-    .line 265
+    .line 269
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$1;->val$root:Landroid/view/View;
 
     invoke-virtual {v0}, Landroid/view/View;->getViewTreeObserver()Landroid/view/ViewTreeObserver;
 
     move-result-object v0
 
-    .line 266
+    .line 270
     invoke-virtual {v0}, Landroid/view/ViewTreeObserver;->isAlive()Z
 
     move-result v1
 
     if-eqz v1, :cond_fb
 
-    .line 267
+    .line 271
     invoke-virtual {v0, p0}, Landroid/view/ViewTreeObserver;->removeOnPreDrawListener(Landroid/view/ViewTreeObserver$OnPreDrawListener;)V
 
-    .line 270
+    .line 274
     :cond_fb
     const/4 v0, 0x1
 
     return v0
 
-    .line 260
+    .line 264
     :cond_fd
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$1;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
