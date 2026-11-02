@@ -282,12 +282,30 @@ public class xg {
             // 合集名：命中 section 的标题 → season_title → 第一个 section 的标题
             currentSectionTitle = resolveCollectionTitle(biliVideoDetail, currentSectionTitle);
             final int finalSectionId = currentSectionId;
-            
+
+            // 详情页已把 App 接口的“充电专属”角标合并到 parsedEpisodes（按 aid 映射），
+            // 这里建立 aid -> 预解析集 的索引，供下方逐集填充 mBadgeText（含当前播放集）
+            java.util.Map<Long, BiliVideoDetail> parsedEpisodeByAid =
+                    new java.util.HashMap<Long, BiliVideoDetail>();
+            if (biliVideoDetail.sectionInfoList != null) {
+                for (BiliVideoDetail.SectionInfo sectionInfo : biliVideoDetail.sectionInfoList) {
+                    if (sectionInfo == null || sectionInfo.parsedEpisodes == null) {
+                        continue;
+                    }
+                    for (BiliVideoDetail parsed : sectionInfo.parsedEpisodes) {
+                        if (parsed != null && parsed.mAvid > 0) {
+                            parsedEpisodeByAid.put(Long.valueOf(parsed.mAvid), parsed);
+                        }
+                    }
+                }
+            }
+
             int size = currentSectionEpisodes.size();
             ResolveResourceParams[] obtainResolveParamsArray = a.mVideoParams.obtainResolveParamsArray(size);
             for (int i3 = 0; i3 < size; i3++) {
                 JSONObject episode = currentSectionEpisodes.getJSONObject(i3);
                 long episodeCid = episode.getLongValue("cid");
+                BiliVideoDetail parsedEpisode = parsedEpisodeByAid.get(Long.valueOf(episode.getLongValue("aid")));
                 if (episodeCid == obtainResolveParams.mCid) {
                     a.mVideoParams.mResolveParams.mPage = i3;
                     a.mVideoParams.mResolveParams.mListType = 3;
@@ -316,6 +334,7 @@ public class xg {
                             a.mVideoParams.mResolveParams.mPubDate = arc.getLongValue("pubdate");
                         }
                     }
+                    applyUgcBadge(a.mVideoParams.mResolveParams, parsedEpisode, episode);
                     obtainResolveParamsArray[i3] = a.mVideoParams.mResolveParams;
                 } else {
                     ResolveResourceParams resolveResourceParams = new ResolveResourceParams();
@@ -345,11 +364,7 @@ public class xg {
                         resolveResourceParams.mPubDate = arc.getLongValue("pubdate");
                     }
                     Log.i("xg", "UGC合集转换 | mAuthor=" + resolveResourceParams.mAuthor + " | mListType=" + resolveResourceParams.mListType);
-                    JSONObject badgeInfo = episode.getJSONObject("badge_info");
-                    if (badgeInfo != null) {
-                        resolveResourceParams.mBadgeText = badgeInfo.getString("text");
-                        resolveResourceParams.mBadgeBgColor = badgeInfo.getString("bg_color");
-                    }
+                    applyUgcBadge(resolveResourceParams, parsedEpisode, episode);
                     resolveResourceParams.mListType = 3;
                     if (finalSectionId > 0) {
                         resolveResourceParams.mListKey = "section_" + finalSectionId;
@@ -517,12 +532,30 @@ public class xg {
             // 合集名：命中 section 的标题 → season_title → 第一个 section 的标题
             currentSectionTitle = resolveCollectionTitle(biliVideoDetail, currentSectionTitle);
             final int finalSectionId2 = currentSectionId;
-            
+
+            // 详情页已把 App 接口的“充电专属”角标合并到 parsedEpisodes（按 aid 映射），
+            // 这里建立 aid -> 预解析集 的索引，供下方逐集填充 mBadgeText（含当前播放集）
+            java.util.Map<Long, BiliVideoDetail> parsedEpisodeByAid =
+                    new java.util.HashMap<Long, BiliVideoDetail>();
+            if (biliVideoDetail.sectionInfoList != null) {
+                for (BiliVideoDetail.SectionInfo sectionInfo : biliVideoDetail.sectionInfoList) {
+                    if (sectionInfo == null || sectionInfo.parsedEpisodes == null) {
+                        continue;
+                    }
+                    for (BiliVideoDetail parsed : sectionInfo.parsedEpisodes) {
+                        if (parsed != null && parsed.mAvid > 0) {
+                            parsedEpisodeByAid.put(Long.valueOf(parsed.mAvid), parsed);
+                        }
+                    }
+                }
+            }
+
             int size = currentSectionEpisodes.size();
             ResolveResourceParams[] obtainResolveParamsArray = a.mVideoParams.obtainResolveParamsArray(size);
             for (int i3 = 0; i3 < size; i3++) {
                 JSONObject episode = currentSectionEpisodes.getJSONObject(i3);
                 long episodeCid = episode.getLongValue("cid");
+                BiliVideoDetail parsedEpisode = parsedEpisodeByAid.get(Long.valueOf(episode.getLongValue("aid")));
                 if (episodeCid == obtainResolveParams.mCid) {
                     a.mVideoParams.mResolveParams.mPage = i3;
                     a.mVideoParams.mResolveParams.mListType = 3;
@@ -551,6 +584,7 @@ public class xg {
                             a.mVideoParams.mResolveParams.mPubDate = arc.getLongValue("pubdate");
                         }
                     }
+                    applyUgcBadge(a.mVideoParams.mResolveParams, parsedEpisode, episode);
                     obtainResolveParamsArray[i3] = a.mVideoParams.mResolveParams;
                 } else {
                     ResolveResourceParams resolveResourceParams = new ResolveResourceParams();
@@ -578,11 +612,7 @@ public class xg {
                         }
                         resolveResourceParams.mPubDate = arc.getLongValue("pubdate");
                     }
-                    JSONObject badgeInfo = episode.getJSONObject("badge_info");
-                    if (badgeInfo != null) {
-                        resolveResourceParams.mBadgeText = badgeInfo.getString("text");
-                        resolveResourceParams.mBadgeBgColor = badgeInfo.getString("bg_color");
-                    }
+                    applyUgcBadge(resolveResourceParams, parsedEpisode, episode);
                     resolveResourceParams.mListType = 3;
                     if (finalSectionId2 > 0) {
                         resolveResourceParams.mListKey = "section_" + finalSectionId2;
@@ -627,6 +657,33 @@ public class xg {
             return detail.sectionInfoList.get(0).title;
         }
         return null;
+    }
+
+    /**
+     * 为合集播放列表项填充“充电专属”角标：
+     * 优先使用详情页从 App 接口合并到 parsedEpisodes 的 badgeText/bgColor，
+     * 取不到时回退到 Web 分集的 badge_info（部分数据源仍带该字段）。
+     */
+    private static void applyUgcBadge(ResolveResourceParams params, BiliVideoDetail parsedEpisode, JSONObject episode) {
+        if (params == null) {
+            return;
+        }
+        if (parsedEpisode != null && !TextUtils.isEmpty(parsedEpisode.badgeText)) {
+            params.mBadgeText = parsedEpisode.badgeText;
+            params.mBadgeBgColor = parsedEpisode.badgeBgColor;
+            return;
+        }
+        if (episode == null) {
+            return;
+        }
+        JSONObject badgeInfo = episode.getJSONObject("badge_info");
+        if (badgeInfo != null) {
+            String text = badgeInfo.getString("text");
+            if (!TextUtils.isEmpty(text)) {
+                params.mBadgeText = text;
+                params.mBadgeBgColor = badgeInfo.getString("bg_color");
+            }
+        }
     }
 
     public static void a(Context context, PlayerParams playerParams, Bundle bundle) {
