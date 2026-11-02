@@ -182,7 +182,7 @@
 .end method
 
 .method public final a(Ljava/util/HashMap;)V
-    .locals 8
+    .locals 4
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
@@ -206,59 +206,40 @@
     invoke-virtual {v0}, Ljava/util/ArrayList;->clear()V
 
     .line 5087
-    new-instance v3, Landroid/text/TextPaint;
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;->c:Ljava/util/HashMap;
 
-    invoke-direct {v3}, Landroid/text/TextPaint;-><init>()V
+    invoke-virtual {v0}, Ljava/util/HashMap;->clear()V
 
     .line 5088
-    const v0, 0x7f06022c
-
-    invoke-static {v0}, Lbl/adl;->b(I)I
-
-    move-result v4
-
-    .line 5089
-    const v0, 0x7f0602f2
-
-    invoke-static {v0}, Lbl/adl;->b(I)I
-
-    move-result v5
-
-    .line 5090
-    const/4 v0, 0x0
-
-    .line 5091
     invoke-virtual {p1}, Ljava/util/HashMap;->entrySet()Ljava/util/Set;
 
-    move-result-object v1
+    move-result-object v0
 
-    invoke-interface {v1}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
+    invoke-interface {v0}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
 
-    move-result-object v6
+    move-result-object v2
 
-    move v2, v0
-
-    :goto_27
-    invoke-interface {v6}, Ljava/util/Iterator;->hasNext()Z
+    :goto_17
+    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
 
     move-result v0
 
-    if-eqz v0, :cond_4c
+    if-eqz v0, :cond_42
 
-    invoke-interface {v6}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
     move-result-object v0
 
     check-cast v0, Ljava/util/Map$Entry;
 
-    .line 5092
+    .line 5089
     invoke-interface {v0}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
 
     move-result-object v1
 
     check-cast v1, Ljava/lang/String;
 
-    .line 5093
+    .line 5090
     invoke-interface {v0}, Ljava/util/Map$Entry;->getValue()Ljava/lang/Object;
 
     move-result-object v0
@@ -267,46 +248,28 @@
 
     invoke-virtual {v0}, Ljava/lang/Integer;->intValue()I
 
-    move-result v7
-
-    .line 5094
-    invoke-virtual {v3, v1}, Landroid/text/TextPaint;->measureText(Ljava/lang/String;)F
-
     move-result v0
 
-    float-to-int v0, v0
+    .line 5091
+    iget-object v3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;->b:Ljava/util/ArrayList;
 
-    add-int/2addr v0, v2
+    invoke-virtual {v3, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    add-int/2addr v0, v5
+    .line 5092
+    iget-object v3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;->c:Ljava/util/HashMap;
 
-    .line 5095
-    if-lt v0, v4, :cond_50
+    invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
-    .line 5101
-    :cond_4c
+    move-result-object v0
+
+    invoke-virtual {v3, v1, v0}, Ljava/util/HashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    goto :goto_17
+
+    .line 5094
+    :cond_42
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;->d()V
 
-    .line 5102
+    .line 5095
     return-void
-
-    .line 5098
-    :cond_50
-    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;->b:Ljava/util/ArrayList;
-
-    invoke-virtual {v2, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
-
-    .line 5099
-    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;->c:Ljava/util/HashMap;
-
-    invoke-static {v7}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-
-    move-result-object v7
-
-    invoke-virtual {v2, v1, v7}, Ljava/util/HashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    move v2, v0
-
-    .line 5100
-    goto :goto_27
 .end method

@@ -39,7 +39,7 @@
     .end annotation
 
     .prologue
-    .line 5418
+    .line 5411
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-wide p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;->val$seasonId:J
@@ -61,26 +61,26 @@
     .locals 5
 
     .prologue
-    .line 5421
+    .line 5414
     iget-wide v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;->val$seasonId:J
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;->val$finalVmid:J
 
     iget v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;->val$expectedCount:I
 
-    .line 5422
+    .line 5415
     invoke-static {v0, v1, v2, v3, v4}, Lmybl/AppSeasonBadgesLoader;->load(JJI)Ljava/util/Map;
 
     move-result-object v0
 
-    .line 5423
+    .line 5416
     invoke-interface {v0}, Ljava/util/Map;->isEmpty()Z
 
     move-result v1
 
     if-eqz v1, :cond_2b
 
-    .line 5424
+    .line 5417
     const-string v0, "SeasonBadges"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -105,11 +105,11 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 5436
+    .line 5429
     :goto_2a
     return-void
 
-    .line 5427
+    .line 5420
     :cond_2b
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 

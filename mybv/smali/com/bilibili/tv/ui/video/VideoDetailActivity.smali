@@ -2331,7 +2331,7 @@
     .end annotation
 
     .prologue
-    .line 5443
+    .line 5436
     if-eqz p1, :cond_c
 
     iget-object v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->sectionInfoList:Ljava/util/List;
@@ -2344,15 +2344,15 @@
 
     if-eqz v0, :cond_d
 
-    .line 5472
+    .line 5465
     :cond_c
     return-void
 
-    .line 5446
+    .line 5439
     :cond_d
     const/4 v0, 0x0
 
-    .line 5447
+    .line 5440
     iget-object v1, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->sectionInfoList:Ljava/util/List;
 
     invoke-interface {v1}, Ljava/util/List;->iterator()Ljava/util/Iterator;
@@ -2375,14 +2375,14 @@
 
     check-cast v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$SectionInfo;
 
-    .line 5448
+    .line 5441
     if-eqz v0, :cond_15
 
     iget-object v2, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$SectionInfo;->parsedEpisodes:Ljava/util/List;
 
     if-eqz v2, :cond_15
 
-    .line 5451
+    .line 5444
     iget-object v0, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$SectionInfo;->parsedEpisodes:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
@@ -2405,10 +2405,10 @@
 
     check-cast v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    .line 5452
+    .line 5445
     if-eqz v0, :cond_2e
 
-    .line 5455
+    .line 5448
     iget-wide v6, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mAvid:J
 
     invoke-static {v6, v7}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
@@ -2421,7 +2421,7 @@
 
     check-cast v1, Lmybl/AppSeasonBadgesLoader$Badge;
 
-    .line 5456
+    .line 5449
     if-eqz v1, :cond_2e
 
     iget-object v5, v1, Lmybl/AppSeasonBadgesLoader$Badge;->text:Ljava/lang/String;
@@ -2432,17 +2432,17 @@
 
     if-nez v5, :cond_2e
 
-    .line 5457
+    .line 5450
     iget-object v5, v1, Lmybl/AppSeasonBadgesLoader$Badge;->text:Ljava/lang/String;
 
     iput-object v5, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->badgeText:Ljava/lang/String;
 
-    .line 5458
+    .line 5451
     iget-object v1, v1, Lmybl/AppSeasonBadgesLoader$Badge;->bgColor:Ljava/lang/String;
 
     iput-object v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->badgeBgColor:Ljava/lang/String;
 
-    .line 5459
+    .line 5452
     add-int/lit8 v2, v2, 0x1
 
     goto :goto_2e
@@ -2450,10 +2450,10 @@
     :cond_5d
     move v1, v2
 
-    .line 5462
+    .line 5455
     goto :goto_15
 
-    .line 5463
+    .line 5456
     :cond_5f
     const-string v0, "SeasonBadges"
 
@@ -2491,14 +2491,14 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 5464
+    .line 5457
     if-eqz v1, :cond_c
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->ugcSeasonSections:Ljava/util/List;
 
     if-eqz v0, :cond_c
 
-    .line 5467
+    .line 5460
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->ugcSeasonSections:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
@@ -2519,10 +2519,10 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
-    .line 5468
+    .line 5461
     if-eqz v0, :cond_91
 
-    .line 5469
+    .line 5462
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->refreshVisibleItems()V
 
     goto :goto_91
@@ -13780,7 +13780,7 @@
     .prologue
     const-wide/16 v6, 0x0
 
-    .line 5398
+    .line 5391
     if-eqz p1, :cond_14
 
     iget-object v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->ugcSeason:Lcom/alibaba/fastjson/JSONObject;
@@ -13793,19 +13793,19 @@
 
     iget-object v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->sectionInfoList:Ljava/util/List;
 
-    .line 5399
+    .line 5392
     invoke-interface {v0}, Ljava/util/List;->isEmpty()Z
 
     move-result v0
 
     if-eqz v0, :cond_15
 
-    .line 5438
+    .line 5431
     :cond_14
     :goto_14
     return-void
 
-    .line 5402
+    .line 5395
     :cond_15
     iget-object v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->ugcSeason:Lcom/alibaba/fastjson/JSONObject;
 
@@ -13815,7 +13815,7 @@
 
     move-result-wide v2
 
-    .line 5403
+    .line 5396
     iget-object v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->ugcSeason:Lcom/alibaba/fastjson/JSONObject;
 
     const-string v1, "mid"
@@ -13824,7 +13824,7 @@
 
     move-result-wide v4
 
-    .line 5404
+    .line 5397
     cmp-long v0, v4, v6
 
     if-gtz v0, :cond_31
@@ -13833,12 +13833,12 @@
 
     if-eqz v0, :cond_31
 
-    .line 5405
+    .line 5398
     iget-object v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mOwner:Lcom/bilibili/tv/api/video/BiliUser;
 
     iget-wide v4, v0, Lcom/bilibili/tv/api/video/BiliUser;->mid:J
 
-    .line 5407
+    .line 5400
     :cond_31
     cmp-long v0, v2, v6
 
@@ -13848,17 +13848,17 @@
 
     if-lez v0, :cond_14
 
-    .line 5410
+    .line 5403
     iget-wide v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonBadgesLoadedSeasonId:J
 
     cmp-long v0, v0, v2
 
     if-eqz v0, :cond_14
 
-    .line 5413
+    .line 5406
     iput-wide v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonBadgesLoadedSeasonId:J
 
-    .line 5415
+    .line 5408
     iget-object v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->ugcSeason:Lcom/alibaba/fastjson/JSONObject;
 
     const-string v1, "ep_count"
@@ -13867,7 +13867,7 @@
 
     move-result v6
 
-    .line 5416
+    .line 5409
     const-string v0, "SeasonBadges"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -13910,7 +13910,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 5418
+    .line 5411
     new-instance v8, Ljava/lang/Thread;
 
     new-instance v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$44;
@@ -13925,7 +13925,7 @@
 
     invoke-direct {v8, v0, v1}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;Ljava/lang/String;)V
 
-    .line 5437
+    .line 5430
     invoke-virtual {v8}, Ljava/lang/Thread;->start()V
 
     goto :goto_14

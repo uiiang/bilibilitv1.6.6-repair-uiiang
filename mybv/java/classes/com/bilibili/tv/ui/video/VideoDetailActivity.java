@@ -5084,17 +5084,10 @@ public final class VideoDetailActivity extends BaseActivity
         public final void a(HashMap<String, Integer> hashMap) {
             bbi.b(hashMap, "map");
             this.b.clear();
-            TextPaint textPaint = new TextPaint();
-            int b = adl.b(R.dimen.px_500);
-            int b2 = adl.b(R.dimen.px_68);
-            int i = 0;
+            this.c.clear();
             for (Map.Entry<String, Integer> entry : hashMap.entrySet()) {
                 String key = entry.getKey();
                 int intValue = entry.getValue().intValue();
-                i = i + ((int) textPaint.measureText(key)) + b2;
-                if (i >= b) {
-                    break;
-                }
                 this.b.add(key);
                 this.c.put(key, Integer.valueOf(intValue));
             }
@@ -5762,7 +5755,7 @@ public final class VideoDetailActivity extends BaseActivity
                     if (tagList == null || tagList.isEmpty()) {
                         return;
                     }
-                    HashMap<String, Integer> hashMap = new HashMap<>(tagList.size());
+                    HashMap<String, Integer> hashMap = new java.util.LinkedHashMap<>(tagList.size());
                     for (BiliVideoDetail.Tag tag : tagList) {
                         hashMap.put(tag.name, Integer.valueOf(tag.id));
                     }
@@ -5899,7 +5892,7 @@ public final class VideoDetailActivity extends BaseActivity
             if (list == null || list.isEmpty()) {
                 return;
             }
-            HashMap<String, Integer> hashMap = new HashMap<>(list.size());
+            HashMap<String, Integer> hashMap = new java.util.LinkedHashMap<>(list.size());
             for (BiliVideoDetail.Tag tag : list) {
                 hashMap.put(tag.name, Integer.valueOf(tag.id));
             }
