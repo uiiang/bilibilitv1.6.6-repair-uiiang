@@ -55,6 +55,8 @@ public final class HistoryVideoFragment extends ady {
     public static final String ARG_HISTORY_TYPE = "history_type";
     private static final String TAG = "HistoryVideoFragment";
     private static final int PAGE_SIZE = 30;
+    // 首屏最少显示条数：过滤后不足该条数且服务端仍有新数据时，自动续拉下一页补齐
+    private static final int MIN_DISPLAY_COUNT = 20;
     private static final int COLUMN_COUNT = 2;
     
     public static long currentAvid = -1;
@@ -72,8 +74,6 @@ public final class HistoryVideoFragment extends ady {
     private final HashSet<String> appSeenKeys = new HashSet<String>();
     // App接口是否已展示过数据（决定替换还是追加）
     private boolean appHasData = false;
-    // 本地过滤后为空时自动续拉下一页的次数
-    private int appAutoLoadRetry = 0;
     
     private String historyType = "archive";
     private LinearLayout headerLayout;
@@ -276,6 +276,8 @@ public final class HistoryVideoFragment extends ady {
      * 请求由vo.a()创建（仅挂ApiLog/WbiSign拦截器，不带appkey签名），access_key直接鉴权可用；
      * 之前用安卓appkey手动签名会-663鉴权失败。
      * type筛选不生效，本地按history.business过滤；失败回退Web接口。
+     * 首屏补齐：过滤后总条数不足MIN_DISPLAY_COUNT且服务端仍有新数据时，自动续拉下一页，
+     * 终止条件：够MIN_DISPLAY_COUNT、去重后无新条目（服务端数据耗尽/整页重复）或空页。
      */
     private void loadAppHistory(final String accessKey) {
         isLoading = true;
@@ -388,31 +390,23 @@ public final class HistoryVideoFragment extends ady {
                         }
                     }
 
-                    if (filtered.isEmpty()) {
-                        // 有新数据但全被业务过滤掉（如视频tab连续遇到直播记录）：自动续拉下一页，最多3次
-                        if (appAutoLoadRetry < 3) {
-                            appAutoLoadRetry++;
-                            loadAppHistory(accessKey);
-                            return;
+                    if (!filtered.isEmpty()) {
+                        hasMore = true;
+                        if (appHasData) {
+                            adapter.b(filtered);
+                        } else {
+                            adapter.a(filtered);
+                            appHasData = true;
                         }
-                        appAutoLoadRetry = 0;
-                        hasMore = false;
-                        if (adapter.a() == 0) {
-                            l();
-                            HistoryVideoFragment.this.a(R.string.nothing_show);
-                        }
-                        return;
+                        updateHeaderInfo();
                     }
-                    appAutoLoadRetry = 0;
-                    hasMore = true;
 
-                    if (appHasData) {
-                        adapter.b(filtered);
-                    } else {
-                        adapter.a(filtered);
-                        appHasData = true;
+                    // 首屏补齐：过滤后总条数不足MIN_DISPLAY_COUNT（服务端不按ps给满页+直播记录
+                    // 被本地过滤都会导致页数据缩水），且本页有新条目（服务端还有数据）时，
+                    // 自动续拉下一页，直到够MIN_DISPLAY_COUNT或没有新数据（deduped为空时终止）
+                    if (adapter.a() < MIN_DISPLAY_COUNT) {
+                        loadAppHistory(accessKey);
                     }
-                    updateHeaderInfo();
                 }
             });
     }

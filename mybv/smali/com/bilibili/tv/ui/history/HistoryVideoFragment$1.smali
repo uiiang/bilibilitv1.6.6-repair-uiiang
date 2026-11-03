@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 299
+    .line 301
     iput-object p1, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->val$accessKey:Ljava/lang/String;
@@ -52,7 +52,7 @@
     .locals 1
 
     .prologue
-    .line 302
+    .line 304
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -98,7 +98,7 @@
     .locals 3
 
     .prologue
-    .line 307
+    .line 309
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     const/4 v1, 0x0
@@ -106,7 +106,7 @@
     # setter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->isLoading:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$002(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;Z)Z
 
-    .line 308
+    .line 310
     const-string v0, "HistoryVideoFragment"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -139,13 +139,13 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 309
+    .line 311
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     # invokes: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->loadWebHistory()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$400(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;)V
 
-    .line 310
+    .line 312
     return-void
 .end method
 
@@ -164,13 +164,13 @@
     .prologue
     const/4 v4, 0x0
 
-    const/4 v10, 0x1
+    const v10, 0x7f0c00d8
 
-    const v9, 0x7f0c00d8
+    const/4 v9, 0x1
 
     const/4 v1, 0x0
 
-    .line 314
+    .line 316
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->adapter:Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;
@@ -180,24 +180,24 @@
 
     if-nez v0, :cond_f
 
-    .line 416
+    .line 410
     :cond_e
     :goto_e
     return-void
 
-    .line 317
+    .line 319
     :cond_f
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->j()V
 
-    .line 318
+    .line 320
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     # setter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->isLoading:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$002(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;Z)Z
 
-    .line 320
+    .line 322
     if-eqz p1, :cond_2f
 
     iget-object v0, p1, Lcom/bilibili/okretro/GeneralResponse;->data:Ljava/lang/Object;
@@ -206,18 +206,18 @@
 
     move-object v5, v0
 
-    .line 321
+    .line 323
     :goto_20
     if-nez v5, :cond_31
 
-    .line 323
+    .line 325
     const-string v0, "HistoryVideoFragment"
 
     const-string v1, "App history load failed, fallback to web"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 324
+    .line 326
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     # invokes: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->loadWebHistory()V
@@ -228,10 +228,10 @@
     :cond_2f
     move-object v5, v4
 
-    .line 320
+    .line 322
     goto :goto_20
 
-    .line 328
+    .line 330
     :cond_31
     invoke-virtual {v5}, Lcom/alibaba/fastjson/JSONArray;->isEmpty()Z
 
@@ -239,13 +239,13 @@
 
     if-eqz v0, :cond_53
 
-    .line 329
+    .line 331
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     # setter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->hasMore:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$102(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;Z)Z
 
-    .line 330
+    .line 332
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->adapter:Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;
@@ -259,33 +259,33 @@
 
     if-nez v0, :cond_e
 
-    .line 331
+    .line 333
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->l()V
 
-    .line 332
+    .line 334
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
-    invoke-virtual {v0, v9}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->a(I)V
+    invoke-virtual {v0, v10}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->a(I)V
 
     goto :goto_e
 
-    .line 348
+    .line 350
     :cond_53
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     # operator++ for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->appPageNum:I
     invoke-static {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$508(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;)I
 
-    .line 352
+    .line 354
     new-instance v6, Lcom/alibaba/fastjson/JSONArray;
 
     invoke-direct {v6}, Lcom/alibaba/fastjson/JSONArray;-><init>()V
 
     move v0, v1
 
-    .line 353
+    .line 355
     :goto_5e
     invoke-virtual {v5}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -293,19 +293,19 @@
 
     if-ge v0, v2, :cond_ad
 
-    .line 354
+    .line 356
     invoke-virtual {v5, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v7
 
-    .line 355
+    .line 357
     const-string v2, "history"
 
     invoke-virtual {v7, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v3
 
-    .line 356
+    .line 358
     new-instance v8, Ljava/lang/StringBuilder;
 
     invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
@@ -329,7 +329,7 @@
 
     move-result-object v8
 
-    .line 357
+    .line 359
     if-eqz v3, :cond_aa
 
     const-string v2, "oid"
@@ -347,7 +347,7 @@
 
     move-result-object v2
 
-    .line 358
+    .line 360
     iget-object v3, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->appSeenKeys:Ljava/util/HashSet;
@@ -361,28 +361,28 @@
 
     if-eqz v2, :cond_a4
 
-    .line 359
+    .line 361
     invoke-virtual {v6, v7}, Lcom/alibaba/fastjson/JSONArray;->add(Ljava/lang/Object;)Z
 
-    .line 353
+    .line 355
     :cond_a4
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_5e
 
-    .line 356
+    .line 358
     :cond_a7
     const-string v2, ""
 
     goto :goto_7b
 
-    .line 357
+    .line 359
     :cond_aa
     const-wide/16 v2, 0x0
 
     goto :goto_8d
 
-    .line 363
+    .line 365
     :cond_ad
     invoke-virtual {v6}, Lcom/alibaba/fastjson/JSONArray;->isEmpty()Z
 
@@ -390,13 +390,13 @@
 
     if-eqz v0, :cond_d0
 
-    .line 365
+    .line 367
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     # setter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->hasMore:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$102(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;Z)Z
 
-    .line 366
+    .line 368
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->adapter:Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;
@@ -410,254 +410,203 @@
 
     if-nez v0, :cond_e
 
-    .line 367
+    .line 369
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->l()V
 
-    .line 368
+    .line 370
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
-    invoke-virtual {v0, v9}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->a(I)V
+    invoke-virtual {v0, v10}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->a(I)V
 
     goto/16 :goto_e
 
-    .line 375
-    :cond_d0
-    new-instance v3, Lcom/alibaba/fastjson/JSONArray;
-
-    invoke-direct {v3}, Lcom/alibaba/fastjson/JSONArray;-><init>()V
-
-    move v0, v1
-
-    .line 376
-    :goto_d6
-    invoke-virtual {v6}, Lcom/alibaba/fastjson/JSONArray;->size()I
-
-    move-result v2
-
-    if-ge v0, v2, :cond_118
-
     .line 377
-    invoke-virtual {v6, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
+    :cond_d0
+    new-instance v2, Lcom/alibaba/fastjson/JSONArray;
 
-    move-result-object v5
+    invoke-direct {v2}, Lcom/alibaba/fastjson/JSONArray;-><init>()V
 
     .line 378
-    const-string v2, "history"
+    :goto_d5
+    invoke-virtual {v6}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
-    invoke-virtual {v5, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
+    move-result v0
 
-    move-result-object v2
+    if-ge v1, v0, :cond_117
 
     .line 379
-    if-eqz v2, :cond_10a
+    invoke-virtual {v6, v1}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
-    const-string v7, "business"
-
-    invoke-virtual {v2, v7}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v2
+    move-result-object v3
 
     .line 380
-    :goto_ee
-    const-string v7, "live"
+    const-string v0, "history"
 
-    iget-object v8, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
+    invoke-virtual {v3, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
-    # getter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->historyType:Ljava/lang/String;
-    invoke-static {v8}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$700(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;)Ljava/lang/String;
-
-    move-result-object v8
-
-    invoke-virtual {v7, v8}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v7
-
-    if-eqz v7, :cond_10c
+    move-result-object v0
 
     .line 381
-    const-string v7, "live"
+    if-eqz v0, :cond_109
 
-    invoke-virtual {v7, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    const-string v5, "business"
 
-    move-result v2
+    invoke-virtual {v0, v5}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
-    if-eqz v2, :cond_107
+    move-result-object v0
 
     .line 382
-    invoke-virtual {v3, v5}, Lcom/alibaba/fastjson/JSONArray;->add(Ljava/lang/Object;)Z
+    :goto_ed
+    const-string v5, "live"
 
-    .line 376
-    :cond_107
-    :goto_107
-    add-int/lit8 v0, v0, 0x1
+    iget-object v7, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
-    goto :goto_d6
+    # getter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->historyType:Ljava/lang/String;
+    invoke-static {v7}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$700(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;)Ljava/lang/String;
 
-    :cond_10a
-    move-object v2, v4
+    move-result-object v7
 
-    .line 379
-    goto :goto_ee
+    invoke-virtual {v5, v7}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
-    .line 385
-    :cond_10c
-    const-string v7, "live"
+    move-result v5
 
-    invoke-virtual {v7, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    if-eqz v5, :cond_10b
 
-    move-result v2
+    .line 383
+    const-string v5, "live"
 
-    if-nez v2, :cond_107
-
-    .line 386
-    invoke-virtual {v3, v5}, Lcom/alibaba/fastjson/JSONArray;->add(Ljava/lang/Object;)Z
-
-    goto :goto_107
-
-    .line 391
-    :cond_118
-    invoke-virtual {v3}, Lcom/alibaba/fastjson/JSONArray;->isEmpty()Z
+    invoke-virtual {v5, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_157
+    if-eqz v0, :cond_106
+
+    .line 384
+    invoke-virtual {v2, v3}, Lcom/alibaba/fastjson/JSONArray;->add(Ljava/lang/Object;)Z
+
+    .line 378
+    :cond_106
+    :goto_106
+    add-int/lit8 v1, v1, 0x1
+
+    goto :goto_d5
+
+    :cond_109
+    move-object v0, v4
+
+    .line 381
+    goto :goto_ed
+
+    .line 387
+    :cond_10b
+    const-string v5, "live"
+
+    invoke-virtual {v5, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_106
+
+    .line 388
+    invoke-virtual {v2, v3}, Lcom/alibaba/fastjson/JSONArray;->add(Ljava/lang/Object;)Z
+
+    goto :goto_106
 
     .line 393
-    iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
-
-    # getter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->appAutoLoadRetry:I
-    invoke-static {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$800(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;)I
+    :cond_117
+    invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONArray;->isEmpty()Z
 
     move-result v0
 
-    const/4 v2, 0x3
-
-    if-ge v0, v2, :cond_135
+    if-nez v0, :cond_138
 
     .line 394
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
-    # operator++ for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->appAutoLoadRetry:I
-    invoke-static {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$808(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;)I
+    # setter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->hasMore:Z
+    invoke-static {v0, v9}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$102(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;Z)Z
 
     .line 395
+    iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
+
+    # getter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->appHasData:Z
+    invoke-static {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$800(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_14f
+
+    .line 396
+    iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
+
+    # getter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->adapter:Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$200(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;)Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;
+
+    move-result-object v0
+
+    invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->b(Lcom/alibaba/fastjson/JSONArray;)V
+
+    .line 401
+    :goto_133
+    iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
+
+    # invokes: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->updateHeaderInfo()V
+    invoke-static {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$900(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;)V
+
+    .line 407
+    :cond_138
+    iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
+
+    # getter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->adapter:Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$200(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;)Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->a()I
+
+    move-result v0
+
+    const/16 v1, 0x14
+
+    if-ge v0, v1, :cond_e
+
+    .line 408
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->val$accessKey:Ljava/lang/String;
 
     # invokes: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->loadAppHistory(Ljava/lang/String;)V
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$900(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;Ljava/lang/String;)V
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$1000(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;Ljava/lang/String;)V
 
     goto/16 :goto_e
 
     .line 398
-    :cond_135
+    :cond_14f
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
-    # setter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->appAutoLoadRetry:I
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$802(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;I)I
+    # getter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->adapter:Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$200(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;)Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;
+
+    move-result-object v0
+
+    invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->a(Lcom/alibaba/fastjson/JSONArray;)V
 
     .line 399
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
-    # setter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->hasMore:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$102(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;Z)Z
-
-    .line 400
-    iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
-
-    # getter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->adapter:Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$200(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;)Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->a()I
-
-    move-result v0
-
-    if-nez v0, :cond_e
-
-    .line 401
-    iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->l()V
-
-    .line 402
-    iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
-
-    invoke-virtual {v0, v9}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->a(I)V
-
-    goto/16 :goto_e
-
-    .line 406
-    :cond_157
-    iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
-
-    # setter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->appAutoLoadRetry:I
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$802(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;I)I
-
-    .line 407
-    iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
-
-    # setter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->hasMore:Z
-    invoke-static {v0, v10}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$102(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;Z)Z
-
-    .line 409
-    iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
-
-    # getter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->appHasData:Z
-    invoke-static {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$1000(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;)Z
-
-    move-result v0
-
-    if-eqz v0, :cond_179
-
-    .line 410
-    iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
-
-    # getter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->adapter:Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$200(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;)Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;
-
-    move-result-object v0
-
-    invoke-virtual {v0, v3}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->b(Lcom/alibaba/fastjson/JSONArray;)V
-
-    .line 415
-    :goto_172
-    iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
-
-    # invokes: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->updateHeaderInfo()V
-    invoke-static {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$1100(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;)V
-
-    goto/16 :goto_e
-
-    .line 412
-    :cond_179
-    iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
-
-    # getter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->adapter:Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$200(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;)Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;
-
-    move-result-object v0
-
-    invoke-virtual {v0, v3}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->a(Lcom/alibaba/fastjson/JSONArray;)V
-
-    .line 413
-    iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
-
     # setter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->appHasData:Z
-    invoke-static {v0, v10}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$1002(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;Z)Z
+    invoke-static {v0, v9}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->access$802(Lcom/bilibili/tv/ui/history/HistoryVideoFragment;Z)Z
 
-    goto :goto_172
+    goto :goto_133
 .end method
 
 .method public bridge synthetic onSuccess(Ljava/lang/Object;)V
     .locals 0
 
     .prologue
-    .line 299
+    .line 301
     check-cast p1, Lcom/bilibili/okretro/GeneralResponse;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$1;->onSuccess(Lcom/bilibili/okretro/GeneralResponse;)V
