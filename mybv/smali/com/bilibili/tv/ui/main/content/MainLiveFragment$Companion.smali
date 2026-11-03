@@ -19,7 +19,7 @@
     .locals 0
 
     .prologue
-    .line 32
+    .line 59
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -29,10 +29,10 @@
     .locals 0
 
     .prologue
-    .line 35
+    .line 62
     invoke-direct {p0}, Lcom/bilibili/tv/ui/main/content/MainLiveFragment$Companion;-><init>()V
 
-    .line 36
+    .line 63
     return-void
 .end method
 
@@ -42,14 +42,14 @@
     .locals 1
 
     .prologue
-    .line 39
+    .line 66
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainLiveFragment;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/main/content/MainLiveFragment;-><init>()V
 
     sput-object v0, Lcom/bilibili/tv/ui/main/content/MainLiveFragment;->_this:Lcom/bilibili/tv/ui/main/content/MainLiveFragment;
 
-    .line 40
+    .line 67
     sget-object v0, Lcom/bilibili/tv/ui/main/content/MainLiveFragment;->_this:Lcom/bilibili/tv/ui/main/content/MainLiveFragment;
 
     return-object v0

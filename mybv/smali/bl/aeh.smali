@@ -44,6 +44,55 @@
     .end annotation
 .end method
 
+.method public abstract getLiveRecommendList(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;)Lbl/vp;
+    .param p1    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
+    .param p2    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "platform"
+        .end annotation
+    .end param
+    .param p3    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "page"
+        .end annotation
+    .end param
+    .param p4    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "web_location"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            "I",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/GET;
+        value = "/xlive/web-interface/v1/index/getListV2"
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/Headers;
+        value = {
+            "Referer: https://live.bilibili.com/"
+        }
+    .end annotation
+.end method
+
 .method public abstract getRoomList(Ljava/lang/String;Ljava/lang/String;II)Lbl/vp;
     .param p1    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Query;

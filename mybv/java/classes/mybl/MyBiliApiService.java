@@ -302,8 +302,4 @@ public interface MyBiliApiService {
             @Query("with_current") boolean withCurrent,
             @Header("Referer") String referer,
             @Header("Cookie") String cookie);
-    
-    @Headers("Referer: https://live.bilibili.com/")
-    @GET("https://api.live.bilibili.com/xlive/web-interface/v1/index/getList")
-    vp<GeneralResponse<JSONObject>> getLiveList(@Header("Cookie") String cookie);
 }
