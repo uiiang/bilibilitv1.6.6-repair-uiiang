@@ -699,7 +699,12 @@ public final class HistoryVideoFragment extends ady {
                     int liveStatus = item.getIntValue("live_status");
                     liveBadge = liveStatus == 1 ? "直播中" : "未开播";
                 }
-                VideoBadgeStyler.apply(holder.E(), liveBadge, null, false);
+                // 未开播：黑色半透明背景；其余（直播中/服务端badge）沿用默认B站粉
+                if ("未开播".equals(liveBadge)) {
+                    VideoBadgeStyler.apply(holder.E(), liveBadge, "#99000000", false);
+                } else {
+                    VideoBadgeStyler.apply(holder.E(), liveBadge, null, false);
+                }
                 if (holder.C() != null) {
                     holder.C().setVisibility(View.GONE);
                 }
