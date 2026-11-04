@@ -25,7 +25,7 @@
     .locals 0
 
     .prologue
-    .line 130
+    .line 131
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$1;->this$0:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;
 
     iput p6, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$1;->val$columnCount:I
@@ -45,13 +45,13 @@
 
     const/4 v3, 0x0
 
-    .line 133
+    .line 134
     if-nez p1, :cond_7
 
-    .line 134
+    .line 135
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 137
+    .line 138
     :cond_7
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$1;->this$0:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;
 
@@ -59,59 +59,59 @@
 
     if-eqz v0, :cond_e
 
-    .line 162
+    .line 163
     :goto_d
     return-object p1
 
-    .line 141
+    .line 142
     :cond_e
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$1;->d(Landroid/view/View;)I
 
     move-result v0
 
-    .line 142
+    .line 143
     iget v2, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$1;->val$columnCount:I
 
     div-int/2addr v0, v2
 
-    .line 144
+    .line 145
     const/16 v2, 0x21
 
     if-ne p2, v2, :cond_38
 
     if-nez v0, :cond_38
 
-    .line 145
+    .line 146
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$1;->this$0:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 146
+    .line 147
     if-nez v0, :cond_25
 
     move-object p1, v1
 
-    .line 147
+    .line 148
     goto :goto_d
 
-    .line 151
+    .line 152
     :cond_25
     instance-of v2, v0, Lcom/bilibili/tv/ui/main/MainActivity;
 
     if-eqz v2, :cond_36
 
-    .line 152
+    .line 153
     check-cast v0, Lcom/bilibili/tv/ui/main/MainActivity;
 
-    .line 153
+    .line 154
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/ui/main/MainActivity;->a(Z)V
 
-    .line 154
+    .line 155
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/ui/main/MainActivity;->b(Z)V
 
-    .line 155
+    .line 156
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/MainActivity;->j()Landroid/view/View;
 
     move-result-object p1
@@ -121,10 +121,10 @@
     :cond_36
     move-object p1, v1
 
-    .line 158
+    .line 159
     goto :goto_d
 
-    .line 162
+    .line 163
     :cond_38
     invoke-super {p0, p1, p2}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->d(Landroid/view/View;I)Landroid/view/View;
 

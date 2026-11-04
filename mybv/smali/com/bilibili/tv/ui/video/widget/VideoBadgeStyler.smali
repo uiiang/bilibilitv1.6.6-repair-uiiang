@@ -14,10 +14,10 @@
     .locals 0
 
     .prologue
-    .line 21
+    .line 26
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 22
+    .line 27
     return-void
 .end method
 
@@ -25,12 +25,12 @@
     .locals 1
 
     .prologue
-    .line 30
+    .line 35
     const/4 v0, 0x0
 
     invoke-static {p0, p1, p2, p3, v0}, Lcom/bilibili/tv/ui/video/widget/VideoBadgeStyler;->applyInternal(Landroid/widget/TextView;Ljava/lang/String;Ljava/lang/String;ZZ)V
 
-    .line 31
+    .line 36
     return-void
 .end method
 
@@ -38,14 +38,14 @@
     .locals 1
 
     .prologue
-    .line 42
+    .line 94
     if-nez p0, :cond_3
 
-    .line 53
+    .line 105
     :goto_2
     return-void
 
-    .line 45
+    .line 97
     :cond_3
     if-eqz p1, :cond_b
 
@@ -55,7 +55,7 @@
 
     if-eqz v0, :cond_11
 
-    .line 46
+    .line 98
     :cond_b
     const/16 v0, 0x8
 
@@ -63,18 +63,18 @@
 
     goto :goto_2
 
-    .line 50
+    .line 102
     :cond_11
     invoke-virtual {p0, p1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 51
+    .line 103
     invoke-static {p0, p2, p3, p4}, Lcom/bilibili/tv/ui/video/widget/VideoBadgeStyler;->createBackground(Landroid/widget/TextView;Ljava/lang/String;ZZ)Landroid/graphics/drawable/GradientDrawable;
 
     move-result-object v0
 
     invoke-virtual {p0, v0}, Landroid/widget/TextView;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
-    .line 52
+    .line 104
     const/4 v0, 0x0
 
     invoke-virtual {p0, v0}, Landroid/widget/TextView;->setVisibility(I)V
@@ -86,12 +86,12 @@
     .locals 1
 
     .prologue
-    .line 37
+    .line 42
     const/4 v0, 0x1
 
     invoke-static {p0, p1, p2, p3, v0}, Lcom/bilibili/tv/ui/video/widget/VideoBadgeStyler;->applyInternal(Landroid/widget/TextView;Ljava/lang/String;Ljava/lang/String;ZZ)V
 
-    .line 38
+    .line 43
     return-void
 .end method
 
@@ -109,7 +109,7 @@
 
     const/4 v4, 0x0
 
-    .line 57
+    .line 109
     invoke-virtual {p0}, Landroid/widget/TextView;->getResources()Landroid/content/res/Resources;
 
     move-result-object v0
@@ -120,18 +120,18 @@
 
     move-result v0
 
-    .line 58
+    .line 110
     new-instance v1, Landroid/graphics/drawable/GradientDrawable;
 
     invoke-direct {v1}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
 
-    .line 59
+    .line 111
     invoke-virtual {v1, v3}, Landroid/graphics/drawable/GradientDrawable;->setShape(I)V
 
-    .line 61
+    .line 113
     if-eqz p3, :cond_3d
 
-    .line 62
+    .line 114
     const/16 v2, 0x8
 
     new-array v2, v2, [F
@@ -162,7 +162,7 @@
 
     invoke-virtual {v1, v2}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadii([F)V
 
-    .line 66
+    .line 118
     :goto_35
     invoke-static {p1, p2}, Lcom/bilibili/tv/ui/video/widget/VideoBadgeStyler;->resolveColor(Ljava/lang/String;Z)I
 
@@ -170,10 +170,10 @@
 
     invoke-virtual {v1, v0}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
 
-    .line 67
+    .line 119
     return-object v1
 
-    .line 64
+    .line 116
     :cond_3d
     const/16 v2, 0x8
 
@@ -208,16 +208,181 @@
     goto :goto_35
 .end method
 
+.method public static ensureLeftBadge(Landroid/widget/TextView;Landroid/view/View;)Landroid/widget/TextView;
+    .locals 7
+
+    .prologue
+    const/4 v3, 0x0
+
+    const/4 v6, -0x2
+
+    const/4 v1, 0x0
+
+    .line 63
+    invoke-static {p0}, Lcom/bilibili/tv/ui/video/widget/VideoBadgeStyler;->findLeftBadge(Landroid/widget/TextView;)Landroid/widget/TextView;
+
+    move-result-object v0
+
+    .line 64
+    if-eqz v0, :cond_b
+
+    move-object v1, v0
+
+    .line 89
+    :cond_a
+    :goto_a
+    return-object v1
+
+    .line 67
+    :cond_b
+    if-eqz p0, :cond_a
+
+    .line 70
+    if-eqz p1, :cond_61
+
+    invoke-virtual {p1}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
+
+    move-result-object v0
+
+    .line 71
+    :goto_13
+    instance-of v2, v0, Landroid/widget/FrameLayout;
+
+    if-eqz v2, :cond_a
+
+    .line 75
+    new-instance v1, Landroid/widget/TextView;
+
+    invoke-virtual {p0}, Landroid/widget/TextView;->getContext()Landroid/content/Context;
+
+    move-result-object v2
+
+    invoke-direct {v1, v2}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
+
+    .line 76
+    invoke-virtual {p0}, Landroid/widget/TextView;->getTextSize()F
+
+    move-result v2
+
+    invoke-virtual {v1, v3, v2}, Landroid/widget/TextView;->setTextSize(IF)V
+
+    .line 77
+    invoke-virtual {p0}, Landroid/widget/TextView;->getCurrentTextColor()I
+
+    move-result v2
+
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setTextColor(I)V
+
+    .line 78
+    invoke-virtual {p0}, Landroid/widget/TextView;->getGravity()I
+
+    move-result v2
+
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setGravity(I)V
+
+    .line 79
+    const/4 v2, 0x1
+
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setSingleLine(Z)V
+
+    .line 80
+    invoke-virtual {v1, v3}, Landroid/widget/TextView;->setFocusable(Z)V
+
+    .line 81
+    invoke-virtual {p0}, Landroid/widget/TextView;->getPaddingLeft()I
+
+    move-result v2
+
+    invoke-virtual {p0}, Landroid/widget/TextView;->getPaddingTop()I
+
+    move-result v3
+
+    .line 82
+    invoke-virtual {p0}, Landroid/widget/TextView;->getPaddingRight()I
+
+    move-result v4
+
+    invoke-virtual {p0}, Landroid/widget/TextView;->getPaddingBottom()I
+
+    move-result v5
+
+    .line 81
+    invoke-virtual {v1, v2, v3, v4, v5}, Landroid/widget/TextView;->setPadding(IIII)V
+
+    .line 84
+    new-instance v2, Landroid/widget/FrameLayout$LayoutParams;
+
+    invoke-direct {v2, v6, v6}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
+
+    .line 86
+    const/16 v3, 0x33
+
+    iput v3, v2, Landroid/widget/FrameLayout$LayoutParams;->gravity:I
+
+    .line 87
+    check-cast v0, Landroid/widget/FrameLayout;
+
+    invoke-virtual {v0, v1, v2}, Landroid/widget/FrameLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
+
+    .line 88
+    invoke-virtual {p0, v1}, Landroid/widget/TextView;->setTag(Ljava/lang/Object;)V
+
+    goto :goto_a
+
+    :cond_61
+    move-object v0, v1
+
+    .line 70
+    goto :goto_13
+.end method
+
+.method public static findLeftBadge(Landroid/widget/TextView;)Landroid/widget/TextView;
+    .locals 3
+
+    .prologue
+    const/4 v1, 0x0
+
+    .line 47
+    if-nez p0, :cond_4
+
+    .line 51
+    :goto_3
+    return-object v1
+
+    .line 50
+    :cond_4
+    invoke-virtual {p0}, Landroid/widget/TextView;->getTag()Ljava/lang/Object;
+
+    move-result-object v0
+
+    .line 51
+    instance-of v2, v0, Landroid/widget/TextView;
+
+    if-eqz v2, :cond_10
+
+    check-cast v0, Landroid/widget/TextView;
+
+    :goto_e
+    move-object v1, v0
+
+    goto :goto_3
+
+    :cond_10
+    move-object v0, v1
+
+    goto :goto_e
+.end method
+
 .method private static resolveColor(Ljava/lang/String;Z)I
     .locals 2
 
     .prologue
-    .line 71
+    .line 123
     if-eqz p1, :cond_e
 
     const v0, -0x66048d67    # -2.5999077E-23f
 
-    .line 72
+    .line 124
     :goto_5
     if-eqz p0, :cond_d
 
@@ -227,18 +392,18 @@
 
     if-eqz v1, :cond_12
 
-    .line 79
+    .line 131
     :cond_d
     :goto_d
     return v0
 
-    .line 71
+    .line 123
     :cond_e
     const v0, -0x48d67
 
     goto :goto_5
 
-    .line 76
+    .line 128
     :cond_12
     :try_start_12
     invoke-static {p0}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -247,7 +412,7 @@
 
     move-result v0
 
-    .line 77
+    .line 129
     if-eqz p1, :cond_d
 
     const v1, 0xffffff
@@ -260,7 +425,7 @@
 
     goto :goto_d
 
-    .line 78
+    .line 130
     :catch_20
     move-exception v1
 

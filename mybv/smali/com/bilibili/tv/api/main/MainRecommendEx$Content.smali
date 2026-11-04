@@ -57,6 +57,12 @@
     .end annotation
 .end field
 
+.field private leftBadge:Ljava/lang/String;
+    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
+        name = "left_badge"
+    .end annotation
+.end field
+
 .field private ownerName:Ljava/lang/String;
     .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
         name = "owner_name"
@@ -105,7 +111,7 @@
     .locals 1
 
     .prologue
-    .line 152
+    .line 156
     iget-object v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->badge:Ljava/lang/String;
 
     return-object v0
@@ -115,7 +121,7 @@
     .locals 1
 
     .prologue
-    .line 72
+    .line 76
     iget-object v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->cardGoto:Ljava/lang/String;
 
     return-object v0
@@ -125,7 +131,7 @@
     .locals 1
 
     .prologue
-    .line 64
+    .line 68
     iget-object v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->cardType:Ljava/lang/String;
 
     return-object v0
@@ -135,7 +141,7 @@
     .locals 1
 
     .prologue
-    .line 88
+    .line 92
     iget-object v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->cover:Ljava/lang/String;
 
     return-object v0
@@ -145,7 +151,7 @@
     .locals 1
 
     .prologue
-    .line 128
+    .line 132
     iget v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->danmaku:I
 
     return v0
@@ -155,7 +161,7 @@
     .locals 1
 
     .prologue
-    .line 136
+    .line 140
     iget v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->duration:I
 
     return v0
@@ -165,8 +171,18 @@
     .locals 1
 
     .prologue
-    .line 80
+    .line 84
     iget-object v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->jumpId:Ljava/lang/Long;
+
+    return-object v0
+.end method
+
+.method public final getLeftBadge()Ljava/lang/String;
+    .locals 1
+
+    .prologue
+    .line 164
+    iget-object v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->leftBadge:Ljava/lang/String;
 
     return-object v0
 .end method
@@ -175,7 +191,7 @@
     .locals 1
 
     .prologue
-    .line 112
+    .line 116
     iget-object v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->ownerName:Ljava/lang/String;
 
     return-object v0
@@ -185,7 +201,7 @@
     .locals 1
 
     .prologue
-    .line 120
+    .line 124
     iget v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->play:I
 
     return v0
@@ -195,7 +211,7 @@
     .locals 2
 
     .prologue
-    .line 144
+    .line 148
     iget-wide v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->pubdate:J
 
     return-wide v0
@@ -205,7 +221,7 @@
     .locals 1
 
     .prologue
-    .line 96
+    .line 100
     iget-object v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->title:Ljava/lang/String;
 
     return-object v0
@@ -215,7 +231,7 @@
     .locals 1
 
     .prologue
-    .line 104
+    .line 108
     iget-object v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->uri:Ljava/lang/String;
 
     return-object v0
@@ -225,10 +241,10 @@
     .locals 0
 
     .prologue
-    .line 156
+    .line 160
     iput-object p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->badge:Ljava/lang/String;
 
-    .line 157
+    .line 161
     return-void
 .end method
 
@@ -236,10 +252,10 @@
     .locals 0
 
     .prologue
-    .line 76
+    .line 80
     iput-object p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->cardGoto:Ljava/lang/String;
 
-    .line 77
+    .line 81
     return-void
 .end method
 
@@ -247,10 +263,10 @@
     .locals 0
 
     .prologue
-    .line 68
+    .line 72
     iput-object p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->cardType:Ljava/lang/String;
 
-    .line 69
+    .line 73
     return-void
 .end method
 
@@ -258,10 +274,10 @@
     .locals 0
 
     .prologue
-    .line 92
+    .line 96
     iput-object p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->cover:Ljava/lang/String;
 
-    .line 93
+    .line 97
     return-void
 .end method
 
@@ -269,10 +285,10 @@
     .locals 0
 
     .prologue
-    .line 132
+    .line 136
     iput p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->danmaku:I
 
-    .line 133
+    .line 137
     return-void
 .end method
 
@@ -280,10 +296,10 @@
     .locals 0
 
     .prologue
-    .line 140
+    .line 144
     iput p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->duration:I
 
-    .line 141
+    .line 145
     return-void
 .end method
 
@@ -291,10 +307,21 @@
     .locals 0
 
     .prologue
-    .line 84
+    .line 88
     iput-object p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->jumpId:Ljava/lang/Long;
 
-    .line 85
+    .line 89
+    return-void
+.end method
+
+.method public final setLeftBadge(Ljava/lang/String;)V
+    .locals 0
+
+    .prologue
+    .line 168
+    iput-object p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->leftBadge:Ljava/lang/String;
+
+    .line 169
     return-void
 .end method
 
@@ -302,10 +329,10 @@
     .locals 0
 
     .prologue
-    .line 116
+    .line 120
     iput-object p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->ownerName:Ljava/lang/String;
 
-    .line 117
+    .line 121
     return-void
 .end method
 
@@ -313,10 +340,10 @@
     .locals 0
 
     .prologue
-    .line 124
+    .line 128
     iput p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->play:I
 
-    .line 125
+    .line 129
     return-void
 .end method
 
@@ -324,10 +351,10 @@
     .locals 1
 
     .prologue
-    .line 148
+    .line 152
     iput-wide p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->pubdate:J
 
-    .line 149
+    .line 153
     return-void
 .end method
 
@@ -335,10 +362,10 @@
     .locals 0
 
     .prologue
-    .line 100
+    .line 104
     iput-object p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->title:Ljava/lang/String;
 
-    .line 101
+    .line 105
     return-void
 .end method
 
@@ -346,9 +373,9 @@
     .locals 0
 
     .prologue
-    .line 108
+    .line 112
     iput-object p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->uri:Ljava/lang/String;
 
-    .line 109
+    .line 113
     return-void
 .end method

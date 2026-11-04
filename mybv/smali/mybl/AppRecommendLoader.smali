@@ -303,7 +303,7 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 263
+    .line 280
     :try_start_1
     const-string v1, "MD5"
 
@@ -311,7 +311,7 @@
 
     move-result-object v1
 
-    .line 264
+    .line 281
     const-string v2, "UTF-8"
 
     invoke-virtual {p0, v2}, Ljava/lang/String;->getBytes(Ljava/lang/String;)[B
@@ -322,12 +322,12 @@
 
     move-result-object v1
 
-    .line 265
+    .line 282
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 266
+    .line 283
     array-length v3, v1
 
     :goto_17
@@ -335,7 +335,7 @@
 
     aget-byte v4, v1, v0
 
-    .line 267
+    .line 284
     const-string v5, "%02x"
 
     const/4 v6, 0x1
@@ -356,12 +356,12 @@
 
     invoke-virtual {v2, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 266
+    .line 283
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_17
 
-    .line 269
+    .line 286
     :cond_31
     invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
     :try_end_34
@@ -369,15 +369,15 @@
 
     move-result-object v0
 
-    .line 271
+    .line 288
     :goto_35
     return-object v0
 
-    .line 270
+    .line 287
     :catch_36
     move-exception v0
 
-    .line 271
+    .line 288
     const-string v0, ""
 
     goto :goto_35
@@ -389,25 +389,25 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 147
+    .line 164
     invoke-static {p0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v1
 
     if-eqz v1, :cond_8
 
-    .line 160
+    .line 177
     :goto_7
     return v0
 
-    .line 151
+    .line 168
     :cond_8
     :try_start_8
     invoke-virtual {p0}, Ljava/lang/String;->trim()Ljava/lang/String;
 
     move-result-object v1
 
-    .line 152
+    .line 169
     const-string v2, "\u4e07"
 
     invoke-virtual {v1, v2}, Ljava/lang/String;->endsWith(Ljava/lang/String;)Z
@@ -416,7 +416,7 @@
 
     if-eqz v2, :cond_2b
 
-    .line 153
+    .line 170
     const/4 v2, 0x0
 
     invoke-virtual {v1}, Ljava/lang/String;->length()I
@@ -441,7 +441,7 @@
 
     goto :goto_7
 
-    .line 155
+    .line 172
     :cond_2b
     const-string v2, "\u4ebf"
 
@@ -451,7 +451,7 @@
 
     if-eqz v2, :cond_4a
 
-    .line 156
+    .line 173
     const/4 v2, 0x0
 
     invoke-virtual {v1}, Ljava/lang/String;->length()I
@@ -476,7 +476,7 @@
 
     goto :goto_7
 
-    .line 158
+    .line 175
     :cond_4a
     invoke-static {v1}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
     :try_end_4d
@@ -488,7 +488,7 @@
 
     goto :goto_7
 
-    .line 159
+    .line 176
     :catch_50
     move-exception v1
 
@@ -499,200 +499,301 @@
     .locals 8
 
     .prologue
-    const/4 v0, 0x0
+    const/4 v0, 0x1
+
+    const/4 v1, 0x0
 
     .line 110
-    :try_start_1
-    const-string v1, "goto"
+    :try_start_2
+    const-string v2, "goto"
 
-    invoke-virtual {p0, v1}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v1
-
-    .line 111
-    if-eqz v1, :cond_18
-
-    invoke-virtual {v1}, Ljava/lang/String;->isEmpty()Z
-
-    move-result v2
-
-    if-nez v2, :cond_18
-
-    const-string v2, "av"
-
-    invoke-virtual {v2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v1
-
-    if-nez v1, :cond_18
-
-    .line 141
-    :cond_17
-    :goto_17
-    return-object v0
-
-    .line 114
-    :cond_18
-    const-string v1, "player_args"
-
-    invoke-virtual {p0, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
+    invoke-virtual {p0, v2}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v2
 
+    .line 111
+    if-eqz v2, :cond_1a
+
+    invoke-virtual {v2}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v3
+
+    if-nez v3, :cond_1a
+
+    const-string v3, "av"
+
+    invoke-virtual {v3, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v2
+
+    if-nez v2, :cond_1a
+
+    move-object v0, v1
+
+    .line 158
+    :goto_19
+    return-object v0
+
+    .line 114
+    :cond_1a
+    const-string v2, "player_args"
+
+    invoke-virtual {p0, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
+
+    move-result-object v3
+
     .line 115
-    if-eqz v2, :cond_17
+    if-nez v3, :cond_24
+
+    move-object v0, v1
+
+    .line 116
+    goto :goto_19
 
     .line 118
-    const-string v1, "aid"
+    :cond_24
+    const-string v2, "aid"
 
-    invoke-virtual {v2, v1}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
+    invoke-virtual {v3, v2}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
 
     move-result-wide v4
 
     .line 119
     const-wide/16 v6, 0x0
 
-    cmp-long v1, v4, v6
+    cmp-long v2, v4, v6
 
-    if-lez v1, :cond_17
+    if-gtz v2, :cond_32
+
+    move-object v0, v1
+
+    .line 120
+    goto :goto_19
 
     .line 122
-    new-instance v1, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;
+    :cond_32
+    new-instance v2, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;
 
-    invoke-direct {v1}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;-><init>()V
+    invoke-direct {v2}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;-><init>()V
 
     .line 123
-    const-string v3, "small_popular_ugc"
+    const-string v6, "small_popular_ugc"
 
-    invoke-virtual {v1, v3}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setCardType(Ljava/lang/String;)V
+    invoke-virtual {v2, v6}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setCardType(Ljava/lang/String;)V
 
     .line 124
-    const-string v3, "av"
+    const-string v6, "av"
 
-    invoke-virtual {v1, v3}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setCardGoto(Ljava/lang/String;)V
+    invoke-virtual {v2, v6}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setCardGoto(Ljava/lang/String;)V
 
     .line 125
     invoke-static {v4, v5}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
 
-    move-result-object v3
+    move-result-object v6
 
-    invoke-virtual {v1, v3}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setJumpId(Ljava/lang/Long;)V
+    invoke-virtual {v2, v6}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setJumpId(Ljava/lang/Long;)V
 
     .line 126
-    new-instance v3, Ljava/lang/StringBuilder;
+    new-instance v6, Ljava/lang/StringBuilder;
 
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v6, "bilibili_yst://video/"
+    const-string v7, "bilibili_yst://video/"
 
-    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v3
+    move-result-object v6
 
-    invoke-virtual {v3, v4, v5}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+    invoke-virtual {v6, v4, v5}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
 
-    move-result-object v3
+    move-result-object v4
 
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v3
+    move-result-object v4
 
-    invoke-virtual {v1, v3}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setUri(Ljava/lang/String;)V
+    invoke-virtual {v2, v4}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setUri(Ljava/lang/String;)V
 
     .line 127
-    const-string v3, "cover"
+    const-string v4, "cover"
 
-    invoke-virtual {p0, v3}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {p0, v4}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v3
+    move-result-object v4
 
-    invoke-virtual {v1, v3}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setCover(Ljava/lang/String;)V
+    invoke-virtual {v2, v4}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setCover(Ljava/lang/String;)V
 
     .line 128
-    const-string v3, "title"
+    const-string v4, "title"
 
-    invoke-virtual {p0, v3}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {p0, v4}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v3
+    move-result-object v4
 
-    invoke-virtual {v1, v3}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setTitle(Ljava/lang/String;)V
+    invoke-virtual {v2, v4}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setTitle(Ljava/lang/String;)V
 
     .line 129
-    const-string v3, "pubdate"
+    const-string v4, "pubdate"
 
-    invoke-virtual {p0, v3}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
+    invoke-virtual {p0, v4}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
 
     move-result-wide v4
 
-    invoke-virtual {v1, v4, v5}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setPubdate(J)V
+    invoke-virtual {v2, v4, v5}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setPubdate(J)V
 
     .line 130
-    const-string v3, "duration"
+    const-string v4, "duration"
 
-    invoke-virtual {v2, v3}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+    invoke-virtual {v3, v4}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
-    move-result v2
+    move-result v3
 
-    invoke-virtual {v1, v2}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setDuration(I)V
+    invoke-virtual {v2, v3}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setDuration(I)V
 
     .line 131
-    const-string v2, "args"
+    const-string v3, "args"
 
-    invoke-virtual {p0, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
+    invoke-virtual {p0, v3}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
-    move-result-object v2
+    move-result-object v3
 
     .line 132
-    if-eqz v2, :cond_8d
+    if-eqz v3, :cond_93
 
     .line 133
-    const-string v3, "up_name"
+    const-string v4, "up_name"
 
-    invoke-virtual {v2, v3}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v3, v4}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v2
+    move-result-object v4
 
-    invoke-virtual {v1, v2}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setOwnerName(Ljava/lang/String;)V
+    invoke-virtual {v2, v4}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setOwnerName(Ljava/lang/String;)V
 
     .line 136
-    :cond_8d
-    const-string v2, "cover_left_text_1"
+    :cond_93
+    const-string v4, "is_followed"
 
-    invoke-virtual {p0, v2}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {p0, v4}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
-    move-result-object v2
+    move-result v4
 
-    invoke-static {v2}, Lmybl/AppRecommendLoader;->parseCount(Ljava/lang/String;)I
+    if-eq v4, v0, :cond_a5
 
-    move-result v2
+    if-eqz v3, :cond_f2
 
-    invoke-virtual {v1, v2}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setPlay(I)V
+    const-string v4, "is_followed"
 
     .line 137
-    const-string v2, "cover_left_text_2"
+    invoke-virtual {v3, v4}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
-    invoke-virtual {p0, v2}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+    move-result v4
 
-    move-result-object v2
-
-    invoke-static {v2}, Lmybl/AppRecommendLoader;->parseCount(Ljava/lang/String;)I
-
-    move-result v2
-
-    invoke-virtual {v1, v2}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setDanmaku(I)V
-    :try_end_a7
-    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_a7} :catch_aa
-
-    move-object v0, v1
+    if-ne v4, v0, :cond_f2
 
     .line 138
-    goto/16 :goto_17
+    :cond_a5
+    :goto_a5
+    if-eqz v0, :cond_ac
 
     .line 139
-    :catch_aa
-    move-exception v1
+    const-string v0, "\u6211\u7684\u5173\u6ce8"
 
-    .line 140
+    invoke-virtual {v2, v0}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setBadge(Ljava/lang/String;)V
+
+    .line 142
+    :cond_ac
+    const-string v0, "rcmd_reason"
+
+    invoke-virtual {p0, v0}, Lcom/alibaba/fastjson/JSONObject;->get(Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object v0
+
+    .line 143
+    instance-of v4, v0, Lcom/alibaba/fastjson/JSONObject;
+
+    if-nez v4, :cond_be
+
+    if-eqz v3, :cond_be
+
+    .line 144
+    const-string v0, "rcmd_reason"
+
+    invoke-virtual {v3, v0}, Lcom/alibaba/fastjson/JSONObject;->get(Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object v0
+
+    .line 146
+    :cond_be
+    instance-of v3, v0, Lcom/alibaba/fastjson/JSONObject;
+
+    if-eqz v3, :cond_d5
+
+    .line 147
+    check-cast v0, Lcom/alibaba/fastjson/JSONObject;
+
+    const-string v3, "content"
+
+    invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 148
+    if-eqz v0, :cond_d5
+
+    invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v3
+
+    if-nez v3, :cond_d5
+
+    .line 149
+    invoke-virtual {v2, v0}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setLeftBadge(Ljava/lang/String;)V
+
+    .line 153
+    :cond_d5
+    const-string v0, "cover_left_text_1"
+
+    invoke-virtual {p0, v0}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lmybl/AppRecommendLoader;->parseCount(Ljava/lang/String;)I
+
+    move-result v0
+
+    invoke-virtual {v2, v0}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setPlay(I)V
+
+    .line 154
+    const-string v0, "cover_left_text_2"
+
+    invoke-virtual {p0, v0}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lmybl/AppRecommendLoader;->parseCount(Ljava/lang/String;)I
+
+    move-result v0
+
+    invoke-virtual {v2, v0}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setDanmaku(I)V
+    :try_end_ef
+    .catch Ljava/lang/Exception; {:try_start_2 .. :try_end_ef} :catch_f4
+
+    move-object v0, v2
+
+    .line 155
+    goto/16 :goto_19
+
+    .line 137
+    :cond_f2
+    const/4 v0, 0x0
+
+    goto :goto_a5
+
+    .line 156
+    :catch_f4
+    move-exception v0
+
+    .line 157
     const-string v2, "AppRecommendLoader"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -705,34 +806,37 @@
 
     move-result-object v3
 
-    invoke-virtual {v1}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
+    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
 
-    move-result-object v1
+    move-result-object v0
 
-    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v1
+    move-result-object v0
 
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v1
+    move-result-object v0
 
-    invoke-static {v2, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v2, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto/16 :goto_17
+    move-object v0, v1
+
+    .line 158
+    goto/16 :goto_19
 .end method
 
 .method private static requestOnce(JLjava/lang/String;Z)Lcom/alibaba/fastjson/JSONObject;
     .locals 4
 
     .prologue
-    .line 168
+    .line 185
     :try_start_0
     new-instance v1, Ljava/util/TreeMap;
 
     invoke-direct {v1}, Ljava/util/TreeMap;-><init>()V
 
-    .line 169
+    .line 186
     const-string v0, "idx"
 
     invoke-static {p0, p1}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
@@ -741,7 +845,7 @@
 
     invoke-virtual {v1, v0, v2}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 170
+    .line 187
     const-string v2, "flush"
 
     if-eqz p3, :cond_65
@@ -751,14 +855,14 @@
     :goto_14
     invoke-virtual {v1, v2, v0}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 171
+    .line 188
     const-string v0, "column"
 
     const-string v2, "4"
 
     invoke-virtual {v1, v0, v2}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 172
+    .line 189
     const-string v2, "pull"
 
     if-eqz p3, :cond_68
@@ -768,52 +872,52 @@
     :goto_24
     invoke-virtual {v1, v2, v0}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 173
+    .line 190
     const-string v0, "feed_version"
 
     const-string v2, "V8"
 
     invoke-virtual {v1, v0, v2}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 174
+    .line 191
     const-string v0, "network"
 
     const-string v2, "wifi"
 
     invoke-virtual {v1, v0, v2}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 175
+    .line 192
     const-string v0, "platform"
 
     const-string v2, "android"
 
     invoke-virtual {v1, v0, v2}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 176
+    .line 193
     const-string v0, "device"
 
     const-string v2, "pad"
 
     invoke-virtual {v1, v0, v2}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 177
+    .line 194
     const-string v0, "mobi_app"
 
     const-string v2, "android"
 
     invoke-virtual {v1, v0, v2}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 178
+    .line 195
     if-eqz p3, :cond_53
 
-    .line 179
+    .line 196
     const-string v0, "open_event"
 
     const-string v2, "cold"
 
     invoke-virtual {v1, v0, v2}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 181
+    .line 198
     :cond_53
     invoke-static {p2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
@@ -821,12 +925,12 @@
 
     if-nez v0, :cond_5e
 
-    .line 182
+    .line 199
     const-string v0, "access_key"
 
     invoke-virtual {v1, v0, p2}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 184
+    .line 201
     :cond_5e
     const-string v0, "https://app.bilibili.com/x/v2/feed/index"
 
@@ -834,17 +938,17 @@
 
     move-result-object v0
 
-    .line 187
+    .line 204
     :goto_64
     return-object v0
 
-    .line 170
+    .line 187
     :cond_65
     const-string v0, "8"
 
     goto :goto_14
 
-    .line 172
+    .line 189
     :cond_68
     const-string v0, "false"
     :try_end_6a
@@ -852,11 +956,11 @@
 
     goto :goto_24
 
-    .line 185
+    .line 202
     :catch_6b
     move-exception v0
 
-    .line 186
+    .line 203
     const-string v1, "AppRecommendLoader"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -893,7 +997,7 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 187
+    .line 204
     const/4 v0, 0x0
 
     goto :goto_64
@@ -915,12 +1019,12 @@
     .end annotation
 
     .prologue
-    .line 197
+    .line 214
     invoke-static {p0, p1}, Lmybl/AppRecommendLoader;->requestSignedResponse(Ljava/lang/String;Ljava/util/TreeMap;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 198
+    .line 215
     if-nez v0, :cond_8
 
     const/4 v0, 0x0
@@ -956,8 +1060,8 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 207
-    .line 209
+    .line 224
+    .line 226
     :try_start_1
     const-string v0, "appkey"
 
@@ -965,7 +1069,7 @@
 
     invoke-virtual {p1, v0, v1}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 210
+    .line 227
     const-string v0, "ts"
 
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
@@ -982,12 +1086,12 @@
 
     invoke-virtual {p1, v0, v1}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 211
+    .line 228
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 212
+    .line 229
     invoke-virtual {p1}, Ljava/util/TreeMap;->entrySet()Ljava/util/Set;
 
     move-result-object v0
@@ -1009,19 +1113,19 @@
 
     check-cast v0, Ljava/util/Map$Entry;
 
-    .line 213
+    .line 230
     invoke-virtual {v3}, Ljava/lang/StringBuilder;->length()I
 
     move-result v1
 
     if-lez v1, :cond_3c
 
-    .line 214
+    .line 231
     const/16 v1, 0x26
 
     invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
 
-    .line 216
+    .line 233
     :cond_3c
     invoke-interface {v0}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
 
@@ -1052,7 +1156,7 @@
 
     goto :goto_25
 
-    .line 248
+    .line 265
     :catch_56
     move-exception v0
 
@@ -1060,7 +1164,7 @@
 
     move-object v3, v2
 
-    .line 249
+    .line 266
     :goto_59
     :try_start_59
     const-string v0, "AppRecommendLoader"
@@ -1091,10 +1195,10 @@
     :try_end_75
     .catchall {:try_start_59 .. :try_end_75} :catchall_1a5
 
-    .line 252
+    .line 269
     if-eqz v3, :cond_7a
 
-    .line 254
+    .line 271
     :try_start_77
     invoke-virtual {v3}, Ljava/net/HttpURLConnection;->disconnect()V
     :try_end_7a
@@ -1104,11 +1208,11 @@
     :goto_7a
     move-object v0, v2
 
-    .line 250
+    .line 267
     :goto_7b
     return-object v0
 
-    .line 218
+    .line 235
     :cond_7c
     :try_start_7c
     new-instance v0, Ljava/lang/StringBuilder;
@@ -1169,7 +1273,7 @@
 
     move-result-object v0
 
-    .line 220
+    .line 237
     new-instance v1, Ljava/net/URL;
 
     invoke-direct {v1, v0}, Ljava/net/URL;-><init>(Ljava/lang/String;)V
@@ -1183,54 +1287,54 @@
     .catch Ljava/lang/Exception; {:try_start_7c .. :try_end_c3} :catch_56
     .catchall {:try_start_7c .. :try_end_c3} :catchall_18e
 
-    .line 221
+    .line 238
     :try_start_c3
     const-string v1, "GET"
 
     invoke-virtual {v0, v1}, Ljava/net/HttpURLConnection;->setRequestMethod(Ljava/lang/String;)V
 
-    .line 222
+    .line 239
     const/16 v1, 0x2710
 
     invoke-virtual {v0, v1}, Ljava/net/HttpURLConnection;->setConnectTimeout(I)V
 
-    .line 223
+    .line 240
     const/16 v1, 0x2710
 
     invoke-virtual {v0, v1}, Ljava/net/HttpURLConnection;->setReadTimeout(I)V
 
-    .line 225
+    .line 242
     const-string v1, "User-Agent"
 
     const-string v3, "Dalvik/2.1.0 (Linux; U; Android 13; 2211133C Build/TKQ1.221114.001) 8.83.0 os/android model/2211133C mobi_app/android build/8830500 channel/xiaomi innerVer/8830500 osVer/13 network/2 grpc-java-cronet/1.36.1"
 
     invoke-virtual {v0, v1, v3}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 226
+    .line 243
     const-string v1, "APP-KEY"
 
     const-string v3, "android64"
 
     invoke-virtual {v0, v1, v3}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 227
+    .line 244
     const-string v1, "ENV"
 
     const-string v3, "prod"
 
     invoke-virtual {v0, v1, v3}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 229
+    .line 246
     invoke-virtual {v0}, Ljava/net/HttpURLConnection;->getResponseCode()I
 
     move-result v1
 
-    .line 230
+    .line 247
     const/16 v3, 0xc8
 
     if-eq v1, v3, :cond_10f
 
-    .line 231
+    .line 248
     const-string v3, "AppRecommendLoader"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -1256,10 +1360,10 @@
     .catch Ljava/lang/Exception; {:try_start_c3 .. :try_end_107} :catch_12e
     .catchall {:try_start_c3 .. :try_end_107} :catchall_1a2
 
-    .line 252
+    .line 269
     if-eqz v0, :cond_10c
 
-    .line 254
+    .line 271
     :try_start_109
     invoke-virtual {v0}, Ljava/net/HttpURLConnection;->disconnect()V
     :try_end_10c
@@ -1269,10 +1373,10 @@
     :goto_10c
     move-object v0, v2
 
-    .line 232
+    .line 249
     goto/16 :goto_7b
 
-    .line 234
+    .line 251
     :cond_10f
     :try_start_10f
     new-instance v1, Ljava/io/BufferedReader;
@@ -1289,12 +1393,12 @@
 
     invoke-direct {v1, v3}, Ljava/io/BufferedReader;-><init>(Ljava/io/Reader;)V
 
-    .line 235
+    .line 252
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 237
+    .line 254
     :goto_124
     invoke-virtual {v1}, Ljava/io/BufferedReader;->readLine()Ljava/lang/String;
 
@@ -1302,12 +1406,12 @@
 
     if-eqz v4, :cond_132
 
-    .line 238
+    .line 255
     invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     goto :goto_124
 
-    .line 248
+    .line 265
     :catch_12e
     move-exception v1
 
@@ -1315,11 +1419,11 @@
 
     goto/16 :goto_59
 
-    .line 240
+    .line 257
     :cond_132
     invoke-virtual {v1}, Ljava/io/BufferedReader;->close()V
 
-    .line 241
+    .line 258
     invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v1
@@ -1328,7 +1432,7 @@
 
     move-result-object v1
 
-    .line 242
+    .line 259
     if-eqz v1, :cond_147
 
     const-string v3, "code"
@@ -1339,7 +1443,7 @@
 
     if-eqz v3, :cond_186
 
-    .line 243
+    .line 260
     :cond_147
     const-string v4, "AppRecommendLoader"
 
@@ -1368,7 +1472,7 @@
 
     move-result-object v3
 
-    .line 244
+    .line 261
     if-nez v1, :cond_17f
 
     const-string v1, "null"
@@ -1382,16 +1486,16 @@
 
     move-result-object v1
 
-    .line 243
+    .line 260
     invoke-static {v4, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
     :try_end_170
     .catch Ljava/lang/Exception; {:try_start_10f .. :try_end_170} :catch_12e
     .catchall {:try_start_10f .. :try_end_170} :catchall_1a2
 
-    .line 252
+    .line 269
     if-eqz v0, :cond_175
 
-    .line 254
+    .line 271
     :try_start_172
     invoke-virtual {v0}, Ljava/net/HttpURLConnection;->disconnect()V
     :try_end_175
@@ -1401,10 +1505,10 @@
     :goto_175
     move-object v0, v2
 
-    .line 245
+    .line 262
     goto/16 :goto_7b
 
-    .line 243
+    .line 260
     :cond_178
     :try_start_178
     const-string v3, "code"
@@ -1415,7 +1519,7 @@
 
     goto :goto_157
 
-    .line 244
+    .line 261
     :cond_17f
     const-string v5, "message"
 
@@ -1428,11 +1532,11 @@
 
     goto :goto_165
 
-    .line 252
+    .line 269
     :cond_186
     if-eqz v0, :cond_18b
 
-    .line 254
+    .line 271
     :try_start_188
     invoke-virtual {v0}, Ljava/net/HttpURLConnection;->disconnect()V
     :try_end_18b
@@ -1442,10 +1546,10 @@
     :goto_18b
     move-object v0, v1
 
-    .line 247
+    .line 264
     goto/16 :goto_7b
 
-    .line 252
+    .line 269
     :catchall_18e
     move-exception v0
 
@@ -1454,18 +1558,18 @@
     :goto_190
     if-eqz v2, :cond_195
 
-    .line 254
+    .line 271
     :try_start_192
     invoke-virtual {v2}, Ljava/net/HttpURLConnection;->disconnect()V
     :try_end_195
     .catch Ljava/lang/Exception; {:try_start_192 .. :try_end_195} :catch_1a0
 
-    .line 258
+    .line 275
     :cond_195
     :goto_195
     throw v1
 
-    .line 255
+    .line 272
     :catch_196
     move-exception v0
 
@@ -1491,7 +1595,7 @@
 
     goto :goto_195
 
-    .line 252
+    .line 269
     :catchall_1a2
     move-exception v1
 

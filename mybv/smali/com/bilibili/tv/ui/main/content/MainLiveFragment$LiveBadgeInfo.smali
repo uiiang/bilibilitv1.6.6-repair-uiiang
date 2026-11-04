@@ -25,7 +25,7 @@
     .locals 0
 
     .prologue
-    .line 319
+    .line 320
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -35,7 +35,7 @@
     .locals 0
 
     .prologue
-    .line 319
+    .line 320
     invoke-direct {p0}, Lcom/bilibili/tv/ui/main/content/MainLiveFragment$LiveBadgeInfo;-><init>()V
 
     return-void

@@ -36,20 +36,20 @@
     .locals 1
 
     .prologue
-    .line 145
+    .line 154
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
 
-    .line 146
+    .line 155
     iput-boolean p2, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->isAppendMode:Z
 
-    .line 147
+    .line 156
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->isPrefetch:Z
 
-    .line 148
+    .line 157
     return-void
 .end method
 
@@ -57,18 +57,18 @@
     .locals 0
 
     .prologue
-    .line 150
+    .line 159
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
 
-    .line 151
+    .line 160
     iput-boolean p2, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->isAppendMode:Z
 
-    .line 152
+    .line 161
     iput-boolean p3, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->isPrefetch:Z
 
-    .line 153
+    .line 162
     return-void
 .end method
 
@@ -84,7 +84,7 @@
 
     const/4 v2, 0x0
 
-    .line 157
+    .line 166
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->adapter:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;
@@ -93,22 +93,22 @@
 
     if-nez p1, :cond_1a
 
-    .line 158
+    .line 167
     :cond_b
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->isPrefetch:Z
 
     if-eqz v0, :cond_15
 
-    .line 159
+    .line 168
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->onPrefetchError()V
 
-    .line 204
+    .line 213
     :goto_14
     return-void
 
-    .line 161
+    .line 170
     :cond_15
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
@@ -116,7 +116,7 @@
 
     goto :goto_14
 
-    .line 166
+    .line 175
     :cond_1a
     const-string v0, "list"
 
@@ -124,7 +124,7 @@
 
     move-result-object v3
 
-    .line 167
+    .line 176
     if-eqz v3, :cond_28
 
     invoke-virtual {v3}, Lcom/alibaba/fastjson/JSONArray;->isEmpty()Z
@@ -133,25 +133,25 @@
 
     if-eqz v0, :cond_3b
 
-    .line 168
+    .line 177
     :cond_28
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     iput-boolean v2, v0, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->hasMoreData:Z
 
-    .line 169
+    .line 178
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->isPrefetch:Z
 
     if-eqz v0, :cond_36
 
-    .line 170
+    .line 179
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->onPrefetchError()V
 
     goto :goto_14
 
-    .line 172
+    .line 181
     :cond_36
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
@@ -159,7 +159,7 @@
 
     goto :goto_14
 
-    .line 177
+    .line 186
     :cond_3b
     const-string v0, "no_more"
 
@@ -167,7 +167,7 @@
 
     move-result v0
 
-    .line 178
+    .line 187
     iget-object v4, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     if-nez v0, :cond_7f
@@ -177,7 +177,7 @@
     :goto_46
     iput-boolean v0, v4, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->hasMoreData:Z
 
-    .line 180
+    .line 189
     const/4 v0, 0x5
 
     new-array v0, v0, [Lcom/bilibili/tv/api/main/MainRecommendEx$Content;
@@ -198,7 +198,7 @@
 
     aput-object v5, v0, v1
 
-    .line 181
+    .line 190
     new-instance v1, Ljava/util/ArrayList;
 
     invoke-static {v0}, Ljava/util/Arrays;->asList([Ljava/lang/Object;)Ljava/util/List;
@@ -207,7 +207,7 @@
 
     invoke-direct {v1, v0}, Ljava/util/ArrayList;-><init>(Ljava/util/Collection;)V
 
-    .line 182
+    .line 191
     new-instance v4, Ljava/util/ArrayList;
 
     const/16 v0, 0x14
@@ -216,7 +216,7 @@
 
     move v0, v2
 
-    .line 184
+    .line 193
     :goto_69
     invoke-virtual {v3}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -224,12 +224,12 @@
 
     if-ge v0, v5, :cond_81
 
-    .line 185
+    .line 194
     invoke-virtual {v3, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v5
 
-    .line 186
+    .line 195
     iget-object v6, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     # invokes: Lcom/bilibili/tv/ui/main/content/MainHotFragment;->parseHotItem(Lcom/alibaba/fastjson/JSONObject;)Lcom/bilibili/tv/api/main/MainRecommendEx$Content;
@@ -237,10 +237,10 @@
 
     move-result-object v5
 
-    .line 187
+    .line 196
     invoke-virtual {v4, v5}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 184
+    .line 193
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_69
@@ -248,42 +248,42 @@
     :cond_7f
     move v0, v2
 
-    .line 178
+    .line 187
     goto :goto_46
 
-    .line 190
+    .line 199
     :cond_81
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->isPrefetch:Z
 
     if-eqz v0, :cond_90
 
-    .line 192
+    .line 201
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     # operator++ for: Lcom/bilibili/tv/ui/main/content/MainHotFragment;->popularPage:I
     invoke-static {v0}, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->access$108(Lcom/bilibili/tv/ui/main/content/MainHotFragment;)I
 
-    .line 193
+    .line 202
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->onPrefetchSuccess(Ljava/util/List;)V
 
     goto :goto_14
 
-    .line 197
+    .line 206
     :cond_90
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->isAppendMode:Z
 
     if-eqz v0, :cond_a1
 
-    .line 198
+    .line 207
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->adapter:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;->appendData(Ljava/util/List;)V
 
-    .line 203
+    .line 212
     :goto_9b
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
@@ -291,7 +291,7 @@
 
     goto/16 :goto_14
 
-    .line 200
+    .line 209
     :cond_a1
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
@@ -306,7 +306,7 @@
     .locals 0
 
     .prologue
-    .line 141
+    .line 150
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -318,12 +318,12 @@
     .locals 2
 
     .prologue
-    .line 208
+    .line 217
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 209
+    .line 218
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->getLogTag()Ljava/lang/String;
@@ -336,21 +336,21 @@
 
     invoke-static {v0, v1}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 210
+    .line 219
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->isPrefetch:Z
 
     if-eqz v0, :cond_1c
 
-    .line 211
+    .line 220
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->onPrefetchError()V
 
-    .line 215
+    .line 224
     :goto_1b
     return-void
 
-    .line 213
+    .line 222
     :cond_1c
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 

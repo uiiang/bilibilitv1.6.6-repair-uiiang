@@ -132,6 +132,23 @@ public final class AppRecommendLoader {
             if (args != null) {
                 content.setOwnerName(args.getString("up_name"));
             }
+            // App 推荐接口若下发关注状态（顶层或 args 内），同样显示角标
+            boolean followed = item.getIntValue("is_followed") == 1
+                    || (args != null && args.getIntValue("is_followed") == 1);
+            if (followed) {
+                content.setBadge("我的关注");
+            }
+            // 推荐理由（若接口下发），显示在封面左上角
+            Object reasonObj = item.get("rcmd_reason");
+            if (!(reasonObj instanceof JSONObject) && args != null) {
+                reasonObj = args.get("rcmd_reason");
+            }
+            if (reasonObj instanceof JSONObject) {
+                String reasonContent = ((JSONObject) reasonObj).getString("content");
+                if (reasonContent != null && !reasonContent.isEmpty()) {
+                    content.setLeftBadge(reasonContent);
+                }
+            }
             // 播放数/弹幕数来自格式化文本（如"1.2万"）
             content.setPlay(parseCount(item.getString("cover_left_text_1")));
             content.setDanmaku(parseCount(item.getString("cover_left_text_2")));

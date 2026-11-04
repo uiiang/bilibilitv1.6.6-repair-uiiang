@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 333
+    .line 347
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$LegacyRecommendResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     invoke-direct {p0}, Lbl/vm;-><init>()V
@@ -46,12 +46,12 @@
     .locals 2
 
     .prologue
-    .line 363
+    .line 377
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 364
+    .line 378
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$LegacyRecommendResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->getLogTag()Ljava/lang/String;
@@ -64,7 +64,7 @@
 
     invoke-static {v0, v1}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 365
+    .line 379
     return-void
 .end method
 
@@ -72,7 +72,7 @@
     .locals 6
 
     .prologue
-    .line 336
+    .line 350
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$LegacyRecommendResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->adapter:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;
@@ -87,24 +87,24 @@
 
     if-nez v0, :cond_f
 
-    .line 359
+    .line 373
     :cond_e
     :goto_e
     return-void
 
-    .line 339
+    .line 353
     :cond_f
     invoke-virtual {p1}, Lcom/bilibili/tv/api/main/MainRecommendEx;->getData()Ljava/util/List;
 
     move-result-object v0
 
-    .line 340
+    .line 354
     if-nez v0, :cond_18
 
-    .line 341
+    .line 355
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 343
+    .line 357
     :cond_18
     invoke-interface {v0}, Ljava/util/List;->isEmpty()Z
 
@@ -112,17 +112,17 @@
 
     if-nez v1, :cond_e
 
-    .line 346
+    .line 360
     new-instance v1, Ljava/util/ArrayList;
 
     invoke-direct {v1}, Ljava/util/ArrayList;-><init>()V
 
-    .line 347
+    .line 361
     new-instance v2, Ljava/util/ArrayList;
 
     invoke-direct {v2}, Ljava/util/ArrayList;-><init>()V
 
-    .line 348
+    .line 362
     invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
     move-result-object v3
@@ -141,7 +141,7 @@
 
     check-cast v0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;
 
-    .line 349
+    .line 363
     const-string v4, "large_popular_ogv"
 
     invoke-virtual {v0}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->getCardType()Ljava/lang/String;
@@ -154,12 +154,12 @@
 
     if-eqz v4, :cond_48
 
-    .line 350
+    .line 364
     invoke-virtual {v1, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
     goto :goto_2c
 
-    .line 351
+    .line 365
     :cond_48
     const-string v4, "small_popular_ugc"
 
@@ -173,12 +173,12 @@
 
     if-eqz v4, :cond_2c
 
-    .line 352
+    .line 366
     invoke-virtual {v2, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
     goto :goto_2c
 
-    .line 355
+    .line 369
     :cond_58
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$LegacyRecommendResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
@@ -186,7 +186,7 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;->setData(Ljava/util/List;Ljava/util/List;)V
 
-    .line 356
+    .line 370
     invoke-virtual {v2}, Ljava/util/ArrayList;->size()I
 
     move-result v0
@@ -195,7 +195,7 @@
 
     if-ge v0, v1, :cond_e
 
-    .line 357
+    .line 371
     const-class v0, Lcom/bilibili/tv/api/BiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -225,7 +225,7 @@
     .locals 0
 
     .prologue
-    .line 333
+    .line 347
     check-cast p1, Lcom/bilibili/tv/api/main/MainRecommendEx;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$LegacyRecommendResponse;->onSuccess(Lcom/bilibili/tv/api/main/MainRecommendEx;)V

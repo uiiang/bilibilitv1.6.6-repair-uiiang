@@ -60,6 +60,10 @@ public final class MainRecommendEx {
         @JSONField(name = "badge")
         private String badge;
 
+        /** 封面左上角角标（推荐理由，如“10万点赞”），为空时不显示 */
+        @JSONField(name = "left_badge")
+        private String leftBadge;
+
         public final String getCardType() {
             return this.cardType;
         }
@@ -154,6 +158,14 @@ public final class MainRecommendEx {
 
         public final void setBadge(String str) {
             this.badge = str;
+        }
+
+        public final String getLeftBadge() {
+            return this.leftBadge;
+        }
+
+        public final void setLeftBadge(String str) {
+            this.leftBadge = str;
         }
     }
 }

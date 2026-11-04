@@ -134,6 +134,15 @@ public final class MainHotFragment extends BaseVideoListFragment {
             content.setPlay(stat.getIntValue("view"));
             content.setDanmaku(stat.getIntValue("danmaku"));
         }
+
+        // 推荐理由（如“10万点赞”“百万播放”），显示在封面左上角
+        Object reasonObj = item.get("rcmd_reason");
+        if (reasonObj instanceof JSONObject) {
+            String reasonContent = ((JSONObject) reasonObj).getString("content");
+            if (reasonContent != null && !reasonContent.isEmpty()) {
+                content.setLeftBadge(reasonContent);
+            }
+        }
         
         return content;
     }

@@ -5,10 +5,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
@@ -46,7 +44,10 @@ public final class MainLiveFragment extends BaseVideoListFragment {
     /** 已加载的房间 id，翻页去重，避免不同页返回相同房间导致播放器下标错位 */
     private final Set<Integer> liveRoomIds = new HashSet<>();
 
-    /** 与 liveList 对齐的角标背景色（pendant_Info 的 bg_color），null 表示使用默认角标背景 */
+    /** 与 liveList 对齐的 pendant 角标文字（左上角），null 表示没有接口角标 */
+    private List<String> livePendantTexts = new ArrayList<>();
+
+    /** 与 liveList 对齐的 pendant 角标背景色，null 表示使用默认角标背景 */
     private List<String> liveBadgeColors = new ArrayList<>();
 
     /** 当前已成功加载的页码，只在请求成功后更新，避免失败时跳页 */
@@ -215,12 +216,14 @@ public final class MainLiveFragment extends BaseVideoListFragment {
 
     /**
      * 解析房间数组并按 roomid 去重后写入输出列表。
-     * badge 非空时给卡片打角标（我的关注）；若存在 pendant_Info 角标，则优先使用接口下发的文字与背景色。
-     * outBadgeColors 与 outLives 一一对应，null 表示使用默认角标背景。
+     * badge 非空时给卡片打右上角角标（我的关注）；
+     * pendant_Info 的文字与颜色单独写入 outPendantTexts/outBadgeColors（左上角角标），两者互不覆盖。
+     * 两个颜色/文字列表均与 outLives 一一对应，null 表示无数据。
      */
     private int collectRooms(JSONArray roomArray, String badge,
                              List<MainRecommendEx.Content> outContents,
                              List<BiliLiveContent> outLives,
+                             List<String> outPendantTexts,
                              List<String> outBadgeColors) {
         if (roomArray == null) {
             return 0;
@@ -240,14 +243,12 @@ public final class MainLiveFragment extends BaseVideoListFragment {
             MainRecommendEx.Content content = parseLiveItem(item, liveContent);
 
             LiveBadgeInfo pendant = parsePendantBadge(item);
-            if (pendant != null) {
-                content.setBadge(pendant.text);
-                outBadgeColors.add(pendant.bgColor);
-            } else {
-                if (badge != null) {
-                    content.setBadge(badge);
-                }
-                outBadgeColors.add(null);
+            outPendantTexts.add(pendant != null ? pendant.text : null);
+            outBadgeColors.add(pendant != null ? pendant.bgColor : null);
+
+            // 右上角“我的关注”角标独立于左上角 pendant 角标
+            if (badge != null) {
+                content.setBadge(badge);
             }
 
             outContents.add(content);
@@ -351,8 +352,9 @@ public final class MainLiveFragment extends BaseVideoListFragment {
             if (this.append) {
                 ArrayList<MainRecommendEx.Content> newContents = new ArrayList<>();
                 ArrayList<BiliLiveContent> newLiveList = new ArrayList<>();
+                ArrayList<String> newPendantTexts = new ArrayList<>();
                 ArrayList<String> newBadgeColors = new ArrayList<>();
-                int added = collectRooms(roomList, null, newContents, newLiveList, newBadgeColors);
+                int added = collectRooms(roomList, null, newContents, newLiveList, newPendantTexts, newBadgeColors);
 
                 MainLiveFragment.this.livePage = this.requestPage;
                 MainLiveFragment.this.isLoadingMore = false;
@@ -367,6 +369,7 @@ public final class MainLiveFragment extends BaseVideoListFragment {
                 }
                 MainLiveFragment.this.adapter.appendData(newContents);
                 MainLiveFragment.this.liveList.addAll(newLiveList);
+                MainLiveFragment.this.livePendantTexts.addAll(newPendantTexts);
                 MainLiveFragment.this.liveBadgeColors.addAll(newBadgeColors);
                 return;
             }
@@ -376,13 +379,16 @@ public final class MainLiveFragment extends BaseVideoListFragment {
 
             ArrayList<MainRecommendEx.Content> ugcList = new ArrayList<>();
             ArrayList<BiliLiveContent> newLiveList = new ArrayList<>();
+            ArrayList<String> newPendantTexts = new ArrayList<>();
             ArrayList<String> newBadgeColors = new ArrayList<>();
             ugcList.add(createLiveCategoryEntry(getActivity()));
 
             JSONObject myIdols = data.getJSONObject("my_idols");
             JSONArray followList = myIdols != null ? myIdols.getJSONArray("list") : null;
-            int followCount = collectRooms(followList, MODULE_TITLE_FOLLOW, ugcList, newLiveList, newBadgeColors);
-            int recommendCount = collectRooms(roomList, null, ugcList, newLiveList, newBadgeColors);
+            int followCount = collectRooms(followList, MODULE_TITLE_FOLLOW, ugcList, newLiveList,
+                    newPendantTexts, newBadgeColors);
+            int recommendCount = collectRooms(roomList, null, ugcList, newLiveList,
+                    newPendantTexts, newBadgeColors);
 
             MainLiveFragment.this.livePage = 1;
             MainLiveFragment.this.isLoadingMore = false;
@@ -391,6 +397,7 @@ public final class MainLiveFragment extends BaseVideoListFragment {
                     && MainLiveFragment.this.livePage < MAX_LIVE_PAGE;
             MainLiveFragment.this.adapter.setData(new ArrayList<MainRecommendEx.Content>(), ugcList);
             MainLiveFragment.this.liveList = newLiveList;
+            MainLiveFragment.this.livePendantTexts = newPendantTexts;
             MainLiveFragment.this.liveBadgeColors = newBadgeColors;
 
             LogUtil.i(getLogTag(), "first page: follow=" + followCount
@@ -476,22 +483,12 @@ public final class MainLiveFragment extends BaseVideoListFragment {
             return;
         }
 
-        TextView badgeView = vh.getBadgeView();
-        if (badgeView != null) {
-            alignBadgeToLeft(badgeView);
-
-            MainRecommendEx.Content content = ugcList.get(position);
-            String badgeText = content != null ? content.getBadge() : null;
-            String badgeColor = liveIndex < liveBadgeColors.size() ? liveBadgeColors.get(liveIndex) : null;
-            if (!TextUtils.isEmpty(badgeColor)) {
-                // pendant_Info 角标：接口下发文字 + bg_color，显示在封面左上角
-                VideoBadgeStyler.applyLeft(badgeView, badgeText, badgeColor, false);
-            } else if (!TextUtils.isEmpty(badgeText)) {
-                // 无接口角标（含“我的关注”）沿用布局默认底色
-                VideoBadgeStyler.applyLeft(badgeView, badgeText, "#FF664499", false);
-            } else {
-                badgeView.setVisibility(View.GONE);
-            }
+        // 右上角“我的关注”角标由基类根据 content.badge 渲染，这里只处理左上角 pendant 角标
+        TextView pendantBadge = ensurePendantBadge(vh);
+        if (pendantBadge != null) {
+            String pendantText = liveIndex < livePendantTexts.size() ? livePendantTexts.get(liveIndex) : null;
+            String pendantColor = liveIndex < liveBadgeColors.size() ? liveBadgeColors.get(liveIndex) : null;
+            VideoBadgeStyler.applyLeft(pendantBadge, pendantText, pendantColor, false);
         }
 
         View bottomInfo = vh.getBottomInfoLayout();
@@ -512,20 +509,11 @@ public final class MainLiveFragment extends BaseVideoListFragment {
     }
 
     /**
-     * 卡片角标布局默认在右上角（layout_gravity=top|right），
-     * 直播列表需要显示在封面左上角，这里把同一个 TextView 改到左上角。
-     * mGravity 已经是左上时不重复设置，避免每次 bind 触发 requestLayout。
+     * 左上角 pendant 角标。
+     * 卡片布局只有一个右上角文本角标（tag_text），为了同时显示右上角“我的关注”，
+     * 由 VideoBadgeStyler 在封面 FrameLayout 内复用同样式懒创建一个左上角 TextView。
      */
-    private void alignBadgeToLeft(TextView badgeView) {
-        ViewGroup.LayoutParams params = badgeView.getLayoutParams();
-        if (!(params instanceof FrameLayout.LayoutParams)) {
-            return;
-        }
-        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) params;
-        int leftGravity = Gravity.TOP | Gravity.LEFT;
-        if (lp.gravity != leftGravity) {
-            lp.gravity = leftGravity;
-            badgeView.setLayoutParams(lp);
-        }
+    private TextView ensurePendantBadge(SmallCardViewHolder vh) {
+        return VideoBadgeStyler.ensureLeftBadge(vh.getBadgeView(), vh.getCoverView());
     }
 }

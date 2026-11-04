@@ -251,11 +251,25 @@ public final class MainRecommendFragment extends BaseVideoListFragment {
         if (owner != null) {
             content.setOwnerName(owner.getString("name"));
         }
+
+        // Web 推荐接口顶层返回 is_followed（0/1），已关注的 UP 主显示角标
+        if (item.getIntValue("is_followed") == 1) {
+            content.setBadge("我的关注");
+        }
         
         JSONObject stat = item.getJSONObject("stat");
         if (stat != null) {
             content.setPlay(stat.getIntValue("view"));
             content.setDanmaku(stat.getIntValue("danmaku"));
+        }
+
+        // 推荐理由（如“百万播放”），显示在封面左上角
+        Object reasonObj = item.get("rcmd_reason");
+        if (reasonObj instanceof JSONObject) {
+            String reasonContent = ((JSONObject) reasonObj).getString("content");
+            if (reasonContent != null && !reasonContent.isEmpty()) {
+                content.setLeftBadge(reasonContent);
+            }
         }
         
         return content;

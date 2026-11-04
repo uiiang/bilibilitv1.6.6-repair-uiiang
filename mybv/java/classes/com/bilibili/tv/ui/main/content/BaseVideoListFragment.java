@@ -20,6 +20,7 @@ import com.bilibili.tv.R;
 import com.bilibili.tv.api.main.MainRecommendEx;
 import com.bilibili.tv.ui.main.MainActivity;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
+import com.bilibili.tv.ui.video.widget.VideoBadgeStyler;
 import com.bilibili.tv.ui.video.widget.VideoCardCoverLoader;
 import com.bilibili.tv.ui.video.widget.VideoCardIcons;
 import com.bilibili.tv.ui.video.widget.VideoCardTexts;
@@ -465,6 +466,13 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
                     vh.getBadgeView().setVisibility(View.VISIBLE);
                 } else if (vh.getBadgeView() != null) {
                     vh.getBadgeView().setVisibility(View.GONE);
+                }
+
+                // 封面左上角推荐理由角标（rcmd_reason.content），无内容时隐藏
+                TextView leftBadgeView = VideoBadgeStyler.findLeftBadge(vh.getBadgeView());
+                if (leftBadgeView != null || !TextUtils.isEmpty(content.getLeftBadge())) {
+                    leftBadgeView = VideoBadgeStyler.ensureLeftBadge(vh.getBadgeView(), vh.getCoverView());
+                    VideoBadgeStyler.applyLeft(leftBadgeView, content.getLeftBadge(), null, false);
                 }
                 
                 VideoCardCoverLoader.loadWithSize(null, vh.getCoverView(), content.getCover(),
