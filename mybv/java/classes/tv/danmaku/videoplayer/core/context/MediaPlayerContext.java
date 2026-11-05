@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
+import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -211,8 +212,21 @@ public class MediaPlayerContext implements AudioManager.OnAudioFocusChangeListen
 
     public void play(boolean z) {
         if (isNeedRecreateVideoViewWhenPlay()) {
-            this.mVideoView.stopPlayback();
-            resetVideoView();
+            // P1 / L3-lite：换集复用 VideoView，消除 TextureView 重建导致的黑屏。
+            // 关键：必须连 stopPlayback() 一起跳过。stopPlayback() 走 release(true)
+            // → detachVideoView()，会解绑 SurfaceTexture，只跳过 resetVideoView() 照样黑屏。
+            // 改由 BaseVideoView.openVideo() 的内建「同实例换源」路径接管：
+            // detachSurfaceTexture() → release(false) → createMediaPlayer()
+            // → attachSurfacePair() → onBindDisplayTarget()，复用同一个 SurfaceTexture。
+            // 仅对 play(false)（解析成功起播 / 连播）生效；切清晰度 play(true) 保持原行为。
+            if (!z && BiliFilter.reuse_videoview_on_switch && canReuseVideoView()) {
+                Log.i("PlaySpeed", "[REUSE] in-place source switch, keep VideoView, state="
+                        + this.mVideoView.getState());
+            } else {
+                this.mVideoView.stopPlayback();
+                resetVideoView();
+                Log.i("PlaySpeed", "[RECREATE] VideoView rebuilt, switchQuality=" + z);
+            }
         }
         attachVideoView(this.mVideoViewParent);
         if (this.mVideoView == null) {
@@ -680,5 +694,17 @@ public class MediaPlayerContext implements AudioManager.OnAudioFocusChangeListen
 
     private boolean isNeedRecreateVideoViewWhenPlay() {
         return (this.mVideoView == null || this.mVideoView.getState() == 0) ? false : true;
+    }
+
+    /**
+     * 只有视图仍然挂在窗口上、上下文未销毁时，才允许 P1 的复用快路径。
+     * 其余情况自动回退到原有的重建流程，避免拿到一个无法显示的 View。
+     */
+    private boolean canReuseVideoView() {
+        if (this.mDestroyed || this.mVideoView == null || this.mVideoViewParent == null) {
+            return false;
+        }
+        View view = this.mVideoView.getView();
+        return view != null && view.getParent() != null;
     }
 }

@@ -272,11 +272,20 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         if (this.j == null || i < 0 || i >= this.j.length || (c = c()) == null || c.e == i) {
             return;
         }
-        if (i == this.i) {
-            d(R.string.preparing_next);
-        } else {
-            M();
+        // 换集期间用独立守卫强制隐藏转圈，起播完成时由 xi.onPrepared() 调
+        // endEpisodeSwitchGuard() 立即解除，之后真卡顿仍按 1s 延迟正常提示。
+        // 不能再用 suppressFor()：旧播放器释放时 onBufferingEnded() -> reset() 会清掉
+        // overlaySuppressedUntilMs，实测 31.910 SUPPRESS -> 32.001 BUFFERING_END/RESET
+        // -> 33.045 SHOW，抑制被抹掉后换集窗口照样闪转圈。守卫字段不受 reset() 影响。
+        // 必须在 M() 之前：M() 内 shouldSuppressBufferingOverlay() -> isSuppressed()
+        // 会因此返回 true，避免在守卫生效前触发一次可能立即 SHOW 的 update()。
+        // 3000ms 是兜底超时，防止 onPrepared 不来导致提示被长期屏蔽。
+        com.bilibili.tv.player.BufferingOverlayController ctrl =
+                com.bilibili.tv.player.PlayerActivityUrlRefreshHelper.getBufferingOverlayController();
+        if (ctrl != null) {
+            ctrl.beginEpisodeSwitchGuard(3000L);
         }
+        M();
         if (this.n != null) {
             this.n.c(c.e);
         }
@@ -298,11 +307,20 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         if (this.j == null || i < 0 || i >= this.j.length || (c = c()) == null) {
             return;
         }
-        if (i == this.i) {
-            d(R.string.preparing_next);
-        } else {
-            M();
+        // 换集期间用独立守卫强制隐藏转圈，起播完成时由 xi.onPrepared() 调
+        // endEpisodeSwitchGuard() 立即解除，之后真卡顿仍按 1s 延迟正常提示。
+        // 不能再用 suppressFor()：旧播放器释放时 onBufferingEnded() -> reset() 会清掉
+        // overlaySuppressedUntilMs，实测 31.910 SUPPRESS -> 32.001 BUFFERING_END/RESET
+        // -> 33.045 SHOW，抑制被抹掉后换集窗口照样闪转圈。守卫字段不受 reset() 影响。
+        // 必须在 M() 之前：M() 内 shouldSuppressBufferingOverlay() -> isSuppressed()
+        // 会因此返回 true，避免在守卫生效前触发一次可能立即 SHOW 的 update()。
+        // 3000ms 是兜底超时，防止 onPrepared 不来导致提示被长期屏蔽。
+        com.bilibili.tv.player.BufferingOverlayController ctrl =
+                com.bilibili.tv.player.PlayerActivityUrlRefreshHelper.getBufferingOverlayController();
+        if (ctrl != null) {
+            ctrl.beginEpisodeSwitchGuard(3000L);
         }
+        M();
         if (this.n != null) {
             this.n.c(c.e);
         }

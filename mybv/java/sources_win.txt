@@ -62,6 +62,7 @@ classes\bl\mg.java
 classes\bl\MoreActionKeyHandler.java
 classes\bl\nt.java
 classes\bl\pi.java
+classes\bl\PlayUrlPrefetch.java
 classes\bl\pw.java
 classes\bl\qa.java
 classes\bl\QfNoTs.java

@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 233
+    .line 257
     iput-object p1, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$2;->this$0:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -55,7 +55,7 @@
     .end annotation
 
     .prologue
-    .line 233
+    .line 257
     invoke-virtual {p0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$2;->call()Lorg/json/JSONObject;
 
     move-result-object v0
@@ -67,7 +67,7 @@
     .locals 4
 
     .prologue
-    .line 237
+    .line 261
     :try_start_0
     new-instance v0, Lbl/qa$a;
 
@@ -77,14 +77,14 @@
 
     const-string v1, "https://api.bilibili.com/pgc/view/web/ep/list"
 
-    .line 238
+    .line 262
     invoke-virtual {v0, v1}, Lbl/qa$a;->a(Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
 
     const/4 v1, 0x1
 
-    .line 239
+    .line 263
     invoke-virtual {v0, v1}, Lbl/qa$a;->a(Z)Lbl/qa$a;
 
     move-result-object v0
@@ -95,7 +95,7 @@
 
     iget-wide v2, v2, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mEpisodeId:J
 
-    .line 240
+    .line 264
     invoke-static {v2, v3}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
 
     move-result-object v2
@@ -108,7 +108,7 @@
 
     invoke-direct {v1}, Lbl/qb;-><init>()V
 
-    .line 241
+    .line 265
     invoke-virtual {v0, v1}, Lbl/qa$a;->a(Lbl/qf;)Lbl/qa$a;
 
     move-result-object v0
@@ -119,29 +119,29 @@
 
     const-string v1, "GET"
 
-    .line 237
+    .line 261
     invoke-static {v0, v1}, Lbl/pz;->a(Lbl/qa;Ljava/lang/String;)Lbl/qe;
 
     move-result-object v0
 
     check-cast v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;
 
-    .line 241
+    .line 265
     invoke-virtual {v0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;->result()Lorg/json/JSONObject;
     :try_end_38
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_38} :catch_3a
 
     move-result-object v0
 
-    .line 243
+    .line 267
     :goto_39
     return-object v0
 
-    .line 242
+    .line 266
     :catch_3a
     move-exception v0
 
-    .line 243
+    .line 267
     const/4 v0, 0x0
 
     goto :goto_39

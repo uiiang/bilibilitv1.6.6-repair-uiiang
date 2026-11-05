@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 1153
+    .line 1179
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$12;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     iput p2, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$12;->val$spd:F
@@ -49,13 +49,13 @@
     .locals 2
 
     .prologue
-    .line 1156
+    .line 1182
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$12;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     iget v1, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$12;->val$spd:F
 
     invoke-virtual {v0, v1}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setSpeed(F)V
 
-    .line 1157
+    .line 1183
     return-void
 .end method

@@ -67,102 +67,29 @@ public class ql implements IMediaResolver {
         long ugcApiStart = System.currentTimeMillis();
         a(resolveMediaResourceParams);
         int a2 = a(resolveMediaResourceParams, psVar);
+        PlayUrlPrefetch.noteResolvedQn(a2, false);
         
         long cid = resolveMediaResourceParams.c();
         long avid = resolveMediaResourceParams.a();
-        
+
         Log.i("UgcPlayUrl", "========== UGC PlayUrl Request (Web API + WBI) ==========");
         Log.i("UgcPlayUrl", "cid=" + cid + ", avid=" + avid + ", qn=" + a2);
         Log.i("PlaySpeed", "[UGC_API_REQUEST_START] cid=" + cid + ", avid=" + avid + ", qn=" + a2);
-        
-        mg biliAccount = mg.a(MainApplication.a());
-        String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
-        Log.i("UgcPlayUrl", "Cookie: " + (cookie != null && !cookie.isEmpty() ? "exists(" + cookie.length() + "chars)" : "null"));
-        
-        boolean hasSessData = cookie != null && cookie.contains("SESSDATA=");
-        
-        String midStr = CookieUtil.getCookieValue(cookie, "DedeUserID");
-        if (midStr != null && !midStr.isEmpty()) {
-            try {
-                long mid = Long.parseLong(midStr);
-                if (mid > 0) {
-                    Log.i("UgcPlayUrl", "Activating buvid for mid=" + mid);
-                    mybl.BuvidActivator.ensureBuvidActive(mid, cookie);
-                }
-            } catch (NumberFormatException e) {
-                Log.w("UgcPlayUrl", "Failed to parse DedeUserID: " + midStr);
-            }
+
+        // L1 下一集预取：命中缓存时完全跳过 playurl 网络往返。
+        // 预取与正式解析共用 buildRequest()，Cookie/UA/超时/WBI 完全一致。
+        String cacheKey = PlayUrlPrefetch.key(cid, avid, 0L, a2, false);
+        Object cached = PlayUrlPrefetch.take(cacheKey);
+        qm qmVar = (cached instanceof qm) ? (qm) cached : null;
+        if (qmVar == null) {
+            qa a3 = buildRequest(context, cid, avid, a2);
+            this.b.a(a3.g());
+            Log.i("PlaySpeed", "[UGC_API_REQUEST_END] API request done, elapsed=" + (System.currentTimeMillis() - ugcApiStart) + "ms");
+            Log.i("UgcPlayUrl", "Response URL: " + a3.g());
+            qmVar = (qm) pz.a(a3);
+        } else {
+            Log.i("PlaySpeed", "[UGC_PREFETCH_HIT] cid=" + cid + ", skipped playurl round trip");
         }
-        
-        TreeMap<String, String> params = new TreeMap<>();
-        params.put("cid", String.valueOf(cid));
-        params.put("avid", String.valueOf(avid));
-        params.put("qn", String.valueOf(a2));
-        params.put("fnver", "0");
-        params.put("fnval", String.valueOf(0b011111010000));
-        params.put("fourk", "1");
-        params.put("voice_balance", "1");
-        params.put("web_location", "1315873");
-        params.put("gaia_source", "pre-load");
-        params.put("isGaiaAvoided", "true");
-        
-        String gaiaVtoken = CookieUtil.getCookieValue(cookie, "x-bili-gaia-vtoken");
-        if (gaiaVtoken != null && !gaiaVtoken.trim().isEmpty()) {
-            params.put("gaia_vtoken", gaiaVtoken.trim());
-            Log.i("UgcPlayUrl", "Added gaia_vtoken parameter");
-        }
-        
-        if (!hasSessData) {
-            params.put("try_look", "1");
-            Log.i("UgcPlayUrl", "No SESSDATA, using try_look=1");
-        }
-        
-        String signedQuery = WbiSigner.getInstance().encWbiAndGetQuery(params);
-        if (signedQuery == null) {
-            Log.e("UgcPlayUrl", "Failed to sign WBI parameters!");
-            throw new ResolveMediaSourceException("WBI sign failed", -5);
-        }
-        
-        String fullUrl = "https://api.bilibili.com/x/player/wbi/playurl?" + signedQuery;
-        Log.i("UgcPlayUrl", "Signed URL: " + fullUrl);
-        
-        qa.a requestBuilder = new qa.a(qm.class)
-            .a(fullUrl)
-            .b("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36")
-            .a(true);
-        
-        requestBuilder.a("env", "prod");
-        requestBuilder.a("app-key", "android64");
-        requestBuilder.a("x-bili-aurora-zone", "sh001");
-        
-        if (midStr != null && !midStr.isEmpty()) {
-            try {
-                long mid = Long.parseLong(midStr);
-                if (mid > 0) {
-                    requestBuilder.a("x-bili-mid", String.valueOf(mid));
-                    String auroraEid = genAuroraEid(mid);
-                    if (auroraEid != null) {
-                        requestBuilder.a("x-bili-aurora-eid", auroraEid);
-                    }
-                }
-            } catch (NumberFormatException e) {
-                Log.w("UgcPlayUrl", "Failed to parse DedeUserID: " + midStr);
-            }
-        }
-        
-        if (cookie != null && !cookie.isEmpty()) {
-            requestBuilder.a("Cookie", cookie);
-            Log.i("UgcPlayUrl", "Added Cookie header");
-        }
-        requestBuilder.a("Referer", "https://www.bilibili.com");
-        
-        qa a3 = requestBuilder.a();
-        this.b.a(a3.g());
-        Log.i("PlaySpeed", "[UGC_API_REQUEST_END] API request done, elapsed=" + (System.currentTimeMillis() - ugcApiStart) + "ms");
-        
-        Log.i("UgcPlayUrl", "Response URL: " + a3.g());
-        
-        qm qmVar = (qm) pz.a(a3);
         
         int i = -5;
         if (qmVar == null) {
@@ -189,6 +116,90 @@ public class ql implements IMediaResolver {
             Log.e("UgcPlayUrl", "ResolveException: " + e.getMessage());
             this.b.a(e, new String(qmVar.c()));
             throw e;
+        }
+    }
+
+    /** 构造 playurl 请求。预取与正式解析共用，保证 Cookie / UA / WBI / 请求头完全一致。 */
+    static qa buildRequest(Context context, long cid, long avid, int qn) throws ResolveException {
+        mg biliAccount = mg.a(MainApplication.a());
+        String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
+        Log.i("UgcPlayUrl", "Cookie: " + (cookie != null && !cookie.isEmpty() ? "exists(" + cookie.length() + "chars)" : "null"));
+
+        boolean hasSessData = cookie != null && cookie.contains("SESSDATA=");
+        String midStr = CookieUtil.getCookieValue(cookie, "DedeUserID");
+        if (midStr != null && !midStr.isEmpty()) {
+            try {
+                long mid = Long.parseLong(midStr);
+                if (mid > 0) {
+                    mybl.BuvidActivator.ensureBuvidActive(mid, cookie);
+                }
+            } catch (NumberFormatException e) {
+                Log.w("UgcPlayUrl", "Failed to parse DedeUserID: " + midStr);
+            }
+        }
+
+        TreeMap<String, String> params = new TreeMap<>();
+        params.put("cid", String.valueOf(cid));
+        params.put("avid", String.valueOf(avid));
+        params.put("qn", String.valueOf(qn));
+        params.put("fnver", "0");
+        params.put("fnval", String.valueOf(0b011111010000));
+        params.put("fourk", "1");
+        params.put("voice_balance", "1");
+        params.put("web_location", "1315873");
+        params.put("gaia_source", "pre-load");
+        params.put("isGaiaAvoided", "true");
+
+        String gaiaVtoken = CookieUtil.getCookieValue(cookie, "x-bili-gaia-vtoken");
+        if (gaiaVtoken != null && !gaiaVtoken.trim().isEmpty()) {
+            params.put("gaia_vtoken", gaiaVtoken.trim());
+        }
+        if (!hasSessData) {
+            params.put("try_look", "1");
+        }
+
+        String signedQuery = WbiSigner.getInstance().encWbiAndGetQuery(params);
+        if (signedQuery == null) {
+            throw new ResolveMediaSourceException("WBI sign failed", -5);
+        }
+        String fullUrl = "https://api.bilibili.com/x/player/wbi/playurl?" + signedQuery;
+
+        qa.a requestBuilder = new qa.a(qm.class)
+            .a(fullUrl)
+            .b("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36")
+            .a(true);
+        requestBuilder.a("env", "prod");
+        requestBuilder.a("app-key", "android64");
+        requestBuilder.a("x-bili-aurora-zone", "sh001");
+        if (midStr != null && !midStr.isEmpty()) {
+            try {
+                long mid = Long.parseLong(midStr);
+                if (mid > 0) {
+                    requestBuilder.a("x-bili-mid", String.valueOf(mid));
+                    String auroraEid = genAuroraEid(mid);
+                    if (auroraEid != null) {
+                        requestBuilder.a("x-bili-aurora-eid", auroraEid);
+                    }
+                }
+            } catch (NumberFormatException e) {
+                Log.w("UgcPlayUrl", "Failed to parse DedeUserID: " + midStr);
+            }
+        }
+        if (cookie != null && !cookie.isEmpty()) {
+            requestBuilder.a("Cookie", cookie);
+        }
+        requestBuilder.a("Referer", "https://www.bilibili.com");
+        return requestBuilder.a();
+    }
+
+    /** 供 PlayUrlPrefetch 在后台提前请求下一集 playurl 响应；失败返回 null，正式解析会自动回退。 */
+    public static qm prefetchResponse(Context context, long cid, long avid, int qn) {
+        try {
+            qa request = buildRequest(context, cid, avid, qn);
+            return (qm) pz.a(request);
+        } catch (Throwable t) {
+            Log.w("UgcPlayUrl", "[PREFETCH] failed: " + t);
+            return null;
         }
     }
 

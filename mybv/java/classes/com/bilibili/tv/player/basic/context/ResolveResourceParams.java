@@ -30,6 +30,30 @@ import com.bilibili.tv.player.widget.PlayerMenuRight;
 /* loaded from: classes.dex */
 public class ResolveResourceParams implements Parcelable, Serializable {
 
+    /**
+     * 共享的后台取数池。原实现每次 getSkipInfo() / initPlayInfo() 都
+     * Executors.newSingleThreadExecutor() 且从不 shutdown()：Worker 线程强引用
+     * ThreadPoolExecutor，局部变量出栈后线程与 pool 都无法回收，每次调用留一个
+     * 常驻的非 daemon 线程。L1 预取对「从未播放的下一集」也调 initPlayInfo()，
+     * 会把这个泄漏放大。改为进程级共享的 daemon cached pool，空闲 60s 自动回收，
+     * 且不会阻止进程退出；cached 语义保留原有的并发能力。
+     */
+    private static final ExecutorService INFO_POOL = Executors.newCachedThreadPool(new InfoThreadFactory());
+
+    /**
+     * 用命名内部类而不是匿名类：本文件已有 $1..$7 共 7 个匿名类，
+     * 新增匿名类会让它们的编号整体后移，只同步本类 smali 时会与其他 dex 引用错位。
+     */
+    private static final class InfoThreadFactory implements ThreadFactory {
+        @Override
+        public Thread newThread(Runnable r) {
+            Thread t = new Thread(r, "resolve-play-info");
+            t.setDaemon(true);
+            t.setPriority(Thread.MIN_PRIORITY);
+            return t;
+        }
+    }
+
     public static final Parcelable.Creator<ResolveResourceParams> CREATOR = new Parcelable.Creator<ResolveResourceParams>() { // from class: com.bilibili.tv.player.basic.context.ResolveResourceParams.1
         @Override // android.os.Parcelable.Creator
         /* renamed from: a */
@@ -229,7 +253,7 @@ public class ResolveResourceParams implements Parcelable, Serializable {
         JSONArray result = new JSONArray();
         
         if (isBangumi()) {
-            ExecutorService threadPool = Executors.newSingleThreadExecutor();
+            ExecutorService threadPool = INFO_POOL;
             Future<JSONObject> future = threadPool.submit(new Callable<JSONObject>() {
                 @Override
                 public JSONObject call() {
@@ -284,7 +308,7 @@ public class ResolveResourceParams implements Parcelable, Serializable {
                 e.printStackTrace();
             }
         } else {
-            ExecutorService threadPool = Executors.newSingleThreadExecutor();
+            ExecutorService threadPool = INFO_POOL;
             Future<JSONArray> future = threadPool.submit(new Callable<JSONArray>() {
                 @Override
                 public JSONArray call() {
@@ -440,11 +464,24 @@ public class ResolveResourceParams implements Parcelable, Serializable {
         initPlayInfo(null);
     }
 
+    /** 预取预热标记：同一分集只请求一次 /x/player/wbi/v2 与跳过片段，切集时直接复用。 */
+    private volatile boolean playInfoLoaded = false;
+
     public void initPlayInfo(final PlayInfoCallback callback) {
+        // 下一集预取已在后台完成取数；切集时直接复用，避免重复网络往返与章节数据晚到。
+        if (this.playInfoLoaded) {
+            if (callback != null && this.view_points != null) {
+                try {
+                    callback.onPlayInfoReady(this.view_points);
+                } catch (Throwable ignored) {
+                }
+            }
+            return;
+        }
         this.getSkipInfo();
         
         try{
-            ExecutorService threadPool  = Executors.newSingleThreadExecutor();
+            ExecutorService threadPool  = INFO_POOL;
             JSONObject playerData = threadPool.submit(new Callable<JSONObject>() {
                 @Override
                 public JSONObject call() {
@@ -453,6 +490,8 @@ public class ResolveResourceParams implements Parcelable, Serializable {
             }).get();
             
             this.subtitle_info = playerData.optJSONObject("data").optJSONObject("subtitle");
+            // 核心数据已就绪，后续字幕分支的提前 return 不影响幂等标记。
+            this.playInfoLoaded = true;
             
             JSONArray viewPoints = playerData.optJSONObject("data").optJSONArray("view_points");
             if (viewPoints != null && viewPoints.length() > 0) {

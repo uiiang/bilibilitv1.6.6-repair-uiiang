@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 145
+    .line 213
     iput-object p1, p0, Lcom/bilibili/tv/player/BufferingOverlayController$1;->this$0:Lcom/bilibili/tv/player/BufferingOverlayController;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 148
+    .line 216
     iget-object v0, p0, Lcom/bilibili/tv/player/BufferingOverlayController$1;->this$0:Lcom/bilibili/tv/player/BufferingOverlayController;
 
     const/4 v1, 0x0
@@ -48,12 +48,12 @@
     # setter for: Lcom/bilibili/tv/player/BufferingOverlayController;->showRunnable:Ljava/lang/Runnable;
     invoke-static {v0, v1}, Lcom/bilibili/tv/player/BufferingOverlayController;->access$002(Lcom/bilibili/tv/player/BufferingOverlayController;Ljava/lang/Runnable;)Ljava/lang/Runnable;
 
-    .line 149
+    .line 217
     iget-object v0, p0, Lcom/bilibili/tv/player/BufferingOverlayController$1;->this$0:Lcom/bilibili/tv/player/BufferingOverlayController;
 
     # invokes: Lcom/bilibili/tv/player/BufferingOverlayController;->update()V
     invoke-static {v0}, Lcom/bilibili/tv/player/BufferingOverlayController;->access$100(Lcom/bilibili/tv/player/BufferingOverlayController;)V
 
-    .line 150
+    .line 218
     return-void
 .end method

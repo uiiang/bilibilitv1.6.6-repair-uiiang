@@ -79,6 +79,10 @@ public class ExoPlayerImpl implements IMediaPlayer {
     private static final long SEEK_DEBOUNCE_DELAY_MS = 300;
     private int lastPlaybackState = Player.STATE_IDLE;
     private boolean hasPrepared = false;
+    /** 起播分段计时：拆开「实例创建 / setMediaSource / prepare -> READY」各自耗时。 */
+    private long tPlayerCreated = 0L;
+    private long tSourceSet = 0L;
+    private long tPrepareCalled = 0L;
 
     private OnPreparedListener onPreparedListener;
     private OnCompletionListener onCompletionListener;
@@ -268,6 +272,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
 
     private void ensurePlayer() {
         if (exoPlayer == null) {
+            long tEnsureStart = System.currentTimeMillis();
             Log.i(TAG, "ensurePlayer: creating new ExoPlayer instance");
             playerHandler = new Handler(Looper.myLooper());
             
@@ -282,16 +287,24 @@ public class ExoPlayerImpl implements IMediaPlayer {
                     .build();
                 Log.i(TAG, "ensurePlayer: Live LoadControl configured (8s/30s/1s/2s)");
             } else {
-                // 点播保持原有翻倍缓冲配置
+                // 点播：min/max 保持翻倍（持续缓冲能力不变），只降低「起播门槛」。
+                // Exo 默认 DEFAULT_BUFFER_FOR_PLAYBACK_MS=2500ms，换集时新建的播放器
+                // 要缓冲满 2.5s 才进 READY -> onPrepared，实测造成 758~1863ms 的冻结窗口。
+                // 降到 800ms 可明显缩短首帧等待；afterRebuffer 保持默认 5000ms，
+                // 避免播放中缓冲策略变激进（日志里播放中本就有 0.6~1.0s 的周期性缓冲）。
+                int playbackBufferMs = mybl.BiliFilter.fast_episode_start
+                        ? 800
+                        : com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_MS;
                 loadControl = new com.google.android.exoplayer2.DefaultLoadControl.Builder()
                     .setBufferDurationsMs(
                         com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_MIN_BUFFER_MS * 2,
                         com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_MAX_BUFFER_MS * 2,
-                        com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_MS,
+                        playbackBufferMs,
                         com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS
                     )
                     .build();
-                Log.i(TAG, "ensurePlayer: VOD LoadControl configured with doubled buffer sizes");
+                Log.i("PlaySpeed", "[EXO_LOADCONTROL] VOD playbackBufferMs=" + playbackBufferMs
+                        + "ms, fast_episode_start=" + mybl.BiliFilter.fast_episode_start);
             }
             
             com.google.android.exoplayer2.LivePlaybackSpeedControl livePlaybackSpeedControl =
@@ -310,6 +323,9 @@ public class ExoPlayerImpl implements IMediaPlayer {
                     .setLoadControl(loadControl)
                     .setLivePlaybackSpeedControl(livePlaybackSpeedControl)
                     .build();
+            tPlayerCreated = System.currentTimeMillis();
+            Log.i("PlaySpeed", "[EXO_T] player built, elapsed="
+                    + (tPlayerCreated - tEnsureStart) + "ms");
             exoPlayer.setPlayWhenReady(playWhenReadyOnPrepare);
 
             applySavedAudioBalanceLevel();
@@ -357,6 +373,10 @@ public class ExoPlayerImpl implements IMediaPlayer {
                             }
                             if (onPreparedListener != null && !hasPrepared) {
                                 hasPrepared = true;
+                                long now = System.currentTimeMillis();
+                                Log.i("PlaySpeed", "[EXO_T] first READY, sincePrepare="
+                                        + (now - tPrepareCalled) + "ms, sinceBuilt="
+                                        + (now - tPlayerCreated) + "ms");
                                 Log.i(TAG, "[STATE] First READY, calling onPrepared");
                                 onPreparedListener.onPrepared(ExoPlayerImpl.this);
                             }
@@ -918,6 +938,9 @@ public class ExoPlayerImpl implements IMediaPlayer {
         Log.i(TAG, "setDataSource: isLiveStream=" + isLiveStream);
         ensurePlayer();
         exoPlayer.setMediaSource(mediaSource);
+        tSourceSet = System.currentTimeMillis();
+        Log.i("PlaySpeed", "[EXO_T] setMediaSource done, sinceBuilt="
+                + (tSourceSet - tPlayerCreated) + "ms");
     }
 
     public void setDataSourceWithSeek(MediaSource mediaSource, long seekMs) {
@@ -943,6 +966,9 @@ public class ExoPlayerImpl implements IMediaPlayer {
     public void prepareAsync() throws IllegalStateException {
         Log.i(TAG, "prepareAsync");
         ensurePlayer();
+        tPrepareCalled = System.currentTimeMillis();
+        Log.i("PlaySpeed", "[EXO_T] prepare() called, sinceSourceSet="
+                + (tPrepareCalled - tSourceSet) + "ms");
         exoPlayer.prepare();
         playerHandler.postDelayed(bufferMonitorRunnable, 10000);
     }

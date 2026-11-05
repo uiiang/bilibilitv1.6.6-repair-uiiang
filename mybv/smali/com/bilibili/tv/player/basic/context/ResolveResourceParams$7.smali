@@ -36,9 +36,14 @@
 # direct methods
 .method constructor <init>(Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;I)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
-    .line 506
+    .line 502
     iput-object p1, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$7;->this$0:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     iput p2, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$7;->val$subtitle_id:I
@@ -59,7 +64,7 @@
     .end annotation
 
     .prologue
-    .line 506
+    .line 502
     invoke-virtual {p0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$7;->call()Lorg/json/JSONObject;
 
     move-result-object v0
@@ -71,7 +76,7 @@
     .locals 4
 
     .prologue
-    .line 509
+    .line 505
     new-instance v1, Lbl/qa$a;
 
     const-class v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;

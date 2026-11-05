@@ -119,6 +119,13 @@ public class xi extends xh implements bbb<Message, Boolean> {
     private static final long SEEK_POST_REFRESH_DELAY_MS = 150L; // seek 提交后的回刷延迟
 
     private com.bilibili.tv.player.BufferingOverlayController bufferingOverlayController;
+    /**
+     * L1 预取状态提供者的强引用。
+     * 匿名内部类若只交给 PlayUrlPrefetch 的弱引用持有，会在起播后第一次 GC 被回收，
+     * tick() 随即静默 stopTicker()，实测表现为 [START] 之后 [TRIGGER] 永不出现。
+     * 由播放页实例持有即可：页面销毁时本字段随之可回收，不会泄漏 Activity。
+     */
+    private PlayUrlPrefetch.StateProvider prefetchProvider;
     private Runnable hideSeekPreviewRunnable = new Runnable() {
         @Override
         public void run() {
@@ -1178,6 +1185,16 @@ public class xi extends xh implements bbb<Message, Boolean> {
         if (m != null) {
             m.b();
         }
+        // 播放页销毁：停掉 1s 轮询、清空静态 CACHE，并 cancel INFLIGHT。
+        // 在途预取的 Runnable 捕获了分集数组里的 ResolveResourceParams，若不清，
+        // 页面退出后仍会被静态 INFLIGHT 强引用（预取线程可能被 initPlayInfo 占用十几秒）。
+        // 不接 r()：那是视图释放路径，换集时可能被调用，清缓存会让 L1 白白失效；
+        // 每次 onPrepared() 都会重新 start()，即使误清也能自愈。
+        try {
+            PlayUrlPrefetch.release();
+        } catch (Throwable ignored) {
+        }
+        prefetchProvider = null;
     }
 
     private void d(boolean z) {
@@ -1255,6 +1272,17 @@ public class xi extends xh implements bbb<Message, Boolean> {
     @Override // bl.xh, tv.danmaku.ijk.media.player.IMediaPlayer.OnPreparedListener
     public void onPrepared(IMediaPlayer iMediaPlayer) {
         Log.i("PlaySpeed", "[XI_ON_PREPARED] onPrepared() called, video ready to play");
+        // 换集起播完成，解除换集守卫，恢复正常的 buffering 提示逻辑。
+        // 必须放在最前面：后续 F()/k.c()/N() 等可能触发一次 BUFFERING_START，
+        // 解除后它们会走正常的 1s 延迟，而不是在守卫下被静默吞掉。
+        try {
+            com.bilibili.tv.player.BufferingOverlayController ctrl =
+                    com.bilibili.tv.player.PlayerActivityUrlRefreshHelper.getBufferingOverlayController();
+            if (ctrl != null) {
+                ctrl.endEpisodeSwitchGuard();
+            }
+        } catch (Throwable ignored) {
+        }
         mybl.VideoViewParams.reportPlaybackSuccess();
         
         if (n() != null) {
@@ -1342,6 +1370,63 @@ public class xi extends xh implements bbb<Message, Boolean> {
         }
         
         super.onPrepared(iMediaPlayer);
+
+        // L1 下一集预取：每次起播 / 换集后重新挂接状态轮询。
+        // provider 由本播放页字段强引用持有（预取器内部只留弱引用），
+        // 既保证播放期间不被 GC 回收，页面销毁后又不会造成泄漏。
+        try {
+            prefetchProvider = new PlayUrlPrefetch.StateProvider() {
+                @Override
+                public int currentPositionMs() {
+                    return xi.this.x();
+                }
+
+                @Override
+                public int durationMs() {
+                    long d = 0L;
+                    PlayerParams pp = xi.this.b();
+                    if (pp != null) {
+                        d = pp.getDuration();
+                    }
+                    if (d <= 0L) {
+                        // DASH 元数据未带时长时回退到播放器实际时长，
+                        // 否则 remaining 永远算不出来，临近片尾刷新会失效。
+                        try {
+                            d = xi.this.n().getDuration();
+                        } catch (Throwable ignored) {
+                        }
+                    }
+                    return d > 0L ? (int) Math.min(d, Integer.MAX_VALUE) : 0;
+                }
+
+                @Override
+                public ResolveResourceParams currentEpisode() {
+                    PlayerParams pp = xi.this.b();
+                    if (pp == null || pp.mVideoParams == null) {
+                        return null;
+                    }
+                    return pp.mVideoParams.obtainResolveParams();
+                }
+
+                @Override
+                public ResolveResourceParams[] episodeList() {
+                    PlayerParams pp = xi.this.b();
+                    if (pp == null || pp.mVideoParams == null) {
+                        return null;
+                    }
+                    return pp.mVideoParams.getResolveParamsArray();
+                }
+
+                @Override
+                public int expectedQuality() {
+                    ResolveResourceParams r = currentEpisode();
+                    return r == null ? 64 : r.mExpectedQuality;
+                }
+            };
+            PlayUrlPrefetch.start(MainApplication.a(), prefetchProvider);
+        } catch (Throwable t) {
+            Log.w("NextPrefetch", "[START] ignored: " + t);
+        }
     }
     
     private void loadVideoShot() {
@@ -1557,9 +1642,13 @@ public class xi extends xh implements bbb<Message, Boolean> {
     public void M() {
         if (bufferingOverlayController == null) {
             bufferingOverlayController = new com.bilibili.tv.player.BufferingOverlayController();
-            bufferingOverlayController.setBufferingView(this.m);
             com.bilibili.tv.player.PlayerActivityUrlRefreshHelper.setBufferingOverlayController(bufferingOverlayController);
             Log.i("xi", "[M] BufferingOverlayController initialized");
+        }
+        // controller 用弱引用持有 View：View 树重建（配置变更等）后必须重新绑定，
+        // 否则弱引用仍指向已回收的旧 View，转圈提示会静默失效。
+        if (this.m != null) {
+            bufferingOverlayController.setBufferingView(this.m);
         }
         
         if (com.bilibili.tv.player.PlayerActivityUrlRefreshHelper.shouldSuppressBufferingOverlay()) {

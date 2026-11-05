@@ -2074,6 +2074,14 @@
 .method private setVideoURI(Landroid/net/Uri;Z)V
     .locals 3
 
+    # P1: 每次换源重置续播位置。原流程靠 stopPlayback()+resetVideoView() 重建
+    # BaseVideoView 让该字段回到初值 0；复用 VideoView 后不再重建，若不复位，
+    # BaseVideoView$7.onPrepared 会把上一集片尾进度 seek 到新集，导致新集直接从片尾开始。
+    # 新集的历史续播走 IVideoParams / onPrepared 之后的 seekTo，不受此处影响。
+    const/4 v0, 0x0
+
+    iput v0, p0, Ltv/danmaku/videoplayer/core/videoview/BaseVideoView;->mSeekWhenPrepared:I
+
     .line 269
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/videoview/BaseVideoView;->mUri:Landroid/net/Uri;
 

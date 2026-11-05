@@ -25,6 +25,36 @@ public class BiliFilter {
     public static boolean progressbar_on = false;
     public static boolean fastquit_on = true;
     public static int prefer_videoview = 1;
+    /** 下一集 playurl 预取总开关。设为 false 即可一键回退到原始解析链路，便于 A/B 对比。 */
+    public static boolean next_episode_prefetch = true;
+    /**
+     * 换集不重建 VideoView（P1 / L3-lite）。
+     * true：换集时复用同一个 BaseVideoView 与 SurfaceTexture，保留上一帧，消除黑屏；
+     * false：回退到原有 stopPlayback() + resetVideoView() 重建流程。
+     * 实机若出现花屏 / 无画面 / 音画不同步，设为 false 即可回滚。
+     */
+    public static boolean reuse_videoview_on_switch = true;
+    /**
+     * Exo 点播起播水位（仅 Exo 内核生效），默认关闭。
+     * true：bufferForPlaybackMs 由默认 2500 降到 800；false：保持 Exo 默认 2500。
+     * 两轮实机均证明无效，保留开关仅供 A/B 与内核探针：
+     * 16:03 轮 800ms -> 首次起播 1859ms、换集 918/895ms；
+     * 16:34 轮 2500ms -> 首次起播 754ms、换集 628~734ms（反而更快，说明是网络波动）。
+     * 代码层面也解释得通：STATE_READY 由 renderer 是否已有可渲染样本决定，
+     * bufferForPlaybackMs 只控制 shouldContinueLoading 的加载节奏，不直接决定 READY 时机。
+     * 且 800ms 那轮播放中缓冲由 4 次 0.6~1.0s 增至 5 次 1.2~2.2s，无收益不保留。
+     */
+    public static boolean fast_episode_start = false;
+    /**
+     * 预取阶段对下一集 DASH 首分片发 Range 预热（L1 延伸）。实测无收益，默认关闭。
+     * 16:34 日志：4 次换集 prepare->READY = 734 / 640 / 729 / 628ms；
+     * 有预热两次均值 687ms，无预热两次均值 679ms（首次起播无预热 754ms），差异在噪声内。
+     * 原因：预热用 base_url 固定 host，播放器经 DASH_CDN_REORDER 重排后可能落到另一 CDN；
+     * 32KiB 不进入 Exo DataSource，视频/音频两轨仍各发完整 GET；且预热与 initPlayInfo
+     * 串行占住 NETWORK 单线程，两次预热晚于换集才完成。
+     * 保留代码与开关供对照实验，避免额外 32KiB 请求与播放中抢带宽。
+     */
+    public static boolean warm_next_segment = false;
 
     public static void updateConfig() throws Exception{
         BiliFilter.filter_rule_path = abd.get_filter_path(MainApplication.a().getApplicationContext());

@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 889
+    .line 909
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$5;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 3
 
     .prologue
-    .line 892
+    .line 912
     const/4 v0, 0x1
 
     new-array v0, v0, [Lcom/google/android/exoplayer2/extractor/Extractor;
@@ -74,7 +74,7 @@
     .end annotation
 
     .prologue
-    .line 897
+    .line 917
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$5;->createExtractors()[Lcom/google/android/exoplayer2/extractor/Extractor;
 
     move-result-object v0
