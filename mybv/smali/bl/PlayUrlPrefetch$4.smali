@@ -41,7 +41,7 @@
     .end annotation
 
     .prologue
-    .line 412
+    .line 494
     iput-object p1, p0, Lbl/PlayUrlPrefetch$4;->val$appContext:Landroid/content/Context;
 
     iput-object p2, p0, Lbl/PlayUrlPrefetch$4;->val$key:Ljava/lang/String;
@@ -65,7 +65,7 @@
     .locals 6
 
     .prologue
-    .line 415
+    .line 497
     iget-object v0, p0, Lbl/PlayUrlPrefetch$4;->val$appContext:Landroid/content/Context;
 
     iget-object v1, p0, Lbl/PlayUrlPrefetch$4;->val$key:Ljava/lang/String;
@@ -79,8 +79,8 @@
     iget v5, p0, Lbl/PlayUrlPrefetch$4;->val$gen:I
 
     # invokes: Lbl/PlayUrlPrefetch;->doPrefetch(Landroid/content/Context;Ljava/lang/String;Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;IZI)V
-    invoke-static/range {v0 .. v5}, Lbl/PlayUrlPrefetch;->access$100(Landroid/content/Context;Ljava/lang/String;Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;IZI)V
+    invoke-static/range {v0 .. v5}, Lbl/PlayUrlPrefetch;->access$400(Landroid/content/Context;Ljava/lang/String;Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;IZI)V
 
-    .line 416
+    .line 498
     return-void
 .end method

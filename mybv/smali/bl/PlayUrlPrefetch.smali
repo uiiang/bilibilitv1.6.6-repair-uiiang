@@ -7,7 +7,9 @@
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
         Lbl/PlayUrlPrefetch$Cached;,
-        Lbl/PlayUrlPrefetch$StateProvider;
+        Lbl/PlayUrlPrefetch$StateProvider;,
+        Lbl/PlayUrlPrefetch$WarmTask;,
+        Lbl/PlayUrlPrefetch$WarmThreadFactory;
     }
 .end annotation
 
@@ -65,7 +67,21 @@
 
 .field private static final TTL_MS:J = 0x1d4c0L
 
+.field private static final WARMER:Ljava/util/concurrent/ExecutorService;
+
 .field private static final WARM_BYTES:I = 0x8000
+
+.field private static final WARM_TASKS:Ljava/util/concurrent/ConcurrentHashMap;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/util/concurrent/ConcurrentHashMap",
+            "<",
+            "Ljava/lang/String;",
+            "Ljava/util/concurrent/Future",
+            "<*>;>;"
+        }
+    .end annotation
+.end field
 
 .field private static volatile attempts:I
 
@@ -110,12 +126,14 @@
 
 # direct methods
 .method static constructor <clinit>()V
-    .locals 6
+    .locals 5
 
     .prologue
-    const-wide/16 v4, 0x0
+    const/4 v4, 0x0
 
-    const/4 v2, 0x0
+    const-wide/16 v2, 0x0
+
+    const/4 v1, 0x0
 
     .line 65
     new-instance v0, Ljava/util/concurrent/ConcurrentHashMap;
@@ -131,14 +149,21 @@
 
     sput-object v0, Lbl/PlayUrlPrefetch;->INFLIGHT:Ljava/util/concurrent/ConcurrentHashMap;
 
-    .line 67
+    .line 68
+    new-instance v0, Ljava/util/concurrent/ConcurrentHashMap;
+
+    invoke-direct {v0}, Ljava/util/concurrent/ConcurrentHashMap;-><init>()V
+
+    sput-object v0, Lbl/PlayUrlPrefetch;->WARM_TASKS:Ljava/util/concurrent/ConcurrentHashMap;
+
+    .line 69
     new-instance v0, Ljava/util/concurrent/atomic/AtomicInteger;
 
-    invoke-direct {v0, v2}, Ljava/util/concurrent/atomic/AtomicInteger;-><init>(I)V
+    invoke-direct {v0, v1}, Ljava/util/concurrent/atomic/AtomicInteger;-><init>(I)V
 
     sput-object v0, Lbl/PlayUrlPrefetch;->GENERATION:Ljava/util/concurrent/atomic/AtomicInteger;
 
-    .line 69
+    .line 71
     new-instance v0, Lbl/PlayUrlPrefetch$1;
 
     invoke-direct {v0}, Lbl/PlayUrlPrefetch$1;-><init>()V
@@ -149,7 +174,18 @@
 
     sput-object v0, Lbl/PlayUrlPrefetch;->NETWORK:Ljava/util/concurrent/ExecutorService;
 
-    .line 79
+    .line 89
+    new-instance v0, Lbl/PlayUrlPrefetch$WarmThreadFactory;
+
+    invoke-direct {v0, v4}, Lbl/PlayUrlPrefetch$WarmThreadFactory;-><init>(Lbl/PlayUrlPrefetch$1;)V
+
+    invoke-static {v0}, Ljava/util/concurrent/Executors;->newSingleThreadExecutor(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;
+
+    move-result-object v0
+
+    sput-object v0, Lbl/PlayUrlPrefetch;->WARMER:Ljava/util/concurrent/ExecutorService;
+
+    .line 91
     new-instance v0, Lbl/PlayUrlPrefetch$2;
 
     invoke-direct {v0}, Lbl/PlayUrlPrefetch$2;-><init>()V
@@ -160,35 +196,33 @@
 
     sput-object v0, Lbl/PlayUrlPrefetch;->TICKER:Ljava/util/concurrent/ScheduledExecutorService;
 
-    .line 88
+    .line 100
     new-instance v0, Ljava/lang/ref/WeakReference;
 
-    const/4 v1, 0x0
-
-    invoke-direct {v0, v1}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
+    invoke-direct {v0, v4}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
 
     sput-object v0, Lbl/PlayUrlPrefetch;->providerRef:Ljava/lang/ref/WeakReference;
 
-    .line 93
-    sput-wide v4, Lbl/PlayUrlPrefetch;->startedAt:J
+    .line 105
+    sput-wide v2, Lbl/PlayUrlPrefetch;->startedAt:J
 
-    .line 94
-    sput-boolean v2, Lbl/PlayUrlPrefetch;->earlyDone:Z
+    .line 106
+    sput-boolean v1, Lbl/PlayUrlPrefetch;->earlyDone:Z
 
-    .line 95
-    sput-wide v4, Lbl/PlayUrlPrefetch;->lastRefreshAt:J
+    .line 107
+    sput-wide v2, Lbl/PlayUrlPrefetch;->lastRefreshAt:J
 
-    .line 97
-    sput-wide v4, Lbl/PlayUrlPrefetch;->lastSkipLogAt:J
+    .line 109
+    sput-wide v2, Lbl/PlayUrlPrefetch;->lastSkipLogAt:J
 
-    .line 98
-    sput-boolean v2, Lbl/PlayUrlPrefetch;->diagnosed:Z
+    .line 110
+    sput-boolean v1, Lbl/PlayUrlPrefetch;->diagnosed:Z
 
-    .line 100
-    sput v2, Lbl/PlayUrlPrefetch;->lastUgcQn:I
+    .line 112
+    sput v1, Lbl/PlayUrlPrefetch;->lastUgcQn:I
 
-    .line 101
-    sput v2, Lbl/PlayUrlPrefetch;->lastPgcQn:I
+    .line 113
+    sput v1, Lbl/PlayUrlPrefetch;->lastPgcQn:I
 
     return-void
 .end method
@@ -197,14 +231,34 @@
     .locals 0
 
     .prologue
-    .line 103
+    .line 115
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 104
+    .line 116
     return-void
 .end method
 
-.method static synthetic access$000()V
+.method static synthetic access$100()Ljava/util/concurrent/atomic/AtomicInteger;
+    .locals 1
+
+    .prologue
+    .line 41
+    sget-object v0, Lbl/PlayUrlPrefetch;->GENERATION:Ljava/util/concurrent/atomic/AtomicInteger;
+
+    return-object v0
+.end method
+
+.method static synthetic access$200(Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;Ljava/lang/Object;IJ)V
+    .locals 1
+
+    .prologue
+    .line 41
+    invoke-static {p0, p1, p2, p3, p4}, Lbl/PlayUrlPrefetch;->warmSync(Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;Ljava/lang/Object;IJ)V
+
+    return-void
+.end method
+
+.method static synthetic access$300()V
     .locals 0
 
     .prologue
@@ -214,7 +268,7 @@
     return-void
 .end method
 
-.method static synthetic access$100(Landroid/content/Context;Ljava/lang/String;Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;IZI)V
+.method static synthetic access$400(Landroid/content/Context;Ljava/lang/String;Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;IZI)V
     .locals 0
 
     .prologue
@@ -228,7 +282,7 @@
     .locals 5
 
     .prologue
-    .line 199
+    .line 268
     const-class v1, Lbl/PlayUrlPrefetch;
 
     monitor-enter v1
@@ -240,12 +294,12 @@
 
     move-result v2
 
-    .line 200
+    .line 269
     sget-object v0, Lbl/PlayUrlPrefetch;->CACHE:Ljava/util/concurrent/ConcurrentHashMap;
 
     invoke-virtual {v0}, Ljava/util/concurrent/ConcurrentHashMap;->clear()V
 
-    .line 201
+    .line 270
     sget-object v0, Lbl/PlayUrlPrefetch;->INFLIGHT:Ljava/util/concurrent/ConcurrentHashMap;
 
     invoke-virtual {v0}, Ljava/util/concurrent/ConcurrentHashMap;->values()Ljava/util/Collection;
@@ -270,10 +324,10 @@
 
     check-cast v0, Ljava/util/concurrent/Future;
 
-    .line 202
+    .line 271
     if-eqz v0, :cond_18
 
-    .line 203
+    .line 272
     const/4 v4, 0x1
 
     invoke-interface {v0, v4}, Ljava/util/concurrent/Future;->cancel(Z)Z
@@ -282,7 +336,7 @@
 
     goto :goto_18
 
-    .line 199
+    .line 268
     :catchall_2b
     move-exception v0
 
@@ -290,24 +344,65 @@
 
     throw v0
 
-    .line 206
+    .line 275
     :cond_2e
     :try_start_2e
     sget-object v0, Lbl/PlayUrlPrefetch;->INFLIGHT:Ljava/util/concurrent/ConcurrentHashMap;
 
     invoke-virtual {v0}, Ljava/util/concurrent/ConcurrentHashMap;->clear()V
 
-    .line 207
+    .line 276
+    sget-object v0, Lbl/PlayUrlPrefetch;->WARM_TASKS:Ljava/util/concurrent/ConcurrentHashMap;
+
+    invoke-virtual {v0}, Ljava/util/concurrent/ConcurrentHashMap;->values()Ljava/util/Collection;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Ljava/util/Collection;->iterator()Ljava/util/Iterator;
+
+    move-result-object v3
+
+    :cond_3d
+    :goto_3d
+    invoke-interface {v3}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_50
+
+    invoke-interface {v3}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/util/concurrent/Future;
+
+    .line 277
+    if-eqz v0, :cond_3d
+
+    .line 278
+    const/4 v4, 0x1
+
+    invoke-interface {v0, v4}, Ljava/util/concurrent/Future;->cancel(Z)Z
+
+    goto :goto_3d
+
+    .line 281
+    :cond_50
+    sget-object v0, Lbl/PlayUrlPrefetch;->WARM_TASKS:Ljava/util/concurrent/ConcurrentHashMap;
+
+    invoke-virtual {v0}, Ljava/util/concurrent/ConcurrentHashMap;->clear()V
+
+    .line 282
     const/4 v0, 0x0
 
     sput-object v0, Lbl/PlayUrlPrefetch;->pendingKey:Ljava/lang/String;
 
-    .line 208
+    .line 283
     const/4 v0, 0x0
 
     sput v0, Lbl/PlayUrlPrefetch;->attempts:I
 
-    .line 209
+    .line 284
     const-string v0, "NextPrefetch"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -329,10 +424,10 @@
     move-result-object v2
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_51
-    .catchall {:try_start_2e .. :try_end_51} :catchall_2b
+    :try_end_73
+    .catchall {:try_start_2e .. :try_end_73} :catchall_2b
 
-    .line 210
+    .line 285
     monitor-exit v1
 
     return-void
@@ -344,11 +439,11 @@
     .prologue
     const/4 v9, 0x0
 
-    .line 423
-    .line 425
+    .line 505
+    .line 507
     if-eqz p4, :cond_2e
 
-    .line 426
+    .line 508
     :try_start_3
     iget-wide v2, p2, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
 
@@ -367,24 +462,24 @@
 
     move-result-object v0
 
-    .line 433
+    .line 515
     :goto_f
     sget-object v1, Lbl/PlayUrlPrefetch;->INFLIGHT:Ljava/util/concurrent/ConcurrentHashMap;
 
     invoke-virtual {v1, p1}, Ljava/util/concurrent/ConcurrentHashMap;->remove(Ljava/lang/Object;)Ljava/lang/Object;
 
-    move-object v1, v0
+    move-object v4, v0
 
-    .line 436
+    .line 518
     :goto_15
-    if-nez v1, :cond_63
+    if-nez v4, :cond_63
 
-    .line 438
+    .line 520
     const-class v1, Lbl/PlayUrlPrefetch;
 
     monitor-enter v1
 
-    .line 439
+    .line 521
     :try_start_1a
     sget-object v0, Lbl/PlayUrlPrefetch;->pendingKey:Ljava/lang/String;
 
@@ -394,29 +489,29 @@
 
     if-eqz v0, :cond_25
 
-    .line 440
+    .line 522
     const/4 v0, 0x0
 
     sput-object v0, Lbl/PlayUrlPrefetch;->pendingKey:Ljava/lang/String;
 
-    .line 442
+    .line 524
     :cond_25
     monitor-exit v1
     :try_end_26
     .catchall {:try_start_1a .. :try_end_26} :catchall_60
 
-    .line 443
+    .line 525
     const-string v0, "NextPrefetch"
 
     const-string v1, "[FETCH] empty response, will fall back to normal resolve"
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 469
+    .line 550
     :goto_2d
     return-void
 
-    .line 428
+    .line 510
     :cond_2e
     :try_start_2e
     iget-wide v2, p2, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
@@ -436,11 +531,11 @@
 
     goto :goto_f
 
-    .line 430
+    .line 512
     :catch_39
     move-exception v0
 
-    .line 431
+    .line 513
     :try_start_3a
     const-string v1, "NextPrefetch"
 
@@ -466,17 +561,17 @@
     :try_end_52
     .catchall {:try_start_3a .. :try_end_52} :catchall_59
 
-    .line 433
+    .line 515
     sget-object v0, Lbl/PlayUrlPrefetch;->INFLIGHT:Ljava/util/concurrent/ConcurrentHashMap;
 
     invoke-virtual {v0, p1}, Ljava/util/concurrent/ConcurrentHashMap;->remove(Ljava/lang/Object;)Ljava/lang/Object;
 
-    move-object v1, v9
+    move-object v4, v9
 
-    .line 434
+    .line 516
     goto :goto_15
 
-    .line 433
+    .line 515
     :catchall_59
     move-exception v0
 
@@ -484,10 +579,10 @@
 
     invoke-virtual {v1, p1}, Ljava/util/concurrent/ConcurrentHashMap;->remove(Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 434
+    .line 516
     throw v0
 
-    .line 442
+    .line 524
     :catchall_60
     move-exception v0
 
@@ -498,7 +593,7 @@
 
     throw v0
 
-    .line 446
+    .line 528
     :cond_63
     sget-object v0, Lbl/PlayUrlPrefetch;->GENERATION:Ljava/util/concurrent/atomic/AtomicInteger;
 
@@ -508,7 +603,7 @@
 
     if-eq p5, v0, :cond_73
 
-    .line 447
+    .line 529
     const-string v0, "NextPrefetch"
 
     const-string v1, "[FETCH] stale generation, drop result"
@@ -517,120 +612,114 @@
 
     goto :goto_2d
 
-    .line 451
+    .line 533
     :cond_73
     invoke-static {}, Lbl/PlayUrlPrefetch;->pruneCache()V
 
-    .line 452
+    .line 534
     sget-object v0, Lbl/PlayUrlPrefetch;->CACHE:Ljava/util/concurrent/ConcurrentHashMap;
 
-    new-instance v2, Lbl/PlayUrlPrefetch$Cached;
+    new-instance v1, Lbl/PlayUrlPrefetch$Cached;
 
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
-    move-result-wide v4
+    move-result-wide v2
 
-    invoke-direct {v2, v1, v4, v5, p5}, Lbl/PlayUrlPrefetch$Cached;-><init>(Ljava/lang/Object;JI)V
+    invoke-direct {v1, v4, v2, v3, p5}, Lbl/PlayUrlPrefetch$Cached;-><init>(Ljava/lang/Object;JI)V
 
-    invoke-virtual {v0, p1, v2}, Ljava/util/concurrent/ConcurrentHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-virtual {v0, p1, v1}, Ljava/util/concurrent/ConcurrentHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 453
+    .line 535
     const/4 v0, 0x0
 
     sput v0, Lbl/PlayUrlPrefetch;->attempts:I
 
-    .line 454
+    .line 536
     const-string v0, "NextPrefetch"
 
-    new-instance v2, Ljava/lang/StringBuilder;
+    new-instance v1, Ljava/lang/StringBuilder;
 
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v3, "[READY] cached key="
+    const-string v2, "[READY] cached key="
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v2
+    move-result-object v1
 
-    invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v2
+    move-result-object v1
 
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v2
+    move-result-object v1
 
-    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 459
-    const/4 v0, 0x0
+    .line 541
+    sget-boolean v0, Lmybl/BiliFilter;->async_play_info_warm:Z
 
-    :try_start_a0
-    invoke-virtual {p2, v0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->initPlayInfo(Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$PlayInfoCallback;)V
+    if-eqz v0, :cond_d3
 
-    .line 460
+    .line 542
+    sget-object v8, Lbl/PlayUrlPrefetch;->WARMER:Ljava/util/concurrent/ExecutorService;
+
+    new-instance v0, Lbl/PlayUrlPrefetch$WarmTask;
+
+    iget-wide v6, p2, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
+
+    move-object v1, p1
+
+    move v2, p5
+
+    move-object v3, p2
+
+    move v5, p3
+
+    invoke-direct/range {v0 .. v7}, Lbl/PlayUrlPrefetch$WarmTask;-><init>(Ljava/lang/String;ILcom/bilibili/tv/player/basic/context/ResolveResourceParams;Ljava/lang/Object;IJ)V
+
+    invoke-interface {v8, v0}, Ljava/util/concurrent/ExecutorService;->submit(Ljava/lang/Runnable;)Ljava/util/concurrent/Future;
+
+    move-result-object v0
+
+    .line 544
+    sget-object v1, Lbl/PlayUrlPrefetch;->WARM_TASKS:Ljava/util/concurrent/ConcurrentHashMap;
+
+    invoke-virtual {v1, p1, v0}, Ljava/util/concurrent/ConcurrentHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    .line 545
     const-string v0, "NextPrefetch"
 
-    new-instance v2, Ljava/lang/StringBuilder;
+    new-instance v1, Ljava/lang/StringBuilder;
 
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v3, "[READY] play info warmed for cid="
+    const-string v2, "[WARM_SUBMIT] key="
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v2
+    move-result-object v1
 
-    iget-wide v4, p2, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v2, v4, v5}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+    move-result-object v1
 
-    move-result-object v2
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v1
 
-    move-result-object v2
-
-    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_bd
-    .catch Ljava/lang/Throwable; {:try_start_a0 .. :try_end_bd} :catch_c4
-
-    .line 468
-    :goto_bd
-    iget-wide v2, p2, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
-
-    invoke-static {v1, p3, v2, v3}, Lbl/PlayUrlPrefetch;->warmFirstSegment(Ljava/lang/Object;IJ)V
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     goto/16 :goto_2d
 
-    .line 461
-    :catch_c4
-    move-exception v0
+    .line 548
+    :cond_d3
+    iget-wide v0, p2, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
 
-    .line 462
-    const-string v2, "NextPrefetch"
+    invoke-static {p2, v4, p3, v0, v1}, Lbl/PlayUrlPrefetch;->warmSync(Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;Ljava/lang/Object;IJ)V
 
-    new-instance v3, Ljava/lang/StringBuilder;
-
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v4, "[WARM] play info failed: "
-
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v2, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
-
-    goto :goto_bd
+    goto/16 :goto_2d
 .end method
 
 .method private static extractVideoUrl(Ljava/lang/Object;I)Ljava/lang/String;
@@ -641,20 +730,20 @@
 
     const/4 v1, 0x0
 
-    .line 473
-    .line 474
+    .line 554
+    .line 555
     instance-of v2, p0, Lbl/qm;
 
     if-eqz v2, :cond_12
 
-    .line 475
+    .line 556
     check-cast p0, Lbl/qm;
 
     iget-object v2, p0, Lbl/qm;->b:[B
 
     move-object v3, v2
 
-    .line 479
+    .line 560
     :goto_b
     if-eqz v3, :cond_10
 
@@ -665,18 +754,18 @@
     :cond_10
     move-object v0, v1
 
-    .line 529
+    .line 610
     :cond_11
     :goto_11
     return-object v0
 
-    .line 476
+    .line 557
     :cond_12
     instance-of v2, p0, Lbl/qi;
 
     if-eqz v2, :cond_dd
 
-    .line 477
+    .line 558
     check-cast p0, Lbl/qi;
 
     iget-object v2, p0, Lbl/qi;->b:[B
@@ -685,7 +774,7 @@
 
     goto :goto_b
 
-    .line 483
+    .line 564
     :cond_1c
     :try_start_1c
     new-instance v2, Lorg/json/JSONObject;
@@ -698,28 +787,28 @@
 
     invoke-direct {v2, v4}, Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V
 
-    .line 484
+    .line 565
     const-string v3, "data"
 
     invoke-virtual {v2, v3}, Lorg/json/JSONObject;->optJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;
 
     move-result-object v3
 
-    .line 485
+    .line 566
     if-nez v3, :cond_36
 
-    .line 486
+    .line 567
     const-string v3, "result"
 
     invoke-virtual {v2, v3}, Lorg/json/JSONObject;->optJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;
 
     move-result-object v3
 
-    .line 488
+    .line 569
     :cond_36
     if-nez v3, :cond_da
 
-    .line 491
+    .line 572
     :goto_38
     const-string v3, "dash"
 
@@ -727,15 +816,15 @@
 
     move-result-object v2
 
-    .line 492
+    .line 573
     if-nez v2, :cond_42
 
     move-object v0, v1
 
-    .line 493
+    .line 574
     goto :goto_11
 
-    .line 495
+    .line 576
     :cond_42
     const-string v3, "video"
 
@@ -743,7 +832,7 @@
 
     move-result-object v3
 
-    .line 496
+    .line 577
     if-eqz v3, :cond_50
 
     invoke-virtual {v3}, Lorg/json/JSONArray;->length()I
@@ -755,13 +844,13 @@
     :cond_50
     move-object v0, v1
 
-    .line 497
+    .line 578
     goto :goto_11
 
     :cond_52
     move v2, v0
 
-    .line 500
+    .line 581
     :goto_53
     invoke-virtual {v3}, Lorg/json/JSONArray;->length()I
 
@@ -769,12 +858,12 @@
 
     if-ge v2, v0, :cond_d8
 
-    .line 501
+    .line 582
     invoke-virtual {v3, v2}, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
 
     move-result-object v0
 
-    .line 502
+    .line 583
     if-eqz v0, :cond_73
 
     const-string v4, "id"
@@ -785,11 +874,11 @@
 
     if-ne v4, p1, :cond_73
 
-    .line 507
+    .line 588
     :goto_67
     if-nez v0, :cond_d6
 
-    .line 508
+    .line 589
     const/4 v0, 0x0
 
     invoke-virtual {v3, v0}, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
@@ -798,16 +887,16 @@
 
     move-object v2, v0
 
-    .line 510
+    .line 591
     :goto_6f
     if-nez v2, :cond_77
 
     move-object v0, v1
 
-    .line 511
+    .line 592
     goto :goto_11
 
-    .line 500
+    .line 581
     :cond_73
     add-int/lit8 v0, v2, 0x1
 
@@ -815,7 +904,7 @@
 
     goto :goto_53
 
-    .line 513
+    .line 594
     :cond_77
     const-string v0, "base_url"
 
@@ -823,7 +912,7 @@
 
     move-result-object v0
 
-    .line 514
+    .line 595
     if-eqz v0, :cond_85
 
     invoke-virtual {v0}, Ljava/lang/String;->length()I
@@ -832,7 +921,7 @@
 
     if-nez v3, :cond_8b
 
-    .line 515
+    .line 596
     :cond_85
     const-string v0, "baseUrl"
 
@@ -840,7 +929,7 @@
 
     move-result-object v0
 
-    .line 517
+    .line 598
     :cond_8b
     if-eqz v0, :cond_93
 
@@ -853,10 +942,10 @@
     :cond_93
     move-object v0, v1
 
-    .line 518
+    .line 599
     goto/16 :goto_11
 
-    .line 521
+    .line 602
     :cond_96
     const-string v2, "platform=android_tv"
 
@@ -866,7 +955,7 @@
 
     if-eqz v2, :cond_a8
 
-    .line 522
+    .line 603
     const-string v2, "platform=android_tv"
 
     const-string v3, "platform=pc"
@@ -877,7 +966,7 @@
 
     goto/16 :goto_11
 
-    .line 523
+    .line 604
     :cond_a8
     const-string v2, "platform=android"
 
@@ -887,7 +976,7 @@
 
     if-eqz v2, :cond_11
 
-    .line 524
+    .line 605
     const-string v2, "platform=android"
 
     const-string v3, "platform=pc"
@@ -900,11 +989,11 @@
 
     goto/16 :goto_11
 
-    .line 527
+    .line 608
     :catch_ba
     move-exception v0
 
-    .line 528
+    .line 609
     const-string v2, "NextPrefetch"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -929,7 +1018,7 @@
 
     move-object v0, v1
 
-    .line 529
+    .line 610
     goto/16 :goto_11
 
     :cond_d6
@@ -957,7 +1046,7 @@
     .locals 1
 
     .prologue
-    .line 124
+    .line 136
     if-eqz p0, :cond_5
 
     sget v0, Lbl/PlayUrlPrefetch;->lastPgcQn:I
@@ -975,7 +1064,7 @@
     .locals 1
 
     .prologue
-    .line 641
+    .line 722
     :try_start_0
     invoke-virtual {p0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->isBangumi()Z
     :try_end_3
@@ -983,15 +1072,15 @@
 
     move-result v0
 
-    .line 643
+    .line 724
     :goto_4
     return v0
 
-    .line 642
+    .line 723
     :catch_5
     move-exception v0
 
-    .line 643
+    .line 724
     const/4 v0, 0x0
 
     goto :goto_4
@@ -1001,7 +1090,7 @@
     .locals 4
 
     .prologue
-    .line 595
+    .line 676
     :try_start_0
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
@@ -1015,7 +1104,7 @@
 
     move-result-object v0
 
-    .line 596
+    .line 677
     if-eqz v0, :cond_5b
 
     const-string v1, "SESSDATA="
@@ -1030,7 +1119,7 @@
     :try_end_18
     .catch Ljava/lang/Throwable; {:try_start_0 .. :try_end_18} :catch_5e
 
-    .line 600
+    .line 681
     :goto_18
     new-instance v1, Ljava/lang/StringBuilder;
 
@@ -1101,7 +1190,7 @@
 
     return-object v0
 
-    .line 596
+    .line 677
     :cond_5b
     :try_start_5b
     const-string v0, "0"
@@ -1110,16 +1199,16 @@
 
     goto :goto_18
 
-    .line 597
+    .line 678
     :catch_5e
     move-exception v0
 
-    .line 598
+    .line 679
     const-string v0, "?"
 
     goto :goto_18
 
-    .line 600
+    .line 681
     :cond_62
     const/4 v1, 0x0
 
@@ -1130,41 +1219,41 @@
     .locals 1
 
     .prologue
-    .line 108
+    .line 120
     if-lez p0, :cond_11
 
-    .line 109
+    .line 121
     if-eqz p1, :cond_12
 
     sget v0, Lbl/PlayUrlPrefetch;->lastPgcQn:I
 
-    .line 110
+    .line 122
     :goto_6
     if-eqz p1, :cond_15
 
-    .line 111
+    .line 123
     sput p0, Lbl/PlayUrlPrefetch;->lastPgcQn:I
 
-    .line 115
+    .line 127
     :goto_a
     if-lez v0, :cond_11
 
     if-eq v0, p0, :cond_11
 
-    .line 118
+    .line 130
     invoke-static {}, Lbl/PlayUrlPrefetch;->clear()V
 
-    .line 121
+    .line 133
     :cond_11
     return-void
 
-    .line 109
+    .line 121
     :cond_12
     sget v0, Lbl/PlayUrlPrefetch;->lastUgcQn:I
 
     goto :goto_6
 
-    .line 113
+    .line 125
     :cond_15
     sput p0, Lbl/PlayUrlPrefetch;->lastUgcQn:I
 
@@ -1175,19 +1264,19 @@
     .locals 10
 
     .prologue
-    .line 218
+    .line 293
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v2
 
-    .line 219
+    .line 294
     sget-object v0, Lbl/PlayUrlPrefetch;->GENERATION:Ljava/util/concurrent/atomic/AtomicInteger;
 
     invoke-virtual {v0}, Ljava/util/concurrent/atomic/AtomicInteger;->get()I
 
     move-result v4
 
-    .line 220
+    .line 295
     sget-object v0, Lbl/PlayUrlPrefetch;->CACHE:Ljava/util/concurrent/ConcurrentHashMap;
 
     invoke-virtual {v0}, Ljava/util/concurrent/ConcurrentHashMap;->entrySet()Ljava/util/Set;
@@ -1212,14 +1301,14 @@
 
     check-cast v0, Ljava/util/Map$Entry;
 
-    .line 221
+    .line 296
     invoke-interface {v0}, Ljava/util/Map$Entry;->getValue()Ljava/lang/Object;
 
     move-result-object v1
 
     check-cast v1, Lbl/PlayUrlPrefetch$Cached;
 
-    .line 222
+    .line 297
     if-eqz v1, :cond_37
 
     iget v6, v1, Lbl/PlayUrlPrefetch$Cached;->generation:I
@@ -1236,7 +1325,7 @@
 
     if-lez v6, :cond_14
 
-    .line 223
+    .line 298
     :cond_37
     sget-object v6, Lbl/PlayUrlPrefetch;->CACHE:Ljava/util/concurrent/ConcurrentHashMap;
 
@@ -1248,13 +1337,13 @@
 
     goto :goto_14
 
-    .line 239
+    .line 314
     :cond_41
     sget-object v0, Lbl/PlayUrlPrefetch;->CACHE:Ljava/util/concurrent/ConcurrentHashMap;
 
     invoke-virtual {v0, v4}, Ljava/util/concurrent/ConcurrentHashMap;->remove(Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 226
+    .line 301
     :cond_46
     sget-object v0, Lbl/PlayUrlPrefetch;->CACHE:Ljava/util/concurrent/ConcurrentHashMap;
 
@@ -1266,13 +1355,13 @@
 
     if-le v0, v1, :cond_86
 
-    .line 227
+    .line 302
     const/4 v4, 0x0
 
-    .line 228
+    .line 303
     const-wide v2, 0x7fffffffffffffffL
 
-    .line 229
+    .line 304
     sget-object v0, Lbl/PlayUrlPrefetch;->CACHE:Ljava/util/concurrent/ConcurrentHashMap;
 
     invoke-virtual {v0}, Ljava/util/concurrent/ConcurrentHashMap;->entrySet()Ljava/util/Set;
@@ -1296,26 +1385,26 @@
 
     check-cast v0, Ljava/util/Map$Entry;
 
-    .line 230
+    .line 305
     invoke-interface {v0}, Ljava/util/Map$Entry;->getValue()Ljava/lang/Object;
 
     move-result-object v1
 
     check-cast v1, Lbl/PlayUrlPrefetch$Cached;
 
-    .line 231
-    if-eqz v1, :cond_87
+    .line 306
+    if-eqz v1, :cond_b5
 
     iget-wide v6, v1, Lbl/PlayUrlPrefetch$Cached;->createdAt:J
 
     cmp-long v6, v6, v2
 
-    if-gez v6, :cond_87
+    if-gez v6, :cond_b5
 
-    .line 232
+    .line 307
     iget-wide v2, v1, Lbl/PlayUrlPrefetch$Cached;->createdAt:J
 
-    .line 233
+    .line 308
     invoke-interface {v0}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
 
     move-result-object v0
@@ -1325,18 +1414,71 @@
     :goto_82
     move-object v4, v0
 
-    .line 235
+    .line 310
     goto :goto_60
 
-    .line 236
+    .line 311
     :cond_84
     if-nez v4, :cond_41
 
-    .line 241
+    .line 317
     :cond_86
+    sget-object v0, Lbl/PlayUrlPrefetch;->WARM_TASKS:Ljava/util/concurrent/ConcurrentHashMap;
+
+    invoke-virtual {v0}, Ljava/util/concurrent/ConcurrentHashMap;->entrySet()Ljava/util/Set;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
+
+    move-result-object v2
+
+    :cond_90
+    :goto_90
+    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_b4
+
+    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/util/Map$Entry;
+
+    .line 318
+    invoke-interface {v0}, Ljava/util/Map$Entry;->getValue()Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Ljava/util/concurrent/Future;
+
+    .line 319
+    if-eqz v1, :cond_90
+
+    invoke-interface {v1}, Ljava/util/concurrent/Future;->isDone()Z
+
+    move-result v3
+
+    if-eqz v3, :cond_90
+
+    .line 320
+    sget-object v3, Lbl/PlayUrlPrefetch;->WARM_TASKS:Ljava/util/concurrent/ConcurrentHashMap;
+
+    invoke-interface {v0}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
+
+    move-result-object v0
+
+    invoke-virtual {v3, v0, v1}, Ljava/util/concurrent/ConcurrentHashMap;->remove(Ljava/lang/Object;Ljava/lang/Object;)Z
+
+    goto :goto_90
+
+    .line 323
+    :cond_b4
     return-void
 
-    :cond_87
+    :cond_b5
     move-object v0, v4
 
     goto :goto_82
@@ -1346,7 +1488,7 @@
     .locals 3
 
     .prologue
-    .line 250
+    .line 332
     const-class v1, Lbl/PlayUrlPrefetch;
 
     monitor-enter v1
@@ -1354,10 +1496,10 @@
     :try_start_3
     invoke-static {}, Lbl/PlayUrlPrefetch;->clear()V
 
-    .line 251
+    .line 333
     invoke-static {}, Lbl/PlayUrlPrefetch;->stop()V
 
-    .line 252
+    .line 334
     const-string v0, "NextPrefetch"
 
     const-string v2, "[RELEASE] prefetch resources released"
@@ -1366,12 +1508,12 @@
     :try_end_10
     .catchall {:try_start_3 .. :try_end_10} :catchall_12
 
-    .line 253
+    .line 335
     monitor-exit v1
 
     return-void
 
-    .line 250
+    .line 332
     :catchall_12
     move-exception v0
 
@@ -1384,12 +1526,12 @@
     .locals 6
 
     .prologue
-    .line 190
+    .line 259
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v0
 
-    .line 191
+    .line 260
     sget-wide v2, Lbl/PlayUrlPrefetch;->lastSkipLogAt:J
 
     sub-long v2, v0, v2
@@ -1400,10 +1542,10 @@
 
     if-ltz v2, :cond_28
 
-    .line 192
+    .line 261
     sput-wide v0, Lbl/PlayUrlPrefetch;->lastSkipLogAt:J
 
-    .line 193
+    .line 262
     const-string v0, "NextPrefetch"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1426,7 +1568,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 195
+    .line 264
     :cond_28
     return-void
 .end method
@@ -1435,7 +1577,7 @@
     .locals 8
 
     .prologue
-    .line 154
+    .line 223
     const-class v7, Lbl/PlayUrlPrefetch;
 
     monitor-enter v7
@@ -1443,66 +1585,66 @@
     :try_start_3
     invoke-static {}, Lbl/PlayUrlPrefetch;->stopTicker()V
 
-    .line 155
+    .line 224
     invoke-static {}, Lbl/PlayUrlPrefetch;->pruneCache()V
 
-    .line 156
+    .line 225
     new-instance v0, Ljava/lang/ref/WeakReference;
 
     invoke-direct {v0, p1}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
 
     sput-object v0, Lbl/PlayUrlPrefetch;->providerRef:Ljava/lang/ref/WeakReference;
 
-    .line 157
+    .line 226
     const/4 v0, 0x0
 
     sput-object v0, Lbl/PlayUrlPrefetch;->pendingKey:Ljava/lang/String;
 
-    .line 158
+    .line 227
     const/4 v0, 0x0
 
     sput v0, Lbl/PlayUrlPrefetch;->attempts:I
 
-    .line 159
+    .line 228
     const-wide/16 v0, 0x0
 
     sput-wide v0, Lbl/PlayUrlPrefetch;->lastAttemptAt:J
 
-    .line 160
+    .line 229
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v0
 
     sput-wide v0, Lbl/PlayUrlPrefetch;->startedAt:J
 
-    .line 161
+    .line 230
     const/4 v0, 0x0
 
     sput-boolean v0, Lbl/PlayUrlPrefetch;->earlyDone:Z
 
-    .line 162
+    .line 231
     const-wide/16 v0, 0x0
 
     sput-wide v0, Lbl/PlayUrlPrefetch;->lastRefreshAt:J
 
-    .line 163
+    .line 232
     const/4 v0, 0x0
 
     sput-boolean v0, Lbl/PlayUrlPrefetch;->diagnosed:Z
 
-    .line 164
+    .line 233
     const-wide/16 v0, 0x0
 
     sput-wide v0, Lbl/PlayUrlPrefetch;->lastSkipLogAt:J
 
-    .line 165
+    .line 234
     if-eqz p1, :cond_34
 
     sget-boolean v0, Lmybl/BiliFilter;->next_episode_prefetch:Z
 
     if-nez v0, :cond_3d
 
-    .line 166
+    .line 235
     :cond_34
     const-string v0, "NextPrefetch"
 
@@ -1512,13 +1654,13 @@
     :try_end_3b
     .catchall {:try_start_3 .. :try_end_3b} :catchall_8b
 
-    .line 186
+    .line 255
     :goto_3b
     monitor-exit v7
 
     return-void
 
-    .line 170
+    .line 239
     :cond_3d
     :try_start_3d
     sget-object v0, Lbl/PlayUrlPrefetch;->TICKER:Ljava/util/concurrent/ScheduledExecutorService;
@@ -1539,7 +1681,7 @@
 
     sput-object v0, Lbl/PlayUrlPrefetch;->tickFuture:Ljava/util/concurrent/ScheduledFuture;
 
-    .line 180
+    .line 249
     const-string v0, "NextPrefetch"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1552,7 +1694,7 @@
 
     move-result-object v1
 
-    .line 182
+    .line 251
     invoke-virtual {p1}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
     move-result-object v2
@@ -1569,7 +1711,7 @@
 
     move-result-object v1
 
-    .line 180
+    .line 249
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
     :try_end_70
     .catch Ljava/lang/Throwable; {:try_start_3d .. :try_end_70} :catch_71
@@ -1577,11 +1719,11 @@
 
     goto :goto_3b
 
-    .line 183
+    .line 252
     :catch_71
     move-exception v0
 
-    .line 184
+    .line 253
     :try_start_72
     const-string v1, "NextPrefetch"
 
@@ -1609,7 +1751,7 @@
 
     goto :goto_3b
 
-    .line 154
+    .line 223
     :catchall_8b
     move-exception v0
 
@@ -1622,7 +1764,7 @@
     .locals 3
 
     .prologue
-    .line 264
+    .line 346
     const-class v1, Lbl/PlayUrlPrefetch;
 
     monitor-enter v1
@@ -1630,10 +1772,10 @@
     :try_start_3
     invoke-static {}, Lbl/PlayUrlPrefetch;->stopTicker()V
 
-    .line 265
+    .line 347
     invoke-static {}, Lbl/PlayUrlPrefetch;->pruneCache()V
 
-    .line 266
+    .line 348
     new-instance v0, Ljava/lang/ref/WeakReference;
 
     const/4 v2, 0x0
@@ -1642,24 +1784,24 @@
 
     sput-object v0, Lbl/PlayUrlPrefetch;->providerRef:Ljava/lang/ref/WeakReference;
 
-    .line 267
+    .line 349
     const/4 v0, 0x0
 
     sput-object v0, Lbl/PlayUrlPrefetch;->pendingKey:Ljava/lang/String;
 
-    .line 268
+    .line 350
     const/4 v0, 0x1
 
     sput-boolean v0, Lbl/PlayUrlPrefetch;->earlyDone:Z
     :try_end_17
     .catchall {:try_start_3 .. :try_end_17} :catchall_19
 
-    .line 269
+    .line 351
     monitor-exit v1
 
     return-void
 
-    .line 264
+    .line 346
     :catchall_19
     move-exception v0
 
@@ -1672,7 +1814,7 @@
     .locals 3
 
     .prologue
-    .line 256
+    .line 338
     const-class v1, Lbl/PlayUrlPrefetch;
 
     monitor-enter v1
@@ -1682,27 +1824,27 @@
 
     if-eqz v0, :cond_10
 
-    .line 257
+    .line 339
     sget-object v0, Lbl/PlayUrlPrefetch;->tickFuture:Ljava/util/concurrent/ScheduledFuture;
 
     const/4 v2, 0x0
 
     invoke-interface {v0, v2}, Ljava/util/concurrent/ScheduledFuture;->cancel(Z)Z
 
-    .line 258
+    .line 340
     const/4 v0, 0x0
 
     sput-object v0, Lbl/PlayUrlPrefetch;->tickFuture:Ljava/util/concurrent/ScheduledFuture;
     :try_end_10
     .catchall {:try_start_3 .. :try_end_10} :catchall_12
 
-    .line 260
+    .line 342
     :cond_10
     monitor-exit v1
 
     return-void
 
-    .line 256
+    .line 338
     :catchall_12
     move-exception v0
 
@@ -1719,7 +1861,7 @@
 
     const/4 v1, 0x0
 
-    .line 608
+    .line 689
     if-eqz p0, :cond_a
 
     sget-boolean v0, Lmybl/BiliFilter;->next_episode_prefetch:Z
@@ -1729,11 +1871,11 @@
     :cond_a
     move-object v0, v1
 
-    .line 636
+    .line 717
     :goto_b
     return-object v0
 
-    .line 611
+    .line 692
     :cond_c
     sget-object v0, Lbl/PlayUrlPrefetch;->CACHE:Ljava/util/concurrent/ConcurrentHashMap;
 
@@ -1743,10 +1885,10 @@
 
     check-cast v0, Lbl/PlayUrlPrefetch$Cached;
 
-    .line 612
+    .line 693
     if-eqz v0, :cond_5e
 
-    .line 613
+    .line 694
     iget v2, v0, Lbl/PlayUrlPrefetch$Cached;->generation:I
 
     sget-object v3, Lbl/PlayUrlPrefetch;->GENERATION:Ljava/util/concurrent/atomic/AtomicInteger;
@@ -1757,7 +1899,7 @@
 
     if-ne v2, v3, :cond_46
 
-    .line 614
+    .line 695
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v2
@@ -1770,7 +1912,7 @@
 
     if-gtz v2, :cond_46
 
-    .line 615
+    .line 696
     const-string v1, "NextPrefetch"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1793,12 +1935,12 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 616
+    .line 697
     iget-object v0, v0, Lbl/PlayUrlPrefetch$Cached;->response:Ljava/lang/Object;
 
     goto :goto_b
 
-    .line 618
+    .line 699
     :cond_46
     const-string v0, "NextPrefetch"
 
@@ -1822,7 +1964,7 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 621
+    .line 702
     :cond_5e
     sget-object v0, Lbl/PlayUrlPrefetch;->INFLIGHT:Ljava/util/concurrent/ConcurrentHashMap;
 
@@ -1832,7 +1974,7 @@
 
     check-cast v0, Ljava/util/concurrent/Future;
 
-    .line 622
+    .line 703
     if-eqz v0, :cond_e2
 
     invoke-interface {v0}, Ljava/util/concurrent/Future;->isDone()Z
@@ -1841,7 +1983,7 @@
 
     if-nez v2, :cond_e2
 
-    .line 623
+    .line 704
     const-string v2, "NextPrefetch"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -1864,7 +2006,7 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 625
+    .line 706
     const-wide/16 v2, 0xfa0
 
     :try_start_88
@@ -1874,7 +2016,7 @@
     :try_end_8d
     .catch Ljava/lang/Throwable; {:try_start_88 .. :try_end_8d} :catch_c8
 
-    .line 629
+    .line 710
     :goto_8d
     sget-object v0, Lbl/PlayUrlPrefetch;->CACHE:Ljava/util/concurrent/ConcurrentHashMap;
 
@@ -1884,7 +2026,7 @@
 
     check-cast v0, Lbl/PlayUrlPrefetch$Cached;
 
-    .line 630
+    .line 711
     if-eqz v0, :cond_e2
 
     iget v2, v0, Lbl/PlayUrlPrefetch$Cached;->generation:I
@@ -1897,7 +2039,7 @@
 
     if-ne v2, v3, :cond_e2
 
-    .line 631
+    .line 712
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v2
@@ -1910,7 +2052,7 @@
 
     if-gtz v2, :cond_e2
 
-    .line 632
+    .line 713
     const-string v1, "NextPrefetch"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1933,16 +2075,16 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 633
+    .line 714
     iget-object v0, v0, Lbl/PlayUrlPrefetch$Cached;->response:Ljava/lang/Object;
 
     goto/16 :goto_b
 
-    .line 626
+    .line 707
     :catch_c8
     move-exception v0
 
-    .line 627
+    .line 708
     const-string v2, "NextPrefetch"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -1970,7 +2112,7 @@
     :cond_e2
     move-object v0, v1
 
-    .line 636
+    .line 717
     goto/16 :goto_b
 .end method
 
@@ -1978,17 +2120,17 @@
     .locals 18
 
     .prologue
-    .line 272
+    .line 354
     sget-boolean v0, Lmybl/BiliFilter;->next_episode_prefetch:Z
 
     if-nez v0, :cond_5
 
-    .line 419
+    .line 501
     :cond_4
     :goto_4
     return-void
 
-    .line 275
+    .line 357
     :cond_5
     sget-object v0, Lbl/PlayUrlPrefetch;->providerRef:Ljava/lang/ref/WeakReference;
 
@@ -1998,48 +2140,48 @@
 
     check-cast v0, Lbl/PlayUrlPrefetch$StateProvider;
 
-    .line 276
+    .line 358
     if-nez v0, :cond_1a
 
-    .line 277
+    .line 359
     const-string v0, "NextPrefetch"
 
     const-string v1, "[STOP] provider collected by GC, stopping ticker"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 278
+    .line 360
     invoke-static {}, Lbl/PlayUrlPrefetch;->stopTicker()V
 
     goto :goto_4
 
-    .line 282
+    .line 364
     :cond_1a
     const/4 v2, 0x0
 
-    .line 283
+    .line 365
     const/4 v1, 0x0
 
-    .line 285
+    .line 367
     :try_start_1c
     invoke-interface {v0}, Lbl/PlayUrlPrefetch$StateProvider;->currentPositionMs()I
 
     move-result v2
 
-    .line 286
+    .line 368
     invoke-interface {v0}, Lbl/PlayUrlPrefetch$StateProvider;->durationMs()I
     :try_end_23
     .catch Ljava/lang/Throwable; {:try_start_1c .. :try_end_23} :catch_33d
 
     move-result v1
 
-    .line 291
+    .line 373
     :goto_24
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v12
 
-    .line 297
+    .line 379
     sget-boolean v3, Lbl/PlayUrlPrefetch;->earlyDone:Z
 
     if-nez v3, :cond_e6
@@ -2058,7 +2200,7 @@
 
     move v9, v3
 
-    .line 299
+    .line 381
     :goto_38
     if-lez v1, :cond_ea
 
@@ -2066,14 +2208,14 @@
 
     if-ge v2, v1, :cond_ea
 
-    .line 300
+    .line 382
     sub-int v3, v1, v2
 
     int-to-long v4, v3
 
     move-wide v10, v4
 
-    .line 301
+    .line 383
     :goto_42
     const-wide/32 v4, 0x9c40
 
@@ -2085,24 +2227,24 @@
 
     move v8, v3
 
-    .line 302
+    .line 384
     :goto_4b
     if-nez v9, :cond_4f
 
     if-eqz v8, :cond_4
 
-    .line 305
+    .line 387
     :cond_4f
     sget-boolean v3, Lbl/PlayUrlPrefetch;->diagnosed:Z
 
     if-nez v3, :cond_b5
 
-    .line 306
+    .line 388
     const/4 v3, 0x1
 
     sput-boolean v3, Lbl/PlayUrlPrefetch;->diagnosed:Z
 
-    .line 307
+    .line 389
     const-string v3, "NextPrefetch"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -2135,7 +2277,7 @@
 
     move-result-object v2
 
-    .line 308
+    .line 390
     const-wide v4, 0x7fffffffffffffffL
 
     cmp-long v1, v10, v4
@@ -2193,10 +2335,10 @@
 
     move-result-object v1
 
-    .line 307
+    .line 389
     invoke-static {v3, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 313
+    .line 395
     :cond_b5
     if-nez v9, :cond_10b
 
@@ -2220,7 +2362,7 @@
 
     if-gez v1, :cond_10b
 
-    .line 315
+    .line 397
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -2245,7 +2387,7 @@
 
     goto/16 :goto_4
 
-    .line 297
+    .line 379
     :cond_e6
     const/4 v3, 0x0
 
@@ -2253,7 +2395,7 @@
 
     goto/16 :goto_38
 
-    .line 300
+    .line 382
     :cond_ea
     const-wide v4, 0x7fffffffffffffffL
 
@@ -2261,7 +2403,7 @@
 
     goto/16 :goto_42
 
-    .line 301
+    .line 383
     :cond_f2
     const/4 v3, 0x0
 
@@ -2269,7 +2411,7 @@
 
     goto/16 :goto_4b
 
-    .line 308
+    .line 390
     :cond_f6
     new-instance v1, Ljava/lang/StringBuilder;
 
@@ -2291,26 +2433,26 @@
 
     goto/16 :goto_82
 
-    .line 323
+    .line 405
     :cond_10b
     :try_start_10b
     invoke-interface {v0}, Lbl/PlayUrlPrefetch$StateProvider;->currentEpisode()Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     move-result-object v14
 
-    .line 324
+    .line 406
     invoke-interface {v0}, Lbl/PlayUrlPrefetch$StateProvider;->episodeList()[Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     move-result-object v3
 
-    .line 325
+    .line 407
     invoke-interface {v0}, Lbl/PlayUrlPrefetch$StateProvider;->expectedQuality()I
     :try_end_116
     .catch Ljava/lang/Throwable; {:try_start_10b .. :try_end_116} :catch_148
 
     move-result v1
 
-    .line 330
+    .line 412
     if-eqz v14, :cond_11f
 
     if-eqz v3, :cond_11f
@@ -2321,7 +2463,7 @@
 
     if-ge v0, v2, :cond_169
 
-    .line 331
+    .line 413
     :cond_11f
     new-instance v0, Ljava/lang/StringBuilder;
 
@@ -2348,7 +2490,7 @@
 
     move-result-object v1
 
-    .line 332
+    .line 414
     if-nez v3, :cond_163
 
     const-string v0, "null"
@@ -2362,16 +2504,16 @@
 
     move-result-object v0
 
-    .line 331
+    .line 413
     invoke-static {v0}, Lbl/PlayUrlPrefetch;->skip(Ljava/lang/String;)V
 
     goto/16 :goto_4
 
-    .line 326
+    .line 408
     :catch_148
     move-exception v0
 
-    .line 327
+    .line 409
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -2394,13 +2536,13 @@
 
     goto/16 :goto_4
 
-    .line 331
+    .line 413
     :cond_161
     const/4 v0, 0x0
 
     goto :goto_12d
 
-    .line 332
+    .line 414
     :cond_163
     array-length v0, v3
 
@@ -2410,11 +2552,11 @@
 
     goto :goto_13b
 
-    .line 337
+    .line 419
     :cond_169
     const/4 v2, -0x1
 
-    .line 338
+    .line 420
     const/4 v0, 0x0
 
     :goto_16b
@@ -2422,7 +2564,7 @@
 
     if-ge v0, v4, :cond_343
 
-    .line 339
+    .line 421
     aget-object v4, v3, v0
 
     if-eqz v4, :cond_1b2
@@ -2437,7 +2579,7 @@
 
     if-nez v4, :cond_1b2
 
-    .line 344
+    .line 426
     :goto_17c
     if-ltz v0, :cond_183
 
@@ -2447,7 +2589,7 @@
 
     if-lt v2, v4, :cond_1b5
 
-    .line 345
+    .line 427
     :cond_183
     new-instance v1, Ljava/lang/StringBuilder;
 
@@ -2495,19 +2637,19 @@
 
     goto/16 :goto_4
 
-    .line 338
+    .line 420
     :cond_1b2
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_16b
 
-    .line 350
+    .line 432
     :cond_1b5
     add-int/lit8 v0, v0, 0x1
 
     aget-object v15, v3, v0
 
-    .line 351
+    .line 433
     if-eqz v15, :cond_1c3
 
     iget-wide v2, v15, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
@@ -2518,7 +2660,7 @@
 
     if-gtz v0, :cond_1ca
 
-    .line 352
+    .line 434
     :cond_1c3
     const-string v0, "next episode cid invalid"
 
@@ -2526,25 +2668,25 @@
 
     goto/16 :goto_4
 
-    .line 356
+    .line 438
     :cond_1ca
     invoke-static {v15}, Lbl/PlayUrlPrefetch;->isPgc(Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;)Z
 
     move-result v7
 
-    .line 358
+    .line 440
     invoke-static {v7}, Lbl/PlayUrlPrefetch;->getLastQn(Z)I
 
     move-result v6
 
-    .line 359
+    .line 441
     if-lez v6, :cond_340
 
-    .line 362
+    .line 444
     :goto_1d4
     if-gtz v6, :cond_1dd
 
-    .line 363
+    .line 445
     iget v0, v14, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mExpectedQuality:I
 
     if-lez v0, :cond_20f
@@ -2554,7 +2696,7 @@
     :goto_1dc
     move v6, v0
 
-    .line 366
+    .line 448
     :cond_1dd
     iget-wide v0, v15, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
 
@@ -2566,7 +2708,7 @@
 
     move-result-object v4
 
-    .line 369
+    .line 451
     sget-object v0, Lbl/PlayUrlPrefetch;->INFLIGHT:Ljava/util/concurrent/ConcurrentHashMap;
 
     invoke-virtual {v0, v4}, Ljava/util/concurrent/ConcurrentHashMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
@@ -2575,7 +2717,7 @@
 
     check-cast v0, Ljava/util/concurrent/Future;
 
-    .line 370
+    .line 452
     if-eqz v0, :cond_212
 
     invoke-interface {v0}, Ljava/util/concurrent/Future;->isDone()Z
@@ -2584,7 +2726,7 @@
 
     if-nez v0, :cond_212
 
-    .line 371
+    .line 453
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -2607,13 +2749,13 @@
 
     goto/16 :goto_4
 
-    .line 363
+    .line 445
     :cond_20f
     const/16 v0, 0x40
 
     goto :goto_1dc
 
-    .line 375
+    .line 457
     :cond_212
     sget-object v0, Lbl/PlayUrlPrefetch;->CACHE:Ljava/util/concurrent/ConcurrentHashMap;
 
@@ -2623,7 +2765,7 @@
 
     check-cast v0, Lbl/PlayUrlPrefetch$Cached;
 
-    .line 376
+    .line 458
     if-eqz v0, :cond_24c
 
     iget v1, v0, Lbl/PlayUrlPrefetch$Cached;->generation:I
@@ -2648,11 +2790,11 @@
 
     const/4 v1, 0x1
 
-    .line 378
+    .line 460
     :goto_232
     if-eqz v1, :cond_24e
 
-    .line 379
+    .line 461
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -2675,22 +2817,22 @@
 
     goto/16 :goto_4
 
-    .line 376
+    .line 458
     :cond_24c
     const/4 v1, 0x0
 
     goto :goto_232
 
-    .line 382
+    .line 464
     :cond_24e
     if-eqz v0, :cond_255
 
-    .line 383
+    .line 465
     sget-object v0, Lbl/PlayUrlPrefetch;->CACHE:Ljava/util/concurrent/ConcurrentHashMap;
 
     invoke-virtual {v0, v4}, Ljava/util/concurrent/ConcurrentHashMap;->remove(Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 385
+    .line 467
     :cond_255
     sget v0, Lbl/PlayUrlPrefetch;->attempts:I
 
@@ -2698,7 +2840,7 @@
 
     if-lt v0, v1, :cond_27a
 
-    .line 386
+    .line 468
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -2729,7 +2871,7 @@
 
     goto/16 :goto_4
 
-    .line 389
+    .line 471
     :cond_27a
     sget-wide v0, Lbl/PlayUrlPrefetch;->lastAttemptAt:J
 
@@ -2749,14 +2891,14 @@
 
     if-gez v0, :cond_293
 
-    .line 390
+    .line 472
     const-string v0, "retry interval not elapsed"
 
     invoke-static {v0}, Lbl/PlayUrlPrefetch;->skip(Ljava/lang/String;)V
 
     goto/16 :goto_4
 
-    .line 394
+    .line 476
     :cond_293
     sget v0, Lbl/PlayUrlPrefetch;->attempts:I
 
@@ -2764,28 +2906,28 @@
 
     sput v0, Lbl/PlayUrlPrefetch;->attempts:I
 
-    .line 395
+    .line 477
     sput-wide v12, Lbl/PlayUrlPrefetch;->lastAttemptAt:J
 
-    .line 396
+    .line 478
     sput-object v4, Lbl/PlayUrlPrefetch;->pendingKey:Ljava/lang/String;
 
-    .line 397
+    .line 479
     if-eqz v9, :cond_2a2
 
-    .line 398
+    .line 480
     const/4 v0, 0x1
 
     sput-boolean v0, Lbl/PlayUrlPrefetch;->earlyDone:Z
 
-    .line 400
+    .line 482
     :cond_2a2
     if-eqz v8, :cond_2a6
 
-    .line 401
+    .line 483
     sput-wide v12, Lbl/PlayUrlPrefetch;->lastRefreshAt:J
 
-    .line 403
+    .line 485
     :cond_2a6
     sget-object v0, Lbl/PlayUrlPrefetch;->GENERATION:Ljava/util/concurrent/atomic/AtomicInteger;
 
@@ -2793,12 +2935,12 @@
 
     move-result v8
 
-    .line 405
+    .line 487
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v3
 
-    .line 407
+    .line 489
     const-string v1, "NextPrefetch"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -2820,7 +2962,7 @@
 
     move-result-object v2
 
-    .line 408
+    .line 490
     const-wide v12, 0x7fffffffffffffffL
 
     cmp-long v0, v10, v12
@@ -2894,10 +3036,10 @@
 
     move-result-object v0
 
-    .line 407
+    .line 489
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 412
+    .line 494
     sget-object v0, Lbl/PlayUrlPrefetch;->NETWORK:Ljava/util/concurrent/ExecutorService;
 
     new-instance v2, Lbl/PlayUrlPrefetch$4;
@@ -2910,20 +3052,20 @@
 
     move-result-object v0
 
-    .line 418
+    .line 500
     sget-object v1, Lbl/PlayUrlPrefetch;->INFLIGHT:Ljava/util/concurrent/ConcurrentHashMap;
 
     invoke-virtual {v1, v4, v0}, Ljava/util/concurrent/ConcurrentHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
     goto/16 :goto_4
 
-    .line 407
+    .line 489
     :cond_326
     const-string v0, "[TRIGGER_REFRESH]"
 
     goto :goto_2bb
 
-    .line 408
+    .line 490
     :cond_329
     new-instance v0, Ljava/lang/StringBuilder;
 
@@ -2945,7 +3087,7 @@
 
     goto :goto_2d0
 
-    .line 287
+    .line 369
     :catch_33d
     move-exception v3
 
@@ -2970,33 +3112,33 @@
 
     const/4 v1, 0x0
 
-    .line 535
+    .line 616
     sget-boolean v0, Lmybl/BiliFilter;->warm_next_segment:Z
 
     if-nez v0, :cond_10
 
-    .line 536
+    .line 617
     const-string v0, "NextPrefetch"
 
     const-string v1, "[WARM_SEG] disabled by BiliFilter"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 589
+    .line 670
     :cond_f
     :goto_f
     return-void
 
-    .line 539
+    .line 620
     :cond_10
     invoke-static {p0, p1}, Lbl/PlayUrlPrefetch;->extractVideoUrl(Ljava/lang/Object;I)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 540
+    .line 621
     if-nez v0, :cond_2f
 
-    .line 541
+    .line 622
     const-string v0, "NextPrefetch"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -3021,30 +3163,30 @@
 
     goto :goto_f
 
-    .line 544
+    .line 625
     :cond_2f
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v4
 
-    .line 545
+    .line 626
     const/4 v3, 0x0
 
-    .line 546
+    .line 627
     const-string v2, "?"
 
-    .line 548
+    .line 629
     :try_start_36
     new-instance v6, Ljava/net/URL;
 
     invoke-direct {v6, v0}, Ljava/net/URL;-><init>(Ljava/lang/String;)V
 
-    .line 549
+    .line 630
     invoke-virtual {v6}, Ljava/net/URL;->getHost()Ljava/lang/String;
 
     move-result-object v2
 
-    .line 550
+    .line 631
     invoke-virtual {v6}, Ljava/net/URL;->openConnection()Ljava/net/URLConnection;
 
     move-result-object v0
@@ -3054,27 +3196,27 @@
     .catch Ljava/lang/Throwable; {:try_start_36 .. :try_end_45} :catch_150
     .catchall {:try_start_36 .. :try_end_45} :catchall_145
 
-    .line 551
+    .line 632
     :try_start_45
     const-string v3, "GET"
 
     invoke-virtual {v0, v3}, Ljava/net/HttpURLConnection;->setRequestMethod(Ljava/lang/String;)V
 
-    .line 552
+    .line 633
     const-string v3, "User-Agent"
 
     const-string v6, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
 
     invoke-virtual {v0, v3, v6}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 553
+    .line 634
     const-string v3, "Referer"
 
     const-string v6, "https://www.bilibili.com/"
 
     invoke-virtual {v0, v3, v6}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 554
+    .line 635
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v3
@@ -3087,7 +3229,7 @@
 
     move-result-object v3
 
-    .line 555
+    .line 636
     if-eqz v3, :cond_71
 
     invoke-virtual {v3}, Ljava/lang/String;->isEmpty()Z
@@ -3096,12 +3238,12 @@
 
     if-nez v6, :cond_71
 
-    .line 556
+    .line 637
     const-string v6, "Cookie"
 
     invoke-virtual {v0, v6, v3}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 558
+    .line 639
     :cond_71
     const-string v3, "Range"
 
@@ -3109,27 +3251,27 @@
 
     invoke-virtual {v0, v3, v6}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 559
+    .line 640
     const/16 v3, 0x7d0
 
     invoke-virtual {v0, v3}, Ljava/net/HttpURLConnection;->setConnectTimeout(I)V
 
-    .line 560
+    .line 641
     const/16 v3, 0x7d0
 
     invoke-virtual {v0, v3}, Ljava/net/HttpURLConnection;->setReadTimeout(I)V
 
-    .line 561
+    .line 642
     const/4 v3, 0x1
 
     invoke-virtual {v0, v3}, Ljava/net/HttpURLConnection;->setInstanceFollowRedirects(Z)V
 
-    .line 562
+    .line 643
     invoke-virtual {v0}, Ljava/net/HttpURLConnection;->getResponseCode()I
 
     move-result v3
 
-    .line 564
+    .line 645
     invoke-virtual {v0}, Ljava/net/HttpURLConnection;->getInputStream()Ljava/io/InputStream;
     :try_end_8d
     .catch Ljava/lang/Throwable; {:try_start_45 .. :try_end_8d} :catch_100
@@ -3137,20 +3279,20 @@
 
     move-result-object v6
 
-    .line 565
+    .line 646
     if-eqz v6, :cond_a7
 
-    .line 567
+    .line 648
     const/16 v7, 0x1000
 
     :try_start_92
     new-array v7, v7, [B
 
-    .line 568
+    .line 649
     :goto_94
     if-ge v1, v11, :cond_a4
 
-    .line 569
+    .line 650
     const/4 v8, 0x0
 
     array-length v9, v7
@@ -3167,15 +3309,15 @@
 
     move-result v8
 
-    .line 570
+    .line 651
     if-gez v8, :cond_f9
 
-    .line 576
+    .line 657
     :cond_a4
     :try_start_a4
     invoke-virtual {v6}, Ljava/io/InputStream;->close()V
 
-    .line 579
+    .line 660
     :cond_a7
     const-string v6, "PlaySpeed"
 
@@ -3229,7 +3371,7 @@
 
     move-result-object v1
 
-    .line 580
+    .line 661
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v8
@@ -3250,47 +3392,47 @@
 
     move-result-object v1
 
-    .line 579
+    .line 660
     invoke-static {v6, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
     :try_end_f2
     .catch Ljava/lang/Throwable; {:try_start_a4 .. :try_end_f2} :catch_100
     .catchall {:try_start_a4 .. :try_end_f2} :catchall_14d
 
-    .line 585
+    .line 666
     if-eqz v0, :cond_f
 
-    .line 586
+    .line 667
     invoke-virtual {v0}, Ljava/net/HttpURLConnection;->disconnect()V
 
     goto/16 :goto_f
 
-    .line 573
+    .line 654
     :cond_f9
     add-int/2addr v1, v8
 
-    .line 574
+    .line 655
     goto :goto_94
 
-    .line 576
+    .line 657
     :catchall_fb
     move-exception v1
 
     :try_start_fc
     invoke-virtual {v6}, Ljava/io/InputStream;->close()V
 
-    .line 577
+    .line 658
     throw v1
     :try_end_100
     .catch Ljava/lang/Throwable; {:try_start_fc .. :try_end_100} :catch_100
     .catchall {:try_start_fc .. :try_end_100} :catchall_14d
 
-    .line 581
+    .line 662
     :catch_100
     move-exception v1
 
     move-object v3, v0
 
-    .line 582
+    .line 663
     :goto_102
     :try_start_102
     const-string v0, "NextPrefetch"
@@ -3325,7 +3467,7 @@
 
     move-result-object v2
 
-    .line 583
+    .line 664
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v6
@@ -3350,20 +3492,20 @@
 
     move-result-object v1
 
-    .line 582
+    .line 663
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
     :try_end_13e
     .catchall {:try_start_102 .. :try_end_13e} :catchall_145
 
-    .line 585
+    .line 666
     if-eqz v3, :cond_f
 
-    .line 586
+    .line 667
     invoke-virtual {v3}, Ljava/net/HttpURLConnection;->disconnect()V
 
     goto/16 :goto_f
 
-    .line 585
+    .line 666
     :catchall_145
     move-exception v0
 
@@ -3372,14 +3514,14 @@
     :goto_147
     if-eqz v3, :cond_14c
 
-    .line 586
+    .line 667
     invoke-virtual {v3}, Ljava/net/HttpURLConnection;->disconnect()V
 
-    .line 588
+    .line 669
     :cond_14c
     throw v1
 
-    .line 585
+    .line 666
     :catchall_14d
     move-exception v1
 
@@ -3387,11 +3529,83 @@
 
     goto :goto_147
 
-    .line 581
+    .line 662
     :catch_150
     move-exception v0
 
     move-object v1, v0
 
     goto :goto_102
+.end method
+
+.method private static warmSync(Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;Ljava/lang/Object;IJ)V
+    .locals 5
+
+    .prologue
+    .line 213
+    const/4 v0, 0x0
+
+    :try_start_1
+    invoke-virtual {p0, v0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->initPlayInfo(Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$PlayInfoCallback;)V
+
+    .line 214
+    const-string v0, "NextPrefetch"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "[READY] play info warmed for cid="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, p3, p4}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_1c
+    .catch Ljava/lang/Throwable; {:try_start_1 .. :try_end_1c} :catch_20
+
+    .line 218
+    :goto_1c
+    invoke-static {p1, p2, p3, p4}, Lbl/PlayUrlPrefetch;->warmFirstSegment(Ljava/lang/Object;IJ)V
+
+    .line 219
+    return-void
+
+    .line 215
+    :catch_20
+    move-exception v0
+
+    .line 216
+    const-string v1, "NextPrefetch"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "[WARM] play info failed: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_1c
 .end method

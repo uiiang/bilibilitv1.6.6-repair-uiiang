@@ -22,7 +22,7 @@
     .locals 0
 
     .prologue
-    .line 79
+    .line 91
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -34,18 +34,18 @@
     .locals 2
 
     .prologue
-    .line 82
+    .line 94
     new-instance v0, Ljava/lang/Thread;
 
     const-string v1, "next-prefetch-tick"
 
     invoke-direct {v0, p1, v1}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;Ljava/lang/String;)V
 
-    .line 83
+    .line 95
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Ljava/lang/Thread;->setDaemon(Z)V
 
-    .line 84
+    .line 96
     return-object v0
 .end method

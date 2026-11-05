@@ -27,18 +27,18 @@
     .locals 0
 
     .prologue
-    .line 145
+    .line 157
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 146
+    .line 158
     iput-object p1, p0, Lbl/PlayUrlPrefetch$Cached;->response:Ljava/lang/Object;
 
-    .line 147
+    .line 159
     iput-wide p2, p0, Lbl/PlayUrlPrefetch$Cached;->createdAt:J
 
-    .line 148
+    .line 160
     iput p4, p0, Lbl/PlayUrlPrefetch$Cached;->generation:I
 
-    .line 149
+    .line 161
     return-void
 .end method

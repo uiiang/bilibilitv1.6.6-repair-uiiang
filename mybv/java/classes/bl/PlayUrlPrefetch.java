@@ -64,6 +64,8 @@ public final class PlayUrlPrefetch {
 
     private static final ConcurrentHashMap<String, Cached> CACHE = new ConcurrentHashMap<String, Cached>();
     private static final ConcurrentHashMap<String, Future<?>> INFLIGHT = new ConcurrentHashMap<String, Future<?>>();
+    /** P3：预热任务表，供 clear() 取消，避免退出播放页后仍持有 ResolveResourceParams。 */
+    private static final ConcurrentHashMap<String, Future<?>> WARM_TASKS = new ConcurrentHashMap<String, Future<?>>();
     private static final AtomicInteger GENERATION = new AtomicInteger(0);
 
     private static final ExecutorService NETWORK = Executors.newSingleThreadExecutor(new ThreadFactory() {
@@ -75,6 +77,16 @@ public final class PlayUrlPrefetch {
             return t;
         }
     });
+
+    /**
+     * P3：独立于 NETWORK 的单线程预热池。
+     * doPrefetch 原先在 NETWORK 上串行执行 playurl -> CACHE.put -> initPlayInfo -> WARM_SEG，
+     * 其中 initPlayInfo 内部多个 submit().get() 实测阻塞 3.8~14.4s，会把后续 playurl 预取
+     * 一起堵住（日志出现 [SKIP] prefetch already in flight 与迟到的预热）。拆开后 NETWORK
+     * 只负责网络请求与写缓存，拿到结果即释放。
+     * 用命名 ThreadFactory / 命名 Runnable，避免新增匿名类导致本文件 $N 编号整体后移。
+     */
+    private static final ExecutorService WARMER = Executors.newSingleThreadExecutor(new WarmThreadFactory());
 
     private static final ScheduledExecutorService TICKER = Executors.newSingleThreadScheduledExecutor(new ThreadFactory() {
         @Override
@@ -149,6 +161,63 @@ public final class PlayUrlPrefetch {
         }
     }
 
+    /** 命名 ThreadFactory：避免新增匿名类改变本文件 $N 编号。 */
+    private static final class WarmThreadFactory implements ThreadFactory {
+        @Override
+        public Thread newThread(Runnable r) {
+            Thread t = new Thread(r, "next-prefetch-warm");
+            t.setPriority(Thread.MIN_PRIORITY);
+            t.setDaemon(true);
+            return t;
+        }
+    }
+
+    /** P3：把耗时的 play info 预热从 NETWORK 挪到 WARMER 执行。 */
+    private static final class WarmTask implements Runnable {
+        private final String key;
+        private final int gen;
+        private final ResolveResourceParams next;
+        private final Object response;
+        private final int quality;
+        private final long cid;
+
+        WarmTask(String key, int gen, ResolveResourceParams next,
+                 Object response, int quality, long cid) {
+            this.key = key;
+            this.gen = gen;
+            this.next = next;
+            this.response = response;
+            this.quality = quality;
+            this.cid = cid;
+        }
+
+        @Override
+        public void run() {
+            try {
+                if (gen != GENERATION.get()) {
+                    Log.i(TAG, "[WARM_SKIP] stale generation, key=" + key);
+                    return;
+                }
+                warmSync(next, response, quality, cid);
+            } finally {
+                // clear() 里的 cancel(true) 会中断本线程；ThreadPoolExecutor 复用线程，
+                // 显式清除中断标志，避免污染后续任务中的 Future.get()。
+                Thread.interrupted();
+            }
+        }
+    }
+
+    /** 章节/字幕/跳过段预热 + 首分片预热。开关关闭时仍在 NETWORK 上串行执行，用于 A/B。 */
+    private static void warmSync(ResolveResourceParams next, Object response, int quality, long cid) {
+        try {
+            next.initPlayInfo(null);
+            Log.i(TAG, "[READY] play info warmed for cid=" + cid);
+        } catch (Throwable t) {
+            Log.w(TAG, "[WARM] play info failed: " + t);
+        }
+        warmFirstSegment(response, quality, cid);
+    }
+
     /** 每次起播/换集后调用；会先停止上一轮轮询，但保留尚未领取的缓存结果。 */
     public static synchronized void start(Context context, StateProvider provider) {
         stopTicker();
@@ -204,6 +273,12 @@ public final class PlayUrlPrefetch {
             }
         }
         INFLIGHT.clear();
+        for (Future<?> f : WARM_TASKS.values()) {
+            if (f != null) {
+                f.cancel(true);
+            }
+        }
+        WARM_TASKS.clear();
         pendingKey = null;
         attempts = 0;
         Log.i(TAG, "[CLEAR] generation=" + gen);
@@ -237,6 +312,13 @@ public final class PlayUrlPrefetch {
                 break;
             }
             CACHE.remove(oldestKey);
+        }
+        // 预热任务完成后及时摘掉引用，避免 WARM_TASKS 长期持有 Future。
+        for (java.util.Map.Entry<String, Future<?>> entry : WARM_TASKS.entrySet()) {
+            Future<?> f = entry.getValue();
+            if (f != null && f.isDone()) {
+                WARM_TASKS.remove(entry.getKey(), f);
+            }
         }
     }
 
@@ -453,19 +535,18 @@ public final class PlayUrlPrefetch {
         attempts = 0; // 成功后重置，避免临近片尾刷新被 MAX_ATTEMPTS 挡住
         Log.i(TAG, "[READY] cached key=" + key);
 
-        // 顺带预热章节 / 字幕 / 跳过段。initPlayInfo 内部 submit().get() 会阻塞调用线程，
-        // 这里在预取线程执行，不会拖慢起播或 onPrepared；切集时因幂等短路直接复用结果。
-        try {
-            next.initPlayInfo(null);
-            Log.i(TAG, "[READY] play info warmed for cid=" + next.mCid);
-        } catch (Throwable t) {
-            Log.w(TAG, "[WARM] play info failed: " + t);
+        // P3：缓存写入后 NETWORK 立即释放。章节/字幕预热（initPlayInfo 内部多个
+        // submit().get()，实测阻塞 3.8~14.4s）与首分片预热改由 WARMER 异步执行；
+        // 否则后续 playurl 预取会堵在单线程队列里，出现 [SKIP] in flight 与迟到的预热。
+        if (mybl.BiliFilter.async_play_info_warm) {
+            Future<?> warmFuture = WARMER.submit(
+                    new WarmTask(key, gen, next, response, quality, next.mCid));
+            WARM_TASKS.put(key, warmFuture);
+            Log.i(TAG, "[WARM_SUBMIT] key=" + key);
+        } else {
+            // A/B 回退：保持原来的串行行为。
+            warmSync(next, response, quality, next.mCid);
         }
-
-        // L1 延伸：提前把下一集 DASH 视频首分片的 DNS / TLS / CDN 边缘回源开销挪到切集之前。
-        // 实测换集窗口 85% 花在 Exo 新建实例 + prepare -> READY，降低缓冲水位无效，
-        // 主因是首个分片的网络往返。缓存已写入，预热失败完全不影响正式解析。
-        warmFirstSegment(response, quality, next.mCid);
     }
 
     /** 从预取到的 playurl 原始响应里取出与正式播放一致的视频直链。 */

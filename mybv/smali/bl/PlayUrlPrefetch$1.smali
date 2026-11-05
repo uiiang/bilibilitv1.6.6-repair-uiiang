@@ -22,7 +22,7 @@
     .locals 0
 
     .prologue
-    .line 69
+    .line 71
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -36,19 +36,19 @@
     .prologue
     const/4 v2, 0x1
 
-    .line 72
+    .line 74
     new-instance v0, Ljava/lang/Thread;
 
     const-string v1, "next-prefetch"
 
     invoke-direct {v0, p1, v1}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;Ljava/lang/String;)V
 
-    .line 73
+    .line 75
     invoke-virtual {v0, v2}, Ljava/lang/Thread;->setPriority(I)V
 
-    .line 74
+    .line 76
     invoke-virtual {v0, v2}, Ljava/lang/Thread;->setDaemon(Z)V
 
-    .line 75
+    .line 77
     return-object v0
 .end method

@@ -55,6 +55,14 @@ public class BiliFilter {
      * 保留代码与开关供对照实验，避免额外 32KiB 请求与播放中抢带宽。
      */
     public static boolean warm_next_segment = false;
+    /**
+     * P3：把预取后的章节/字幕/跳过段预热（initPlayInfo）从 NETWORK 单线程剥离到独立 WARMER 线程。
+     * true：playurl 一拿到就写 CACHE 并立刻释放 NETWORK，后续预取不再被 3.8~14.4s 的
+     *       initPlayInfo（内部多个 submit().get()）排队阻塞，跳集/换清晰度时新预取能立即发出；
+     * false：退回原来的串行行为，供 A/B 与回退。
+     * 注意：这不减少换集时 prepare -> READY 的 ~700ms 冻结，只修复预取链路的健壮性。
+     */
+    public static boolean async_play_info_warm = true;
 
     public static void updateConfig() throws Exception{
         BiliFilter.filter_rule_path = abd.get_filter_path(MainApplication.a().getApplicationContext());

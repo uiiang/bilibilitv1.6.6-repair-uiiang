@@ -22,7 +22,7 @@
     .locals 0
 
     .prologue
-    .line 170
+    .line 239
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -34,22 +34,22 @@
     .locals 4
 
     .prologue
-    .line 174
+    .line 243
     :try_start_0
     # invokes: Lbl/PlayUrlPrefetch;->tick()V
-    invoke-static {}, Lbl/PlayUrlPrefetch;->access$000()V
+    invoke-static {}, Lbl/PlayUrlPrefetch;->access$300()V
     :try_end_3
     .catch Ljava/lang/Throwable; {:try_start_0 .. :try_end_3} :catch_4
 
-    .line 178
+    .line 247
     :goto_3
     return-void
 
-    .line 175
+    .line 244
     :catch_4
     move-exception v0
 
-    .line 176
+    .line 245
     const-string v1, "NextPrefetch"
 
     new-instance v2, Ljava/lang/StringBuilder;
