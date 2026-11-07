@@ -35,7 +35,7 @@
     .end annotation
 
     .prologue
-    .line 2109
+    .line 2110
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$35;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$35;->val$panelRef:Ljava/lang/ref/WeakReference;
@@ -55,7 +55,7 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 2114
+    .line 2115
     :try_start_1
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$35;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
@@ -66,7 +66,7 @@
 
     if-eqz v0, :cond_16
 
-    .line 2115
+    .line 2116
     const-string v0, "EbookReader"
 
     const-string v1, "\u89e3\u6790\u4efb\u52a1\u5df2\u53d6\u6d88"
@@ -76,17 +76,17 @@
     .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_10} :catch_10e
     .catchall {:try_start_1 .. :try_end_10} :catchall_14d
 
-    .line 2201
+    .line 2202
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$35;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # setter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->parsingThread:Ljava/lang/Thread;
     invoke-static {v0, v4}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$3402(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Ljava/lang/Thread;)Ljava/lang/Thread;
 
-    .line 2203
+    .line 2204
     :goto_15
     return-void
 
-    .line 2120
+    .line 2121
     :cond_16
     :try_start_16
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$35;->val$panelRef:Ljava/lang/ref/WeakReference;
@@ -97,7 +97,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    .line 2121
+    .line 2122
     if-eqz v0, :cond_30
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->host:Lcom/bilibili/tv/ebook/ui/EbookHost;
@@ -118,7 +118,7 @@
 
     if-nez v1, :cond_3d
 
-    .line 2122
+    .line 2123
     :cond_30
     const-string v0, "EbookReader"
 
@@ -129,7 +129,7 @@
     .catch Ljava/lang/Exception; {:try_start_16 .. :try_end_37} :catch_10e
     .catchall {:try_start_16 .. :try_end_37} :catchall_14d
 
-    .line 2201
+    .line 2202
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$35;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # setter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->parsingThread:Ljava/lang/Thread;
@@ -137,7 +137,7 @@
 
     goto :goto_15
 
-    .line 2127
+    .line 2128
     :cond_3d
     :try_start_3d
     new-instance v1, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;
@@ -153,21 +153,21 @@
 
     invoke-direct {v1, v0}, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;-><init>(Landroid/content/Context;)V
 
-    .line 2130
+    .line 2131
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$35;->val$filePath:Ljava/lang/String;
 
     invoke-static {v0}, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->generateBookId(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 2133
+    .line 2134
     iget-object v2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$35;->val$filePath:Ljava/lang/String;
 
     invoke-virtual {v1, v2, v0}, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->parse(Ljava/lang/String;Ljava/lang/String;)Lcom/bilibili/tv/ebook/model/Book;
 
     move-result-object v1
 
-    .line 2136
+    .line 2137
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$35;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->isParsingCancelled:Z
@@ -177,7 +177,7 @@
 
     if-eqz v0, :cond_6b
 
-    .line 2137
+    .line 2138
     const-string v0, "EbookReader"
 
     const-string v1, "\u89e3\u6790\u4efb\u52a1\u5df2\u53d6\u6d88\uff0c\u4e0d\u663e\u793a\u5185\u5bb9"
@@ -187,7 +187,7 @@
     .catch Ljava/lang/Exception; {:try_start_3d .. :try_end_65} :catch_10e
     .catchall {:try_start_3d .. :try_end_65} :catchall_14d
 
-    .line 2201
+    .line 2202
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$35;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # setter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->parsingThread:Ljava/lang/Thread;
@@ -195,11 +195,11 @@
 
     goto :goto_15
 
-    .line 2141
+    .line 2142
     :cond_6b
     if-nez v1, :cond_aa
 
-    .line 2142
+    .line 2143
     :try_start_6d
     const-string v0, "EbookReader"
 
@@ -207,13 +207,13 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2143
+    .line 2144
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$35;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->hideLoadingIndicator()V
     invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$3200(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
 
-    .line 2146
+    .line 2147
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$35;->val$panelRef:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -222,7 +222,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    .line 2147
+    .line 2148
     if-eqz v0, :cond_a3
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->host:Lcom/bilibili/tv/ebook/ui/EbookHost;
@@ -243,7 +243,7 @@
 
     if-eqz v1, :cond_a3
 
-    .line 2149
+    .line 2150
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->host:Lcom/bilibili/tv/ebook/ui/EbookHost;
     invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1500(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Lcom/bilibili/tv/ebook/ui/EbookHost;
 
@@ -262,7 +262,7 @@
     .catch Ljava/lang/Exception; {:try_start_6d .. :try_end_a3} :catch_10e
     .catchall {:try_start_6d .. :try_end_a3} :catchall_14d
 
-    .line 2201
+    .line 2202
     :cond_a3
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$35;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
@@ -271,7 +271,7 @@
 
     goto/16 :goto_15
 
-    .line 2161
+    .line 2162
     :cond_aa
     :try_start_aa
     const-string v0, "EbookReader"
@@ -300,7 +300,7 @@
 
     move-result-object v2
 
-    .line 2162
+    .line 2163
     invoke-virtual {v1}, Lcom/bilibili/tv/ebook/model/Book;->getChapters()Ljava/util/List;
 
     move-result-object v3
@@ -317,16 +317,16 @@
 
     move-result-object v2
 
-    .line 2161
+    .line 2162
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2165
+    .line 2166
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$35;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->hideLoadingIndicator()V
     invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$3200(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
 
-    .line 2168
+    .line 2169
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$35;->val$panelRef:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -335,7 +335,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    .line 2169
+    .line 2170
     if-eqz v0, :cond_107
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->host:Lcom/bilibili/tv/ebook/ui/EbookHost;
@@ -356,7 +356,7 @@
 
     if-eqz v2, :cond_107
 
-    .line 2172
+    .line 2173
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->host:Lcom/bilibili/tv/ebook/ui/EbookHost;
     invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1500(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Lcom/bilibili/tv/ebook/ui/EbookHost;
 
@@ -375,7 +375,7 @@
     .catch Ljava/lang/Exception; {:try_start_aa .. :try_end_107} :catch_10e
     .catchall {:try_start_aa .. :try_end_107} :catchall_14d
 
-    .line 2201
+    .line 2202
     :cond_107
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$35;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
@@ -384,13 +384,13 @@
 
     goto/16 :goto_15
 
-    .line 2182
+    .line 2183
     :catch_10e
     move-exception v0
 
     move-object v1, v0
 
-    .line 2183
+    .line 2184
     :try_start_110
     const-string v0, "EbookReader"
 
@@ -398,13 +398,13 @@
 
     invoke-static {v0, v2, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    .line 2184
+    .line 2185
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$35;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->hideLoadingIndicator()V
     invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$3200(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
 
-    .line 2187
+    .line 2188
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$35;->val$panelRef:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -413,7 +413,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    .line 2188
+    .line 2189
     if-eqz v0, :cond_146
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->host:Lcom/bilibili/tv/ebook/ui/EbookHost;
@@ -434,7 +434,7 @@
 
     if-eqz v2, :cond_146
 
-    .line 2191
+    .line 2192
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->host:Lcom/bilibili/tv/ebook/ui/EbookHost;
     invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1500(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Lcom/bilibili/tv/ebook/ui/EbookHost;
 
@@ -452,7 +452,7 @@
     :try_end_146
     .catchall {:try_start_110 .. :try_end_146} :catchall_14d
 
-    .line 2201
+    .line 2202
     :cond_146
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$35;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
@@ -469,6 +469,6 @@
     # setter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->parsingThread:Ljava/lang/Thread;
     invoke-static {v1, v4}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$3402(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Ljava/lang/Thread;)Ljava/lang/Thread;
 
-    .line 2202
+    .line 2203
     throw v0
 .end method

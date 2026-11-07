@@ -1976,7 +1976,8 @@ public class EbookReaderPanel {
      */
     private boolean isEbookFile(java.io.File file) {
         String name = file.getName().toLowerCase();
-        return name.endsWith(".mobi") || name.endsWith(".azw3") || name.endsWith(".epub");
+        return name.endsWith(".mobi") || name.endsWith(".azw3")
+            || name.endsWith(".epub") || name.endsWith(".txt");
     }
 
     /**
@@ -4573,7 +4574,19 @@ public class EbookReaderPanel {
                 }
             }
 
-            // 3. 删除EPUB元数据缓存文件
+            // 3. 删除TXT缓存目录（内含metadata.json和章节HTML文件）
+            java.io.File txtCacheDir = new java.io.File(cacheDir, "txt_cache/" + bookId);
+            if (txtCacheDir.exists()) {
+                long size = getDirectorySize(txtCacheDir);
+                if (deleteDirectory(txtCacheDir)) {
+                    deletedFiles++;
+                    deletedSize += size;
+                    Log.i(TAG_EBOOK, "已删除TXT缓存目录: " + txtCacheDir.getAbsolutePath() +
+                          ", 大小: " + formatFileSize(size));
+                }
+            }
+
+            // 4. 删除EPUB元数据缓存文件
             java.io.File epubMetadataFile = new java.io.File(cacheDir, "epub_cache/" + bookId + "/metadata.json");
             if (epubMetadataFile.exists()) {
                 long size = epubMetadataFile.length();

@@ -190,6 +190,7 @@ classes\com\bilibili\tv\ebook\model\ReaderTheme.java
 classes\com\bilibili\tv\ebook\model\ReadingProgress.java
 classes\com\bilibili\tv\ebook\parser\EbookParserFactory.java
 classes\com\bilibili\tv\ebook\parser\EpubParser.java
+classes\com\bilibili\tv\ebook\parser\TxtParser.java
 classes\com\bilibili\tv\ebook\ui\EbookHost.java
 classes\com\bilibili\tv\ebook\ui\EbookMenuHelper.java
 classes\com\bilibili\tv\ebook\ui\EbookReaderPanel.java

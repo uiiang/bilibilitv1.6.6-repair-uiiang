@@ -21,11 +21,13 @@ public class EbookParserFactory {
     private Context context;
     private EpubParser epubParser;
     private com.aryan.reader.epub.MobiParser mobiParser;
+    private TxtParser txtParser;
     
     public EbookParserFactory(Context context) {
         this.context = context;
         this.epubParser = new EpubParser(context);
         this.mobiParser = new com.aryan.reader.epub.MobiParser(context);
+        this.txtParser = new TxtParser(context);
     }
     
     /**
@@ -51,6 +53,10 @@ public class EbookParserFactory {
             case "azw3":
                 Log.i(TAG, "使用MOBI解析器（JNI版本）");
                 return mobiParser.parse(filePath, bookId);
+
+            case "txt":
+                Log.i(TAG, "使用TXT解析器");
+                return txtParser.parse(filePath, bookId);
                 
             default:
                 Log.e(TAG, "不支持的文件格式: " + extension);
@@ -87,6 +93,7 @@ public class EbookParserFactory {
             case "epub":
             case "mobi":
             case "azw3":
+            case "txt":
                 return true;
             default:
                 return false;

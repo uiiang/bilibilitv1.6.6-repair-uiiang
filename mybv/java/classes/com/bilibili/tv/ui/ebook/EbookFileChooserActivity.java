@@ -45,7 +45,7 @@ public class EbookFileChooserActivity extends BaseActivity {
     private List<FileItem> fileItems = new ArrayList<>();
 
     // 支持的电子书格式
-    private static final String[] SUPPORTED_EXTENSIONS = {".mobi", ".azw3", ".epub"};
+    private static final String[] SUPPORTED_EXTENSIONS = {".mobi", ".azw3", ".epub", ".txt"};
 
     @Override
     public int g() {

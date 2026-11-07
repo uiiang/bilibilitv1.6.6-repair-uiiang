@@ -31,7 +31,7 @@
     .locals 0
 
     .prologue
-    .line 2424
+    .line 2425
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37;->val$chapter:Lcom/bilibili/tv/ebook/model/Chapter;
@@ -53,17 +53,17 @@
     .locals 1
 
     .prologue
-    .line 2434
+    .line 2435
     invoke-super {p0, p1, p2}, Landroid/webkit/WebViewClient;->onPageFinished(Landroid/webkit/WebView;Ljava/lang/String;)V
 
-    .line 2436
+    .line 2437
     new-instance v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37$1;
 
     invoke-direct {v0, p0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37$1;-><init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37;Landroid/webkit/WebView;)V
 
     invoke-virtual {p1, v0}, Landroid/webkit/WebView;->post(Ljava/lang/Runnable;)Z
 
-    .line 2489
+    .line 2490
     return-void
 .end method
 
@@ -71,10 +71,10 @@
     .locals 3
 
     .prologue
-    .line 2427
+    .line 2428
     invoke-super {p0, p1, p2, p3}, Landroid/webkit/WebViewClient;->onPageStarted(Landroid/webkit/WebView;Ljava/lang/String;Landroid/graphics/Bitmap;)V
 
-    .line 2429
+    .line 2430
     const-string v0, "EbookReader"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -115,6 +115,6 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2430
+    .line 2431
     return-void
 .end method
