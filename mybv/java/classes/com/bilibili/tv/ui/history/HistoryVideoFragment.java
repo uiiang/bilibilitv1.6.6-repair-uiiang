@@ -831,13 +831,25 @@ public final class HistoryVideoFragment extends ady {
                     } else {
                         String business = history.getString("business");
                         String cover = item.getString("cover");
+                        long avid = history.getLongValue("oid");
                         if ("pgc".equals(business)) {
+                            // Web历史接口的pgc条目kid=剧集ssid；App历史接口（x/v2/history）
+                            // 的pgc条目不含kid，直接传"0"会导致详情页加载season_id=0失败并退出，
+                            // 故kid无效时回落到avid入口（history.oid=该集avid）：
+                            // 详情页UGC入口加载/x/v2/view后由redirect_url/bangumi识别为PGC并解析season_id，
+                            // 与稍后再看页的PGC回落路径一致。
                             long seasonId = item.getLongValue("kid");
-                            Log.i("HistoryVideoFragment", "PGC video: seasonId=" + seasonId + ", cover=" + cover);
-                            activity.startActivity(VideoDetailActivity.Companion.a(context, String.valueOf(seasonId), cover));
+                            long epId = history.getLongValue("epid");
+                            Log.i(TAG, "[PGC_CLICK] kid=" + seasonId + ", oid=" + avid + ", epid=" + epId + ", cover=" + cover);
+                            if (seasonId > 0) {
+                                activity.startActivity(VideoDetailActivity.Companion.a(context, String.valueOf(seasonId), cover));
+                            } else if (avid > 0) {
+                                activity.startActivity(VideoDetailActivity.Companion.a(context, avid, cover));
+                            } else {
+                                android.widget.Toast.makeText(context, "视频不存在", android.widget.Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                            long avid = history.getLongValue("oid");
-                            Log.i("HistoryVideoFragment", "UGC video: avid=" + avid + ", cover=" + cover);
+                            Log.i(TAG, "UGC video: avid=" + avid + ", cover=" + cover);
                             activity.startActivity(VideoDetailActivity.Companion.a(context, avid, cover));
                         }
                     }
