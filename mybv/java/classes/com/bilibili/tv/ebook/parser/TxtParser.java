@@ -53,9 +53,13 @@ public class TxtParser {
     private static final int HEADER_TEXT_MAX_CHARS = 1024;
     private static final int FALLBACK_PARAGRAPHS_PER_CHAPTER = 100;
 
-    private static final int MODE_FALLBACK = 0;
-    private static final int MODE_HEADINGS_TIER1 = 1;
-    private static final int MODE_HEADINGS_TIER2 = 2;
+    /** readest: 8个连续换行（即7个空行）视为章节片段分隔 */
+    private static final int SEGMENT_GAP_LINES = 8;
+    /** readest: 章节数<=1时的二次探测分隔行数 */
+    private static final int RETRY_GAP_LINES_1 = 7;
+    private static final int RETRY_GAP_LINES_2 = 6;
+    /** readest isGoodMatches: 单段正文超过该长度说明标题误判，本次拆分作废 */
+    private static final int MAX_HEADING_PART_LENGTH = 100000;
 
     // ==================== 中文标题正则（移植自 readest createChapterRegexps） ====================
 
@@ -129,6 +133,8 @@ public class TxtParser {
     private static final Pattern FOUR_DIGITS = Pattern.compile("\\d{4,}");
     /** 章节内的分隔线：连续 8 个以上的 - 或 _ */
     private static final Pattern DIVIDER_LINE = Pattern.compile("^[-_]{8,}$");
+    /** 章节片段分隔线：连续 8 个以上的 -（readest segmentRegex 的 -{8,}） */
+    private static final Pattern SEGMENT_DASH_DIVIDER = Pattern.compile("^-{8,}$");
 
     private Context context;
     private File cacheDir;
@@ -185,18 +191,24 @@ public class TxtParser {
                 author = filenameMeta[1];
             }
 
-            // 4. 先扫描一遍确定标题识别级别（第一级 / 第二级 / 无标题）
-            int headingMode = detectHeadingMode(sourceFile, charset, language);
             Log.i(TAG, "TXT解析参数: encoding=" + charset.name() +
-                  ", language=" + language + ", headingMode=" + headingMode +
-                  ", title=" + title + ", author=" + author);
+                  ", language=" + language + ", title=" + title + ", author=" + author);
 
-            // 5. 切分章节并逐章落盘HTML
-            List<Chapter> chapters;
-            if (headingMode == MODE_HEADINGS_TIER1 || headingMode == MODE_HEADINGS_TIER2) {
-                chapters = parseByHeadings(sourceFile, charset, language, headingMode, extractionDir);
-            } else {
-                chapters = parseByFallback(sourceFile, charset, extractionDir);
+            // 5. 按 readest 的分段策略切分章节并逐章落盘HTML
+            //    先用8个连续换行分段；若章节数<=1，再用7/6个连续换行二次探测
+            List<Chapter> chapters = extractChapters(sourceFile, charset, language,
+                    SEGMENT_GAP_LINES, extractionDir, true);
+            if (chapters.size() <= 1) {
+                int probeCount = extractChapters(sourceFile, charset, language,
+                        RETRY_GAP_LINES_1, extractionDir, false).size();
+                int retryGap = probeCount > 1 ? RETRY_GAP_LINES_1 : RETRY_GAP_LINES_2;
+                Log.i(TAG, "章节数过少(" + chapters.size() + ")，二次探测: gap=" +
+                        RETRY_GAP_LINES_1 + ", 章节数=" + probeCount + ", 采用gap=" + retryGap);
+                // 清理首次切分落盘的章节文件，按新的分段重新生成
+                deleteRecursively(extractionDir);
+                extractionDir.mkdirs();
+                chapters = extractChapters(sourceFile, charset, language,
+                        retryGap, extractionDir, true);
             }
 
             // 空文件兜底：保证阅读页有可显示的章节
@@ -231,167 +243,246 @@ public class TxtParser {
     // ==================== 章节解析 ====================
 
     /**
-     * 按标题切分章节（流式处理，一次只在内存中保留一个章节的正文）
+     * 按 readest 的策略逐段切分章节：
+     * 1. 以 N 个连续换行（默认8个）或 8 个以上短横线把全文分成片段
+     * 2. 每个片段先尝试一级标题，拆分不“合理”时回退二级标题，仍无标题则每 100 段一章
+     * 3. 无标题片段并入上一个已识别章节，避免目录出现伪条目（readest #4063）
+     *
+     * @param write false 时只统计章节数（用于二次探测），不落盘
      */
-    private List<Chapter> parseByHeadings(File file, Charset charset, String language,
-                                          int headingMode, File dir) throws IOException {
+    private List<Chapter> extractChapters(File file, Charset charset, String language,
+                                          int gapLines, File dir, boolean write) throws IOException {
         List<Chapter> chapters = new ArrayList<>();
-        List<String> buffer = new ArrayList<>();
-        String currentTitle = null;
-        int currentDepth = 0;
-        boolean volumeOpen = false;
-        int chapterIndex = 0;
+        boolean[] volumeOpen = new boolean[]{false};
+        int[] fallbackNumber = new int[]{1};
+        ChapterDraft pending = null;
 
-        BufferedReader reader = null;
+        SegmentReader reader = new SegmentReader(file, charset, gapLines);
         try {
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String trimmed = trimWhitespace(stripBom(line));
-                HeadingMatch match = matchHeading(trimmed, language, headingMode);
-
-                if (match != null) {
-                    // 遇到新标题：先把上一章（或第一段标题前的正文）落盘
-                    if (currentTitle != null || !buffer.isEmpty()) {
-                        String chapterTitle = currentTitle != null ? currentTitle : deriveInitialTitle(buffer);
-                        int depth = currentTitle != null ? currentDepth : 0;
-                        chapters.add(writeChapter(dir, chapterIndex, chapterTitle, depth, buffer));
-                        chapterIndex++;
-                        buffer.clear();
+            List<String> segment;
+            while ((segment = reader.nextSegment()) != null) {
+                List<ChapterDraft> drafts = buildSegmentChapters(segment, language, volumeOpen, fallbackNumber);
+                for (ChapterDraft draft : drafts) {
+                    if (!draft.detected && pending != null && pending.detected) {
+                        // 场景分隔后的无标题正文并入上一章
+                        pending.lines.addAll(draft.lines);
+                        continue;
                     }
-                    currentTitle = match.title;
-                    if (match.isVolume) {
-                        // 卷标题为一级目录，卷内后续章节为二级目录
-                        currentDepth = 0;
-                        volumeOpen = true;
-                    } else {
-                        currentDepth = volumeOpen ? 1 : 0;
+                    if (pending != null) {
+                        chapters.add(writeChapterDraft(pending, dir, chapters.size(), write));
                     }
-                } else if (!trimmed.isEmpty() && !DIVIDER_LINE.matcher(trimmed).matches()) {
-                    buffer.add(trimmed);
+                    pending = draft;
                 }
+            }
+            if (pending != null) {
+                chapters.add(writeChapterDraft(pending, dir, chapters.size(), write));
             }
         } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    Log.e(TAG, "关闭TXT读取流失败: " + e.getMessage());
-                }
-            }
+            reader.close();
         }
 
-        // 落盘最后一章
-        if (currentTitle != null || !buffer.isEmpty()) {
-            String chapterTitle = currentTitle != null ? currentTitle : deriveInitialTitle(buffer);
-            int depth = currentTitle != null ? currentDepth : 0;
-            chapters.add(writeChapter(dir, chapterIndex, chapterTitle, depth, buffer));
-        }
-
-        Log.i(TAG, "按标题切分完成: 章节数=" + chapters.size());
+        Log.i(TAG, "分段切分完成: gap=" + gapLines + ", 章节数=" + chapters.size());
         return chapters;
     }
 
     /**
-     * 没有任何标题时的兜底：每 100 个段落切分为一章（readest: fallbackParagraphsPerChapter）
+     * 处理单个片段：先试一级标题，再试二级标题，最后按 100 段兜底
      */
-    private List<Chapter> parseByFallback(File file, Charset charset, File dir) throws IOException {
-        List<Chapter> chapters = new ArrayList<>();
-        List<String> buffer = new ArrayList<>();
-        int chapterIndex = 0;
+    private List<ChapterDraft> buildSegmentChapters(List<String> lines, String language,
+                                                    boolean[] volumeOpen, int[] fallbackNumber) {
+        List<ChapterDraft> drafts = new ArrayList<>();
+        if (lines == null || lines.isEmpty()) {
+            return drafts;
+        }
 
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset));
+        Pattern[] tiers = "zh".equals(language)
+                ? new Pattern[]{ZH_TIER1, ZH_TIER2}
+                : new Pattern[]{EN_TIER1, EN_TIER2};
+
+        for (Pattern tier : tiers) {
+            List<Integer> headingIndexes = findHeadingIndexes(lines, tier);
+            if (!isGoodSplit(lines, headingIndexes)) {
+                continue;
+            }
+
+            // 第一个标题之前的正文，用首行内容作为目录条目名称
+            if (headingIndexes.get(0) > 0) {
+                List<String> head = new ArrayList<>(lines.subList(0, headingIndexes.get(0)));
+                drafts.add(new ChapterDraft(deriveInitialTitle(head), 0, head, false));
+            }
+
+            for (int i = 0; i < headingIndexes.size(); i++) {
+                int start = headingIndexes.get(i);
+                int end = i + 1 < headingIndexes.size() ? headingIndexes.get(i + 1) : lines.size();
+                String title = lines.get(start);
+                boolean isVolume = "zh".equals(language)
+                        ? ZH_VOLUME.matcher(title).find()
+                        : EN_VOLUME.matcher(title).find();
+                int depth;
+                if (isVolume) {
+                    // 卷标题为一级目录，卷内后续章节为二级目录
+                    depth = 0;
+                    volumeOpen[0] = true;
+                } else {
+                    depth = volumeOpen[0] ? 1 : 0;
+                }
+                List<String> body = new ArrayList<>(lines.subList(start + 1, end));
+                drafts.add(new ChapterDraft(title, depth, body, true));
+            }
+            return drafts;
+        }
+
+        // 没有识别到标题：每 100 段切一章
+        for (int i = 0; i < lines.size(); i += FALLBACK_PARAGRAPHS_PER_CHAPTER) {
+            int end = Math.min(lines.size(), i + FALLBACK_PARAGRAPHS_PER_CHAPTER);
+            List<String> chunk = new ArrayList<>(lines.subList(i, end));
+            drafts.add(new ChapterDraft(String.valueOf(fallbackNumber[0]++), 0, chunk, false));
+        }
+        return drafts;
+    }
+
+    private List<Integer> findHeadingIndexes(List<String> lines, Pattern pattern) {
+        List<Integer> indexes = new ArrayList<>();
+        for (int i = 0; i < lines.size(); i++) {
+            if (pattern.matcher(lines.get(i)).matches()) {
+                indexes.add(i);
+            }
+        }
+        return indexes;
+    }
+
+    /**
+     * readest isGoodMatches：至少两段有意义内容，且不存在超长片段
+     * （避免书里只有一条误判的“第1章”时把整本切成两章）
+     */
+    private boolean isGoodSplit(List<String> lines, List<Integer> headingIndexes) {
+        if (headingIndexes.isEmpty()) {
+            return false;
+        }
+
+        long bodyChars = 0;
+        int maxPartLength = 0;
+        int runLength = 0;
+        int headingPos = 0;
+        for (int i = 0; i < lines.size(); i++) {
+            if (headingPos < headingIndexes.size() && headingIndexes.get(headingPos) == i) {
+                runLength = 0;
+                headingPos++;
+            } else {
+                runLength += lines.get(i).length();
+                bodyChars += lines.get(i).length();
+                if (runLength > maxPartLength) {
+                    maxPartLength = runLength;
+                }
+            }
+        }
+
+        if (maxPartLength > MAX_HEADING_PART_LENGTH) {
+            return false;
+        }
+        return headingIndexes.size() > 1 || bodyChars > 0;
+    }
+
+    private Chapter writeChapterDraft(ChapterDraft draft, File dir, int index, boolean write)
+            throws IOException {
+        Chapter chapter = new Chapter();
+        chapter.setChapterId("txt_chapter_" + index);
+        chapter.setChapterIndex(index);
+        chapter.setTitle(draft.title);
+        chapter.setDepth(draft.depth);
+
+        String fileName = "chapter_" + index + ".html";
+        chapter.setHtmlFilePath(fileName);
+        chapter.setBaseUrl("file://" + dir.getAbsolutePath() + "/");
+
+        if (write) {
+            writeTextFile(new File(dir, fileName), buildChapterHtml(draft.title, draft.lines));
+        }
+        return chapter;
+    }
+
+    /**
+     * 章节草稿（尚未落盘）
+     */
+    private static class ChapterDraft {
+        final String title;
+        final int depth;
+        final List<String> lines;
+        /** true=标题来自识别到的章节标题；false=无标题兜底或标题前正文 */
+        final boolean detected;
+
+        ChapterDraft(String title, int depth, List<String> lines, boolean detected) {
+            this.title = title;
+            this.depth = depth;
+            this.lines = lines;
+            this.detected = detected;
+        }
+    }
+
+    /**
+     * 按“连续空行数”把文件切成片段，内存中一次只保留一个片段
+     */
+    private static class SegmentReader {
+        private final BufferedReader reader;
+        private final int gapEmptyLines;
+        private boolean eof = false;
+        private String pendingLine = null;
+
+        SegmentReader(File file, Charset charset, int gapLines) throws IOException {
+            this.reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset), 8192);
+            this.gapEmptyLines = Math.max(1, gapLines - 1);
+        }
+
+        List<String> nextSegment() throws IOException {
+            if (eof) {
+                return null;
+            }
+
+            List<String> lines = new ArrayList<>();
+            int emptyRun = 0;
+
+            if (pendingLine != null) {
+                lines.add(pendingLine);
+                pendingLine = null;
+            }
+
             String line;
             while ((line = reader.readLine()) != null) {
                 String trimmed = trimWhitespace(stripBom(line));
-                if (trimmed.isEmpty() || DIVIDER_LINE.matcher(trimmed).matches()) {
+
+                // 8个以上短横线：readest 的片段分隔线，本身不进入正文
+                if (SEGMENT_DASH_DIVIDER.matcher(trimmed).matches()) {
+                    if (!lines.isEmpty()) {
+                        return lines;
+                    }
+                    emptyRun = 0;
                     continue;
                 }
-                buffer.add(trimmed);
-                if (buffer.size() >= FALLBACK_PARAGRAPHS_PER_CHAPTER) {
-                    chapters.add(writeChapter(dir, chapterIndex, String.valueOf(chapterIndex + 1), 0, buffer));
-                    chapterIndex++;
-                    buffer.clear();
-                }
-            }
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    Log.e(TAG, "关闭TXT读取流失败: " + e.getMessage());
-                }
-            }
-        }
-
-        if (!buffer.isEmpty()) {
-            chapters.add(writeChapter(dir, chapterIndex, String.valueOf(chapterIndex + 1), 0, buffer));
-        }
-
-        Log.i(TAG, "无标题兜底切分完成: 章节数=" + chapters.size());
-        return chapters;
-    }
-
-    /**
-     * 扫描整本文件确定标题识别级别：
-     * 只要出现第一级标题就用第一级；否则出现第二级标题就用第二级；都没有则按段落兜底。
-     */
-    private int detectHeadingMode(File file, Charset charset, String language) throws IOException {
-        Pattern tier1 = "zh".equals(language) ? ZH_TIER1 : EN_TIER1;
-        Pattern tier2 = "zh".equals(language) ? ZH_TIER2 : EN_TIER2;
-
-        int result = MODE_FALLBACK;
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String trimmed = trimWhitespace(stripBom(line));
                 if (trimmed.isEmpty()) {
+                    emptyRun++;
                     continue;
                 }
-                if (tier1.matcher(trimmed).matches()) {
-                    return MODE_HEADINGS_TIER1;
+                if (emptyRun >= gapEmptyLines && !lines.isEmpty()) {
+                    pendingLine = trimmed;
+                    return lines;
                 }
-                if (result == MODE_FALLBACK && tier2.matcher(trimmed).matches()) {
-                    result = MODE_HEADINGS_TIER2;
-                }
-            }
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    Log.e(TAG, "关闭TXT扫描流失败: " + e.getMessage());
+                emptyRun = 0;
+                if (!DIVIDER_LINE.matcher(trimmed).matches()) {
+                    lines.add(trimmed);
                 }
             }
-        }
-        return result;
-    }
 
-    /**
-     * 匹配一行标题
-     */
-    private HeadingMatch matchHeading(String line, String language, int headingMode) {
-        if (line == null || line.isEmpty()) {
-            return null;
+            eof = true;
+            return lines.isEmpty() ? null : lines;
         }
-        Pattern pattern;
-        if (headingMode == MODE_HEADINGS_TIER1) {
-            pattern = "zh".equals(language) ? ZH_TIER1 : EN_TIER1;
-        } else {
-            pattern = "zh".equals(language) ? ZH_TIER2 : EN_TIER2;
+
+        void close() {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                Log.e(TAG, "关闭TXT分段读取流失败: " + e.getMessage());
+            }
         }
-        Matcher matcher = pattern.matcher(line);
-        if (!matcher.matches()) {
-            return null;
-        }
-        boolean isVolume = "zh".equals(language)
-            ? ZH_VOLUME.matcher(line).find()
-            : EN_VOLUME.matcher(line).find();
-        return new HeadingMatch(line, isVolume);
     }
 
     /**
@@ -543,6 +634,12 @@ public class TxtParser {
             }
         }
 
+        // 2.5 容错：仅少量坏字节的 UTF-8（readest: 有效比例>80%仍按UTF-8）
+        //     避免个别损坏字节把整本中文书误判成GBK导致全文乱码
+        if (isMostlyUtf8(head)) {
+            return resolveCharset("utf-8");
+        }
+
         // 3. 按高位字节比例推断东亚编码
         int sampleLength = Math.min(1024, head.length);
         int highByteCount = 0;
@@ -604,6 +701,29 @@ public class TxtParser {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    /**
+     * 容错 UTF-8 判断（readest detectEncoding 的宽松分支）：
+     * 用 UTF-8 解码头部样本，替换字符(U+FFFD)占比不超过10%时仍按 UTF-8 处理。
+     * 避免个别损坏字节把整本中文书误判成GBK导致全文乱码。
+     */
+    private boolean isMostlyUtf8(byte[] sample) {
+        if (sample == null || sample.length == 0) {
+            return false;
+        }
+        int sampleSize = Math.min(sample.length, 10000);
+        String decoded = new String(sample, 0, sampleSize, Charset.forName("UTF-8"));
+        if (decoded.isEmpty()) {
+            return false;
+        }
+        int badChars = 0;
+        for (int i = 0; i < decoded.length(); i++) {
+            if (decoded.charAt(i) == '\uFFFD') {
+                badChars++;
+            }
+        }
+        return badChars * 100.0 / decoded.length() <= 10.0;
     }
 
     private boolean looksLikeShiftJis(byte[] sample, int length) {
@@ -827,7 +947,7 @@ public class TxtParser {
     /**
      * 去掉行首可能存在的 BOM（UTF-16/带BOM的UTF-8首行会出现）
      */
-    private String stripBom(String line) {
+    private static String stripBom(String line) {
         if (line == null) {
             return "";
         }
@@ -840,7 +960,7 @@ public class TxtParser {
     /**
      * 去首尾空白（包含全角空格和不可见空格，Java trim() 不处理这些）
      */
-    private String trimWhitespace(String line) {
+    private static String trimWhitespace(String line) {
         if (line == null) {
             return "";
         }
@@ -995,19 +1115,6 @@ public class TxtParser {
         }
         if (!file.delete()) {
             Log.w(TAG, "删除文件失败: " + file.getAbsolutePath());
-        }
-    }
-
-    /**
-     * 标题匹配结果
-     */
-    private static class HeadingMatch {
-        final String title;
-        final boolean isVolume;
-
-        HeadingMatch(String title, boolean isVolume) {
-            this.title = title;
-            this.isVolume = isVolume;
         }
     }
 }

@@ -6046,7 +6046,15 @@
 
     move-result v1
 
-    if-nez v1, :cond_28
+    if-nez v1, :cond_38
+
+    const-string v1, ".azw"
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->endsWith(Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_38
 
     const-string v1, ".azw3"
 
@@ -6054,16 +6062,24 @@
 
     move-result v1
 
-    if-nez v1, :cond_28
+    if-nez v1, :cond_38
 
-    const-string v1, ".epub"
+    const-string v1, ".prc"
 
     .line 1981
     invoke-virtual {v0, v1}, Ljava/lang/String;->endsWith(Ljava/lang/String;)Z
 
     move-result v1
 
-    if-nez v1, :cond_28
+    if-nez v1, :cond_38
+
+    const-string v1, ".epub"
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->endsWith(Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_38
 
     const-string v1, ".txt"
 
@@ -6071,20 +6087,20 @@
 
     move-result v0
 
-    if-eqz v0, :cond_2a
+    if-eqz v0, :cond_3a
 
-    :cond_28
+    :cond_38
     const/4 v0, 0x1
 
     .line 1980
-    :goto_29
+    :goto_39
     return v0
 
     .line 1981
-    :cond_2a
+    :cond_3a
     const/4 v0, 0x0
 
-    goto :goto_29
+    goto :goto_39
 .end method
 
 .method private loadChapterContentFromFile(Lcom/bilibili/tv/ebook/model/Chapter;Ljava/lang/String;)Ljava/lang/String;

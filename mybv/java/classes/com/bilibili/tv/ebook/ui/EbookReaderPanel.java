@@ -1977,8 +1977,8 @@ public class EbookReaderPanel {
      */
     private boolean isEbookFile(java.io.File file) {
         String name = file.getName().toLowerCase();
-        return name.endsWith(".mobi") || name.endsWith(".azw3")
-            || name.endsWith(".epub") || name.endsWith(".txt");
+        return name.endsWith(".mobi") || name.endsWith(".azw") || name.endsWith(".azw3")
+            || name.endsWith(".prc") || name.endsWith(".epub") || name.endsWith(".txt");
     }
 
     /**

@@ -35,31 +35,31 @@
     .locals 0
 
     .prologue
-    .line 142
+    .line 150
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 143
+    .line 151
     iput-object p1, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiData;->title:Ljava/lang/String;
 
-    .line 144
+    .line 152
     iput-object p2, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiData;->author:Ljava/lang/String;
 
-    .line 145
+    .line 153
     iput-object p3, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiData;->publisher:Ljava/lang/String;
 
-    .line 146
+    .line 154
     iput-object p4, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiData;->rawHtmlContent:Ljava/lang/String;
 
-    .line 147
+    .line 155
     iput-object p5, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiData;->resources:[Lcom/aryan/reader/epub/MobiParser$ParsedMobiResource;
 
-    .line 148
+    .line 156
     iput-object p6, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiData;->toc:[Lcom/aryan/reader/epub/MobiParser$ParsedMobiTocEntry;
 
-    .line 149
+    .line 157
     iput p7, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiData;->coverImageResourceUid:I
 
-    .line 150
+    .line 158
     return-void
 .end method
 
@@ -69,7 +69,7 @@
     .locals 1
 
     .prologue
-    .line 157
+    .line 165
     iget-object v0, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiData;->author:Ljava/lang/String;
 
     return-object v0
@@ -79,7 +79,7 @@
     .locals 1
 
     .prologue
-    .line 177
+    .line 185
     iget v0, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiData;->coverImageResourceUid:I
 
     return v0
@@ -89,7 +89,7 @@
     .locals 1
 
     .prologue
-    .line 161
+    .line 169
     iget-object v0, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiData;->publisher:Ljava/lang/String;
 
     return-object v0
@@ -99,7 +99,7 @@
     .locals 1
 
     .prologue
-    .line 165
+    .line 173
     iget-object v0, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiData;->rawHtmlContent:Ljava/lang/String;
 
     return-object v0
@@ -109,7 +109,7 @@
     .locals 1
 
     .prologue
-    .line 185
+    .line 193
     iget-object v0, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiData;->resources:[Lcom/aryan/reader/epub/MobiParser$ParsedMobiResource;
 
     if-eqz v0, :cond_8
@@ -131,7 +131,7 @@
     .locals 1
 
     .prologue
-    .line 169
+    .line 177
     iget-object v0, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiData;->resources:[Lcom/aryan/reader/epub/MobiParser$ParsedMobiResource;
 
     return-object v0
@@ -141,7 +141,7 @@
     .locals 1
 
     .prologue
-    .line 153
+    .line 161
     iget-object v0, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiData;->title:Ljava/lang/String;
 
     return-object v0
@@ -151,7 +151,7 @@
     .locals 1
 
     .prologue
-    .line 173
+    .line 181
     iget-object v0, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiData;->toc:[Lcom/aryan/reader/epub/MobiParser$ParsedMobiTocEntry;
 
     return-object v0
@@ -161,7 +161,7 @@
     .locals 1
 
     .prologue
-    .line 181
+    .line 189
     iget-object v0, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiData;->toc:[Lcom/aryan/reader/epub/MobiParser$ParsedMobiTocEntry;
 
     if-eqz v0, :cond_b

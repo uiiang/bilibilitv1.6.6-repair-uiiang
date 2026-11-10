@@ -57,22 +57,22 @@
     .locals 4
 
     .prologue
-    .line 107
+    .line 111
     new-instance v0, Ljava/io/File;
 
     invoke-direct {v0, p0}, Ljava/io/File;-><init>(Ljava/lang/String;)V
 
-    .line 108
+    .line 112
     invoke-virtual {v0}, Ljava/io/File;->getName()Ljava/lang/String;
 
     move-result-object v1
 
-    .line 109
+    .line 113
     invoke-virtual {v0}, Ljava/io/File;->lastModified()J
 
     move-result-wide v2
 
-    .line 111
+    .line 115
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -104,7 +104,7 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 71
+    .line 73
     if-eqz p1, :cond_9
 
     invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
@@ -113,12 +113,12 @@
 
     if-eqz v1, :cond_a
 
-    .line 80
+    .line 82
     :cond_9
     :goto_9
     return-object v0
 
-    .line 75
+    .line 77
     :cond_a
     const/16 v1, 0x2e
 
@@ -126,7 +126,7 @@
 
     move-result v1
 
-    .line 76
+    .line 78
     if-lez v1, :cond_9
 
     invoke-virtual {p1}, Ljava/lang/String;->length()I
@@ -137,7 +137,7 @@
 
     if-ge v1, v2, :cond_9
 
-    .line 77
+    .line 79
     add-int/lit8 v0, v1, 0x1
 
     invoke-virtual {p1, v0}, Ljava/lang/String;->substring(I)Ljava/lang/String;
@@ -157,19 +157,19 @@
 
     const/4 v0, 0x0
 
-    .line 87
+    .line 89
     invoke-direct {p0, p1}, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->getFileExtension(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v2
 
-    .line 88
+    .line 90
     if-nez v2, :cond_9
 
-    .line 99
+    .line 103
     :goto_8
     return v0
 
-    .line 92
+    .line 94
     :cond_9
     invoke-virtual {v2}, Ljava/lang/String;->toLowerCase()Ljava/lang/String;
 
@@ -181,21 +181,21 @@
 
     move-result v4
 
-    sparse-switch v4, :sswitch_data_44
+    sparse-switch v4, :sswitch_data_58
 
     :cond_15
     :goto_15
-    packed-switch v2, :pswitch_data_56
+    packed-switch v2, :pswitch_data_72
 
     goto :goto_8
 
     :pswitch_19
     move v0, v1
 
-    .line 97
+    .line 101
     goto :goto_8
 
-    .line 92
+    .line 94
     :sswitch_1b
     const-string v4, "epub"
 
@@ -223,7 +223,7 @@
     goto :goto_15
 
     :sswitch_2f
-    const-string v4, "azw3"
+    const-string v4, "azw"
 
     invoke-virtual {v3, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
@@ -236,7 +236,7 @@
     goto :goto_15
 
     :sswitch_39
-    const-string v4, "txt"
+    const-string v4, "azw3"
 
     invoke-virtual {v3, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
@@ -248,18 +248,48 @@
 
     goto :goto_15
 
+    :sswitch_43
+    const-string v4, "prc"
+
+    invoke-virtual {v3, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v3
+
+    if-eqz v3, :cond_15
+
+    const/4 v2, 0x4
+
+    goto :goto_15
+
+    :sswitch_4d
+    const-string v4, "txt"
+
+    invoke-virtual {v3, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v3
+
+    if-eqz v3, :cond_15
+
+    const/4 v2, 0x5
+
+    goto :goto_15
+
     nop
 
-    :sswitch_data_44
+    :sswitch_data_58
     .sparse-switch
-        0x1c270 -> :sswitch_39
-        0x2df095 -> :sswitch_2f
+        0x17b5e -> :sswitch_2f
+        0x1b2a1 -> :sswitch_43
+        0x1c270 -> :sswitch_4d
+        0x2df095 -> :sswitch_39
         0x2f9c78 -> :sswitch_1b
         0x333969 -> :sswitch_25
     .end sparse-switch
 
-    :pswitch_data_56
+    :pswitch_data_72
     .packed-switch 0x0
+        :pswitch_19
+        :pswitch_19
         :pswitch_19
         :pswitch_19
         :pswitch_19
@@ -304,7 +334,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 63
+    .line 65
     :goto_1f
     return-object v0
 
@@ -320,13 +350,13 @@
 
     move-result v4
 
-    sparse-switch v4, :sswitch_data_9a
+    sparse-switch v4, :sswitch_data_b0
 
     :cond_2c
     :goto_2c
-    packed-switch v1, :pswitch_data_ac
+    packed-switch v1, :pswitch_data_ca
 
-    .line 62
+    .line 64
     const-string v1, "EbookParserFactory"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -379,7 +409,7 @@
     goto :goto_2c
 
     :sswitch_5c
-    const-string v4, "azw3"
+    const-string v4, "azw"
 
     invoke-virtual {v3, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
@@ -392,7 +422,7 @@
     goto :goto_2c
 
     :sswitch_66
-    const-string v4, "txt"
+    const-string v4, "azw3"
 
     invoke-virtual {v3, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
@@ -404,8 +434,34 @@
 
     goto :goto_2c
 
+    :sswitch_70
+    const-string v4, "prc"
+
+    invoke-virtual {v3, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v3
+
+    if-eqz v3, :cond_2c
+
+    const/4 v1, 0x4
+
+    goto :goto_2c
+
+    :sswitch_7a
+    const-string v4, "txt"
+
+    invoke-virtual {v3, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v3
+
+    if-eqz v3, :cond_2c
+
+    const/4 v1, 0x5
+
+    goto :goto_2c
+
     .line 49
-    :pswitch_70
+    :pswitch_84
     const-string v0, "EbookParserFactory"
 
     const-string v1, "\u4f7f\u7528EPUB\u89e3\u6790\u5668"
@@ -421,15 +477,15 @@
 
     goto :goto_1f
 
-    .line 54
-    :pswitch_7e
+    .line 56
+    :pswitch_92
     const-string v0, "EbookParserFactory"
 
     const-string v1, "\u4f7f\u7528MOBI\u89e3\u6790\u5668\uff08JNI\u7248\u672c\uff09"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 55
+    .line 57
     iget-object v0, p0, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->mobiParser:Lcom/aryan/reader/epub/MobiParser;
 
     invoke-virtual {v0, p1, p2}, Lcom/aryan/reader/epub/MobiParser;->parse(Ljava/lang/String;Ljava/lang/String;)Lcom/bilibili/tv/ebook/model/Book;
@@ -438,37 +494,43 @@
 
     goto :goto_1f
 
-    .line 58
-    :pswitch_8c
+    .line 60
+    :pswitch_a0
     const-string v0, "EbookParserFactory"
 
     const-string v1, "\u4f7f\u7528TXT\u89e3\u6790\u5668"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 59
+    .line 61
     iget-object v0, p0, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->txtParser:Lcom/bilibili/tv/ebook/parser/TxtParser;
 
     invoke-virtual {v0, p1, p2}, Lcom/bilibili/tv/ebook/parser/TxtParser;->parse(Ljava/lang/String;Ljava/lang/String;)Lcom/bilibili/tv/ebook/model/Book;
 
     move-result-object v0
 
-    goto :goto_1f
+    goto/16 :goto_1f
 
     .line 47
-    :sswitch_data_9a
+    nop
+
+    :sswitch_data_b0
     .sparse-switch
-        0x1c270 -> :sswitch_66
-        0x2df095 -> :sswitch_5c
+        0x17b5e -> :sswitch_5c
+        0x1b2a1 -> :sswitch_70
+        0x1c270 -> :sswitch_7a
+        0x2df095 -> :sswitch_66
         0x2f9c78 -> :sswitch_48
         0x333969 -> :sswitch_52
     .end sparse-switch
 
-    :pswitch_data_ac
+    :pswitch_data_ca
     .packed-switch 0x0
-        :pswitch_70
-        :pswitch_7e
-        :pswitch_7e
-        :pswitch_8c
+        :pswitch_84
+        :pswitch_92
+        :pswitch_92
+        :pswitch_92
+        :pswitch_92
+        :pswitch_a0
     .end packed-switch
 .end method

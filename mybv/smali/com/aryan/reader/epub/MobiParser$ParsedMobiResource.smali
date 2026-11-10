@@ -29,22 +29,22 @@
     .locals 0
 
     .prologue
-    .line 94
+    .line 102
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 95
+    .line 103
     iput p1, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiResource;->uid:I
 
-    .line 96
+    .line 104
     iput-object p2, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiResource;->path:Ljava/lang/String;
 
-    .line 97
+    .line 105
     iput-object p3, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiResource;->data:[B
 
-    .line 98
+    .line 106
     iput-object p4, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiResource;->mediaType:Ljava/lang/String;
 
-    .line 99
+    .line 107
     return-void
 .end method
 
@@ -54,7 +54,7 @@
     .locals 1
 
     .prologue
-    .line 110
+    .line 118
     iget-object v0, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiResource;->data:[B
 
     return-object v0
@@ -64,7 +64,7 @@
     .locals 1
 
     .prologue
-    .line 114
+    .line 122
     iget-object v0, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiResource;->mediaType:Ljava/lang/String;
 
     return-object v0
@@ -74,7 +74,7 @@
     .locals 1
 
     .prologue
-    .line 106
+    .line 114
     iget-object v0, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiResource;->path:Ljava/lang/String;
 
     return-object v0
@@ -84,7 +84,7 @@
     .locals 1
 
     .prologue
-    .line 102
+    .line 110
     iget v0, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiResource;->uid:I
 
     return v0
@@ -94,7 +94,7 @@
     .locals 2
 
     .prologue
-    .line 122
+    .line 130
     const-string v0, "text/css"
 
     iget-object v1, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiResource;->mediaType:Ljava/lang/String;
@@ -110,7 +110,7 @@
     .locals 2
 
     .prologue
-    .line 118
+    .line 126
     iget-object v0, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiResource;->mediaType:Ljava/lang/String;
 
     if-eqz v0, :cond_10

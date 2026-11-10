@@ -32,13 +32,21 @@ import java.util.Map;
  */
 public class MobiParser {
     private static final String TAG = "MobiParser";
-    
+    private static final java.nio.charset.Charset UTF8 = java.nio.charset.Charset.forName("UTF-8");
+    /** 无TOC时按 h1/h2 标题切分的分割点 */
+    private static final java.util.regex.Pattern HEADING_SPLIT_PATTERN =
+            java.util.regex.Pattern.compile("(?i)(?=<h[12][\\s>])");
+
     private Context context;
+
+    /** native库是否加载成功（之前恒返回true，加载失败时无法区分错误原因） */
+    private static boolean nativeLibLoaded = false;
     
     static {
         try {
             System.loadLibrary("mobi");
             System.loadLibrary("native-lib");
+            nativeLibLoaded = true;
             Log.i(TAG, "✓ libmobi.so 和 libnative-lib.so 加载成功");
         } catch (UnsatisfiedLinkError e) {
             Log.e(TAG, "✗ 加载Native库失败", e);
@@ -202,15 +210,25 @@ public class MobiParser {
         try {
             Log.i(TAG, "开始解析MOBI文件: " + filePath);
 
+            if (!nativeLibLoaded) {
+                Log.e(TAG, "MOBI native库未加载，无法解析: " + filePath);
+                return null;
+            }
+
             // 创建解压目录
             File extractionDir = createExtractionDir(bookId);
 
             // 关键优化：尝试从缓存加载元数据
             Book cachedBook = loadMetadataFromCache(extractionDir);
             if (cachedBook != null) {
-                Log.i(TAG, "使用缓存的元数据，跳过JNI解析: " + cachedBook.getTitle() +
-                      ", 章节数: " + cachedBook.getChapters().size());
-                return cachedBook;
+                // 兼容修复：上次解析失败会写入0章节缓存，检测到后删除重新解析
+                if (cachedBook.getChapters() != null && !cachedBook.getChapters().isEmpty()) {
+                    Log.i(TAG, "使用缓存的元数据，跳过JNI解析: " + cachedBook.getTitle() +
+                          ", 章节数: " + cachedBook.getChapters().size());
+                    return cachedBook;
+                }
+                Log.w(TAG, "缓存中章节为空，删除缓存并重新解析: " + extractionDir.getAbsolutePath());
+                new File(extractionDir, "metadata.json").delete();
             }
 
             ParsedMobiData parsedData = parseMobiFile(filePath);
@@ -242,6 +260,12 @@ public class MobiParser {
             // 章节缓存（上限5章）释放htmlContent后无法从磁盘恢复，往回翻会显示"章节内容为空"。
             // 落盘后显示层loadChapterContentFromFile可按htmlFilePath从磁盘恢复章节内容。
             saveChapterHtmlFiles(chapters, extractionDir);
+
+            // 性能优化：章节正文已落盘，metadata.json也不再保存htmlContent，
+            // 这里释放内存，避免整本正文在首次解析后继续常驻
+            for (Chapter chapter : chapters) {
+                chapter.setHtmlContent(null);
+            }
 
             Book book = new Book();
             book.setBookId(bookId);
@@ -441,7 +465,7 @@ public class MobiParser {
             return chapters;
         }
         
-        byte[] rawHtmlBytes = rawHtml.getBytes();
+        byte[] rawHtmlBytes = rawHtml.getBytes(UTF8);
         List<ParsedMobiTocEntry> sortedToc = new ArrayList<>();
         
         if (toc != null && toc.length > 0) {
@@ -455,6 +479,16 @@ public class MobiParser {
         }
         
         if (!sortedToc.isEmpty()) {
+            // 保留第一个目录项之前的正文（封面页/卷首语等），避免开头内容丢失
+            int firstPosition = sortedToc.get(0).getFilePosition();
+            if (firstPosition > 0 && firstPosition < rawHtmlBytes.length) {
+                String preHtml = new String(rawHtmlBytes, 0, firstPosition, UTF8);
+                if (!Jsoup.parse(preHtml).text().trim().isEmpty()) {
+                    addChapter(chapters, "开篇", processChapterHtml(preHtml, imageMap, cssFlowMap));
+                    Log.i(TAG, "保留TOC前导正文，长度: " + firstPosition);
+                }
+            }
+
             for (int i = 0; i < sortedToc.size(); i++) {
                 ParsedMobiTocEntry tocEntry = sortedToc.get(i);
                 int startByte = tocEntry.getFilePosition();
@@ -468,58 +502,112 @@ public class MobiParser {
                 
                 if (startByte < endByte && startByte < rawHtmlBytes.length) {
                     int length = Math.min(endByte - startByte, rawHtmlBytes.length - startByte);
-                    String chapterHtml = new String(rawHtmlBytes, startByte, length);
-                    
-                    String processedHtml = processChapterHtml(chapterHtml, imageMap, cssFlowMap);
-                    
-                    Chapter chapter = new Chapter();
-                    chapter.setChapterIndex(i);
-                    chapter.setTitle(tocEntry.getTitle());
-                    chapter.setHtmlContent(processedHtml);
-                    chapter.setHtmlFilePath("chapter_" + i + ".html");
-                    chapter.setChapterId("mobi_chapter_" + i);
-                    
-                    chapters.add(chapter);
+                    String chapterHtml = new String(rawHtmlBytes, startByte, length, UTF8);
+                    addChapter(chapters, tocEntry.getTitle(),
+                            processChapterHtml(chapterHtml, imageMap, cssFlowMap));
                 }
             }
-        } else {
-            String[] parts = rawHtml.split("(?i)<mbp:pagebreak\\s*/>");
-            
-            int chapterIndex = 0;
+        }
+
+        if (chapters.isEmpty()) {
+            // 无TOC或TOC无效：先按 <mbp:pagebreak/> 切分
+            List<String> parts = splitByPageBreak(rawHtml);
+            if (parts.size() <= 1) {
+                // 再尝试按 h1/h2 标题切分，避免整本只有"Full Content"一章
+                List<String> headingParts = splitByHeadings(rawHtml);
+                if (headingParts.size() > 1) {
+                    parts = headingParts;
+                }
+            }
             for (String part : parts) {
-                if (part.trim().isEmpty()) continue;
-                
-                String processedHtml = processChapterHtml(part, imageMap, cssFlowMap);
-                
-                Chapter chapter = new Chapter();
-                chapter.setChapterIndex(chapterIndex);
-                chapter.setTitle("Chapter " + (chapterIndex + 1));
-                chapter.setHtmlContent(processedHtml);
-                chapter.setHtmlFilePath("chapter_" + chapterIndex + ".html");
-                chapter.setChapterId("mobi_chapter_" + chapterIndex);
-                
-                chapters.add(chapter);
-                chapterIndex++;
+                if (part == null || part.trim().isEmpty()) {
+                    continue;
+                }
+                addChapter(chapters, extractPartTitle(part, chapters.size() + 1),
+                        processChapterHtml(part, imageMap, cssFlowMap));
             }
         }
-        
+
         if (chapters.isEmpty()) {
-            String processedHtml = processChapterHtml(rawHtml, imageMap, cssFlowMap);
-            
-            Chapter chapter = new Chapter();
-            chapter.setChapterIndex(0);
-            chapter.setTitle("Full Content");
-            chapter.setHtmlContent(processedHtml);
-            chapter.setHtmlFilePath("chapter_0.html");
-            chapter.setChapterId("mobi_chapter_0");
-            chapters.add(chapter);
+            addChapter(chapters, "Full Content", processChapterHtml(rawHtml, imageMap, cssFlowMap));
         }
         
         return chapters;
     }
+
+    /**
+     * 追加一个章节并按当前顺序生成索引/文件名
+     */
+    private void addChapter(List<Chapter> chapters, String title, String htmlContent) {
+        int index = chapters.size();
+        Chapter chapter = new Chapter();
+        chapter.setChapterIndex(index);
+        chapter.setTitle(title);
+        chapter.setHtmlContent(htmlContent);
+        chapter.setHtmlFilePath("chapter_" + index + ".html");
+        chapter.setChapterId("mobi_chapter_" + index);
+        chapters.add(chapter);
+    }
+
+    private List<String> splitByPageBreak(String rawHtml) {
+        List<String> parts = new ArrayList<>();
+        String[] split = rawHtml.split("(?i)<mbp:pagebreak\\s*/>");
+        for (String part : split) {
+            if (!part.trim().isEmpty()) {
+                parts.add(part);
+            }
+        }
+        return parts;
+    }
+
+    /**
+     * 无TOC兜底：按 h1/h2 标题切分（保留标题标签本身）
+     */
+    private List<String> splitByHeadings(String rawHtml) {
+        List<String> parts = new ArrayList<>();
+        java.util.regex.Matcher matcher = HEADING_SPLIT_PATTERN.matcher(rawHtml);
+        List<Integer> starts = new ArrayList<>();
+        while (matcher.find()) {
+            starts.add(matcher.start());
+        }
+        if (starts.size() <= 1) {
+            return parts;
+        }
+
+        if (starts.get(0) > 0) {
+            String pre = rawHtml.substring(0, starts.get(0));
+            if (!Jsoup.parse(pre).text().trim().isEmpty()) {
+                parts.add(pre);
+            }
+        }
+        for (int i = 0; i < starts.size(); i++) {
+            int end = i + 1 < starts.size() ? starts.get(i + 1) : rawHtml.length();
+            parts.add(rawHtml.substring(starts.get(i), end));
+        }
+        return parts;
+    }
+
+    /**
+     * 从章节HTML中提取首个 h1/h2/h3 作为标题，取不到时用 Chapter N
+     */
+    private String extractPartTitle(String html, int fallbackIndex) {
+        try {
+            Document doc = Jsoup.parse(html);
+            Element heading = doc.selectFirst("h1, h2, h3");
+            if (heading != null) {
+                String title = heading.text().trim();
+                if (!title.isEmpty()) {
+                    return title.length() > 60 ? title.substring(0, 60) : title;
+                }
+            }
+        } catch (Exception e) {
+            // 忽略，使用默认标题
+        }
+        return "Chapter " + fallbackIndex;
+    }
     
     public static boolean isNativeLibLoaded() {
-        return true;
+        return nativeLibLoaded;
     }
 
     /**
@@ -569,6 +657,8 @@ public class MobiParser {
                 if (book.getExtractionPath() != null && !book.getExtractionPath().isEmpty()) {
                     restoredBaseUrl = "file://" + book.getExtractionPath() + "/";
                 }
+                // 旧版本缓存把整本正文存在htmlContent里，本次读取时忽略，稍后重写为精简缓存
+                boolean hadEmbeddedContent = false;
                 java.util.List<com.bilibili.tv.ebook.model.Chapter> chapters = new java.util.ArrayList<>();
                 for (int i = 0; i < chaptersArray.length(); i++) {
                     org.json.JSONObject chapterObj = chaptersArray.getJSONObject(i);
@@ -581,13 +671,10 @@ public class MobiParser {
                     if (restoredBaseUrl != null) {
                         chapter.setBaseUrl(restoredBaseUrl);
                     }
-
-                    // 关键修复：MOBI章节内容保存在JSON中
-                    String htmlContent = chapterObj.optString("htmlContent");
-                    if (htmlContent != null && !htmlContent.isEmpty()) {
-                        chapter.setHtmlContent(htmlContent);
-                        Log.d(TAG, "从缓存加载MOBI章节内容: " + chapter.getTitle() +
-                              ", html长度: " + htmlContent.length());
+                    if (chapterObj.has("htmlContent") && !chapterObj.optString("htmlContent").isEmpty()) {
+                        hadEmbeddedContent = true;
+                        // 仅在迁移旧缓存时临时保留，用于补齐磁盘章节文件，迁移后立即释放
+                        chapter.setHtmlContent(chapterObj.optString("htmlContent"));
                     }
 
                     chapters.add(chapter);
@@ -595,6 +682,15 @@ public class MobiParser {
                 book.setChapters(chapters);
                 // 关键修复：旧缓存章节可能未落盘，恢复时补齐落盘，保证缓存释放后可回退
                 saveChapterHtmlFiles(chapters, extractionDir);
+
+                // 迁移旧缓存：释放正文并重写为不含htmlContent的精简metadata.json
+                if (hadEmbeddedContent) {
+                    for (com.bilibili.tv.ebook.model.Chapter chapter : chapters) {
+                        chapter.setHtmlContent(null);
+                    }
+                    saveMetadataToCache(book, extractionDir);
+                    Log.i(TAG, "旧缓存包含章节正文，已补齐章节文件并重写为精简缓存");
+                }
             }
 
             Log.i(TAG, "缓存元数据加载成功: " + book.getTitle() + ", 章节数: " + book.getChapters().size());
@@ -634,7 +730,8 @@ public class MobiParser {
                     chapterObj.put("title", chapter.getTitle());
                     chapterObj.put("htmlFilePath", chapter.getHtmlFilePath());
                     chapterObj.put("depth", chapter.getDepth());
-                    chapterObj.put("htmlContent", chapter.getHtmlContent()); // 保存HTML内容
+                    // 性能优化：不再保存htmlContent（整本正文会让metadata.json体积翻倍，
+                    // 且每次打开都会把全书读进内存）。正文按htmlFilePath从磁盘懒加载
                     chaptersArray.put(chapterObj);
                 }
             }

@@ -38,16 +38,16 @@
     .locals 0
 
     .prologue
-    .line 65
+    .line 73
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 66
+    .line 74
     iput-object p1, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiTocEntry;->title:Ljava/lang/String;
 
-    .line 67
+    .line 75
     iput p2, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiTocEntry;->filePosition:I
 
-    .line 68
+    .line 76
     return-void
 .end method
 
@@ -57,7 +57,7 @@
     .locals 2
 
     .prologue
-    .line 80
+    .line 88
     iget v0, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiTocEntry;->filePosition:I
 
     iget v1, p1, Lcom/aryan/reader/epub/MobiParser$ParsedMobiTocEntry;->filePosition:I
@@ -73,7 +73,7 @@
     .locals 1
 
     .prologue
-    .line 61
+    .line 69
     check-cast p1, Lcom/aryan/reader/epub/MobiParser$ParsedMobiTocEntry;
 
     invoke-virtual {p0, p1}, Lcom/aryan/reader/epub/MobiParser$ParsedMobiTocEntry;->compareTo(Lcom/aryan/reader/epub/MobiParser$ParsedMobiTocEntry;)I
@@ -87,7 +87,7 @@
     .locals 1
 
     .prologue
-    .line 75
+    .line 83
     iget v0, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiTocEntry;->filePosition:I
 
     return v0
@@ -97,7 +97,7 @@
     .locals 1
 
     .prologue
-    .line 71
+    .line 79
     iget-object v0, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiTocEntry;->title:Ljava/lang/String;
 
     return-object v0

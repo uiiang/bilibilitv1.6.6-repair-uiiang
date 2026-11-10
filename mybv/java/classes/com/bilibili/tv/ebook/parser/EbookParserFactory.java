@@ -50,7 +50,9 @@ public class EbookParserFactory {
                 return epubParser.parse(filePath, bookId);
                 
             case "mobi":
+            case "azw":
             case "azw3":
+            case "prc":
                 Log.i(TAG, "使用MOBI解析器（JNI版本）");
                 return mobiParser.parse(filePath, bookId);
 
@@ -92,7 +94,9 @@ public class EbookParserFactory {
         switch (extension.toLowerCase()) {
             case "epub":
             case "mobi":
+            case "azw":
             case "azw3":
+            case "prc":
             case "txt":
                 return true;
             default:
