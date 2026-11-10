@@ -21,6 +21,7 @@ import com.bilibili.tv.ebook.parser.EbookParserFactory;
 import com.bilibili.tv.ebook.util.BookshelfManager;
 import com.bilibili.tv.ebook.util.EbookCacheManager;
 import com.bilibili.tv.ebook.util.EbookFileStore;
+import com.bilibili.tv.ebook.util.EbookUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -4327,8 +4328,8 @@ public class EbookReaderPanel {
             }
 
             if (chapterFile != null && chapterFile.exists()) {
-                // 使用Jsoup解析HTML文件
-                org.jsoup.nodes.Document doc = org.jsoup.Jsoup.parse(chapterFile, "UTF-8");
+                // 使用Jsoup解析HTML文件（自动探测编码，兼容GBK/GB2312等非UTF-8章节）
+                org.jsoup.nodes.Document doc = org.jsoup.Jsoup.parse(chapterFile, EbookUtils.detectFileEncoding(chapterFile));
                 String htmlContent = doc.outerHtml();
 
                 // 缓存到章节对象中，避免下次重新加载

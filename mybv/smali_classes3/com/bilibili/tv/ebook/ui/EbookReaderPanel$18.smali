@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 953
+    .line 954
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$18;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 956
+    .line 957
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$18;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$18;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -53,6 +53,6 @@
     # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->createChapterListView(Ljava/util/List;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1800(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Ljava/util/List;)V
 
-    .line 957
+    .line 958
     return-void
 .end method

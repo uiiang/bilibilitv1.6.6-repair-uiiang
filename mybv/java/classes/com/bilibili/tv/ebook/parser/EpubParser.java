@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.bilibili.tv.ebook.model.Book;
 import com.bilibili.tv.ebook.model.Chapter;
+import com.bilibili.tv.ebook.util.EbookUtils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -59,9 +60,16 @@ public class EpubParser {
             // 关键优化：尝试从缓存加载元数据
             Book cachedBook = loadMetadataFromCache(extractionDir);
             if (cachedBook != null) {
-                Log.i(TAG, "使用缓存的元数据，跳过HTML解析: " + cachedBook.getTitle() +
-                      ", 章节数: " + cachedBook.getChapters().size());
-                return cachedBook;
+                // 兼容修复：旧版本解析带命名空间前缀（如 <opf:manifest><opf:item>）的OPF时
+                // 会解析出0个章节并写入缓存，这里检测到空章节缓存时删除后重新解析，
+                // 避免修复后仍然提示"书籍内容为空"
+                if (cachedBook.getChapters() != null && !cachedBook.getChapters().isEmpty()) {
+                    Log.i(TAG, "使用缓存的元数据，跳过HTML解析: " + cachedBook.getTitle() +
+                          ", 章节数: " + cachedBook.getChapters().size());
+                    return cachedBook;
+                }
+                Log.w(TAG, "缓存中章节为空，删除缓存并重新解析: " + extractionDir.getAbsolutePath());
+                new File(extractionDir, "metadata.json").delete();
             }
 
             // 2. 查找OPF文件
@@ -237,12 +245,14 @@ public class EpubParser {
         File containerFile = new File(extractionDir, "META-INF/container.xml");
         
         if (containerFile.exists()) {
-            Document doc = Jsoup.parse(containerFile, "UTF-8");
-            Element rootfile = doc.selectFirst("rootfile");
+            Document doc = Jsoup.parse(containerFile, EbookUtils.detectFileEncoding(containerFile));
+            // 使用 *| 通配命名空间，兼容 <rootfile> 和 <ns:rootfile> 两种写法
+            Element rootfile = doc.selectFirst("*|rootfile");
             
             if (rootfile != null) {
                 String opfPath = rootfile.attr("full-path");
-                File opfFile = new File(extractionDir, opfPath);
+                // 兼容修复：full-path 可能是百分号编码，解码后再定位OPF
+                File opfFile = new File(extractionDir, decodeHrefPath(opfPath));
                 if (opfFile.exists()) {
                     Log.i(TAG, "找到OPF文件: " + opfPath);
                     return opfFile;
@@ -270,7 +280,8 @@ public class EpubParser {
      * 解析OPF文件
      */
     private Book parseOpf(File opfFile, File extractionDir) throws IOException {
-        Document doc = Jsoup.parse(opfFile, "UTF-8");
+        // 探测实际编码，兼容GBK/GB2312等非UTF-8的OPF文件
+        Document doc = Jsoup.parse(opfFile, EbookUtils.detectFileEncoding(opfFile));
 
         Book book = new Book();
 
@@ -302,7 +313,8 @@ public class EpubParser {
      */
     private void parseMetadata(Document doc, Book book) {
         // 调试：输出整个metadata部分的HTML结构
-        Element metadataElement = doc.selectFirst("metadata");
+        // 使用 *| 通配命名空间，兼容 <metadata> 和 <opf:metadata> 两种写法
+        Element metadataElement = doc.selectFirst("*|metadata");
         if (metadataElement != null) {
             Log.d(TAG, "找到metadata元素，内容:\n" + metadataElement.html());
         } else {
@@ -316,14 +328,10 @@ public class EpubParser {
         // 标题 - 尝试多种选择器（EPUB使用Dublin Core命名空间）
         Element titleElement = null;
 
-        // 方法1: 尝试Dublin Core命名空间选择器
-        titleElement = doc.selectFirst("metadata dc|title");
+        // 方法1: 通配命名空间，兼容 <metadata><dc:title> 和 <opf:metadata><dc:title> 等写法
+        titleElement = doc.selectFirst("*|metadata *|title");
         if (titleElement == null) {
-            // 方法2: 尝试无命名空间选择器
-            titleElement = doc.selectFirst("metadata title");
-        }
-        if (titleElement == null) {
-            // 方法3: 尝试全局Dublin Core选择器
+            // 方法2: 尝试全局Dublin Core选择器
             titleElement = doc.selectFirst("dc|title");
         }
         if (titleElement == null) {
@@ -361,14 +369,10 @@ public class EpubParser {
         // 作者 - 尝试多种选择器
         Element authorElement = null;
 
-        // 方法1: 尝试Dublin Core命名空间选择器
-        authorElement = doc.selectFirst("metadata dc|creator");
+        // 方法1: 通配命名空间，兼容 <metadata><dc:creator> 和 <opf:metadata><dc:creator> 等写法
+        authorElement = doc.selectFirst("*|metadata *|creator");
         if (authorElement == null) {
-            // 方法2: 尝试无命名空间选择器
-            authorElement = doc.selectFirst("metadata creator");
-        }
-        if (authorElement == null) {
-            // 方法3: 尝试全局Dublin Core选择器
+            // 方法2: 尝试全局Dublin Core选择器
             authorElement = doc.selectFirst("dc|creator");
         }
         if (authorElement == null) {
@@ -404,10 +408,7 @@ public class EpubParser {
         }
 
         // 语言
-        Element languageElement = doc.selectFirst("metadata dc|language");
-        if (languageElement == null) {
-            languageElement = doc.selectFirst("metadata language");
-        }
+        Element languageElement = doc.selectFirst("*|metadata *|language");
         if (languageElement == null) {
             languageElement = doc.selectFirst("dc|language");
         }
@@ -438,7 +439,9 @@ public class EpubParser {
      */
     private Map<String, ManifestItem> parseManifest(Document doc) {
         Map<String, ManifestItem> manifest = new HashMap<>();
-        Elements items = doc.select("manifest item");
+        // 使用 *| 通配命名空间，兼容 <manifest><item> 和 <opf:manifest><opf:item> 两种写法
+        // （EPUB4J 等工具生成的 OPF 会给所有标签加 opf: 前缀）
+        Elements items = doc.select("*|manifest *|item");
         
         for (Element item : items) {
             String id = item.attr("id");
@@ -457,7 +460,8 @@ public class EpubParser {
      */
     private List<String> parseSpine(Document doc, Map<String, ManifestItem> manifest) {
         List<String> spineOrder = new ArrayList<>();
-        Elements items = doc.select("spine itemref");
+        // 使用 *| 通配命名空间，兼容 <spine><itemref> 和 <opf:spine><opf:itemref> 两种写法
+        Elements items = doc.select("*|spine *|itemref");
 
         for (Element item : items) {
             String idref = item.attr("idref");
@@ -493,9 +497,11 @@ public class EpubParser {
 
             // 方法1: 从manifest中查找
             for (ManifestItem item : manifest.values()) {
+                String itemHref = item.getHref() != null ? item.getHref() : "";
                 if (item.getMediaType().contains("application/x-dtbncx+xml") ||
-                    item.getId().toLowerCase().contains("ncx")) {
-                    ncxFile = new File(baseDir, item.getHref());
+                    item.getId().toLowerCase().contains("ncx") ||
+                    itemHref.toLowerCase().endsWith(".ncx")) {
+                    ncxFile = new File(baseDir, decodeHrefPath(itemHref));
                     break;
                 }
             }
@@ -522,8 +528,10 @@ public class EpubParser {
             Log.i(TAG, "找到NCX文件: " + ncxFile.getAbsolutePath());
 
             // 关键修复：使用XML解析器，避免HTML解析器扁平化嵌套的navPoint
-            Document ncxDoc = Jsoup.parse(ncxFile, "UTF-8", "", new org.jsoup.parser.Parser(new org.jsoup.parser.XmlTreeBuilder()));
-            Element navMap = ncxDoc.selectFirst("navMap");
+            Document ncxDoc = Jsoup.parse(ncxFile, EbookUtils.detectFileEncoding(ncxFile), "",
+                    new org.jsoup.parser.Parser(new org.jsoup.parser.XmlTreeBuilder()));
+            // 使用 *| 通配命名空间，兼容 <navMap> 和 <ncx:navMap> 两种写法
+            Element navMap = ncxDoc.selectFirst("*|navMap");
 
             if (navMap != null) {
                 Log.i(TAG, "找到navMap元素，子元素数: " + navMap.children().size());
@@ -559,17 +567,26 @@ public class EpubParser {
 
         for (Element child : children) {
             // XML解析器保留原始大小写，但仍然使用equalsIgnoreCase以确保兼容性
-            if (!child.tagName().equalsIgnoreCase("navPoint")) {
+            // 使用本地名比较，兼容 <navPoint> 和 <ncx:navPoint> 两种写法
+            if (!localNameOf(child).equalsIgnoreCase("navPoint")) {
                 continue;
             }
 
-            // 获取章节标题（navLabel下的text元素）
-            Element navLabel = child.selectFirst("navLabel text");
-            String title = navLabel != null ? navLabel.text() : "未知章节";
-
-            // 获取章节路径
-            Element content = child.selectFirst("content");
-            String src = content != null ? content.attr("src") : "";
+            // 获取章节标题（navLabel下的text元素）和章节路径
+            // 遍历子元素取本地名，兼容带命名空间前缀的NCX
+            String title = "未知章节";
+            String src = "";
+            for (Element navChild : child.children()) {
+                String childName = localNameOf(navChild);
+                if (childName.equalsIgnoreCase("navLabel")) {
+                    String labelText = navChild.text().trim();
+                    if (!labelText.isEmpty()) {
+                        title = labelText;
+                    }
+                } else if (childName.equalsIgnoreCase("content")) {
+                    src = navChild.attr("src");
+                }
+            }
 
             Log.d(TAG, "解析navPoint: id=" + child.attr("id") + 
                   ", title=" + title + ", src=" + src + ", depth=" + depth);
@@ -613,6 +630,8 @@ public class EpubParser {
 
                 // 规范化路径分隔符（使用/）
                 normalizedPath = normalizedPath.replace("\\", "/");
+                // 兼容修复：解码百分号编码，保证与manifest href解码后的路径一致
+                normalizedPath = decodeHrefPath(normalizedPath);
 
                 // 避免重复添加同一个路径（参考episteme的实现）
                 if (!result.depthMap.containsKey(normalizedPath)) {
@@ -642,7 +661,7 @@ public class EpubParser {
 
         for (String itemId : spineOrder) {
             ManifestItem item = manifest.get(itemId);
-            if (item != null && item.getMediaType().contains("html")) {
+            if (item != null && isHtmlItem(item)) {
                 try {
                     Chapter chapter = parseChapter(item, chapterIndex, baseDir, ncxResult);
                     chapters.add(chapter);
@@ -667,16 +686,20 @@ public class EpubParser {
     private Chapter parseChapter(ManifestItem item, int index, File baseDir,
                                   NcxParseResult ncxResult)
             throws IOException {
-        File chapterFile = new File(baseDir, item.getHref());
         String href = item.getHref();
+        // 兼容修复：OPF中的href可能是百分号编码（如 chapter%201.xhtml），
+        // 解码后才能定位到解压后的真实文件名
+        String filePath = decodeHrefPath(href);
+        File chapterFile = new File(baseDir, filePath);
         Log.i(TAG, "解析章节文件: " + chapterFile.getAbsolutePath() + " (href=" + href + ")");
 
-        Document doc = Jsoup.parse(chapterFile, "UTF-8");
+        // 探测实际编码，兼容GBK/GB2312等非UTF-8的章节文件
+        Document doc = Jsoup.parse(chapterFile, EbookUtils.detectFileEncoding(chapterFile));
 
         Chapter chapter = new Chapter();
         chapter.setChapterId(item.getId());
         chapter.setChapterIndex(index);
-        chapter.setHtmlFilePath(href);
+        chapter.setHtmlFilePath(filePath);
         chapter.setHtmlContent(doc.outerHtml());
         chapter.setPlainTextContent(doc.text());
 
@@ -692,7 +715,11 @@ public class EpubParser {
         // 关键修复：优先从NCX的titleMap中提取标题
         String title = null;
         if (ncxResult != null && ncxResult.titleMap != null) {
-            title = ncxResult.titleMap.get(href);
+            // NCX中的路径已统一解码，优先用解码后的路径匹配，兼容历史原始href
+            title = ncxResult.titleMap.get(filePath);
+            if (title == null) {
+                title = ncxResult.titleMap.get(href);
+            }
             if (title != null) {
                 Log.i(TAG, "从NCX获取标题: " + title + ", href=" + href);
             } else {
@@ -721,7 +748,10 @@ public class EpubParser {
         // 设置章节层级深度（从NCX depthMap中查找）
         int depth = 0; // 默认为0级（顶级）
         if (ncxResult != null && ncxResult.depthMap != null) {
-            Integer depthValue = ncxResult.depthMap.get(href);
+            Integer depthValue = ncxResult.depthMap.get(filePath);
+            if (depthValue == null) {
+                depthValue = ncxResult.depthMap.get(href);
+            }
             if (depthValue != null) {
                 depth = depthValue;
                 Log.i(TAG, "从NCX获取depth: " + depth + ", href=" + href);
@@ -810,8 +840,9 @@ public class EpubParser {
                     chapter.setChapterId(chapterObj.optString("chapterId"));
                     chapter.setChapterIndex(chapterObj.optInt("chapterIndex"));
                     chapter.setTitle(chapterObj.optString("title"));
-                    chapter.setHtmlFilePath(chapterObj.optString("htmlFilePath"));
-                    chapter.setBaseUrl(chapterObj.optString("baseUrl"));
+                    // 兼容旧缓存：历史版本可能保存了百分号编码的路径，读取时统一解码
+                    chapter.setHtmlFilePath(decodeHrefPath(chapterObj.optString("htmlFilePath")));
+                    chapter.setBaseUrl(decodeHrefPath(chapterObj.optString("baseUrl")));
                     chapter.setDepth(chapterObj.optInt("depth"));
 
                     // 性能优化：延迟加载章节内容
@@ -929,6 +960,82 @@ public class EpubParser {
         }
 
         return null;
+    }
+
+    /**
+     * 获取元素标签的本地名（去掉命名空间前缀，如 opf:item -> item）
+     * 用于兼容带命名空间前缀的XML文档
+     */
+    private static String localNameOf(Element element) {
+        String tagName = element.tagName();
+        int colonIndex = tagName.indexOf(':');
+        return colonIndex >= 0 ? tagName.substring(colonIndex + 1) : tagName;
+    }
+
+    /**
+     * 解码href中的百分号编码（如 chapter%201.xhtml -> chapter 1.xhtml）
+     * 注意：不处理 '+'，因为路径中的 '+' 是普通字符而不是空格
+     */
+    private static String decodeHrefPath(String href) {
+        if (href == null || href.indexOf('%') < 0) {
+            return href;
+        }
+
+        StringBuilder result = new StringBuilder(href.length());
+        java.io.ByteArrayOutputStream bytes = new java.io.ByteArrayOutputStream();
+        int i = 0;
+        while (i < href.length()) {
+            char c = href.charAt(i);
+            if (c == '%' && i + 2 < href.length()
+                    && isHexDigit(href.charAt(i + 1)) && isHexDigit(href.charAt(i + 2))) {
+                bytes.write(Integer.parseInt(href.substring(i + 1, i + 3), 16));
+                i += 3;
+            } else {
+                flushDecodedBytes(bytes, result);
+                result.append(c);
+                i++;
+            }
+        }
+        flushDecodedBytes(bytes, result);
+        return result.toString();
+    }
+
+    private static void flushDecodedBytes(java.io.ByteArrayOutputStream bytes, StringBuilder out) {
+        if (bytes.size() == 0) {
+            return;
+        }
+        try {
+            out.append(new String(bytes.toByteArray(), "UTF-8"));
+        } catch (java.io.UnsupportedEncodingException e) {
+            // UTF-8 一定可用，这里不会发生
+        }
+        bytes.reset();
+    }
+
+    private static boolean isHexDigit(char c) {
+        return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
+    }
+
+    /**
+     * 判断manifest项是否为HTML章节
+     * 正常情况按 media-type 判断；部分不规范EPUB缺失 media-type 时按扩展名兜底
+     */
+    private static boolean isHtmlItem(ManifestItem item) {
+        String mediaType = item.getMediaType();
+        if (mediaType != null && mediaType.toLowerCase().contains("html")) {
+            return true;
+        }
+        String href = item.getHref();
+        if (href != null) {
+            String lower = href.toLowerCase();
+            int queryIndex = lower.indexOf('?');
+            if (queryIndex >= 0) {
+                lower = lower.substring(0, queryIndex);
+            }
+            return lower.endsWith(".xhtml") || lower.endsWith(".xht")
+                    || lower.endsWith(".html") || lower.endsWith(".htm");
+        }
+        return false;
     }
 
     /**

@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 733
+    .line 734
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$13;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -42,27 +42,17 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 736
+    .line 737
     invoke-virtual {p3}, Landroid/view/KeyEvent;->getAction()I
 
     move-result v1
 
     if-nez v1, :cond_3b
 
-    .line 737
+    .line 738
     const/16 v1, 0x15
 
     if-ne p2, v1, :cond_1d
-
-    .line 738
-    iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$13;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
-
-    # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->organizeSelectAllButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
-    invoke-static {v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$800(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    move-result-object v1
-
-    if-eqz v1, :cond_1d
 
     .line 739
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$13;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -72,13 +62,23 @@
 
     move-result-object v1
 
+    if-eqz v1, :cond_1d
+
+    .line 740
+    iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$13;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+
+    # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->organizeSelectAllButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+    invoke-static {v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$800(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    move-result-object v1
+
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->requestFocus()Z
 
-    .line 752
+    .line 753
     :goto_1c
     return v0
 
-    .line 743
+    .line 744
     :cond_1d
     const/16 v1, 0x16
 
@@ -92,7 +92,7 @@
 
     if-ne p2, v1, :cond_3b
 
-    .line 746
+    .line 747
     :cond_29
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$13;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
@@ -103,7 +103,7 @@
 
     if-eqz v1, :cond_3b
 
-    .line 747
+    .line 748
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$13;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->organizeListView:Landroid/widget/ListView;
@@ -115,7 +115,7 @@
 
     goto :goto_1c
 
-    .line 752
+    .line 753
     :cond_3b
     const/4 v0, 0x0
 

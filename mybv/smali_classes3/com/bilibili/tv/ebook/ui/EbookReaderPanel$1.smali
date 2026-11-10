@@ -33,7 +33,7 @@
     .locals 0
 
     .prologue
-    .line 69
+    .line 70
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$1;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0, p2, p3, p4}, Ljava/util/LinkedHashMap;-><init>(IFZ)V
@@ -57,7 +57,7 @@
     .end annotation
 
     .prologue
-    .line 73
+    .line 74
     invoke-virtual {p0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$1;->size()I
 
     move-result v0

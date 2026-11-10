@@ -16,6 +16,80 @@ import java.security.NoSuchAlgorithmException;
  */
 public class EbookUtils {
     private static final String TAG = "EbookUtils";
+
+    /** XML声明中的 encoding="xxx" */
+    private static final java.util.regex.Pattern XML_ENCODING_PATTERN =
+            java.util.regex.Pattern.compile("(?i)encoding\\s*=\\s*[\"']([A-Za-z0-9_\\-\\.]+)[\"']");
+    /** HTML meta 中的 charset=xxx */
+    private static final java.util.regex.Pattern HTML_CHARSET_PATTERN =
+            java.util.regex.Pattern.compile("(?i)charset\\s*=\\s*[\"']?([A-Za-z0-9_\\-\\.]+)");
+
+    /**
+     * 探测EPUB内XML/HTML文件的字符编码
+     * 依次检查：BOM、XML声明 encoding、meta charset，无法识别时按UTF-8处理
+     * 用于兼容 GBK/GB2312 等非UTF-8编码的中文EPUB
+     */
+    public static String detectFileEncoding(File file) {
+        if (file == null || !file.exists()) {
+            return "UTF-8";
+        }
+
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(file);
+            byte[] buffer = new byte[4096];
+            int len = fis.read(buffer);
+            if (len <= 0) {
+                return "UTF-8";
+            }
+
+            // 1. BOM
+            if (len >= 3 && (buffer[0] & 0xFF) == 0xEF && (buffer[1] & 0xFF) == 0xBB && (buffer[2] & 0xFF) == 0xBF) {
+                return "UTF-8";
+            }
+            if (len >= 2 && (buffer[0] & 0xFF) == 0xFF && (buffer[1] & 0xFF) == 0xFE) {
+                return "UTF-16LE";
+            }
+            if (len >= 2 && (buffer[0] & 0xFF) == 0xFE && (buffer[1] & 0xFF) == 0xFF) {
+                return "UTF-16BE";
+            }
+
+            // 2. XML声明 / meta charset（头部按ISO-8859-1读取，避免用错误编码解码声明本身）
+            String head = new String(buffer, 0, len, "ISO-8859-1");
+            String encoding = matchGroup(head, XML_ENCODING_PATTERN);
+            if (encoding == null) {
+                encoding = matchGroup(head, HTML_CHARSET_PATTERN);
+            }
+            if (encoding != null && isSupportedCharset(encoding)) {
+                return encoding;
+            }
+        } catch (Exception e) {
+            Log.w(TAG, "探测文件编码失败: " + file.getAbsolutePath(), e);
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    Log.e(TAG, "关闭文件输入流失败", e);
+                }
+            }
+        }
+
+        return "UTF-8";
+    }
+
+    private static String matchGroup(String text, java.util.regex.Pattern pattern) {
+        java.util.regex.Matcher matcher = pattern.matcher(text);
+        return matcher.find() ? matcher.group(1) : null;
+    }
+
+    private static boolean isSupportedCharset(String name) {
+        try {
+            return java.nio.charset.Charset.isSupported(name);
+        } catch (Exception e) {
+            return false;
+        }
+    }
     
     /**
      * 生成文件哈希值（MD5）

@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 726
+    .line 727
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$12;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,12 +40,12 @@
     .locals 1
 
     .prologue
-    .line 729
+    .line 730
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$12;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->showOrganizeDeleteDialog()V
     invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1100(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
 
-    .line 730
+    .line 731
     return-void
 .end method
