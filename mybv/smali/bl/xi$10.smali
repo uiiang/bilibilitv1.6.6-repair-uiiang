@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1744
+    .line 1899
     iput-object p1, p0, Lbl/xi$10;->this$0:Lbl/xi;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,11 +40,11 @@
     .locals 1
 
     .prologue
-    .line 1747
+    .line 1902
     iget-object v0, p0, Lbl/xi$10;->this$0:Lbl/xi;
 
     invoke-virtual {v0}, Lbl/xi;->M()V
 
-    .line 1748
+    .line 1903
     return-void
 .end method

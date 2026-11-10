@@ -633,7 +633,12 @@ public abstract class wy extends wx implements TextureView.SurfaceTextureListene
                         wm.f();
                         break;
                     case -1:
-                        wm.h();
+                        // 原来是 wm.h()：会走到 wy.g() -> wm.d()，直接 reset+release 播放器。
+                        // 按 HOME 回桌面 / 切换 HDMI 时系统会收回音频焦点，导致直播被彻底销毁，
+                        // 返回 App 时播放器已为 null，只能停在 loading 封面。
+                        // 改为仅暂停，返回前台由 LivePlayerActivity.onResume -> f() 继续播放。
+                        android.util.Log.i("wy", "[AUDIO_FOCUS] AUDIOFOCUS_LOSS, pause instead of release");
+                        wm.f();
                         break;
                 }
             }

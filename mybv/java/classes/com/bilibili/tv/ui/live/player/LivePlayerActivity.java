@@ -63,6 +63,8 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
     private int playUrlRetryCount = 0;
     private boolean playUrlRetryRunning = false;
     private volatile boolean activityDestroyed = false;
+    // 进入后台时播放器已被释放，回到前台需要在 onResume 重建直播播放
+    private boolean needRestartOnResume = false;
 
     public static LivePlayerActivity _this = null;
     public static List<BiliLiveContent> lives = null;
@@ -658,6 +660,12 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
     @Override // com.bilibili.tv.ui.base.BaseActivity, android.support.v4.app.FragmentActivity, android.app.Activity
     public void onResume() {
         super.onResume();
+        if (this.needRestartOnResume) {
+            // 播放器已在 onStop 中释放，这里用原地址重建并继续播放直播
+            this.needRestartOnResume = false;
+            restartLivePlayback();
+            return;
+        }
         android.util.Log.i(TAG, "[LIVE_LIFECYCLE] onResume, calling g.f() to resume player");
         this.g.f();
     }
@@ -669,6 +677,47 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
         android.util.Log.i(TAG, "[LIVE_LIFECYCLE] onPause, calling g.e() to pause player");
         this.g.e();
     }
+
+    /* JADX INFO: Access modifiers changed from: protected */
+    @Override // android.support.v4.app.FragmentActivity, android.app.Activity
+    public void onStop() {
+        super.onStop();
+        // 进入后台（按 HOME / 切 HDMI）：
+        // 平台（TCL Smooth_Play）会在应用进入后台约 5 秒后强制回收后台应用的视频解码器，
+        // 日志表现为 ACodec ERROR(0x80001013) + Secure/native window 回帧失败 + 4003 播放错误，
+        // 此时仅暂停或摘掉 Surface 都保不住解码器（实测直播 AVC 仍被杀）。
+        // 因此这里主动释放播放器，回到前台时用原地址重建，保证画面能恢复。
+        android.util.Log.i(TAG, "[LIVE_LIFECYCLE] onStop, release player before background codec reclaim");
+        if (this.g != null) {
+            this.needRestartOnResume = true;
+            wm.a().d();
+        }
+    }
+
+    /* JADX INFO: Access modifiers changed from: protected */
+    @Override // android.support.v4.app.FragmentActivity, android.app.Activity
+    public void onStart() {
+        super.onStart();
+        android.util.Log.i(TAG, "[LIVE_LIFECYCLE] onStart");
+    }
+
+    /**
+     * 后台返回后重建直播播放：复用启动时的播放接口（原地址 + 标题 + 房间号）。
+     */
+    private void restartLivePlayback() {
+        if (this.g == null || TextUtils.isEmpty(this.b)) {
+            return;
+        }
+        Log.i(TAG, "[LIVE_RESTART] restart live playback, url=" + this.b.substring(0, Math.min(60, this.b.length()))
+                + ", room=" + this.d);
+        try {
+            this.g.a(this.b, this.c, Integer.valueOf(this.d));
+            this.g.m();
+        } catch (Exception e) {
+            Log.e(TAG, "[LIVE_RESTART] restart failed: " + e);
+        }
+    }
+
 
     /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.bilibili.tv.ui.base.BaseActivity, android.support.v7.app.AppCompatActivity, android.support.v4.app.FragmentActivity, android.app.Activity

@@ -318,6 +318,11 @@ public class xk extends xh implements bbb<Message, Boolean> {
     }
 
     protected void R() {
+        if (this.c == null) {
+            // 兜底：后台返回后播放器被系统重建时，g() 里“正在播放才赋值”的分支可能没走到，
+            // 这里补一次，保证换集/重建时弹幕引擎能正常重新挂载
+            this.c = n();
+        }
         if (this.c != null) {
             this.c.releaseDanmakuPlayer();
             U();

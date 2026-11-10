@@ -42,7 +42,7 @@
 
 # virtual methods
 .method public onAudioFocusChange(I)V
-    .locals 1
+    .locals 2
 
     .prologue
     .line 630
@@ -51,9 +51,9 @@
     if-eq p1, v0, :cond_6
 
     .line 631
-    packed-switch p1, :pswitch_data_10
+    packed-switch p1, :pswitch_data_16
 
-    .line 640
+    .line 645
     :cond_6
     :goto_6
     return-void
@@ -64,16 +64,21 @@
 
     goto :goto_6
 
-    .line 636
+    .line 640
     :pswitch_b
-    invoke-static {}, Lbl/wm;->h()V
+    const-string v0, "wy"
+
+    const-string v1, "[AUDIO_FOCUS] AUDIOFOCUS_LOSS, pause instead of release"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 641
+    invoke-static {}, Lbl/wm;->f()V
 
     goto :goto_6
 
     .line 631
-    nop
-
-    :pswitch_data_10
+    :pswitch_data_16
     .packed-switch -0x2
         :pswitch_7
         :pswitch_b

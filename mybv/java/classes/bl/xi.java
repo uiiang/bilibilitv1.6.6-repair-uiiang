@@ -76,6 +76,18 @@ public class xi extends xh implements bbb<Message, Boolean> {
     private boolean isSliding = false;
     private boolean isLongPress = false;
     private boolean r = false;
+    // ===== 后台（按 HOME / 切 HDMI）播放保持 =====
+    // 原因：窗口不可见后系统会销毁本应用的 Surface，若 MediaCodec 仍持有该 Surface，
+    // 解码器会报 OMX 0x80001013 并触发 4003 播放错误，返回 App 时只剩黑屏。
+    // 这里在 onStop 前把播放器输出切到占位 Surface，播放器实例/进度/缓冲都保留，
+    // 返回时再挂回原 Surface，实现“原地继续/原地暂停”。
+    private android.view.Surface bgVideoSurface;   // 进入后台前的视频输出 Surface
+    private boolean bgSurfaceDetached = false;     // 是否已释放视频输出 Surface
+    private boolean bgWasPlaying = false;          // 进入后台前是否正在播放
+    private int bgPosition = 0;                    // 进入后台前的播放位置（毫秒）
+    private IMediaPlayer bgMediaPlayer;            // 进入后台时的播放器实例（用于判断是否被系统回收后重建）
+    private boolean bgNeedResync = false;          // 从后台返回后需要重新挂载弹幕/电子书布局
+    private static final String TAG_BG = "PlayerBackground";
     private boolean s = false;
     private VideoShot videoShot;
     private long currentAid;
@@ -425,9 +437,142 @@ public class xi extends xh implements bbb<Message, Boolean> {
     @Override // bl.xh
     public void f() {
         super.f();
-        if (J() && this.r) {
+        // 进入后台前处于播放状态时，即使恢复 Surface 后播放器状态不是严格的“暂停”(4)，
+        // 也继续从原位置播放；进入后台前是暂停则保持暂停。
+        if (this.r && (J() || this.bgWasPlaying)) {
             F();
         }
+        // 一次性标志：恢复播放后立刻清除，避免之后用户手动暂停再返回时被误恢复
+        this.r = false;
+        // 从后台返回：弹幕引擎在后台被暂停/停止后，时间轴与画面会错位导致弹幕不再显示，
+        // 需要像换集一样重新挂载（播放器已被系统回收时由 onPrepared 的重建分支处理）。
+        if (this.bgNeedResync) {
+            this.bgNeedResync = false;
+            if (isBackgroundPlayerAlive()) {
+                Log.i(TAG_BG, "[ONRESUME] 回到前台，重新挂载弹幕与电子书布局, playing=" + this.bgWasPlaying);
+                a(IEventCenter.EventType.SWITCH_EPISODE, new Object[0]);
+                if (!this.bgWasPlaying && this.d != null) {
+                    // 视频保持暂停时弹幕也保持暂停，避免弹幕单独滚动
+                    this.d.pauseDanmakuPlayer();
+                }
+            } else {
+                Log.i(TAG_BG, "[ONRESUME] 播放器已被系统回收，等待 onPrepared 重建后再重新挂载");
+            }
+        }
+    }
+
+    /**
+     * 进入后台时的播放器实例是否仍然存活（未被系统回收）。
+     */
+    private boolean isBackgroundPlayerAlive() {
+        if (this.bgMediaPlayer == null || this.d == null) {
+            return false;
+        }
+        IVideoView videoView = this.d.getIVideoView();
+        IMediaPlayer mediaPlayer = videoView != null ? videoView.getMediaPlayer() : null;
+        return mediaPlayer != null && mediaPlayer == this.bgMediaPlayer;
+    }
+
+    /**
+     * Activity onStart（回到前台）：先把视频输出 Surface 挂回播放器，再由 onResume 恢复播放。
+     */
+    @Override // bl.xh
+    public void g() {
+        super.g();
+        restoreSurfaceAfterBackground();
+    }
+
+    /**
+     * Activity onStop（进入后台）：在系统销毁窗口 Surface 之前释放播放器的输出 Surface。
+     */
+    @Override // bl.xh
+    public void h() {
+        detachSurfaceForBackground();
+        super.h();
+    }
+
+    /**
+     * 进入后台前释放视频输出 Surface。
+     * 只切换输出目标，不释放播放器：播放位置、缓冲数据、URL 刷新状态全部保留。
+     */
+    private void detachSurfaceForBackground() {
+        if (this.d == null || this.bgSurfaceDetached) {
+            return;
+        }
+        try {
+            IVideoView videoView = this.d.getIVideoView();
+            if (videoView == null) {
+                return;
+            }
+            IMediaPlayer mediaPlayer = videoView.getMediaPlayer();
+            if (mediaPlayer == null) {
+                return;
+            }
+            this.bgPosition = this.d.getCurrentPosition();
+            this.bgWasPlaying = this.r || this.d.isPlaying();
+            this.bgMediaPlayer = mediaPlayer;
+            this.bgVideoSurface = obtainVideoSurface(videoView);
+            mediaPlayer.setSurface(null);
+            this.bgSurfaceDetached = true;
+            Log.i(TAG_BG, "[ONSTOP] 释放视频输出Surface, pos=" + this.bgPosition
+                    + ", wasPlaying=" + this.bgWasPlaying + ", surface=" + this.bgVideoSurface);
+        } catch (Exception e) {
+            Log.e(TAG_BG, "[ONSTOP] 释放视频输出Surface失败: " + e);
+        }
+    }
+
+    /**
+     * 回到前台后把视频输出 Surface 挂回播放器。
+     * 若进入后台前处于暂停状态，则 seek 回原位置以重绘当前帧（切换输出目标后画面需要重绘）。
+     */
+    private void restoreSurfaceAfterBackground() {
+        if (!this.bgSurfaceDetached) {
+            return;
+        }
+        this.bgSurfaceDetached = false;
+        // 标记回到前台后需要重新挂载弹幕/电子书布局（onResume 或 onPrepared 中执行）
+        this.bgNeedResync = true;
+        try {
+            if (this.d == null) {
+                return;
+            }
+            IVideoView videoView = this.d.getIVideoView();
+            IMediaPlayer mediaPlayer = videoView != null ? videoView.getMediaPlayer() : null;
+            if (mediaPlayer == null) {
+                return;
+            }
+            android.view.Surface surface = obtainVideoSurface(videoView);
+            if (surface == null || !surface.isValid()) {
+                surface = this.bgVideoSurface;
+            }
+            if (surface != null && surface.isValid()) {
+                mediaPlayer.setSurface(surface);
+                this.bgVideoSurface = surface;
+            }
+            if (!this.bgWasPlaying && this.bgPosition > 0) {
+                this.d.seekTo(this.bgPosition);
+            }
+            Log.i(TAG_BG, "[ONSTART] 恢复视频输出Surface, pos=" + this.bgPosition
+                    + ", wasPlaying=" + this.bgWasPlaying + ", surface=" + surface);
+        } catch (Exception e) {
+            Log.e(TAG_BG, "[ONSTART] 恢复视频输出Surface失败: " + e);
+        }
+    }
+
+    /**
+     * 取当前视频视图的渲染 Surface（TextureView / SurfaceView 两种渲染方式）。
+     */
+    private static android.view.Surface obtainVideoSurface(IVideoView videoView) {
+        View view = videoView.getView();
+        if (view instanceof android.view.TextureView) {
+            android.graphics.SurfaceTexture surfaceTexture = ((android.view.TextureView) view).getSurfaceTexture();
+            if (surfaceTexture != null) {
+                return new android.view.Surface(surfaceTexture);
+            }
+        } else if (view instanceof android.view.SurfaceView) {
+            return ((android.view.SurfaceView) view).getHolder().getSurface();
+        }
+        return null;
     }
 
     @Override // bl.xh
@@ -831,11 +976,6 @@ public class xi extends xh implements bbb<Message, Boolean> {
     @Override // bl.xh
     public IPlayerContext n() {
         return this.d;
-    }
-
-    @Override // bl.xh
-    public void h() {
-        super.h();
     }
 
     @Override // bl.xh
@@ -1287,6 +1427,21 @@ public class xi extends xh implements bbb<Message, Boolean> {
         
         if (n() != null) {
             F();
+        }
+        // 后台（按 HOME / 切 HDMI）期间，平台会强制回收后台应用的视频解码器，
+        // 播放器被销毁后由框架重新创建（实例已变）。此时弹幕引擎和电子书缩小布局
+        // 仍绑定在旧播放器/旧视频视图上：弹幕时间与画面错位后不再显示，
+        // 电子书模式下新视频视图也会恢复成全屏。这里按“换集”处理，重新挂载这两块状态。
+        if (this.bgMediaPlayer != null && iMediaPlayer != this.bgMediaPlayer) {
+            this.bgMediaPlayer = null;
+            Log.i(TAG_BG, "[ONPREPARED] 播放器已在后台被系统回收并重建，重新挂载弹幕与电子书布局, wasPlaying="
+                    + this.bgWasPlaying);
+            a(IEventCenter.EventType.SWITCH_EPISODE, new Object[0]);
+            if (!this.bgWasPlaying) {
+                // 进入后台前是暂停状态：重建后保持暂停
+                B();
+            }
+            this.bgWasPlaying = false;
         }
         if (this.k.a()) {
             this.k.c();

@@ -597,13 +597,11 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a, 
 
     @Override // bl.xh
     public void h() {
-        Log.i(TAG_EBOOK, "xw.h: 链销毁回调（Activity停止/退出），回收电子书资源");
-
-        // 委托 EbookReaderPanel 统一回收电子书资源
-        if (ebookReaderPanel != null) {
-            ebookReaderPanel.onDestroy();
-            ebookReaderPanel = null;
-        }
+        // 这里原来会销毁电子书面板，导致按 HOME 回到桌面 / 切换 HDMI 后再返回 App 时，
+        // 电子书被强制关闭、阅读进度与当前页面全部丢失。
+        // 现改为：进入后台只保留面板（资源回收统一延迟到 Activity 真正销毁时的 d()），
+        // 返回前台时仍停留在原来的书籍与阅读位置。
+        Log.i(TAG_EBOOK, "xw.h: Activity停止（进入后台），保留电子书面板与阅读状态，延迟到 onDestroy 回收");
 
         super.h(); // 传播到链下游
     }

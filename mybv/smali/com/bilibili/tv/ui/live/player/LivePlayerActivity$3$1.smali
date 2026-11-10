@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 420
+    .line 422
     iput-object p1, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3$1;->this$1:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 5
 
     .prologue
-    .line 423
+    .line 425
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3$1;->this$1:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
@@ -65,7 +65,7 @@
 
     move-result v0
 
-    .line 424
+    .line 426
     :goto_16
     iget-object v1, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3$1;->this$1:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;
 
@@ -106,7 +106,7 @@
 
     move-result v1
 
-    .line 425
+    .line 427
     :goto_3a
     const-string v2, "LivePlayerActivity"
 
@@ -140,7 +140,7 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 426
+    .line 428
     iget-object v2, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3$1;->this$1:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;
 
     iget-object v2, v2, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
@@ -156,16 +156,16 @@
 
     invoke-virtual {v2, v3}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
-    .line 438
+    .line 440
     return-void
 
-    .line 423
+    .line 425
     :cond_6d
     const/4 v0, -0x1
 
     goto :goto_16
 
-    .line 424
+    .line 426
     :cond_6f
     const/4 v1, 0x0
 

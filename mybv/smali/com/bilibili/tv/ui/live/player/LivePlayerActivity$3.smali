@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 401
+    .line 403
     iput-object p1, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -42,7 +42,7 @@
     .prologue
     const/4 v3, 0x3
 
-    .line 404
+    .line 406
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     # getter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->activityDestroyed:Z
@@ -52,18 +52,18 @@
 
     if-eqz v0, :cond_11
 
-    .line 405
+    .line 407
     const-string v0, "LivePlayerActivity"
 
     const-string v1, "retryPlayUrl: Activity \u5df2\u9500\u6bc1, \u5ffd\u7565\u672c\u6b21\u8bf7\u6c42"
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 440
+    .line 442
     :goto_10
     return-void
 
-    .line 408
+    .line 410
     :cond_11
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
@@ -74,7 +74,7 @@
 
     if-eqz v0, :cond_21
 
-    .line 409
+    .line 411
     const-string v0, "LivePlayerActivity"
 
     const-string v1, "retryPlayUrl: \u4e0a\u4e00\u6b21\u91cd\u8bd5\u4ecd\u5728\u8fdb\u884c\u4e2d, \u5ffd\u7565\u672c\u6b21\u8bf7\u6c42"
@@ -83,7 +83,7 @@
 
     goto :goto_10
 
-    .line 412
+    .line 414
     :cond_21
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
@@ -94,7 +94,7 @@
 
     if-lt v0, v3, :cond_5f
 
-    .line 413
+    .line 415
     const-string v0, "LivePlayerActivity"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -140,7 +140,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 414
+    .line 416
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     const-string v1, "\u76f4\u64ad\u6d41\u83b7\u53d6\u5931\u8d25\uff0c\u8bf7\u7a0d\u540e\u91cd\u8bd5"
@@ -149,14 +149,14 @@
 
     goto :goto_10
 
-    .line 417
+    .line 419
     :cond_5f
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     # operator++ for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->playUrlRetryCount:I
     invoke-static {v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$208(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)I
 
-    .line 418
+    .line 420
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     const/4 v1, 0x1
@@ -164,7 +164,7 @@
     # setter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->playUrlRetryRunning:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$1002(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;Z)Z
 
-    .line 419
+    .line 421
     const-string v0, "LivePlayerActivity"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -221,7 +221,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 420
+    .line 422
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     # getter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->cdnExecutor:Ljava/util/concurrent/ExecutorService;

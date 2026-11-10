@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 712
+    .line 710
     iput-object p1, p0, Lbl/xw$4;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 1
 
     .prologue
-    .line 735
+    .line 733
     iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -50,7 +50,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->closeCurrentBook()V
 
-    .line 736
+    .line 734
     return-void
 .end method
 
@@ -58,7 +58,7 @@
     .locals 1
 
     .prologue
-    .line 720
+    .line 718
     iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -68,7 +68,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->openEbookFileChooser()V
 
-    .line 721
+    .line 719
     return-void
 .end method
 
@@ -76,7 +76,7 @@
     .locals 1
 
     .prologue
-    .line 715
+    .line 713
     iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -86,7 +86,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->openEbookReader()V
 
-    .line 716
+    .line 714
     return-void
 .end method
 
@@ -94,7 +94,7 @@
     .locals 1
 
     .prologue
-    .line 730
+    .line 728
     iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -104,7 +104,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->organizeBookshelf()V
 
-    .line 731
+    .line 729
     return-void
 .end method
 
@@ -112,7 +112,7 @@
     .locals 1
 
     .prologue
-    .line 750
+    .line 748
     iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -122,7 +122,7 @@
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->setEbookColorTheme(I)V
 
-    .line 751
+    .line 749
     return-void
 .end method
 
@@ -130,7 +130,7 @@
     .locals 1
 
     .prologue
-    .line 745
+    .line 743
     iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -140,7 +140,7 @@
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->setEbookFontSize(F)V
 
-    .line 746
+    .line 744
     return-void
 .end method
 
@@ -148,7 +148,7 @@
     .locals 1
 
     .prologue
-    .line 755
+    .line 753
     iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -158,7 +158,7 @@
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->setEbookPercent(I)V
 
-    .line 756
+    .line 754
     return-void
 .end method
 
@@ -166,7 +166,7 @@
     .locals 1
 
     .prologue
-    .line 760
+    .line 758
     iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -176,7 +176,7 @@
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->setVideoPosition(I)V
 
-    .line 761
+    .line 759
     return-void
 .end method
 
@@ -184,7 +184,7 @@
     .locals 1
 
     .prologue
-    .line 725
+    .line 723
     iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -194,7 +194,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->showChapterList()V
 
-    .line 726
+    .line 724
     return-void
 .end method
 
@@ -202,7 +202,7 @@
     .locals 1
 
     .prologue
-    .line 740
+    .line 738
     iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -212,6 +212,6 @@
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->switchControlTarget(Ljava/lang/String;)V
 
-    .line 741
+    .line 739
     return-void
 .end method

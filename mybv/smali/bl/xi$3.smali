@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 136
+    .line 148
     iput-object p1, p0, Lbl/xi$3;->this$0:Lbl/xi;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 1
 
     .prologue
-    .line 139
+    .line 151
     iget-object v0, p0, Lbl/xi$3;->this$0:Lbl/xi;
 
     # getter for: Lbl/xi;->isSliding:Z
@@ -50,13 +50,13 @@
 
     if-nez v0, :cond_d
 
-    .line 140
+    .line 152
     iget-object v0, p0, Lbl/xi$3;->this$0:Lbl/xi;
 
     # invokes: Lbl/xi;->syncProgressUiWithPlayer()V
     invoke-static {v0}, Lbl/xi;->access$400(Lbl/xi;)V
 
-    .line 142
+    .line 154
     :cond_d
     return-void
 .end method
