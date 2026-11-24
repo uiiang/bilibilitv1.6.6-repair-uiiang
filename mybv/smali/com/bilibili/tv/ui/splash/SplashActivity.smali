@@ -53,7 +53,7 @@
     .locals 4
 
     .prologue
-    .line 115
+    .line 120
     new-instance v0, Lcom/bilibili/tv/ui/splash/SplashActivity$b;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/splash/SplashActivity$b;-><init>(Lcom/bilibili/tv/ui/splash/SplashActivity;)V
@@ -62,7 +62,7 @@
 
     invoke-virtual {p1, v0, v2, v3}, Landroid/view/View;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 116
+    .line 121
     return-void
 .end method
 
@@ -70,12 +70,12 @@
     .locals 4
 
     .prologue
-    .line 119
+    .line 124
     new-instance v0, Lbl/agb$a;
 
     invoke-direct {v0, p0}, Lbl/agb$a;-><init>(Landroid/app/Activity;)V
 
-    .line 120
+    .line 125
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Lbl/agb$a;->a(I)Lbl/agb$a;
@@ -98,20 +98,20 @@
 
     invoke-virtual {v1, v2, v3}, Lbl/agb$a;->b(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
 
-    .line 121
+    .line 126
     invoke-virtual {v0}, Lbl/agb$a;->a()Lbl/agb;
 
     move-result-object v0
 
-    .line 122
+    .line 127
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Lbl/agb;->setCancelable(Z)V
 
-    .line 123
+    .line 128
     invoke-virtual {v0}, Lbl/agb;->show()V
 
-    .line 124
+    .line 129
     return-void
 .end method
 
@@ -119,12 +119,12 @@
     .locals 4
 
     .prologue
-    .line 142
+    .line 147
     new-instance v0, Lbl/agb$a;
 
     invoke-direct {v0, p0}, Lbl/agb$a;-><init>(Landroid/app/Activity;)V
 
-    .line 143
+    .line 148
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Lbl/agb$a;->a(I)Lbl/agb$a;
@@ -147,20 +147,20 @@
 
     invoke-virtual {v1, v2, v3}, Lbl/agb$a;->b(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
 
-    .line 144
+    .line 149
     invoke-virtual {v0}, Lbl/agb$a;->a()Lbl/agb;
 
     move-result-object v0
 
-    .line 145
+    .line 150
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Lbl/agb;->setCancelable(Z)V
 
-    .line 146
+    .line 151
     invoke-virtual {v0}, Lbl/agb;->show()V
 
-    .line 147
+    .line 152
     return-void
 .end method
 
@@ -218,7 +218,7 @@
 
     move-result v2
 
-    if-eqz v2, :cond_44
+    if-eqz v2, :cond_4a
 
     .line 44
     :try_start_30
@@ -239,17 +239,24 @@
 
     invoke-direct {v2, v3, v0}, Landroid/graphics/drawable/BitmapDrawable;-><init>(Landroid/content/res/Resources;Landroid/graphics/Bitmap;)V
 
-    .line 46
-    invoke-virtual {v1, v2}, Landroid/view/View;->setBackground(Landroid/graphics/drawable/Drawable;)V
-    :try_end_44
-    .catch Ljava/lang/Exception; {:try_start_30 .. :try_end_44} :catch_8b
+    .line 47
+    sget v0, Landroid/os/Build$VERSION;->SDK_INT:I
 
-    .line 52
-    :cond_44
-    :goto_44
+    const/16 v3, 0x10
+
+    if-lt v0, v3, :cond_91
+
+    .line 48
+    invoke-virtual {v1, v2}, Landroid/view/View;->setBackground(Landroid/graphics/drawable/Drawable;)V
+    :try_end_4a
+    .catch Ljava/lang/Exception; {:try_start_30 .. :try_end_4a} :catch_95
+
+    .line 57
+    :cond_4a
+    :goto_4a
     sget-object v0, Lcom/bilibili/tv/MainApplication;->blacklist_uids:Lcom/alibaba/fastjson/JSONArray;
 
-    if-eqz v0, :cond_90
+    if-eqz v0, :cond_9a
 
     sget-object v0, Lcom/bilibili/tv/MainApplication;->blacklist_uids:Lcom/alibaba/fastjson/JSONArray;
 
@@ -273,14 +280,14 @@
 
     move-result v0
 
-    if-eqz v0, :cond_90
+    if-eqz v0, :cond_9a
 
-    .line 53
+    .line 58
     new-instance v0, Lcom/bilibili/tv/ui/splash/SplashActivity$1;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/splash/SplashActivity$1;-><init>(Lcom/bilibili/tv/ui/splash/SplashActivity;)V
 
-    .line 59
+    .line 64
     new-instance v1, Lbl/agb$a;
 
     invoke-direct {v1, p0}, Lbl/agb$a;-><init>(Landroid/app/Activity;)V
@@ -291,68 +298,77 @@
 
     const-string v2, "\u7531\u4e8e\u8fdd\u89c4\u4f20\u64ad\u8be5\u9879\u76ee\uff0c\u4f60\u5df2\u88ab\u62c9\u9ed1\uff01\uff01\uff01"
 
-    .line 60
+    .line 65
     invoke-virtual {v1, v2}, Lbl/agb$a;->a(Ljava/lang/String;)Lbl/agb$a;
 
     move-result-object v1
 
     const-string v2, "\u6d88\u9664\u5f71\u54cd"
 
-    .line 61
+    .line 66
     invoke-virtual {v1, v2, v0}, Lbl/agb$a;->b(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
 
     move-result-object v1
 
     const-string v2, "\u56de\u5934\u662f\u5cb8"
 
-    .line 62
+    .line 67
     invoke-virtual {v1, v2, v0}, Lbl/agb$a;->a(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
 
     move-result-object v0
 
-    .line 63
+    .line 68
     invoke-virtual {v0}, Lbl/agb$a;->a()Lbl/agb;
 
     move-result-object v0
 
-    .line 64
+    .line 69
     invoke-virtual {v0, v5}, Lbl/agb;->setCancelable(Z)V
 
-    .line 65
+    .line 70
     invoke-virtual {v0}, Lbl/agb;->show()V
 
-    .line 98
-    :goto_8a
+    .line 103
+    :goto_90
     return-void
 
-    .line 47
-    :catch_8b
+    .line 50
+    :cond_91
+    :try_start_91
+    invoke-virtual {v1, v2}, Landroid/view/View;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
+    :try_end_94
+    .catch Ljava/lang/Exception; {:try_start_91 .. :try_end_94} :catch_95
+
+    goto :goto_4a
+
+    .line 52
+    :catch_95
     move-exception v0
 
-    .line 48
+    .line 53
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
-    goto :goto_44
+    goto :goto_4a
 
-    .line 69
-    :cond_90
+    .line 74
+    :cond_9a
     invoke-static {}, Lbl/acc;->b()Lbl/acc$a;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/splash/SplashActivity;->a:Lbl/acc$a;
 
-    .line 70
+    .line 75
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
 
-    .line 71
+    .line 76
     const-string v2, "preferenceHelper"
 
     invoke-static {v0, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 72
+    .line 77
     invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
 
     move-result-object v2
@@ -363,42 +379,42 @@
 
     move-result v2
 
-    .line 73
+    .line 78
     iget-object v3, p0, Lcom/bilibili/tv/ui/splash/SplashActivity;->a:Lbl/acc$a;
 
-    .line 74
-    if-eqz v3, :cond_133
+    .line 79
+    if-eqz v3, :cond_13d
 
-    .line 75
+    .line 80
     invoke-virtual {v3}, Lbl/acc$a;->a()Z
 
     move-result v4
 
-    if-eqz v4, :cond_be
+    if-eqz v4, :cond_c8
 
-    .line 76
+    .line 81
     iget-object v0, v3, Lbl/acc$a;->b:Ljava/lang/String;
 
-    .line 77
+    .line 82
     const-string v1, "it.mMsg"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 78
+    .line 83
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/splash/SplashActivity;->a(Ljava/lang/String;)V
 
-    goto :goto_8a
+    goto :goto_90
 
-    .line 80
-    :cond_be
-    if-eqz v2, :cond_d7
+    .line 85
+    :cond_c8
+    if-eqz v2, :cond_e1
 
-    .line 81
+    .line 86
     const-string v1, "\u4f9d\u636e\u56fd\u5bb6\u73b0\u884c\u76f8\u5173\u653f\u7b56\u89c4\u5b9a\n\u8bf7\u786e\u8ba4\u5728\u975e\u4e92\u8054\u7f51\u7535\u89c6\u7aef\u4f7f\u7528"
 
     invoke-direct {p0, v1}, Lcom/bilibili/tv/ui/splash/SplashActivity;->b(Ljava/lang/String;)V
 
-    .line 82
+    .line 87
     invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
 
     move-result-object v0
@@ -415,10 +431,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    goto :goto_8a
+    goto :goto_90
 
-    .line 84
-    :cond_d7
+    .line 89
+    :cond_e1
     invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
 
     move-result-object v2
@@ -429,14 +445,14 @@
 
     move-result v2
 
-    if-eqz v2, :cond_fa
+    if-eqz v2, :cond_104
 
-    .line 85
+    .line 90
     const-string v1, "\u4e0d\u5f97\u5229\u7528\u672c\u9879\u76ee\u8fdb\u884c\u975e\u6cd5\u6d3b\u52a8\uff1b\u4e0d\u5f97\u5e72\u6270B\u7ad9\u6b63\u5e38\u8fd0\u8425\uff1b\u4e0d\u5f97\u4f20\u64ad\u6076\u610f\u8f6f\u4ef6\u6216\u75c5\u6bd2\n\ud83d\udeab\u7981\u6b62\u5728\u5b98\u65b9\u5e73\u53f0\u53ca\u5b98\u65b9\u8d26\u53f7\u533a\u57df\u5ba3\u4f20\u672c\u9879\u76ee\n\ud83d\udeab\u7981\u6b62\u5728\u5fae\u4fe1\u516c\u4f17\u53f7\u5e73\u53f0\u5ba3\u4f20\u672c\u9879\u76ee\n\ud83d\udeab\u7981\u6b62\u5229\u7528\u672c\u9879\u76ee\u725f\u5229"
 
     invoke-direct {p0, v1}, Lcom/bilibili/tv/ui/splash/SplashActivity;->b(Ljava/lang/String;)V
 
-    .line 86
+    .line 91
     invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
 
     move-result-object v0
@@ -453,13 +469,13 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    goto :goto_8a
+    goto :goto_90
 
-    .line 88
-    :cond_fa
+    .line 93
+    :cond_104
     sget-object v2, Lcom/bilibili/tv/MainApplication;->graylist_uids:Lcom/alibaba/fastjson/JSONArray;
 
-    if-eqz v2, :cond_12e
+    if-eqz v2, :cond_138
 
     sget-object v2, Lcom/bilibili/tv/MainApplication;->graylist_uids:Lcom/alibaba/fastjson/JSONArray;
 
@@ -483,14 +499,14 @@
 
     move-result v2
 
-    if-eqz v2, :cond_12e
+    if-eqz v2, :cond_138
 
-    .line 89
+    .line 94
     const-string v1, "\u4f60\u5b58\u5728\u8fdd\u89c4\u4f20\u64ad\u8be5\u9879\u76ee\u60c5\u5f62\uff0c\u8bf7\u53ca\u65f6\u6d88\u9664\u5f71\u54cd\uff01"
 
     invoke-direct {p0, v1}, Lcom/bilibili/tv/ui/splash/SplashActivity;->b(Ljava/lang/String;)V
 
-    .line 90
+    .line 95
     invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
 
     move-result-object v0
@@ -507,19 +523,19 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    goto/16 :goto_8a
+    goto/16 :goto_90
 
-    .line 93
-    :cond_12e
+    .line 98
+    :cond_138
     invoke-direct {p0, v1}, Lcom/bilibili/tv/ui/splash/SplashActivity;->a(Landroid/view/View;)V
 
-    goto/16 :goto_8a
+    goto/16 :goto_90
 
-    .line 97
-    :cond_133
+    .line 102
+    :cond_13d
     invoke-direct {p0, v1}, Lcom/bilibili/tv/ui/splash/SplashActivity;->a(Landroid/view/View;)V
 
-    goto/16 :goto_8a
+    goto/16 :goto_90
 .end method
 
 .method public g()I
@@ -536,12 +552,12 @@
     .locals 2
 
     .prologue
-    .line 168
+    .line 173
     const-string v0, "event"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 169
+    .line 174
     invoke-virtual {p2}, Landroid/view/KeyEvent;->getAction()I
 
     move-result v0
@@ -560,10 +576,10 @@
 
     if-eqz v0, :cond_18
 
-    .line 170
+    .line 175
     const/4 v0, 0x1
 
-    .line 172
+    .line 177
     :goto_17
     return v0
 

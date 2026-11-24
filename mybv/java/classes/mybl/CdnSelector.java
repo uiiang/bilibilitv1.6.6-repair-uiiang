@@ -120,7 +120,7 @@ public class CdnSelector {
         Collections.sort(urlInfos, new Comparator<CdnUrlInfo>() {
             @Override
             public int compare(CdnUrlInfo a, CdnUrlInfo b) {
-                return Integer.compare(b.score, a.score);
+                return b.score < a.score ? -1 : (b.score == a.score ? 0 : 1);
             }
         });
         

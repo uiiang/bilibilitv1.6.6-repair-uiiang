@@ -704,7 +704,12 @@ public final class MainMyFragment extends adu implements aez, wf {
                 android.graphics.drawable.GradientDrawable circle = new android.graphics.drawable.GradientDrawable();
                 circle.setShape(android.graphics.drawable.GradientDrawable.OVAL);
                 circle.setColor(0xFF666666);
-                plus.setBackground(circle);
+                // setBackground(Drawable) 是 API 16 方法，4.0.x 上会 NoSuchMethodError
+                if (android.os.Build.VERSION.SDK_INT >= 16) {
+                    plus.setBackground(circle);
+                } else {
+                    plus.setBackgroundDrawable(circle);
+                }
                 plus.setText("+");
                 plus.setTextColor(android.graphics.Color.WHITE);
                 plus.setTextSize(52.0f);
@@ -737,7 +742,11 @@ public final class MainMyFragment extends adu implements aez, wf {
             android.graphics.drawable.StateListDrawable selector = new android.graphics.drawable.StateListDrawable();
             selector.addState(new int[]{android.R.attr.state_focused}, new android.graphics.drawable.ColorDrawable(0x99FFFFFF));
             selector.addState(new int[0], new android.graphics.drawable.ColorDrawable(0x00000000));
-            item.setBackground(selector);
+            if (android.os.Build.VERSION.SDK_INT >= 16) {
+                item.setBackground(selector);
+            } else {
+                item.setBackgroundDrawable(selector);
+            }
 
             item.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -43,7 +43,7 @@
     .end annotation
 
     .prologue
-    .line 742
+    .line 751
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$3;->this$0:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;
 
     iput p2, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$3;->val$index:I
@@ -71,14 +71,14 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 745
+    .line 754
     iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$3;->val$index:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_2b
 
-    .line 747
+    .line 756
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$3;->val$dialogRef:[Landroid/app/AlertDialog;
 
     aget-object v0, v0, v2
@@ -95,14 +95,14 @@
 
     if-eqz v0, :cond_1d
 
-    .line 748
+    .line 757
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$3;->val$dialogRef:[Landroid/app/AlertDialog;
 
     aget-object v0, v0, v2
 
     invoke-virtual {v0}, Landroid/app/AlertDialog;->dismiss()V
 
-    .line 750
+    .line 759
     :cond_1d
     sget-object v0, Lcom/bilibili/tv/ui/account/LoginActivity;->Companion:Lcom/bilibili/tv/ui/account/LoginActivity$a;
 
@@ -116,11 +116,11 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/bilibili/tv/ui/account/LoginActivity$a;->a(Landroid/app/Activity;I)V
 
-    .line 769
+    .line 778
     :goto_2a
     return-void
 
-    .line 755
+    .line 764
     :cond_2b
     :try_start_2b
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$3;->val$accounts:Lcom/alibaba/fastjson/JSONObject;
@@ -139,7 +139,7 @@
 
     move-result-object v1
 
-    .line 756
+    .line 765
     const-string v2, "MainMyAccount"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -212,14 +212,14 @@
 
     invoke-static {v2, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 757
+    .line 766
     new-instance v0, Ljava/io/FileWriter;
 
     new-instance v2, Ljava/io/File;
 
     iget-object v3, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$3;->val$ctx:Landroid/content/Context;
 
-    .line 758
+    .line 767
     invoke-virtual {v3}, Landroid/content/Context;->getFilesDir()Ljava/io/File;
 
     move-result-object v3
@@ -230,7 +230,7 @@
 
     invoke-direct {v0, v2}, Ljava/io/FileWriter;-><init>(Ljava/io/File;)V
 
-    .line 759
+    .line 768
     const-string v2, "account_info"
 
     invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -239,17 +239,17 @@
 
     invoke-virtual {v0, v2}, Ljava/io/FileWriter;->write(Ljava/lang/String;)V
 
-    .line 760
+    .line 769
     invoke-virtual {v0}, Ljava/io/FileWriter;->close()V
 
-    .line 761
+    .line 770
     new-instance v0, Ljava/io/FileWriter;
 
     new-instance v2, Ljava/io/File;
 
     iget-object v3, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$3;->val$ctx:Landroid/content/Context;
 
-    .line 762
+    .line 771
     invoke-virtual {v3}, Landroid/content/Context;->getFilesDir()Ljava/io/File;
 
     move-result-object v3
@@ -260,7 +260,7 @@
 
     invoke-direct {v0, v2}, Ljava/io/FileWriter;-><init>(Ljava/io/File;)V
 
-    .line 763
+    .line 772
     const-string v2, "passport_info"
 
     invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -269,10 +269,10 @@
 
     invoke-virtual {v0, v1}, Ljava/io/FileWriter;->write(Ljava/lang/String;)V
 
-    .line 764
+    .line 773
     invoke-virtual {v0}, Ljava/io/FileWriter;->close()V
 
-    .line 765
+    .line 774
     const/4 v0, 0x0
 
     invoke-static {v0}, Ljava/lang/System;->exit(I)V
@@ -281,11 +281,11 @@
 
     goto/16 :goto_2a
 
-    .line 766
+    .line 775
     :catch_c7
     move-exception v0
 
-    .line 767
+    .line 776
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
     goto/16 :goto_2a

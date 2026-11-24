@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1039
+    .line 1042
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,12 +40,12 @@
     .locals 1
 
     .prologue
-    .line 1042
+    .line 1045
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->applyVideoPosition()V
     invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$2000(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
 
-    .line 1043
+    .line 1046
     return-void
 .end method

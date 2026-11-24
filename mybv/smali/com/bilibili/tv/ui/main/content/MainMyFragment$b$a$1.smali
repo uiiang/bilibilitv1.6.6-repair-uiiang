@@ -46,7 +46,7 @@
     .end annotation
 
     .prologue
-    .line 843
+    .line 852
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a$1;->this$1:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a$1;->val$a:Lbl/mg;
@@ -69,7 +69,7 @@
     .end annotation
 
     .prologue
-    .line 843
+    .line 852
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a$1;->a(Lbl/jb;)Ljava/lang/Void;
 
     move-result-object v0
@@ -93,19 +93,19 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 846
+    .line 855
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a$1;->val$a:Lbl/mg;
 
     invoke-static {v0}, Lmybl/CookieUtil;->clearCookies(Lbl/mg;)V
 
-    .line 847
+    .line 856
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a$1;->this$1:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a;->this$0:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->e(I)V
 
-    .line 848
+    .line 857
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a$1;->this$1:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a;->b:Landroid/app/Activity;
@@ -114,19 +114,19 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/MainActivity;->l()V
 
-    .line 849
+    .line 858
     const-string v0, "tv_my_signout_click"
 
     new-array v1, v1, [Ljava/lang/String;
 
     invoke-static {v0, v1}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
-    .line 850
+    .line 859
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a$1;->val$agbVar:Lbl/agb;
 
     invoke-virtual {v0}, Lbl/agb;->dismiss()V
 
-    .line 851
+    .line 860
     const/4 v0, 0x0
 
     return-object v0

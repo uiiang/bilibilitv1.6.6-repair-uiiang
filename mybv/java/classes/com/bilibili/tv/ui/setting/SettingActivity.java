@@ -147,7 +147,10 @@ public final class SettingActivity extends BaseUpViewActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
             Fragment d = this.d.d(this.b.f());
-            getContentResolver().takePersistableUriPermission(data.getData(), Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            // takePersistableUriPermission 是 API 19 方法，低版本直接跳过
+            if (android.os.Build.VERSION.SDK_INT >= 19 && data != null && data.getData() != null) {
+                getContentResolver().takePersistableUriPermission(data.getData(), Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            }
             if (d instanceof afm3)
                 ((afm3) d).updateFilterPath(data.getData().toString());
         }

@@ -72,9 +72,11 @@
 .end method
 
 .method public compare(Ljava/lang/String;Ljava/lang/String;)I
-    .locals 7
+    .locals 8
 
     .prologue
+    const/4 v3, -0x1
+
     const/4 v2, 0x0
 
     const/4 v1, 0x1
@@ -86,7 +88,7 @@
 
     invoke-virtual {v0}, Landroid/net/Uri;->getHost()Ljava/lang/String;
 
-    move-result-object v3
+    move-result-object v5
 
     .line 218
     invoke-static {p2}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
@@ -95,73 +97,91 @@
 
     invoke-virtual {v0}, Landroid/net/Uri;->getHost()Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v6
 
     .line 219
-    invoke-static {v3}, Lmybl/CdnSelector;->getCdnType(Ljava/lang/String;)I
+    invoke-static {v5}, Lmybl/CdnSelector;->getCdnType(Ljava/lang/String;)I
 
     move-result v0
 
     .line 220
-    invoke-static {v4}, Lmybl/CdnSelector;->getCdnType(Ljava/lang/String;)I
+    invoke-static {v6}, Lmybl/CdnSelector;->getCdnType(Ljava/lang/String;)I
 
-    move-result v5
+    move-result v4
 
     .line 221
-    iget v6, p0, Lbl/qm$1;->val$targetType:I
+    iget v7, p0, Lbl/qm$1;->val$targetType:I
 
-    if-ne v0, v6, :cond_2a
+    if-ne v0, v7, :cond_2a
 
     move v0, v1
 
     .line 222
-    :goto_1f
-    iget v6, p0, Lbl/qm$1;->val$targetType:I
+    :goto_20
+    iget v7, p0, Lbl/qm$1;->val$targetType:I
 
-    if-ne v5, v6, :cond_24
+    if-ne v4, v7, :cond_2c
 
-    move v2, v1
+    move v4, v1
 
     .line 223
-    :cond_24
-    if-eqz v0, :cond_2c
+    :goto_25
+    if-eqz v0, :cond_2e
 
-    if-nez v2, :cond_2c
-
-    const/4 v1, -0x1
+    if-nez v4, :cond_2e
 
     .line 227
-    :cond_29
     :goto_29
-    return v1
+    return v3
 
     :cond_2a
     move v0, v2
 
     .line 221
-    goto :goto_1f
+    goto :goto_20
+
+    :cond_2c
+    move v4, v2
+
+    .line 222
+    goto :goto_25
 
     .line 224
-    :cond_2c
-    if-nez v0, :cond_30
+    :cond_2e
+    if-nez v0, :cond_34
 
-    if-nez v2, :cond_29
+    if-eqz v4, :cond_34
+
+    move v3, v1
+
+    goto :goto_29
 
     .line 225
-    :cond_30
-    invoke-static {v3}, Lmybl/CdnSelector;->getCdnScore(Ljava/lang/String;)I
+    :cond_34
+    invoke-static {v5}, Lmybl/CdnSelector;->getCdnScore(Ljava/lang/String;)I
 
     move-result v0
 
     .line 226
-    invoke-static {v4}, Lmybl/CdnSelector;->getCdnScore(Ljava/lang/String;)I
+    invoke-static {v6}, Lmybl/CdnSelector;->getCdnScore(Ljava/lang/String;)I
 
-    move-result v1
+    move-result v4
 
     .line 227
-    invoke-static {v1, v0}, Ljava/lang/Integer;->compare(II)I
+    if-ge v4, v0, :cond_41
 
-    move-result v1
+    move v2, v3
+
+    :cond_3f
+    :goto_3f
+    move v3, v2
 
     goto :goto_29
+
+    :cond_41
+    if-eq v4, v0, :cond_3f
+
+    move v2, v1
+
+    goto :goto_3f
 .end method

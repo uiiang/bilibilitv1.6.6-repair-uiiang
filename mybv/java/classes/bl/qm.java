@@ -224,7 +224,7 @@ public class qm extends py {
                                         if (!pref1 && pref2) return 1;
                                         int score1 = mybl.CdnSelector.getCdnScore(cdn1);
                                         int score2 = mybl.CdnSelector.getCdnScore(cdn2);
-                                        return Integer.compare(score2, score1);
+                                        return score2 < score1 ? -1 : (score2 == score1 ? 0 : 1);
                                     }
                                 });
                                 selectedDurlUrl = allDurlUrls.get(0);
@@ -266,7 +266,7 @@ public class qm extends py {
                                     java.util.Collections.sort(cdnInfos, new java.util.Comparator<mybl.CdnSelector.CdnUrlInfo>() {
                                         @Override
                                         public int compare(mybl.CdnSelector.CdnUrlInfo o1, mybl.CdnSelector.CdnUrlInfo o2) {
-                                            return Integer.compare(o2.score, o1.score);
+                                            return o2.score < o1.score ? -1 : (o2.score == o1.score ? 0 : 1);
                                         }
                                     });
                                     selectedDurlUrl = cdnInfos.get(0).url;

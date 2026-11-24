@@ -422,7 +422,7 @@ public class ResolveResourceParams implements Parcelable, Serializable {
             public int compare(JSONObject o1, JSONObject o2) {
                 long s1 = o1.optLong("start", 0);
                 long s2 = o2.optLong("start", 0);
-                return Long.compare(s1, s2);
+                return s1 < s2 ? -1 : (s1 == s2 ? 0 : 1);
             }
         });
         

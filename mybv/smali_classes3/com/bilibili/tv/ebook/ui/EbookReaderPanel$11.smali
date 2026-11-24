@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 702
+    .line 705
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -44,19 +44,19 @@
 
     const/4 v1, 0x0
 
-    .line 705
+    .line 708
     invoke-virtual {p3}, Landroid/view/KeyEvent;->getAction()I
 
     move-result v2
 
     if-nez v2, :cond_4a
 
-    .line 706
+    .line 709
     const/16 v2, 0x16
 
     if-ne p2, v2, :cond_2c
 
-    .line 707
+    .line 710
     iget-object v2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->organizeDeleteButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
@@ -79,7 +79,7 @@
 
     if-eqz v2, :cond_2a
 
-    .line 708
+    .line 711
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->organizeDeleteButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
@@ -89,17 +89,17 @@
 
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->requestFocus()Z
 
-    .line 722
+    .line 725
     :goto_29
     return v0
 
     :cond_2a
     move v0, v1
 
-    .line 711
+    .line 714
     goto :goto_29
 
-    .line 713
+    .line 716
     :cond_2c
     const/16 v2, 0x15
 
@@ -113,7 +113,7 @@
 
     if-ne p2, v2, :cond_4a
 
-    .line 716
+    .line 719
     :cond_38
     iget-object v2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
@@ -124,7 +124,7 @@
 
     if-eqz v2, :cond_4a
 
-    .line 717
+    .line 720
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->organizeListView:Landroid/widget/ListView;
@@ -139,6 +139,6 @@
     :cond_4a
     move v0, v1
 
-    .line 722
+    .line 725
     goto :goto_29
 .end method

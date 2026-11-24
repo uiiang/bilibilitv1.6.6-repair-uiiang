@@ -209,7 +209,8 @@ public class VideoDetailDownloadHelper {
             return;
         }
         final android.app.Activity activity = activityRef.get();
-        if (activity == null || activity.isFinishing() || activity.isDestroyed()) {
+        if (activity == null || activity.isFinishing()
+                || (android.os.Build.VERSION.SDK_INT >= 17 && activity.isDestroyed())) {
             Log.w(TAG, "Activity已销毁，跳过Toast: " + message);
             return;
         }

@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 216
+    .line 217
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$activity:Landroid/app/Activity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$message:Ljava/lang/String;
@@ -49,7 +49,7 @@
     .locals 4
 
     .prologue
-    .line 220
+    .line 221
     :try_start_0
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$activity:Landroid/app/Activity;
 
@@ -65,15 +65,15 @@
     :try_end_c
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_c} :catch_d
 
-    .line 224
+    .line 225
     :goto_c
     return-void
 
-    .line 221
+    .line 222
     :catch_d
     move-exception v0
 
-    .line 222
+    .line 223
     const-string v1, "VideoDetailDownloadHelper"
 
     new-instance v2, Ljava/lang/StringBuilder;

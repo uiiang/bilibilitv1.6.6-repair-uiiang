@@ -701,10 +701,13 @@ public final class afm5 extends adw implements View.OnFocusChangeListener, View.
 
         // 持久化URI授权，保证应用重启后仍可访问
         try {
-            int flags = android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    | android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
-            getActivity().getContentResolver().takePersistableUriPermission(treeUri, flags);
-            Log.i("afm5", "持久化SAF授权成功");
+            // takePersistableUriPermission 是 API 19 方法，低版本直接跳过
+            if (android.os.Build.VERSION.SDK_INT >= 19) {
+                int flags = android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        | android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+                getActivity().getContentResolver().takePersistableUriPermission(treeUri, flags);
+                Log.i("afm5", "持久化SAF授权成功");
+            }
         } catch (Exception e) {
             Log.w("afm5", "持久化SAF授权失败: " + e.getMessage());
         }

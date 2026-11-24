@@ -666,7 +666,7 @@ public class DownloadTask implements Comparable<DownloadTask> {
         }
 
         // 状态相同，按添加时间比较（先添加的任务优先级高）
-        return Long.compare(this.createTime, other.createTime);
+        return this.createTime < other.createTime ? -1 : (this.createTime == other.createTime ? 0 : 1);
     }
 
     /**

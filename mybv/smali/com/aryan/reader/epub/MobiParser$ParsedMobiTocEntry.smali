@@ -62,11 +62,28 @@
 
     iget v1, p1, Lcom/aryan/reader/epub/MobiParser$ParsedMobiTocEntry;->filePosition:I
 
-    invoke-static {v0, v1}, Ljava/lang/Integer;->compare(II)I
+    if-ge v0, v1, :cond_8
 
-    move-result v0
+    const/4 v0, -0x1
 
+    :goto_7
     return v0
+
+    :cond_8
+    iget v0, p0, Lcom/aryan/reader/epub/MobiParser$ParsedMobiTocEntry;->filePosition:I
+
+    iget v1, p1, Lcom/aryan/reader/epub/MobiParser$ParsedMobiTocEntry;->filePosition:I
+
+    if-ne v0, v1, :cond_10
+
+    const/4 v0, 0x0
+
+    goto :goto_7
+
+    :cond_10
+    const/4 v0, 0x1
+
+    goto :goto_7
 .end method
 
 .method public bridge synthetic compareTo(Ljava/lang/Object;)I

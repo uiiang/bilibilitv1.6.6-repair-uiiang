@@ -70,7 +70,9 @@ public class BookshelfManager {
         Collections.sort(items, new Comparator<BookshelfItem>() {
             @Override
             public int compare(BookshelfItem lhs, BookshelfItem rhs) {
-                return Long.compare(rhs.getLastReadTime(), lhs.getLastReadTime());
+                long r = rhs.getLastReadTime();
+                long l = lhs.getLastReadTime();
+                return r < l ? -1 : (r == l ? 0 : 1);
             }
         });
 

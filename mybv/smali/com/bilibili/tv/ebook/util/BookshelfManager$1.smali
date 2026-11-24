@@ -47,7 +47,7 @@
 
 # virtual methods
 .method public compare(Lcom/bilibili/tv/ebook/model/BookshelfItem;Lcom/bilibili/tv/ebook/model/BookshelfItem;)I
-    .locals 4
+    .locals 5
 
     .prologue
     .line 73
@@ -55,15 +55,34 @@
 
     move-result-wide v0
 
+    .line 74
     invoke-virtual {p1}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getLastReadTime()J
 
     move-result-wide v2
 
-    invoke-static {v0, v1, v2, v3}, Ljava/lang/Long;->compare(JJ)I
+    .line 75
+    cmp-long v4, v0, v2
 
-    move-result v0
+    if-gez v4, :cond_e
 
+    const/4 v0, -0x1
+
+    :goto_d
     return v0
+
+    :cond_e
+    cmp-long v0, v0, v2
+
+    if-nez v0, :cond_14
+
+    const/4 v0, 0x0
+
+    goto :goto_d
+
+    :cond_14
+    const/4 v0, 0x1
+
+    goto :goto_d
 .end method
 
 .method public bridge synthetic compare(Ljava/lang/Object;Ljava/lang/Object;)I

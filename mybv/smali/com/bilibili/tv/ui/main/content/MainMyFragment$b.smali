@@ -305,7 +305,7 @@
 
     move/from16 v0, p6
 
-    if-ne v0, v1, :cond_c5
+    if-ne v0, v1, :cond_d6
 
     .line 702
     new-instance v1, Landroid/widget/TextView;
@@ -330,59 +330,67 @@
 
     invoke-virtual {v2, v3}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
 
-    .line 707
+    .line 708
+    sget v3, Landroid/os/Build$VERSION;->SDK_INT:I
+
+    const/16 v4, 0x10
+
+    if-lt v3, v4, :cond_d1
+
+    .line 709
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
-    .line 708
+    .line 713
+    :goto_4e
     const-string v2, "+"
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 709
+    .line 714
     const/4 v2, -0x1
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 710
+    .line 715
     const/high16 v2, 0x42500000    # 52.0f
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setTextSize(F)V
 
-    .line 711
+    .line 716
     const/16 v2, 0x11
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setGravity(I)V
 
-    .line 712
+    .line 717
     invoke-virtual {v9, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 726
-    :goto_5e
+    .line 731
+    :goto_64
     new-instance v1, Landroid/widget/TextView;
 
     invoke-direct {v1, p1}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 727
+    .line 732
     move-object/from16 v0, p8
 
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 728
+    .line 733
     const/high16 v2, 0x41800000    # 16.0f
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setTextSize(F)V
 
-    .line 729
+    .line 734
     const/4 v2, -0x1
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 730
+    .line 735
     const/16 v2, 0x11
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setGravity(I)V
 
-    .line 731
+    .line 736
     new-instance v2, Landroid/widget/LinearLayout$LayoutParams;
 
     const/4 v3, -0x2
@@ -391,7 +399,7 @@
 
     invoke-direct {v2, v3, v4}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 732
+    .line 737
     const/16 v3, 0x8
 
     invoke-static {p1, v3}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->dp(Landroid/content/Context;I)I
@@ -400,18 +408,18 @@
 
     iput v3, v2, Landroid/widget/LinearLayout$LayoutParams;->topMargin:I
 
-    .line 733
+    .line 738
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 734
+    .line 739
     invoke-virtual {v9, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 737
+    .line 742
     new-instance v1, Landroid/graphics/drawable/StateListDrawable;
 
     invoke-direct {v1}, Landroid/graphics/drawable/StateListDrawable;-><init>()V
 
-    .line 738
+    .line 743
     const/4 v2, 0x1
 
     new-array v2, v2, [I
@@ -430,7 +438,7 @@
 
     invoke-virtual {v1, v2, v3}, Landroid/graphics/drawable/StateListDrawable;->addState([ILandroid/graphics/drawable/Drawable;)V
 
-    .line 739
+    .line 744
     const/4 v2, 0x0
 
     new-array v2, v2, [I
@@ -443,10 +451,18 @@
 
     invoke-virtual {v1, v2, v3}, Landroid/graphics/drawable/StateListDrawable;->addState([ILandroid/graphics/drawable/Drawable;)V
 
-    .line 740
+    .line 745
+    sget v2, Landroid/os/Build$VERSION;->SDK_INT:I
+
+    const/16 v3, 0x10
+
+    if-lt v2, v3, :cond_105
+
+    .line 746
     invoke-virtual {v9, v1}, Landroid/widget/LinearLayout;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
-    .line 742
+    .line 751
+    :goto_bf
     new-instance v1, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$3;
 
     move-object v2, p0
@@ -467,20 +483,26 @@
 
     invoke-virtual {v9, v1}, Landroid/widget/LinearLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 771
+    .line 780
     return-object v9
 
-    .line 714
-    :cond_c5
+    .line 711
+    :cond_d1
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
+
+    goto/16 :goto_4e
+
+    .line 719
+    :cond_d6
     new-instance v3, Lcom/bilibili/tv/widget/CircleImageView;
 
     invoke-direct {v3, p1}, Lcom/bilibili/tv/widget/CircleImageView;-><init>(Landroid/content/Context;)V
 
-    .line 715
+    .line 720
     invoke-virtual {v3, v2}, Lcom/bilibili/tv/widget/CircleImageView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 716
-    if-eqz p7, :cond_eb
+    .line 721
+    if-eqz p7, :cond_fc
 
     const-string v1, "avatar"
 
@@ -490,49 +512,55 @@
 
     move-result-object v1
 
-    .line 717
-    :goto_d7
-    if-eqz v1, :cond_ed
+    .line 722
+    :goto_e8
+    if-eqz v1, :cond_fe
 
     invoke-virtual {v1}, Ljava/lang/String;->isEmpty()Z
 
     move-result v2
 
-    if-nez v2, :cond_ed
+    if-nez v2, :cond_fe
 
-    .line 718
+    .line 723
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
 
     move-result-object v2
 
     invoke-virtual {v2, v1, v3}, Lbl/nv;->a(Ljava/lang/String;Landroid/widget/ImageView;)V
 
-    .line 722
-    :goto_e6
+    .line 727
+    :goto_f7
     invoke-virtual {v9, v3}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    goto/16 :goto_5e
+    goto/16 :goto_64
 
-    .line 716
-    :cond_eb
+    .line 721
+    :cond_fc
     const/4 v1, 0x0
 
-    goto :goto_d7
+    goto :goto_e8
 
-    .line 720
-    :cond_ed
+    .line 725
+    :cond_fe
     const v1, 0x7f0700a9
 
     invoke-virtual {v3, v1}, Lcom/bilibili/tv/widget/CircleImageView;->setImageResource(I)V
 
-    goto :goto_e6
+    goto :goto_f7
+
+    .line 748
+    :cond_105
+    invoke-virtual {v9, v1}, Landroid/widget/LinearLayout;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
+
+    goto :goto_bf
 .end method
 
 .method private static dp(Landroid/content/Context;I)I
     .locals 2
 
     .prologue
-    .line 776
+    .line 785
     int-to-float v0, p1
 
     invoke-virtual {p0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
@@ -627,7 +655,7 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 797
+    .line 806
     if-eqz p0, :cond_9
 
     :try_start_3
@@ -637,12 +665,12 @@
 
     if-eqz v1, :cond_a
 
-    .line 818
+    .line 827
     :cond_9
     :goto_9
     return-object v0
 
-    .line 800
+    .line 809
     :cond_a
     const/4 v1, 0x2
 
@@ -650,32 +678,32 @@
 
     move-result-object v1
 
-    .line 801
+    .line 810
     new-instance v2, Ljava/lang/String;
 
     const-string v3, "UTF-8"
 
     invoke-direct {v2, v1, v3}, Ljava/lang/String;-><init>([BLjava/lang/String;)V
 
-    .line 802
+    .line 811
     invoke-static {v2}, Lcom/alibaba/fastjson/JSON;->parseObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v1
 
-    .line 803
+    .line 812
     if-eqz v1, :cond_9
 
-    .line 806
+    .line 815
     const-string v2, "cookies"
 
     invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
 
     move-result-object v2
 
-    .line 807
+    .line 816
     if-eqz v2, :cond_9
 
-    .line 810
+    .line 819
     const/4 v1, 0x0
 
     :goto_25
@@ -685,12 +713,12 @@
 
     if-ge v1, v3, :cond_9
 
-    .line 811
+    .line 820
     invoke-virtual {v2, v1}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v3
 
-    .line 812
+    .line 821
     if-eqz v3, :cond_46
 
     const-string v4, "DedeUserID"
@@ -707,7 +735,7 @@
 
     if-eqz v4, :cond_46
 
-    .line 813
+    .line 822
     const-string v1, "value"
 
     invoke-virtual {v3, v1}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -718,13 +746,13 @@
 
     goto :goto_9
 
-    .line 810
+    .line 819
     :cond_46
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_25
 
-    .line 817
+    .line 826
     :catch_49
     move-exception v1
 
@@ -767,7 +795,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 782
+    .line 791
     if-eqz p0, :cond_9
 
     :try_start_3
@@ -780,11 +808,11 @@
     :cond_9
     move-object v0, v1
 
-    .line 790
+    .line 799
     :goto_a
     return-object v0
 
-    .line 785
+    .line 794
     :cond_b
     new-instance v2, Ljava/io/BufferedReader;
 
@@ -794,25 +822,25 @@
 
     invoke-direct {v2, v0}, Ljava/io/BufferedReader;-><init>(Ljava/io/Reader;)V
 
-    .line 786
+    .line 795
     invoke-virtual {v2}, Ljava/io/BufferedReader;->readLine()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 787
+    .line 796
     invoke-virtual {v2}, Ljava/io/BufferedReader;->close()V
     :try_end_1c
     .catch Ljava/lang/Exception; {:try_start_3 .. :try_end_1c} :catch_1d
 
     goto :goto_a
 
-    .line 789
+    .line 798
     :catch_1d
     move-exception v0
 
     move-object v0, v1
 
-    .line 790
+    .line 799
     goto :goto_a
 .end method
 

@@ -83,9 +83,26 @@
     move-result-wide v2
 
     .line 425
-    invoke-static {v0, v1, v2, v3}, Ljava/lang/Long;->compare(JJ)I
+    cmp-long v4, v0, v2
 
-    move-result v0
+    if-gez v4, :cond_14
 
+    const/4 v0, -0x1
+
+    :goto_13
     return v0
+
+    :cond_14
+    cmp-long v0, v0, v2
+
+    if-nez v0, :cond_1a
+
+    const/4 v0, 0x0
+
+    goto :goto_13
+
+    :cond_1a
+    const/4 v0, 0x1
+
+    goto :goto_13
 .end method

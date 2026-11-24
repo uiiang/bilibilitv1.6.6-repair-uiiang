@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 786
+    .line 789
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$15;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$15;->val$button:Lcom/bilibili/tv/widget/DrawFrameLayout;
@@ -49,26 +49,26 @@
     .locals 2
 
     .prologue
-    .line 789
+    .line 792
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$15;->val$button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpEnabled(Z)V
 
-    .line 790
+    .line 793
     if-eqz p2, :cond_10
 
-    .line 791
+    .line 794
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$15;->val$button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     const v1, 0x7f070113
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 795
+    .line 798
     :goto_f
     return-void
 
-    .line 793
+    .line 796
     :cond_10
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$15;->val$button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 

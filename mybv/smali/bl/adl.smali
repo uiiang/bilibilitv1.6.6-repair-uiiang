@@ -959,7 +959,7 @@
 
     .prologue
     .line 283
-    if-eqz p1, :cond_35
+    if-eqz p1, :cond_3b
 
     .line 284
     new-instance v0, Lbl/agb$a;
@@ -1001,30 +1001,36 @@
 
     move-result v1
 
-    if-nez v1, :cond_31
+    if-nez v1, :cond_37
+
+    sget v1, Landroid/os/Build$VERSION;->SDK_INT:I
+
+    const/16 v2, 0x11
+
+    if-lt v1, v2, :cond_38
 
     invoke-virtual {p1}, Landroid/app/Activity;->isDestroyed()Z
 
     move-result v1
 
-    if-eqz v1, :cond_32
+    if-eqz v1, :cond_38
 
     .line 294
-    :cond_31
-    :goto_31
+    :cond_37
+    :goto_37
     return-void
 
     .line 290
-    :cond_32
+    :cond_38
     invoke-virtual {v0}, Lbl/agb;->show()V
 
     .line 293
-    :cond_35
+    :cond_3b
     const-string v0, "\u554a\u54e6\u3002\u3002\u767b\u5f55\u4fe1\u606f\u5931\u6548\u5566\uff01\u8bf7\u91cd\u65b0\u767b\u5f55\u54e6"
 
     invoke-static {p1, v0}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    goto :goto_31
+    goto :goto_37
 .end method
 
 .method public final a(Landroid/support/v4/app/FragmentManager;Landroid/support/v4/app/FragmentTransaction;)V
@@ -1252,7 +1258,7 @@
     .line 247
     instance-of v0, p1, Lcom/bilibili/api/BiliApiException;
 
-    if-eqz v0, :cond_42
+    if-eqz v0, :cond_48
 
     .line 248
     check-cast p1, Lcom/bilibili/api/BiliApiException;
@@ -1268,11 +1274,11 @@
 
     const/16 v1, -0x65
 
-    if-ne v0, v1, :cond_42
+    if-ne v0, v1, :cond_48
 
     .line 250
     :cond_11
-    if-eqz p2, :cond_46
+    if-eqz p2, :cond_4c
 
     .line 251
     new-instance v0, Lbl/agb$a;
@@ -1314,30 +1320,36 @@
 
     move-result v1
 
-    if-nez v1, :cond_42
+    if-nez v1, :cond_48
+
+    sget v1, Landroid/os/Build$VERSION;->SDK_INT:I
+
+    const/16 v2, 0x11
+
+    if-lt v1, v2, :cond_49
 
     invoke-virtual {p2}, Landroid/app/Activity;->isDestroyed()Z
 
     move-result v1
 
-    if-eqz v1, :cond_43
+    if-eqz v1, :cond_49
 
     .line 263
-    :cond_42
-    :goto_42
+    :cond_48
+    :goto_48
     return-void
 
     .line 257
-    :cond_43
+    :cond_49
     invoke-virtual {v0}, Lbl/agb;->show()V
 
     .line 260
-    :cond_46
+    :cond_4c
     const-string v0, "\u554a\u54e6\u3002\u3002\u767b\u5f55\u4fe1\u606f\u5931\u6548\u5566\uff01\u8bf7\u91cd\u65b0\u767b\u5f55\u54e6"
 
     invoke-static {p2, v0}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    goto :goto_42
+    goto :goto_48
 .end method
 
 .method public final a(Ljava/nio/channels/FileLock;)V

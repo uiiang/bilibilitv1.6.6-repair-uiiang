@@ -1601,9 +1601,9 @@
     :cond_d
     iget-object v2, v0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->a:Landroid/view/View;
 
-    invoke-virtual {v2}, Landroid/view/View;->isAttachedToWindow()Z
+    invoke-virtual {v2}, Landroid/view/View;->getWindowToken()Landroid/os/IBinder;
 
-    move-result v2
+    move-result-object v2
 
     if-eqz v2, :cond_1f
 

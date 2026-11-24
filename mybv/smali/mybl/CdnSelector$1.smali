@@ -65,9 +65,26 @@
 
     iget v1, p1, Lmybl/CdnSelector$CdnUrlInfo;->score:I
 
-    invoke-static {v0, v1}, Ljava/lang/Integer;->compare(II)I
+    if-ge v0, v1, :cond_8
 
-    move-result v0
+    const/4 v0, -0x1
 
+    :goto_7
     return v0
+
+    :cond_8
+    iget v0, p2, Lmybl/CdnSelector$CdnUrlInfo;->score:I
+
+    iget v1, p1, Lmybl/CdnSelector$CdnUrlInfo;->score:I
+
+    if-ne v0, v1, :cond_10
+
+    const/4 v0, 0x0
+
+    goto :goto_7
+
+    :cond_10
+    const/4 v0, 0x1
+
+    goto :goto_7
 .end method

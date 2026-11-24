@@ -3,10 +3,10 @@
     "id":  "",
     "publishTime":  0,
     "apkUrl":  "https://github.com/uiiang/bilibilitv1.6.6-repair-uiiang/raw/refs/heads/main/mybv.apk",
-    "newFeature":  "",
-    "versionName":  "1.6.6.20261110",
-    "versionCode":  20261110,
+    "newFeature":  "1. 兼容低系统版本，解决android 4.x crash问题\n2. 优化切换下一集速度\n3. 视频卡片显示角标信息",
+    "versionName":  "1.6.6.20261124",
+    "versionCode":  20261124,
     "title":  "New",
-    "apkMd5":  "9b656c40af2038249b35eb78ea10252e",
-    "fileSize":  11406380
+    "apkMd5":  "1cef14ee99feca55de6dd7b17173f3a0",
+    "fileSize":  11414572
 }

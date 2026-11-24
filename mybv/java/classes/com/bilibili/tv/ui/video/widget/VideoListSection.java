@@ -190,7 +190,7 @@ public class VideoListSection extends LinearLayout {
                     recyclerView.post(new Runnable() {
                         @Override
                         public void run() {
-                            if (!recyclerView.isAttachedToWindow()) return;
+                            if (recyclerView.getWindowToken() == null) return;
                             try {
                                 java.lang.reflect.Method scrollToWithOffset = recyclerView.getLayoutManager().getClass().getMethod("b", int.class, int.class);
                                 scrollToWithOffset.invoke(recyclerView.getLayoutManager(), finalPos, 0);
@@ -861,7 +861,7 @@ public class VideoListSection extends LinearLayout {
         recyclerView.post(new Runnable() {
             @Override
             public void run() {
-                if (!recyclerView.isAttachedToWindow()) {
+                if (recyclerView.getWindowToken() == null) {
                     return;
                 }
                 try {
@@ -913,7 +913,7 @@ public class VideoListSection extends LinearLayout {
         recyclerView.post(new Runnable() {
             @Override
             public void run() {
-                if (!recyclerView.isAttachedToWindow()) {
+                if (recyclerView.getWindowToken() == null) {
                     return;
                 }
                 try {
@@ -979,7 +979,7 @@ public class VideoListSection extends LinearLayout {
         recyclerView.post(new Runnable() {
             @Override
             public void run() {
-                if (!recyclerView.isAttachedToWindow()) {
+                if (recyclerView.getWindowToken() == null) {
                     return;
                 }
                 
@@ -1015,7 +1015,7 @@ public class VideoListSection extends LinearLayout {
         recyclerView.post(new Runnable() {
             @Override
             public void run() {
-                if (!recyclerView.isAttachedToWindow()) {
+                if (recyclerView.getWindowToken() == null) {
                     return;
                 }
                 
@@ -1075,7 +1075,7 @@ public class VideoListSection extends LinearLayout {
         pendingVideoScrollRunnable = new Runnable() {
             @Override
             public void run() {
-                if (!recyclerView.isAttachedToWindow()) {
+                if (recyclerView.getWindowToken() == null) {
                     android.util.Log.i("ShotPerf", "[scroll-abort] pos=" + finalPos + " | notAttached");
                     return;
                 }
@@ -1568,7 +1568,7 @@ public class VideoListSection extends LinearLayout {
         recyclerView.post(new Runnable() {
             @Override
             public void run() {
-                if (!recyclerView.isAttachedToWindow()) {
+                if (recyclerView.getWindowToken() == null) {
                     return;
                 }
                 

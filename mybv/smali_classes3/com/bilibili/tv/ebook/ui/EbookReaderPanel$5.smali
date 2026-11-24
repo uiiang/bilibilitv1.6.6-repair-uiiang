@@ -25,7 +25,7 @@
     .locals 0
 
     .prologue
-    .line 540
+    .line 543
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$5;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$5;->val$activity:Landroid/app/Activity;
@@ -41,7 +41,7 @@
     .locals 1
 
     .prologue
-    .line 543
+    .line 546
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$5;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->bookshelfItems:Ljava/util/List;
@@ -60,7 +60,7 @@
     .locals 1
 
     .prologue
-    .line 548
+    .line 551
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$5;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->bookshelfItems:Ljava/util/List;
@@ -79,7 +79,7 @@
     .locals 2
 
     .prologue
-    .line 553
+    .line 556
     int-to-long v0, p1
 
     return-wide v0
@@ -97,7 +97,7 @@
 
     const/4 v5, 0x0
 
-    .line 558
+    .line 561
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$5;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->bookshelfItems:Ljava/util/List;
@@ -111,29 +111,29 @@
 
     check-cast v0, Lcom/bilibili/tv/ebook/model/BookshelfItem;
 
-    .line 563
+    .line 566
     instance-of v1, p2, Landroid/widget/LinearLayout;
 
     if-eqz v1, :cond_da
 
-    .line 564
+    .line 567
     check-cast p2, Landroid/widget/LinearLayout;
 
-    .line 565
+    .line 568
     invoke-virtual {p2, v5}, Landroid/widget/LinearLayout;->getChildAt(I)Landroid/view/View;
 
     move-result-object v1
 
     check-cast v1, Landroid/widget/CheckBox;
 
-    .line 566
+    .line 569
     invoke-virtual {p2, v4}, Landroid/widget/LinearLayout;->getChildAt(I)Landroid/view/View;
 
     move-result-object v2
 
     check-cast v2, Landroid/widget/TextView;
 
-    .line 589
+    .line 592
     :goto_23
     iget-object v3, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$5;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
@@ -146,7 +146,7 @@
 
     iget-object v3, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$5;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    .line 590
+    .line 593
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->organizeSelectedFlags:[Z
     invoke-static {v3}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$500(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)[Z
 
@@ -158,7 +158,7 @@
 
     iget-object v3, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$5;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    .line 591
+    .line 594
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->organizeSelectedFlags:[Z
     invoke-static {v3}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$500(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)[Z
 
@@ -170,23 +170,23 @@
 
     move v3, v4
 
-    .line 589
+    .line 592
     :goto_3f
     invoke-virtual {v1, v3}, Landroid/widget/CheckBox;->setChecked(Z)V
 
-    .line 594
+    .line 597
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 595
+    .line 598
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getTitle()Ljava/lang/String;
 
     move-result-object v3
 
     invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 596
+    .line 599
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getAuthor()Ljava/lang/String;
 
     move-result-object v3
@@ -203,7 +203,7 @@
 
     if-nez v3, :cond_6b
 
-    .line 597
+    .line 600
     const-string v3, "  \u00b7  "
 
     invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -216,13 +216,13 @@
 
     invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 599
+    .line 602
     :cond_6b
     const-string v3, "\n"
 
     invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 600
+    .line 603
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getProgressPercentage()F
 
     move-result v3
@@ -233,7 +233,7 @@
 
     if-lez v3, :cond_123
 
-    .line 601
+    .line 604
     const-string v3, "\u5df2\u8bfb "
 
     invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -266,7 +266,7 @@
 
     invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 605
+    .line 608
     :goto_9a
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getChapterTitle()Ljava/lang/String;
 
@@ -284,7 +284,7 @@
 
     if-nez v3, :cond_b7
 
-    .line 606
+    .line 609
     const-string v3, "  \u00b7  "
 
     invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -297,7 +297,7 @@
 
     invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 608
+    .line 611
     :cond_b7
     invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
@@ -305,15 +305,15 @@
 
     invoke-virtual {v2, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 611
+    .line 614
     instance-of v0, p3, Landroid/widget/ListView;
 
     if-eqz v0, :cond_d9
 
-    .line 612
+    .line 615
     check-cast p3, Landroid/widget/ListView;
 
-    .line 613
+    .line 616
     invoke-virtual {p3}, Landroid/widget/ListView;->hasFocus()Z
 
     move-result v0
@@ -326,7 +326,7 @@
 
     if-ne p1, v0, :cond_12a
 
-    .line 614
+    .line 617
     const-string v0, "#1E90FF"
 
     invoke-static {v0}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -335,12 +335,12 @@
 
     invoke-virtual {p2, v0}, Landroid/widget/LinearLayout;->setBackgroundColor(I)V
 
-    .line 619
+    .line 622
     :cond_d9
     :goto_d9
     return-object p2
 
-    .line 568
+    .line 571
     :cond_da
     new-instance p2, Landroid/widget/LinearLayout;
 
@@ -348,58 +348,58 @@
 
     invoke-direct {p2, v1}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
-    .line 569
+    .line 572
     invoke-virtual {p2, v5}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 570
+    .line 573
     const/16 v1, 0x10
 
     invoke-virtual {p2, v1}, Landroid/widget/LinearLayout;->setGravity(I)V
 
-    .line 571
+    .line 574
     invoke-virtual {p2, v2, v2, v2, v2}, Landroid/widget/LinearLayout;->setPadding(IIII)V
 
-    .line 572
+    .line 575
     new-instance v1, Landroid/widget/CheckBox;
 
     iget-object v2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$5;->val$activity:Landroid/app/Activity;
 
     invoke-direct {v1, v2}, Landroid/widget/CheckBox;-><init>(Landroid/content/Context;)V
 
-    .line 573
+    .line 576
     invoke-virtual {v1, v5}, Landroid/widget/CheckBox;->setFocusable(Z)V
 
-    .line 574
+    .line 577
     invoke-virtual {v1, v5}, Landroid/widget/CheckBox;->setFocusableInTouchMode(Z)V
 
-    .line 575
+    .line 578
     invoke-virtual {v1, v5}, Landroid/widget/CheckBox;->setClickable(Z)V
 
-    .line 576
+    .line 579
     new-instance v2, Landroid/widget/LinearLayout$LayoutParams;
 
     invoke-direct {v2, v7, v7}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
     invoke-virtual {p2, v1, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 580
+    .line 583
     new-instance v2, Landroid/widget/TextView;
 
     iget-object v3, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$5;->val$activity:Landroid/app/Activity;
 
     invoke-direct {v2, v3}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 581
+    .line 584
     const/4 v3, -0x1
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 582
+    .line 585
     const/high16 v3, 0x41800000    # 16.0f
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setTextSize(F)V
 
-    .line 583
+    .line 586
     new-instance v3, Landroid/widget/LinearLayout$LayoutParams;
 
     const/high16 v6, 0x3f800000    # 1.0f
@@ -413,10 +413,10 @@
     :cond_120
     move v3, v5
 
-    .line 591
+    .line 594
     goto/16 :goto_3f
 
-    .line 603
+    .line 606
     :cond_123
     const-string v3, "\u672a\u8bfb"
 
@@ -424,7 +424,7 @@
 
     goto/16 :goto_9a
 
-    .line 616
+    .line 619
     :cond_12a
     invoke-virtual {p2, v5}, Landroid/widget/LinearLayout;->setBackgroundColor(I)V
 

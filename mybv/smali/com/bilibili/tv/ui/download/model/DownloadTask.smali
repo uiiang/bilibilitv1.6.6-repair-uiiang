@@ -902,51 +902,66 @@
 
 # virtual methods
 .method public compareTo(Lcom/bilibili/tv/ui/download/model/DownloadTask;)I
-    .locals 4
+    .locals 6
 
     .prologue
+    const/4 v0, 0x1
+
     .line 655
     if-nez p1, :cond_4
 
-    .line 656
-    const/4 v0, 0x1
-
     .line 669
+    :cond_3
     :goto_3
     return v0
 
     .line 660
     :cond_4
-    iget-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->status:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
-
-    invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getStatusPriority(Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;)I
-
-    move-result v0
-
-    .line 661
-    iget-object v1, p1, Lcom/bilibili/tv/ui/download/model/DownloadTask;->status:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+    iget-object v1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->status:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     invoke-direct {p0, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getStatusPriority(Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;)I
 
     move-result v1
 
+    .line 661
+    iget-object v2, p1, Lcom/bilibili/tv/ui/download/model/DownloadTask;->status:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+
+    invoke-direct {p0, v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getStatusPriority(Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;)I
+
+    move-result v2
+
     .line 664
-    if-eq v0, v1, :cond_14
+    if-eq v1, v2, :cond_15
 
     .line 665
-    sub-int/2addr v0, v1
+    sub-int v0, v1, v2
 
     goto :goto_3
 
     .line 669
-    :cond_14
-    iget-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->createTime:J
+    :cond_15
+    iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->createTime:J
 
-    iget-wide v2, p1, Lcom/bilibili/tv/ui/download/model/DownloadTask;->createTime:J
+    iget-wide v4, p1, Lcom/bilibili/tv/ui/download/model/DownloadTask;->createTime:J
 
-    invoke-static {v0, v1, v2, v3}, Ljava/lang/Long;->compare(JJ)I
+    cmp-long v1, v2, v4
 
-    move-result v0
+    if-gez v1, :cond_1f
+
+    const/4 v0, -0x1
+
+    goto :goto_3
+
+    :cond_1f
+    iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->createTime:J
+
+    iget-wide v4, p1, Lcom/bilibili/tv/ui/download/model/DownloadTask;->createTime:J
+
+    cmp-long v1, v2, v4
+
+    if-nez v1, :cond_3
+
+    const/4 v0, 0x0
 
     goto :goto_3
 .end method

@@ -251,7 +251,7 @@ public final class adl {
                     agb.a aVar = new agb.a(activity);
                     aVar.a(1).a("啊哦。。登录信息失效啦！请重新登录哦").b(e(R.string.confirm), new b(activity));
                     agb a2 = aVar.a();
-                    if (activity.isFinishing() || activity.isDestroyed()) {
+                    if (activity.isFinishing() || (Build.VERSION.SDK_INT >= 17 && activity.isDestroyed())) {
                         return;
                     } else {
                         a2.show();
@@ -284,7 +284,7 @@ public final class adl {
             agb.a aVar = new agb.a(activity);
             aVar.a(1).a("啊哦。。登录信息失效啦！请重新登录哦").b(e(R.string.confirm), new a(activity));
             agb a2 = aVar.a();
-            if (activity.isFinishing() || activity.isDestroyed()) {
+            if (activity.isFinishing() || (Build.VERSION.SDK_INT >= 17 && activity.isDestroyed())) {
                 return;
             } else {
                 a2.show();

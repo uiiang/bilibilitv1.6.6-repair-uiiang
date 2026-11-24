@@ -75,7 +75,11 @@ public class RankingRequest {
 
         Request request = requestBuilder.build();
 
-        try (Response response = getClient().newCall(request).execute()) {
+        // 注意：不能用 try-with-resources —— 编译器会生成 Throwable.addSuppressed（API 19），
+        // Android 4.x 上异常路径会 NoSuchMethodError，这里手动 close
+        Response response = null;
+        try {
+            response = getClient().newCall(request).execute();
             if (!response.isSuccessful()) {
                 Log.e(TAG, "Request failed: " + response.code());
                 return null;
@@ -168,6 +172,13 @@ public class RankingRequest {
         } catch (Exception e) {
             Log.e(TAG, "Request error: " + e.getMessage(), e);
             return null;
+        } finally {
+            if (response != null) {
+                try {
+                    response.close();
+                } catch (Exception ignored) {
+                }
+            }
         }
     }
 }

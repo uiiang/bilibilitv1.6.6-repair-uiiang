@@ -61,9 +61,9 @@
 
     move-result-object v0
 
-    invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->isAttachedToWindow()Z
+    invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getWindowToken()Landroid/os/IBinder;
 
-    move-result v0
+    move-result-object v0
 
     if-nez v0, :cond_2d
 

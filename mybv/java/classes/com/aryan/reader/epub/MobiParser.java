@@ -85,7 +85,7 @@ public class MobiParser {
         
         @Override
         public int compareTo(ParsedMobiTocEntry other) {
-            return Integer.compare(this.filePosition, other.filePosition);
+            return this.filePosition < other.filePosition ? -1 : (this.filePosition == other.filePosition ? 0 : 1);
         }
     }
     
@@ -308,7 +308,7 @@ public class MobiParser {
         Collections.sort(imageResources, new Comparator<ParsedMobiResource>() {
             @Override
             public int compare(ParsedMobiResource a, ParsedMobiResource b) {
-                return Integer.compare(a.getUid(), b.getUid());
+                return a.getUid() < b.getUid() ? -1 : (a.getUid() == b.getUid() ? 0 : 1);
             }
         });
         
@@ -473,7 +473,7 @@ public class MobiParser {
             Collections.sort(sortedToc, new Comparator<ParsedMobiTocEntry>() {
                 @Override
                 public int compare(ParsedMobiTocEntry a, ParsedMobiTocEntry b) {
-                    return Integer.compare(a.getFilePosition(), b.getFilePosition());
+                    return a.getFilePosition() < b.getFilePosition() ? -1 : (a.getFilePosition() == b.getFilePosition() ? 0 : 1);
                 }
             });
         }

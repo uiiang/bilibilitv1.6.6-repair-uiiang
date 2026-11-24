@@ -435,7 +435,7 @@ public class VideoViewParams {
                 }
                 int score1 = CdnSelector.getCdnScore(cdn1);
                 int score2 = CdnSelector.getCdnScore(cdn2);
-                return Integer.compare(score2, score1);
+                return score2 < score1 ? -1 : (score2 == score1 ? 0 : 1);
             }
         });
         return urls;
@@ -559,7 +559,7 @@ public class VideoViewParams {
                 // Same type group: sort by score
                 int score1 = CdnSelector.getCdnScore(cdn1);
                 int score2 = CdnSelector.getCdnScore(cdn2);
-                return Integer.compare(score2, score1);
+                return score2 < score1 ? -1 : (score2 == score1 ? 0 : 1);
             }
         });
         return urls;

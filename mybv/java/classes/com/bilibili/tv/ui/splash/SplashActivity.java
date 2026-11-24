@@ -43,7 +43,12 @@ public final class SplashActivity extends BaseActivity {
             try{
                 Bitmap bitmap = BitmapFactory.decodeFile(fImage.getAbsolutePath());
                 Drawable drawable = new BitmapDrawable(getResources(), bitmap);
-                findViewById.setBackground(drawable);
+                // setBackground(Drawable) 是 API 16 方法，4.0.x 上会 NoSuchMethodError
+                if (android.os.Build.VERSION.SDK_INT >= 16) {
+                    findViewById.setBackground(drawable);
+                } else {
+                    findViewById.setBackgroundDrawable(drawable);
+                }
             }catch(Exception e){
                 e.printStackTrace();
             }

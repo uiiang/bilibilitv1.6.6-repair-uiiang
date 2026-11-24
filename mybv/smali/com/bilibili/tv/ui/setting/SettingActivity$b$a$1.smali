@@ -35,7 +35,7 @@
     .end annotation
 
     .prologue
-    .line 365
+    .line 368
     iput-object p1, p0, Lcom/bilibili/tv/ui/setting/SettingActivity$b$a$1;->this$2:Lcom/bilibili/tv/ui/setting/SettingActivity$b$a;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/setting/SettingActivity$b$a$1;->val$afpVar:Lbl/afp;
@@ -53,13 +53,13 @@
     .locals 2
 
     .prologue
-    .line 368
+    .line 371
     iget-object v0, p0, Lcom/bilibili/tv/ui/setting/SettingActivity$b$a$1;->val$afpVar:Lbl/afp;
 
     iget v1, p0, Lcom/bilibili/tv/ui/setting/SettingActivity$b$a$1;->val$f:I
 
     invoke-virtual {v0, v1}, Lbl/afp;->c(I)V
 
-    .line 369
+    .line 372
     return-void
 .end method

@@ -39,13 +39,13 @@
     .end annotation
 
     .prologue
-    .line 121
+    .line 123
     :try_start_0
     new-instance v1, Lorg/json/JSONArray;
 
     invoke-direct {v1}, Lorg/json/JSONArray;-><init>()V
 
-    .line 122
+    .line 124
     invoke-interface {p1}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
     move-result-object v2
@@ -63,12 +63,12 @@
 
     check-cast v0, Lcom/bilibili/tv/ebook/model/BookshelfItem;
 
-    .line 123
+    .line 125
     new-instance v3, Lorg/json/JSONObject;
 
     invoke-direct {v3}, Lorg/json/JSONObject;-><init>()V
 
-    .line 124
+    .line 126
     const-string v4, "bookId"
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getBookId()Ljava/lang/String;
@@ -77,7 +77,7 @@
 
     invoke-virtual {v3, v4, v5}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
 
-    .line 125
+    .line 127
     const-string v4, "title"
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getTitle()Ljava/lang/String;
@@ -86,7 +86,7 @@
 
     invoke-virtual {v3, v4, v5}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
 
-    .line 126
+    .line 128
     const-string v4, "author"
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getAuthor()Ljava/lang/String;
@@ -95,7 +95,7 @@
 
     invoke-virtual {v3, v4, v5}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
 
-    .line 127
+    .line 129
     const-string v4, "fileExtension"
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getFileExtension()Ljava/lang/String;
@@ -104,7 +104,7 @@
 
     invoke-virtual {v3, v4, v5}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
 
-    .line 128
+    .line 130
     const-string v4, "chapterIndex"
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getChapterIndex()I
@@ -113,7 +113,7 @@
 
     invoke-virtual {v3, v4, v5}, Lorg/json/JSONObject;->put(Ljava/lang/String;I)Lorg/json/JSONObject;
 
-    .line 129
+    .line 131
     const-string v4, "chapterTitle"
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getChapterTitle()Ljava/lang/String;
@@ -122,7 +122,7 @@
 
     invoke-virtual {v3, v4, v5}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
 
-    .line 130
+    .line 132
     const-string v4, "progressPercentage"
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getProgressPercentage()F
@@ -133,7 +133,7 @@
 
     invoke-virtual {v3, v4, v6, v7}, Lorg/json/JSONObject;->put(Ljava/lang/String;D)Lorg/json/JSONObject;
 
-    .line 131
+    .line 133
     const-string v4, "lastReadTime"
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getLastReadTime()J
@@ -142,7 +142,7 @@
 
     invoke-virtual {v3, v4, v6, v7}, Lorg/json/JSONObject;->put(Ljava/lang/String;J)Lorg/json/JSONObject;
 
-    .line 132
+    .line 134
     const-string v4, "filePath"
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getFilePath()Ljava/lang/String;
@@ -151,18 +151,18 @@
 
     invoke-virtual {v3, v4, v0}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
 
-    .line 134
+    .line 136
     invoke-virtual {v1, v3}, Lorg/json/JSONArray;->put(Ljava/lang/Object;)Lorg/json/JSONArray;
     :try_end_6f
     .catch Lorg/json/JSONException; {:try_start_0 .. :try_end_6f} :catch_70
 
     goto :goto_9
 
-    .line 139
+    .line 141
     :catch_70
     move-exception v0
 
-    .line 140
+    .line 142
     const-string v1, "BookshelfManager"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -189,11 +189,11 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 142
+    .line 144
     :goto_8d
     return-void
 
-    .line 137
+    .line 139
     :cond_8e
     :try_start_8e
     iget-object v0, p0, Lcom/bilibili/tv/ebook/util/BookshelfManager;->context:Landroid/content/Context;
@@ -208,7 +208,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->saveBookshelfJson(Ljava/lang/String;)V
 
-    .line 138
+    .line 140
     const-string v0, "BookshelfManager"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -257,7 +257,7 @@
 
     if-nez p3, :cond_5
 
-    .line 79
+    .line 81
     :cond_4
     :goto_4
     return-void
@@ -357,7 +357,7 @@
 
     invoke-static {v2, v0}, Ljava/util/Collections;->sort(Ljava/util/List;Ljava/util/Comparator;)V
 
-    .line 78
+    .line 80
     invoke-direct {p0, v2}, Lcom/bilibili/tv/ebook/util/BookshelfManager;->saveBookshelfItems(Ljava/util/List;)V
 
     goto :goto_4
@@ -411,12 +411,12 @@
     .end annotation
 
     .prologue
-    .line 85
+    .line 87
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
 
-    .line 87
+    .line 89
     iget-object v1, p0, Lcom/bilibili/tv/ebook/util/BookshelfManager;->context:Landroid/content/Context;
 
     invoke-static {v1}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ebook/util/EbookFileStore;
@@ -427,26 +427,26 @@
 
     move-result-object v1
 
-    .line 88
+    .line 90
     invoke-virtual {v1}, Ljava/lang/String;->isEmpty()Z
 
     move-result v2
 
     if-eqz v2, :cond_16
 
-    .line 113
+    .line 115
     :cond_15
     :goto_15
     return-object v0
 
-    .line 93
+    .line 95
     :cond_16
     :try_start_16
     new-instance v2, Lorg/json/JSONArray;
 
     invoke-direct {v2, v1}, Lorg/json/JSONArray;-><init>(Ljava/lang/String;)V
 
-    .line 94
+    .line 96
     const/4 v1, 0x0
 
     :goto_1c
@@ -456,12 +456,12 @@
 
     if-ge v1, v3, :cond_15
 
-    .line 95
+    .line 97
     invoke-virtual {v2, v1}, Lorg/json/JSONArray;->getJSONObject(I)Lorg/json/JSONObject;
 
     move-result-object v3
 
-    .line 96
+    .line 98
     new-instance v4, Lcom/bilibili/tv/ebook/model/BookshelfItem;
 
     const-string v5, "bookId"
@@ -472,7 +472,7 @@
 
     invoke-direct {v4, v5}, Lcom/bilibili/tv/ebook/model/BookshelfItem;-><init>(Ljava/lang/String;)V
 
-    .line 98
+    .line 100
     const-string v5, "title"
 
     invoke-virtual {v3, v5}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
@@ -481,7 +481,7 @@
 
     invoke-virtual {v4, v5}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->setTitle(Ljava/lang/String;)V
 
-    .line 99
+    .line 101
     const-string v5, "author"
 
     invoke-virtual {v3, v5}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
@@ -490,7 +490,7 @@
 
     invoke-virtual {v4, v5}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->setAuthor(Ljava/lang/String;)V
 
-    .line 100
+    .line 102
     const-string v5, "fileExtension"
 
     invoke-virtual {v3, v5}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
@@ -499,7 +499,7 @@
 
     invoke-virtual {v4, v5}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->setFileExtension(Ljava/lang/String;)V
 
-    .line 101
+    .line 103
     const-string v5, "chapterIndex"
 
     invoke-virtual {v3, v5}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;)I
@@ -508,7 +508,7 @@
 
     invoke-virtual {v4, v5}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->setChapterIndex(I)V
 
-    .line 102
+    .line 104
     const-string v5, "chapterTitle"
 
     invoke-virtual {v3, v5}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
@@ -517,7 +517,7 @@
 
     invoke-virtual {v4, v5}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->setChapterTitle(Ljava/lang/String;)V
 
-    .line 103
+    .line 105
     const-string v5, "progressPercentage"
 
     invoke-virtual {v3, v5}, Lorg/json/JSONObject;->optDouble(Ljava/lang/String;)D
@@ -528,7 +528,7 @@
 
     invoke-virtual {v4, v5}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->setProgressPercentage(F)V
 
-    .line 104
+    .line 106
     const-string v5, "lastReadTime"
 
     invoke-virtual {v3, v5}, Lorg/json/JSONObject;->optLong(Ljava/lang/String;)J
@@ -537,7 +537,7 @@
 
     invoke-virtual {v4, v6, v7}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->setLastReadTime(J)V
 
-    .line 105
+    .line 107
     const-string v5, "filePath"
 
     invoke-virtual {v3, v5}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
@@ -546,21 +546,21 @@
 
     invoke-virtual {v4, v3}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->setFilePath(Ljava/lang/String;)V
 
-    .line 107
+    .line 109
     invoke-interface {v0, v4}, Ljava/util/List;->add(Ljava/lang/Object;)Z
     :try_end_7d
     .catch Lorg/json/JSONException; {:try_start_16 .. :try_end_7d} :catch_80
 
-    .line 94
+    .line 96
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_1c
 
-    .line 109
+    .line 111
     :catch_80
     move-exception v1
 
-    .line 110
+    .line 112
     const-string v2, "BookshelfManager"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -594,12 +594,12 @@
     .locals 4
 
     .prologue
-    .line 148
+    .line 150
     invoke-virtual {p0}, Lcom/bilibili/tv/ebook/util/BookshelfManager;->getBookshelfItems()Ljava/util/List;
 
     move-result-object v2
 
-    .line 150
+    .line 152
     const/4 v0, 0x0
 
     move v1, v0
@@ -611,7 +611,7 @@
 
     if-ge v1, v0, :cond_37
 
-    .line 151
+    .line 153
     invoke-interface {v2, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
@@ -628,10 +628,10 @@
 
     if-eqz v0, :cond_3b
 
-    .line 152
+    .line 154
     invoke-interface {v2, v1}, Ljava/util/List;->remove(I)Ljava/lang/Object;
 
-    .line 153
+    .line 155
     const-string v0, "BookshelfManager"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -654,14 +654,14 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 158
+    .line 160
     :cond_37
     invoke-direct {p0, v2}, Lcom/bilibili/tv/ebook/util/BookshelfManager;->saveBookshelfItems(Ljava/util/List;)V
 
-    .line 159
+    .line 161
     return-void
 
-    .line 150
+    .line 152
     :cond_3b
     add-int/lit8 v0, v1, 0x1
 

@@ -100,7 +100,13 @@ public final class VideoBadgeStyler {
         }
 
         badgeView.setText(text);
-        badgeView.setBackground(createBackground(badgeView, bgColor, translucent, alignLeft));
+        // setBackground(Drawable) 是 API 16 方法，4.0.x 上会 NoSuchMethodError
+        android.graphics.drawable.Drawable bg = createBackground(badgeView, bgColor, translucent, alignLeft);
+        if (android.os.Build.VERSION.SDK_INT >= 16) {
+            badgeView.setBackground(bg);
+        } else {
+            badgeView.setBackgroundDrawable(bg);
+        }
         badgeView.setVisibility(View.VISIBLE);
     }
 

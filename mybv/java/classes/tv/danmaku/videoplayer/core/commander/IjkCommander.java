@@ -27,7 +27,7 @@ import tv.danmaku.ijk.media.player.IjkCodecHelper;
 import mybl.VideoViewParams;
 import com.bilibili.tv.player.widget.PlayerMenuRight;
 
-class IjkCommander extends AbsPlayerCommander {
+public class IjkCommander extends AbsPlayerCommander {
     private static final String TAG = "IjkCommander";
     private IjkInfoStatistics mIjkInfoStatistics;
     private IjkMediaPlayer mIjkMediaPlayer;

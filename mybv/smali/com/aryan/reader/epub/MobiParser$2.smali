@@ -59,11 +59,32 @@
 
     move-result v1
 
-    invoke-static {v0, v1}, Ljava/lang/Integer;->compare(II)I
+    if-ge v0, v1, :cond_c
+
+    const/4 v0, -0x1
+
+    :goto_b
+    return v0
+
+    :cond_c
+    invoke-virtual {p1}, Lcom/aryan/reader/epub/MobiParser$ParsedMobiTocEntry;->getFilePosition()I
 
     move-result v0
 
-    return v0
+    invoke-virtual {p2}, Lcom/aryan/reader/epub/MobiParser$ParsedMobiTocEntry;->getFilePosition()I
+
+    move-result v1
+
+    if-ne v0, v1, :cond_18
+
+    const/4 v0, 0x0
+
+    goto :goto_b
+
+    :cond_18
+    const/4 v0, 0x1
+
+    goto :goto_b
 .end method
 
 .method public bridge synthetic compare(Ljava/lang/Object;Ljava/lang/Object;)I

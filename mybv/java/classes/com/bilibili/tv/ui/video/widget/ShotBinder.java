@@ -215,7 +215,7 @@ public class ShotBinder implements VideoCardBinder {
         if (holder == null) {
             return null;
         }
-        if (!holder.a.isAttachedToWindow() || holder.a.getTag() != request.item) {
+        if (holder.a.getWindowToken() == null || holder.a.getTag() != request.item) {
             return null;
         }
         return holder;

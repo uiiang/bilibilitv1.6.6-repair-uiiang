@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 53
+    .line 58
     iput-object p1, p0, Lcom/bilibili/tv/ui/splash/SplashActivity$1;->this$0:Lcom/bilibili/tv/ui/splash/SplashActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,11 +40,11 @@
     .locals 1
 
     .prologue
-    .line 56
+    .line 61
     const/4 v0, -0x1
 
     invoke-static {v0}, Ljava/lang/System;->exit(I)V
 
-    .line 57
+    .line 62
     return-void
 .end method

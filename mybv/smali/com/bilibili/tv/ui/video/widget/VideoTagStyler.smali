@@ -22,43 +22,57 @@
 .end method
 
 .method public static applySolid(Landroid/widget/TextView;I)V
-    .locals 1
+    .locals 3
 
     .prologue
     .line 22
     if-nez p0, :cond_3
 
-    .line 26
+    .line 32
     :goto_2
     return-void
 
-    .line 25
+    .line 26
     :cond_3
     invoke-static {p0, p1}, Lcom/bilibili/tv/ui/video/widget/VideoTagStyler;->create(Landroid/widget/TextView;I)Landroid/graphics/drawable/GradientDrawable;
 
     move-result-object v0
 
+    .line 27
+    sget v1, Landroid/os/Build$VERSION;->SDK_INT:I
+
+    const/16 v2, 0x10
+
+    if-lt v1, v2, :cond_11
+
+    .line 28
     invoke-virtual {p0, v0}, Landroid/widget/TextView;->setBackground(Landroid/graphics/drawable/Drawable;)V
+
+    goto :goto_2
+
+    .line 30
+    :cond_11
+    invoke-virtual {p0, v0}, Landroid/widget/TextView;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
 
     goto :goto_2
 .end method
 
 .method public static applyTranslucent(Landroid/widget/TextView;Ljava/lang/String;)V
-    .locals 2
+    .locals 3
 
     .prologue
-    .line 30
+    .line 36
     if-nez p0, :cond_3
 
-    .line 42
+    .line 53
     :goto_2
     return-void
 
-    .line 33
+    .line 39
     :cond_3
     const v0, -0x66048d67    # -2.5999077E-23f
 
-    .line 34
+    .line 40
     if-eqz p1, :cond_19
 
     invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
@@ -67,15 +81,15 @@
 
     if-nez v1, :cond_19
 
-    .line 36
+    .line 42
     :try_start_e
     invoke-static {p1}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
     :try_end_11
-    .catch Ljava/lang/Exception; {:try_start_e .. :try_end_11} :catch_21
+    .catch Ljava/lang/Exception; {:try_start_e .. :try_end_11} :catch_2b
 
     move-result v0
 
-    .line 37
+    .line 43
     const v1, 0xffffff
 
     and-int/2addr v0, v1
@@ -84,19 +98,33 @@
 
     or-int/2addr v0, v1
 
-    .line 41
+    .line 47
     :cond_19
     :goto_19
     invoke-static {p0, v0}, Lcom/bilibili/tv/ui/video/widget/VideoTagStyler;->create(Landroid/widget/TextView;I)Landroid/graphics/drawable/GradientDrawable;
 
     move-result-object v0
 
+    .line 48
+    sget v1, Landroid/os/Build$VERSION;->SDK_INT:I
+
+    const/16 v2, 0x10
+
+    if-lt v1, v2, :cond_27
+
+    .line 49
     invoke-virtual {p0, v0}, Landroid/widget/TextView;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
     goto :goto_2
 
-    .line 38
-    :catch_21
+    .line 51
+    :cond_27
+    invoke-virtual {p0, v0}, Landroid/widget/TextView;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
+
+    goto :goto_2
+
+    .line 44
+    :catch_2b
     move-exception v1
 
     goto :goto_19
@@ -106,7 +134,7 @@
     .locals 3
 
     .prologue
-    .line 45
+    .line 56
     const/high16 v0, 0x40800000    # 4.0f
 
     invoke-virtual {p0}, Landroid/widget/TextView;->getResources()Landroid/content/res/Resources;
@@ -121,22 +149,22 @@
 
     mul-float/2addr v0, v1
 
-    .line 46
+    .line 57
     new-instance v1, Landroid/graphics/drawable/GradientDrawable;
 
     invoke-direct {v1}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
 
-    .line 47
+    .line 58
     const/4 v2, 0x0
 
     invoke-virtual {v1, v2}, Landroid/graphics/drawable/GradientDrawable;->setShape(I)V
 
-    .line 48
+    .line 59
     invoke-virtual {v1, v0}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadius(F)V
 
-    .line 49
+    .line 60
     invoke-virtual {v1, p1}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
 
-    .line 50
+    .line 61
     return-object v1
 .end method

@@ -90,13 +90,62 @@ public class BiliLiveContent implements Parcelable {
     public int getPlayUrl() {
         Log.i("BiliLiveContent", "getPlayUrl: 开始获取播放地址, roomId=" + this.mRoomId);
         long startTime = System.currentTimeMillis();
+        // 大会员/付费直播间（room_info.special_type=1）的播放地址由服务端按登录态下发：
+        // getRoomPlayInfo 是直播 web 接口，只认 Cookie（SESSDATA），query 里的 access_key 不参与直播权限校验。
+        // 不带 Cookie 时普通直播间仍会返回 playurl，但大会员/付费直播间会返回 playurl_info.playurl=null。
+        final String cookie = CookieUtil.getFullCookieWithDevice(mg.a(MainApplication.a()));
+        Log.i("BiliLiveContent", "getPlayUrl: Cookie长度=" + (cookie == null ? 0 : cookie.length())
+                + ", hasSESSDATA=" + (cookie != null && cookie.contains("SESSDATA=")));
         ExecutorService threadPool  = Executors.newSingleThreadExecutor();
         Future<Integer> future = threadPool.submit(new Callable<Integer>() {
             @Override
             public Integer call() {
                 long apiStart = System.currentTimeMillis();
                 Log.i("BiliLiveContent", "getPlayUrl: 开始API请求");
-                int result = ((playUrlResponse) pz.a(new qa.a(playUrlResponse.class).a("https://api.live.bilibili.com/xlive/web-room/v2/index/getRoomPlayInfo").a(true).b("appkey",BiliConfig.a()).b("access_key",mg.a(MainApplication.a()).e()).b("room_id", String.valueOf(BiliLiveContent.this.mRoomId)).b("qn",String.valueOf(BiliLiveContent.this.mCurrentQuality)).b("protocol","0,1").b("format","0,1,2").b("codec","0,1").a(new qb()).a(),"GET")).e(BiliLiveContent.this);
+                String baseUrl = "https://api.live.bilibili.com/xlive/web-room/v2/index/getRoomPlayInfo";
+                // 参数与网页播放器保持一致，并补 WBI 签名（Web 端接口的风控要求）
+                TreeMap<String, String> params = new TreeMap<String, String>();
+                params.put("room_id", String.valueOf(BiliLiveContent.this.mRoomId));
+                params.put("qn", String.valueOf(BiliLiveContent.this.mCurrentQuality));
+                params.put("platform", "web");
+                params.put("protocol", "0,1");
+                params.put("format", "0,1,2");
+                params.put("codec", "0,1,2");
+                params.put("ptype", "8");
+                params.put("dolby", "5");
+                params.put("panorama", "1");
+                params.put("eotf", "0,1,2");
+                params.put("supported_drms", "0,1,2,3");
+                String signedQuery = null;
+                try {
+                    signedQuery = WbiSigner.getInstance().encWbiAndGetQuery(params);
+                } catch (Throwable t) {
+                    Log.w("BiliLiveContent", "getPlayUrl: WBI签名异常, " + t);
+                }
+                qa request;
+                if (signedQuery != null) {
+                    request = new qa.a(playUrlResponse.class).a(baseUrl + "?" + signedQuery).a(true)
+                        .a("Cookie", cookie)
+                        .a("Referer", "https://live.bilibili.com/")
+                        .a();
+                    Log.i("BiliLiveContent", "getPlayUrl: 使用WBI签名请求");
+                } else {
+                    // 签名失败时回退到原有的 app 签名方式，保证普通直播间仍可播放
+                    request = new qa.a(playUrlResponse.class).a(baseUrl).a(true)
+                        .a("Cookie", cookie)
+                        .a("Referer", "https://live.bilibili.com/")
+                        .b("appkey", BiliConfig.a())
+                        .b("access_key", mg.a(MainApplication.a()).e())
+                        .b("room_id", String.valueOf(BiliLiveContent.this.mRoomId))
+                        .b("qn", String.valueOf(BiliLiveContent.this.mCurrentQuality))
+                        .b("platform", "web")
+                        .b("protocol", "0,1")
+                        .b("format", "0,1,2")
+                        .b("codec", "0,1")
+                        .a(new qb()).a();
+                    Log.i("BiliLiveContent", "getPlayUrl: WBI签名失败, 使用app签名请求");
+                }
+                int result = ((playUrlResponse) pz.a(request, "GET")).e(BiliLiveContent.this);
                 Log.i("BiliLiveContent", "getPlayUrl: API请求完成, 耗时=" + (System.currentTimeMillis() - apiStart) + "ms, result=" + result);
                 return result;
             }
@@ -168,9 +217,16 @@ public class BiliLiveContent implements Parcelable {
 
                     int code=0;
                     
-                    JSONArray streamArr = optJSONObject.optJSONObject("playurl_info").optJSONObject("playurl").optJSONArray("stream");
+                    // 大会员/付费直播间在未带登录 Cookie 时 playurl_info 存在但 playurl 为 null，
+                    // 旧代码直接 optJSONObject("playurl").optJSONArray(...) 会抛 NPE，这里做空安全处理并打印诊断信息。
+                    JSONObject playurlInfo = optJSONObject.optJSONObject("playurl_info");
+                    JSONObject playurl = playurlInfo == null ? null : playurlInfo.optJSONObject("playurl");
+                    JSONArray streamArr = playurl == null ? null : playurl.optJSONArray("stream");
                     if (streamArr == null || streamArr.length() == 0) {
-                        Log.e("BiliLiveContent", "playUrlResponse.e: stream数组为空");
+                        Log.e("BiliLiveContent", "playUrlResponse.e: playurl为空, 可能是付费/大会员专享直播间或登录Cookie失效"
+                            + ", live_status=" + optJSONObject.optInt("live_status")
+                            + ", all_special_types=" + optJSONObject.optJSONArray("all_special_types")
+                            + ", playurl_info=" + playurlInfo);
                         return -1;
                     }
                     

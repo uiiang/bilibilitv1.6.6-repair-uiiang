@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 4456
+    .line 4474
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$40;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,13 +40,13 @@
     .locals 2
 
     .prologue
-    .line 4459
+    .line 4477
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$40;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->saveReadingProgress()V
     invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$000(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
 
-    .line 4460
+    .line 4478
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$40;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     const/4 v1, 0x0
@@ -54,6 +54,6 @@
     # setter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->saveProgressRunnable:Ljava/lang/Runnable;
     invoke-static {v0, v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$4902(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Ljava/lang/Runnable;)Ljava/lang/Runnable;
 
-    .line 4461
+    .line 4479
     return-void
 .end method

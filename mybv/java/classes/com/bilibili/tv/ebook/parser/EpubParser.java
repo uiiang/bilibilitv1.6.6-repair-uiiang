@@ -245,9 +245,15 @@ public class EpubParser {
         File containerFile = new File(extractionDir, "META-INF/container.xml");
         
         if (containerFile.exists()) {
-            Document doc = Jsoup.parse(containerFile, EbookUtils.detectFileEncoding(containerFile));
-            // 使用 *| 通配命名空间，兼容 <rootfile> 和 <ns:rootfile> 两种写法
-            Element rootfile = doc.selectFirst("*|rootfile");
+            // 使用XML解析器，避免HTML解析器重排/命名空间选择器的兼容问题
+            Document doc = parseXmlFile(containerFile);
+            // 按本地名查找，兼容 <rootfile> 和 <ns:rootfile> 两种写法
+            Element rootfile = findFirstElementByLocalName(doc, "rootfile");
+            if (rootfile == null) {
+                // XML解析失败或结构异常时退回HTML解析器
+                doc = Jsoup.parse(containerFile, EbookUtils.detectFileEncoding(containerFile));
+                rootfile = findFirstElementByLocalName(doc, "rootfile");
+            }
             
             if (rootfile != null) {
                 String opfPath = rootfile.attr("full-path");
@@ -280,8 +286,9 @@ public class EpubParser {
      * 解析OPF文件
      */
     private Book parseOpf(File opfFile, File extractionDir) throws IOException {
-        // 探测实际编码，兼容GBK/GB2312等非UTF-8的OPF文件
-        Document doc = Jsoup.parse(opfFile, EbookUtils.detectFileEncoding(opfFile));
+        // 改用XML解析器解析OPF：HTML解析器会重排XML结构，且 jsoup 1.14 的 *| 通配
+        // 选择器在“祖先+后代”链式匹配时存在缺陷（默认命名空间的OPF会少匹配）
+        Document doc = parseXmlFile(opfFile);
 
         Book book = new Book();
 
@@ -293,6 +300,21 @@ public class EpubParser {
 
         // 3. 解析spine（阅读顺序）
         List<String> spineOrder = parseSpine(doc, manifest);
+
+        // 兜底：XML解析异常（如未声明实体）导致spine为空时，退回HTML解析器重试
+        if (spineOrder.isEmpty()) {
+            Log.w(TAG, "XML解析OPF未得到spine，改用HTML解析器重试");
+            Document htmlDoc = Jsoup.parse(opfFile, EbookUtils.detectFileEncoding(opfFile));
+            Map<String, ManifestItem> htmlManifest = parseManifest(htmlDoc);
+            List<String> htmlSpine = parseSpine(htmlDoc, htmlManifest);
+            if (!htmlSpine.isEmpty()) {
+                Book htmlBook = new Book();
+                parseMetadata(htmlDoc, htmlBook);
+                book = htmlBook;
+                manifest = htmlManifest;
+                spineOrder = htmlSpine;
+            }
+        }
 
         // 4. 获取OPF文件所在目录作为baseDir（用于解析章节文件）
         File baseDir = opfFile.getParentFile();
@@ -307,56 +329,39 @@ public class EpubParser {
 
         return book;
     }
+
+    /**
+     * 使用XML解析器解析EPUB内的XML文档（保留大小写和命名空间前缀）
+     */
+    private Document parseXmlFile(File file) throws IOException {
+        return Jsoup.parse(file, EbookUtils.detectFileEncoding(file), "",
+                new org.jsoup.parser.Parser(new org.jsoup.parser.XmlTreeBuilder()));
+    }
     
     /**
      * 解析元数据
      */
     private void parseMetadata(Document doc, Book book) {
         // 调试：输出整个metadata部分的HTML结构
-        // 使用 *| 通配命名空间，兼容 <metadata> 和 <opf:metadata> 两种写法
-        Element metadataElement = doc.selectFirst("*|metadata");
+        // 按本地名查找，兼容 <metadata>、<opf:metadata> 等任意前缀/默认命名空间写法
+        Element metadataElement = findFirstElementByLocalName(doc, "metadata");
         if (metadataElement != null) {
             Log.d(TAG, "找到metadata元素，内容:\n" + metadataElement.html());
         } else {
-            Log.w(TAG, "未找到metadata元素，尝试查找根元素下的所有元素");
-            Elements allElements = doc.children();
-            for (Element elem : allElements) {
-                Log.d(TAG, "根元素: " + elem.tagName() + ", 子元素数: " + elem.children().size());
-            }
+            Log.w(TAG, "未找到metadata元素，按本地名在全文中查找元数据");
         }
 
-        // 标题 - 尝试多种选择器（EPUB使用Dublin Core命名空间）
-        Element titleElement = null;
-
-        // 方法1: 通配命名空间，兼容 <metadata><dc:title> 和 <opf:metadata><dc:title> 等写法
-        titleElement = doc.selectFirst("*|metadata *|title");
+        // 标题
+        Element titleElement = findDirectChildByLocalName(metadataElement, "title");
         if (titleElement == null) {
-            // 方法2: 尝试全局Dublin Core选择器
-            titleElement = doc.selectFirst("dc|title");
-        }
-        if (titleElement == null) {
-            // 方法4: 遍历metadata下的所有子元素，查找title标签
-            if (metadataElement != null) {
-                for (Element child : metadataElement.children()) {
-                    String tagName = child.tagName().toLowerCase();
-                    if (tagName.equals("title") || tagName.endsWith(":title")) {
-                        titleElement = child;
-                        Log.d(TAG, "通过遍历找到title元素: " + child.tagName());
-                        break;
-                    }
-                }
-            }
-        }
-        if (titleElement == null) {
-            // 方法5: 使用属性选择器（可能title在某些属性中）
-            titleElement = doc.selectFirst("*[property~=title]");
+            titleElement = findFirstElementByLocalName(doc, "title");
         }
 
         if (titleElement != null) {
             String titleText = titleElement.text().trim();
             if (!titleText.isEmpty()) {
                 book.setTitle(titleText);
-                Log.i(TAG, "解析到书籍标题: " + titleText + " (使用选择器: " + titleElement.tagName() + ")");
+                Log.i(TAG, "解析到书籍标题: " + titleText + " (标签: " + titleElement.tagName() + ")");
             } else {
                 Log.w(TAG, "title元素内容为空");
                 book.setTitle("Unknown Title");
@@ -366,38 +371,17 @@ public class EpubParser {
             Log.w(TAG, "未找到书籍标题元数据");
         }
 
-        // 作者 - 尝试多种选择器
-        Element authorElement = null;
-
-        // 方法1: 通配命名空间，兼容 <metadata><dc:creator> 和 <opf:metadata><dc:creator> 等写法
-        authorElement = doc.selectFirst("*|metadata *|creator");
+        // 作者
+        Element authorElement = findDirectChildByLocalName(metadataElement, "creator");
         if (authorElement == null) {
-            // 方法2: 尝试全局Dublin Core选择器
-            authorElement = doc.selectFirst("dc|creator");
-        }
-        if (authorElement == null) {
-            // 方法4: 遍历metadata下的所有子元素，查找creator标签
-            if (metadataElement != null) {
-                for (Element child : metadataElement.children()) {
-                    String tagName = child.tagName().toLowerCase();
-                    if (tagName.equals("creator") || tagName.endsWith(":creator")) {
-                        authorElement = child;
-                        Log.d(TAG, "通过遍历找到creator元素: " + child.tagName());
-                        break;
-                    }
-                }
-            }
-        }
-        if (authorElement == null) {
-            // 方法5: 使用属性选择器
-            authorElement = doc.selectFirst("*[property~=creator]");
+            authorElement = findFirstElementByLocalName(doc, "creator");
         }
 
         if (authorElement != null) {
             String authorText = authorElement.text().trim();
             if (!authorText.isEmpty()) {
                 book.setAuthor(authorText);
-                Log.i(TAG, "解析到作者: " + authorText + " (使用选择器: " + authorElement.tagName() + ")");
+                Log.i(TAG, "解析到作者: " + authorText + " (标签: " + authorElement.tagName() + ")");
             } else {
                 Log.w(TAG, "creator元素内容为空");
                 book.setAuthor("Unknown Author");
@@ -408,24 +392,12 @@ public class EpubParser {
         }
 
         // 语言
-        Element languageElement = doc.selectFirst("*|metadata *|language");
+        Element languageElement = findDirectChildByLocalName(metadataElement, "language");
         if (languageElement == null) {
-            languageElement = doc.selectFirst("dc|language");
-        }
-        if (languageElement == null) {
-            // 遍历查找
-            if (metadataElement != null) {
-                for (Element child : metadataElement.children()) {
-                    String tagName = child.tagName().toLowerCase();
-                    if (tagName.equals("language") || tagName.endsWith(":language")) {
-                        languageElement = child;
-                        break;
-                    }
-                }
-            }
+            languageElement = findFirstElementByLocalName(doc, "language");
         }
         if (languageElement != null) {
-            book.setLanguage(languageElement.text());
+            book.setLanguage(languageElement.text().trim());
         } else {
             book.setLanguage("en");
         }
@@ -439,10 +411,20 @@ public class EpubParser {
      */
     private Map<String, ManifestItem> parseManifest(Document doc) {
         Map<String, ManifestItem> manifest = new HashMap<>();
-        // 使用 *| 通配命名空间，兼容 <manifest><item> 和 <opf:manifest><opf:item> 两种写法
+        // 按本地名查找，兼容 <manifest><item> 和 <opf:manifest><opf:item> 两种写法
         // （EPUB4J 等工具生成的 OPF 会给所有标签加 opf: 前缀）
-        Elements items = doc.select("*|manifest *|item");
-        
+        Element manifestElement = findFirstElementByLocalName(doc, "manifest");
+        if (manifestElement == null) {
+            Log.w(TAG, "未找到manifest元素");
+            return manifest;
+        }
+
+        List<Element> items = findChildElementsByLocalName(manifestElement, "item");
+        if (items.isEmpty()) {
+            // 解析器重排结构时退化为在manifest子树内查找
+            items = findDescendantElementsByLocalName(manifestElement, "item");
+        }
+
         for (Element item : items) {
             String id = item.attr("id");
             String href = item.attr("href");
@@ -460,8 +442,17 @@ public class EpubParser {
      */
     private List<String> parseSpine(Document doc, Map<String, ManifestItem> manifest) {
         List<String> spineOrder = new ArrayList<>();
-        // 使用 *| 通配命名空间，兼容 <spine><itemref> 和 <opf:spine><opf:itemref> 两种写法
-        Elements items = doc.select("*|spine *|itemref");
+        // 按本地名查找，兼容 <spine><itemref> 和 <opf:spine><opf:itemref> 两种写法
+        Element spineElement = findFirstElementByLocalName(doc, "spine");
+        if (spineElement == null) {
+            Log.w(TAG, "未找到spine元素");
+            return spineOrder;
+        }
+
+        List<Element> items = findChildElementsByLocalName(spineElement, "itemref");
+        if (items.isEmpty()) {
+            items = findDescendantElementsByLocalName(spineElement, "itemref");
+        }
 
         for (Element item : items) {
             String idref = item.attr("idref");
@@ -530,8 +521,8 @@ public class EpubParser {
             // 关键修复：使用XML解析器，避免HTML解析器扁平化嵌套的navPoint
             Document ncxDoc = Jsoup.parse(ncxFile, EbookUtils.detectFileEncoding(ncxFile), "",
                     new org.jsoup.parser.Parser(new org.jsoup.parser.XmlTreeBuilder()));
-            // 使用 *| 通配命名空间，兼容 <navMap> 和 <ncx:navMap> 两种写法
-            Element navMap = ncxDoc.selectFirst("*|navMap");
+            // 按本地名查找，兼容 <navMap> 和 <ncx:navMap> 两种写法
+            Element navMap = findFirstElementByLocalName(ncxDoc, "navMap");
 
             if (navMap != null) {
                 Log.i(TAG, "找到navMap元素，子元素数: " + navMap.children().size());
@@ -970,6 +961,68 @@ public class EpubParser {
         String tagName = element.tagName();
         int colonIndex = tagName.indexOf(':');
         return colonIndex >= 0 ? tagName.substring(colonIndex + 1) : tagName;
+    }
+
+    /**
+     * 按本地名查找第一个元素（忽略命名空间前缀/默认命名空间）
+     */
+    private static Element findFirstElementByLocalName(Element root, String localName) {
+        if (root == null) {
+            return null;
+        }
+        for (Element element : root.getAllElements()) {
+            if (localNameOf(element).equalsIgnoreCase(localName)) {
+                return element;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 按本地名查找指定父元素的第一个直接子元素
+     */
+    private static Element findDirectChildByLocalName(Element parent, String localName) {
+        if (parent == null) {
+            return null;
+        }
+        for (Element child : parent.children()) {
+            if (localNameOf(child).equalsIgnoreCase(localName)) {
+                return child;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 按本地名查找指定父元素的直接子元素列表
+     */
+    private static List<Element> findChildElementsByLocalName(Element parent, String localName) {
+        List<Element> result = new ArrayList<>();
+        if (parent == null) {
+            return result;
+        }
+        for (Element child : parent.children()) {
+            if (localNameOf(child).equalsIgnoreCase(localName)) {
+                result.add(child);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 按本地名查找指定元素子树内的所有后代元素（不含自身）
+     */
+    private static List<Element> findDescendantElementsByLocalName(Element root, String localName) {
+        List<Element> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        for (Element element : root.getAllElements()) {
+            if (element != root && localNameOf(element).equalsIgnoreCase(localName)) {
+                result.add(element);
+            }
+        }
+        return result;
     }
 
     /**

@@ -22,6 +22,24 @@ public class SafFileHelper {
     private static final String TAG = "SafFileHelper";
 
     /**
+     * SAF 的 DocumentsContract.deleteDocument 等 API 19 才存在，
+     * 且只有 content:// URI 才需要走 SAF；Android 4.x / 普通文件路径必须分流到 File API，
+     * 否则会 NoClassDefFoundError / NoSuchMethodError（Error 不会被 catch(Exception) 捕获）。
+     */
+    private static boolean isSafDocumentUri(String uri) {
+        return android.os.Build.VERSION.SDK_INT >= 19
+                && uri != null && uri.startsWith("content://");
+    }
+
+    /**
+     * buildDocumentUriUsingTree / getTreeDocumentId 等 tree URI API 21 才存在。
+     */
+    private static boolean isSafTreeUri(String uri) {
+        return android.os.Build.VERSION.SDK_INT >= 21
+                && uri != null && uri.startsWith("content://");
+    }
+
+    /**
      * 提取URI的文档ID（兼容 tree URI 和 document URI 两种形态）
      */
     private static String getDocId(Uri uri) {
@@ -59,6 +77,9 @@ public class SafFileHelper {
      * 检查SAF授权目录是否有效可访问
      */
     public static boolean isDirectoryAvailable(Context context, String treeUri) {
+        if (!isSafTreeUri(treeUri)) {
+            return false;
+        }
         try {
             Uri uri = Uri.parse(treeUri);
             ContentResolver resolver = context.getContentResolver();
@@ -82,6 +103,9 @@ public class SafFileHelper {
      * 获取目录显示名
      */
     public static String getDisplayName(Context context, String treeUri) {
+        if (!isSafTreeUri(treeUri)) {
+            return null;
+        }
         try {
             Uri uri = Uri.parse(treeUri);
             Uri docUri = DocumentsContract.buildDocumentUriUsingTree(uri,
@@ -142,6 +166,9 @@ public class SafFileHelper {
      * 在授权目录下创建子目录（已存在则直接返回），返回document URI，失败返回null
      */
     public static Uri findOrCreateDirectory(Context context, String treeUri, String name) {
+        if (!isSafTreeUri(treeUri)) {
+            return null;
+        }
         try {
             Uri tree = Uri.parse(treeUri);
             ContentResolver resolver = context.getContentResolver();
@@ -168,6 +195,9 @@ public class SafFileHelper {
      * @param parentDirUri 父目录document URI（findOrCreateDirectory的返回值）
      */
     public static Uri findOrCreateFile(Context context, String treeUri, String parentDirUri, String name, String mimeType) {
+        if (!isSafTreeUri(treeUri) || !isSafTreeUri(parentDirUri)) {
+            return null;
+        }
         try {
             Uri tree = Uri.parse(treeUri);
             Uri parentUri = Uri.parse(parentDirUri);
@@ -187,6 +217,14 @@ public class SafFileHelper {
      * 获取文件大小（文件不存在返回-1）
      */
     public static long getFileSize(Context context, String fileUri) {
+        if (fileUri == null || fileUri.isEmpty()) {
+            return -1;
+        }
+        if (!fileUri.startsWith("content://") && !fileUri.startsWith("file://")) {
+            // 普通文件路径（Android 4.x 下载）：ContentResolver 无法处理，直接读文件
+            java.io.File file = new java.io.File(fileUri);
+            return file.exists() ? file.length() : -1;
+        }
         try {
             Uri uri = Uri.parse(fileUri);
             ContentResolver resolver = context.getContentResolver();
@@ -282,6 +320,13 @@ public class SafFileHelper {
      * 删除文件
      */
     public static boolean delete(Context context, String fileUri) {
+        if (fileUri == null || fileUri.isEmpty()) {
+            return false;
+        }
+        if (!isSafDocumentUri(fileUri)) {
+            // Android 4.x 或普通文件路径：DocumentsContract 不可用，走 File API
+            return new java.io.File(fileUri).delete();
+        }
         try {
             return DocumentsContract.deleteDocument(context.getContentResolver(), Uri.parse(fileUri));
         } catch (Exception e) {
@@ -294,6 +339,19 @@ public class SafFileHelper {
      * 重命名文件，返回新URI字符串（失败返回null）
      */
     public static String rename(Context context, String fileUri, String newName) {
+        if (fileUri == null || fileUri.isEmpty() || newName == null) {
+            return null;
+        }
+        if (!isSafTreeUri(fileUri)) {
+            // Android 4.x 或普通文件路径：DocumentsContract 不可用，走 File API
+            java.io.File src = new java.io.File(fileUri);
+            java.io.File parent = src.getParentFile();
+            if (parent == null) {
+                return null;
+            }
+            java.io.File dst = new java.io.File(parent, newName);
+            return src.renameTo(dst) ? dst.getAbsolutePath() : null;
+        }
         try {
             Uri newUri = DocumentsContract.renameDocument(context.getContentResolver(),
                     Uri.parse(fileUri), newName);

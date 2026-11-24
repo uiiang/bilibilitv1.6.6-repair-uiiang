@@ -22,7 +22,13 @@ public final class VideoTagStyler {
         if (view == null) {
             return;
         }
-        view.setBackground(create(view, color));
+        // setBackground(Drawable) 是 API 16 方法，4.0.x 上会 NoSuchMethodError
+        GradientDrawable drawable = create(view, color);
+        if (android.os.Build.VERSION.SDK_INT >= 16) {
+            view.setBackground(drawable);
+        } else {
+            view.setBackgroundDrawable(drawable);
+        }
     }
 
     /** 半透明底色标签（PGC 信息标签，沿用接口 color 并叠加 60% 透明度） */
@@ -38,7 +44,12 @@ public final class VideoTagStyler {
             } catch (Exception e) {
             }
         }
-        view.setBackground(create(view, color));
+        GradientDrawable drawable = create(view, color);
+        if (android.os.Build.VERSION.SDK_INT >= 16) {
+            view.setBackground(drawable);
+        } else {
+            view.setBackgroundDrawable(drawable);
+        }
     }
 
     private static GradientDrawable create(TextView view, int color) {

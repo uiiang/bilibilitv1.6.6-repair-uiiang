@@ -35,13 +35,13 @@
 .end method
 
 .method private static applyInternal(Landroid/widget/TextView;Ljava/lang/String;Ljava/lang/String;ZZ)V
-    .locals 1
+    .locals 3
 
     .prologue
     .line 94
     if-nez p0, :cond_3
 
-    .line 105
+    .line 111
     :goto_2
     return-void
 
@@ -67,19 +67,34 @@
     :cond_11
     invoke-virtual {p0, p1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 103
+    .line 104
     invoke-static {p0, p2, p3, p4}, Lcom/bilibili/tv/ui/video/widget/VideoBadgeStyler;->createBackground(Landroid/widget/TextView;Ljava/lang/String;ZZ)Landroid/graphics/drawable/GradientDrawable;
 
     move-result-object v0
 
+    .line 105
+    sget v1, Landroid/os/Build$VERSION;->SDK_INT:I
+
+    const/16 v2, 0x10
+
+    if-lt v1, v2, :cond_26
+
+    .line 106
     invoke-virtual {p0, v0}, Landroid/widget/TextView;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
-    .line 104
+    .line 110
+    :goto_21
     const/4 v0, 0x0
 
     invoke-virtual {p0, v0}, Landroid/widget/TextView;->setVisibility(I)V
 
     goto :goto_2
+
+    .line 108
+    :cond_26
+    invoke-virtual {p0, v0}, Landroid/widget/TextView;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
+
+    goto :goto_21
 .end method
 
 .method public static applyLeft(Landroid/widget/TextView;Ljava/lang/String;Ljava/lang/String;Z)V
@@ -109,7 +124,7 @@
 
     const/4 v4, 0x0
 
-    .line 109
+    .line 115
     invoke-virtual {p0}, Landroid/widget/TextView;->getResources()Landroid/content/res/Resources;
 
     move-result-object v0
@@ -120,18 +135,18 @@
 
     move-result v0
 
-    .line 110
+    .line 116
     new-instance v1, Landroid/graphics/drawable/GradientDrawable;
 
     invoke-direct {v1}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
 
-    .line 111
+    .line 117
     invoke-virtual {v1, v3}, Landroid/graphics/drawable/GradientDrawable;->setShape(I)V
 
-    .line 113
+    .line 119
     if-eqz p3, :cond_3d
 
-    .line 114
+    .line 120
     const/16 v2, 0x8
 
     new-array v2, v2, [F
@@ -162,7 +177,7 @@
 
     invoke-virtual {v1, v2}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadii([F)V
 
-    .line 118
+    .line 124
     :goto_35
     invoke-static {p1, p2}, Lcom/bilibili/tv/ui/video/widget/VideoBadgeStyler;->resolveColor(Ljava/lang/String;Z)I
 
@@ -170,10 +185,10 @@
 
     invoke-virtual {v1, v0}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
 
-    .line 119
+    .line 125
     return-object v1
 
-    .line 116
+    .line 122
     :cond_3d
     const/16 v2, 0x8
 
@@ -377,12 +392,12 @@
     .locals 2
 
     .prologue
-    .line 123
+    .line 129
     if-eqz p1, :cond_e
 
     const v0, -0x66048d67    # -2.5999077E-23f
 
-    .line 124
+    .line 130
     :goto_5
     if-eqz p0, :cond_d
 
@@ -392,18 +407,18 @@
 
     if-eqz v1, :cond_12
 
-    .line 131
+    .line 137
     :cond_d
     :goto_d
     return v0
 
-    .line 123
+    .line 129
     :cond_e
     const v0, -0x48d67
 
     goto :goto_5
 
-    .line 128
+    .line 134
     :cond_12
     :try_start_12
     invoke-static {p0}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -412,7 +427,7 @@
 
     move-result v0
 
-    .line 129
+    .line 135
     if-eqz p1, :cond_d
 
     const v1, 0xffffff
@@ -425,7 +440,7 @@
 
     goto :goto_d
 
-    .line 130
+    .line 136
     :catch_20
     move-exception v1
 

@@ -1,4 +1,4 @@
-.class Ltv/danmaku/videoplayer/core/commander/IjkCommander;
+.class public Ltv/danmaku/videoplayer/core/commander/IjkCommander;
 .super Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;
 .source "IjkCommander.java"
 
@@ -838,6 +838,66 @@
     .end packed-switch
 .end method
 
+.method public bridge synthetic getAudioSessionId()I
+    .locals 1
+
+    .prologue
+    .line 30
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getAudioSessionId()I
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public bridge synthetic getCurrentPosition()J
+    .locals 2
+
+    .prologue
+    .line 30
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getCurrentPosition()J
+
+    move-result-wide v0
+
+    return-wide v0
+.end method
+
+.method public bridge synthetic getDataSource()Ljava/lang/String;
+    .locals 1
+
+    .prologue
+    .line 30
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getDataSource()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public bridge synthetic getDuration()J
+    .locals 2
+
+    .prologue
+    .line 30
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getDuration()J
+
+    move-result-wide v0
+
+    return-wide v0
+.end method
+
+.method public bridge synthetic getMediaInfo()Ltv/danmaku/ijk/media/player/MediaInfo;
+    .locals 1
+
+    .prologue
+    .line 30
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getMediaInfo()Ltv/danmaku/ijk/media/player/MediaInfo;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
 .method public getMediaPlayer()Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
     .locals 1
 
@@ -846,6 +906,114 @@
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
     return-object v0
+.end method
+
+.method public bridge synthetic getPlayer()Ltv/danmaku/ijk/media/player/IMediaPlayer;
+    .locals 1
+
+    .prologue
+    .line 30
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getPlayer()Ltv/danmaku/ijk/media/player/IMediaPlayer;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public bridge synthetic getTrackInfo()[Ltv/danmaku/ijk/media/player/misc/ITrackInfo;
+    .locals 1
+
+    .prologue
+    .line 30
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getTrackInfo()[Ltv/danmaku/ijk/media/player/misc/ITrackInfo;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public bridge synthetic getVideoHeight()I
+    .locals 1
+
+    .prologue
+    .line 30
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getVideoHeight()I
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public bridge synthetic getVideoSarDen()I
+    .locals 1
+
+    .prologue
+    .line 30
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getVideoSarDen()I
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public bridge synthetic getVideoSarNum()I
+    .locals 1
+
+    .prologue
+    .line 30
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getVideoSarNum()I
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public bridge synthetic getVideoWidth()I
+    .locals 1
+
+    .prologue
+    .line 30
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getVideoWidth()I
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public bridge synthetic isLooping()Z
+    .locals 1
+
+    .prologue
+    .line 30
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->isLooping()Z
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public bridge synthetic isPlayable()Z
+    .locals 1
+
+    .prologue
+    .line 30
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->isPlayable()Z
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public bridge synthetic isPlaying()Z
+    .locals 1
+
+    .prologue
+    .line 30
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->isPlaying()Z
+
+    move-result v0
+
+    return v0
 .end method
 
 .method public onRelease()V
@@ -1853,6 +2021,46 @@
     goto/16 :goto_137
 .end method
 
+.method public bridge synthetic pause()V
+    .locals 0
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/lang/IllegalStateException;
+        }
+    .end annotation
+
+    .prologue
+    .line 30
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->pause()V
+
+    return-void
+.end method
+
+.method public bridge synthetic prepareAsync()V
+    .locals 0
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/lang/IllegalStateException;
+        }
+    .end annotation
+
+    .prologue
+    .line 30
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->prepareAsync()V
+
+    return-void
+.end method
+
+.method public bridge synthetic release()V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->release()V
+
+    return-void
+.end method
+
 .method public require(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
     .locals 3
     .annotation system Ldalvik/annotation/Signature;
@@ -2020,6 +2228,299 @@
     .end packed-switch
 .end method
 
+.method public bridge synthetic reset()V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->reset()V
+
+    return-void
+.end method
+
+.method public bridge synthetic seekTo(J)V
+    .locals 1
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/lang/IllegalStateException;
+        }
+    .end annotation
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1, p2}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->seekTo(J)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setAudioStreamType(I)V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setAudioStreamType(I)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setDataSource(Landroid/content/Context;Landroid/net/Uri;)V
+    .locals 0
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/IOException;,
+            Ljava/lang/IllegalArgumentException;,
+            Ljava/lang/SecurityException;,
+            Ljava/lang/IllegalStateException;
+        }
+    .end annotation
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1, p2}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setDataSource(Landroid/content/Context;Landroid/net/Uri;)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setDataSource(Landroid/content/Context;Landroid/net/Uri;Ljava/util/Map;)V
+    .locals 0
+    .annotation build Landroid/annotation/TargetApi;
+        value = 0xe
+    .end annotation
+
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/IOException;,
+            Ljava/lang/IllegalArgumentException;,
+            Ljava/lang/SecurityException;,
+            Ljava/lang/IllegalStateException;
+        }
+    .end annotation
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1, p2, p3}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setDataSource(Landroid/content/Context;Landroid/net/Uri;Ljava/util/Map;)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setDataSource(Ljava/io/FileDescriptor;)V
+    .locals 0
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/IOException;,
+            Ljava/lang/IllegalArgumentException;,
+            Ljava/lang/IllegalStateException;
+        }
+    .end annotation
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setDataSource(Ljava/io/FileDescriptor;)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setDataSource(Ljava/lang/String;)V
+    .locals 0
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/IOException;,
+            Ljava/lang/IllegalArgumentException;,
+            Ljava/lang/SecurityException;,
+            Ljava/lang/IllegalStateException;
+        }
+    .end annotation
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setDataSource(Ljava/lang/String;)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setDataSource(Ltv/danmaku/ijk/media/player/misc/IMediaDataSource;)V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setDataSource(Ltv/danmaku/ijk/media/player/misc/IMediaDataSource;)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setDisplay(Landroid/view/SurfaceHolder;)V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setDisplay(Landroid/view/SurfaceHolder;)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setKeepInBackground(Z)V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setKeepInBackground(Z)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setLogEnabled(Z)V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setLogEnabled(Z)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setLooping(Z)V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setLooping(Z)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setOnBufferingUpdateListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnBufferingUpdateListener;)V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setOnBufferingUpdateListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnBufferingUpdateListener;)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setOnCompletionListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnCompletionListener;)V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setOnCompletionListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnCompletionListener;)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setOnErrorListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnErrorListener;)V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setOnErrorListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnErrorListener;)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setOnInfoListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;)V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setOnInfoListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setOnPreparedListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnPreparedListener;)V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setOnPreparedListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnPreparedListener;)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setOnSeekCompleteListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnSeekCompleteListener;)V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setOnSeekCompleteListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnSeekCompleteListener;)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setOnTimedTextListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnTimedTextListener;)V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setOnTimedTextListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnTimedTextListener;)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setOnVideoSizeChangedListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnVideoSizeChangedListener;)V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setOnVideoSizeChangedListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnVideoSizeChangedListener;)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setScreenOnWhilePlaying(Z)V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setScreenOnWhilePlaying(Z)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setSpeed(F)V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setSpeed(F)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setSurface(Landroid/view/Surface;)V
+    .locals 0
+    .annotation build Landroid/annotation/TargetApi;
+        value = 0xe
+    .end annotation
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setSurface(Landroid/view/Surface;)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setVolume(FF)V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1, p2}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setVolume(FF)V
+
+    return-void
+.end method
+
+.method public bridge synthetic setWakeMode(Landroid/content/Context;I)V
+    .locals 0
+
+    .prologue
+    .line 30
+    invoke-super {p0, p1, p2}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setWakeMode(Landroid/content/Context;I)V
+
+    return-void
+.end method
+
 .method public start()V
     .locals 1
     .annotation system Ldalvik/annotation/Throws;
@@ -2035,5 +2536,20 @@
     invoke-interface {v0}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->start()V
 
     .line 167
+    return-void
+.end method
+
+.method public bridge synthetic stop()V
+    .locals 0
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/lang/IllegalStateException;
+        }
+    .end annotation
+
+    .prologue
+    .line 30
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->stop()V
+
     return-void
 .end method

@@ -174,12 +174,18 @@ Step "Compile Java code (javac + dx + baksmali)" {
 # 4. Remove third-party libs from primary dex (they live in multidex dirs)
 # ============================================================
 Step "Organize MultiDex structure" {
+    # IMPORTANT: smali\com\alibaba (fastjson) must NOT be added here.
+    # MainApplication.init_globals() is verified before MultiDex.install() completes,
+    # and on Dalvik (Android 4.x) a class required at that point cannot live in
+    # classes2.dex, otherwise startup crashes with:
+    #   NoClassDefFoundError: com.alibaba.fastjson.JSONObject
+    # Fastjson therefore stays in the primary dex; android\support\v7 was moved to
+    # smali_classes2 to free method slots instead.
     $removeDirs = @(
         (Join-Path $mybv "smali\okhttp3"),
         (Join-Path $mybv "smali\okio"),
         (Join-Path $mybv "smali\retrofit2"),
-        (Join-Path $mybv "smali\com\google\android\exoplayer2"),
-        (Join-Path $mybv "smali\com\alibaba")
+        (Join-Path $mybv "smali\com\google\android\exoplayer2")
     )
     foreach ($d in $removeDirs) {
         if (Test-Path $d) { Remove-Item -Recurse -Force $d; Write-Host "  removed $d" }

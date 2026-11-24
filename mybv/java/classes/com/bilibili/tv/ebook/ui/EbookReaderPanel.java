@@ -245,8 +245,11 @@ public class EbookReaderPanel {
     private void ensureStoragePermissionForEbook() {
         try {
             Activity activity = host.getActivity();
-            boolean writeGranted = activity != null
-                    && activity.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            // 注意：checkSelfPermission 是 API 23 才有的方法，必须先判断版本再调用；
+            // API < 23（Android 4.x/5.x）安装时即授予存储权限，视为已授权
+            boolean writeGranted = activity == null
+                    || android.os.Build.VERSION.SDK_INT < 23
+                    || activity.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     == android.content.pm.PackageManager.PERMISSION_GRANTED;
             if (!writeGranted && activity != null && android.os.Build.VERSION.SDK_INT >= 23) {
                 Log.i(TAG_EBOOK, "存储权限未授予，自动申请读写权限");
@@ -769,7 +772,7 @@ public class EbookReaderPanel {
                         + ", list.hasFocus=" + organizeListView.hasFocus()
                         + ", currentFocus=" + (current != null ? current.getClass().getSimpleName() : "null")
                         + ", listShown=" + organizeListView.isShown()
-                        + ", listAttached=" + organizeListView.isAttachedToWindow());
+                        + ", listAttached=" + (organizeListView.getWindowToken() != null));
             }
         });
     }
@@ -2517,6 +2520,21 @@ public class EbookReaderPanel {
     }
 
     /**
+     * 兼容低版本 WebView：evaluateJavascript 是 API 19 方法，
+     * Android 4.x（Dalvik）直接调用会 NoSuchMethodError，降级为 loadUrl。
+     */
+    private void evaluateJsCompat(android.webkit.WebView webView, String js) {
+        if (webView == null || js == null) {
+            return;
+        }
+        if (android.os.Build.VERSION.SDK_INT >= 19) {
+            webView.evaluateJavascript(js, null);
+        } else {
+            webView.loadUrl("javascript:" + js);
+        }
+    }
+
+    /**
      * 应用字体大小到WebView
      */
     private void applyFontSizeToWebView(float fontSize) {
@@ -2528,7 +2546,7 @@ public class EbookReaderPanel {
 
         // 使用JavaScript修改字体大小
         String js = String.format("document.body.style.fontSize='%dpx';", (int)fontSize);
-        ebookWebView.evaluateJavascript(js, null);
+        evaluateJsCompat(ebookWebView, js);
 
         // 同时修改所有段落和div的字体大小
         String jsAll = String.format(
@@ -2537,7 +2555,7 @@ public class EbookReaderPanel {
             "  elements[i].style.fontSize = '%dpx';" +
             "}", (int)fontSize
         );
-        ebookWebView.evaluateJavascript(jsAll, null);
+        evaluateJsCompat(ebookWebView, jsAll);
     }
 
     /**
@@ -2564,7 +2582,7 @@ public class EbookReaderPanel {
             "document.body.style.color='%s';",
             bgColor, textColor
         );
-        ebookWebView.evaluateJavascript(js, null);
+        evaluateJsCompat(ebookWebView, js);
 
         // 修改所有元素的颜色
         String jsAll = String.format(
@@ -2575,7 +2593,7 @@ public class EbookReaderPanel {
             "}",
             bgColor, textColor
         );
-        ebookWebView.evaluateJavascript(jsAll, null);
+        evaluateJsCompat(ebookWebView, jsAll);
     }
 
     // ==================== 章节列表（多级目录） ====================
